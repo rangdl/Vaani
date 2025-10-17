@@ -32,8 +32,7 @@ class PlayerWhenMinimized extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final player = ref.watch(audiobookPlayerProvider);
     final vanishingPercentage = 1 - percentageMiniplayer;
-    final progress =
-        useStream(player.slowPositionStream, initialData: Duration.zero);
+    final progress = useStream(player.slowPositionStream, initialData: Duration.zero);
 
     final bookMetaExpanded = ref.watch(currentBookMetadataProvider);
 
@@ -46,8 +45,7 @@ class PlayerWhenMinimized extends HookConsumerWidget {
             // image
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal:
-                    ((availWidth - maxImgSize) / 2) * percentageMiniplayer,
+                horizontal: ((availWidth - maxImgSize) / 2) * percentageMiniplayer,
               ),
               child: InkWell(
                 onTap: () {
@@ -55,8 +53,7 @@ class PlayerWhenMinimized extends HookConsumerWidget {
                   context.pushNamed(
                     Routes.libraryItem.name,
                     pathParameters: {
-                      Routes.libraryItem.pathParamName!:
-                          player.book!.libraryItemId,
+                      Routes.libraryItem.pathParamName!: player.book!.libraryItemId,
                     },
                   );
                 },
@@ -90,10 +87,7 @@ class PlayerWhenMinimized extends HookConsumerWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withValues(alpha: 0.7),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                           ),
                     ),
                   ],
@@ -106,37 +100,39 @@ class PlayerWhenMinimized extends HookConsumerWidget {
             //     controller.animateToHeight(state: PanelState.MAX);
             //   },
             // ),
+
             // rewind button
-            Opacity(
-              opacity: vanishingPercentage,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.replay_30,
-                    size: AppElementSizes.iconSizeSmall,
+            if (vanishingPercentage > 0.6)
+              Opacity(
+                opacity: vanishingPercentage,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.replay_30,
+                      size: AppElementSizes.iconSizeSmall,
+                    ),
+                    onPressed: () {},
                   ),
-                  onPressed: () {},
                 ),
               ),
-            ),
             // play/pause button
-            Opacity(
-              opacity: vanishingPercentage,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: AudiobookPlayerPlayPauseButton(
-                  playPauseController: playPauseController,
+            if (vanishingPercentage > 0.8)
+              Opacity(
+                opacity: vanishingPercentage,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: AudiobookPlayerPlayPauseButton(
+                    playPauseController: playPauseController,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
         SizedBox(
           height: barHeight,
           child: LinearProgressIndicator(
-            value: (progress.data ?? Duration.zero).inSeconds /
-                player.book!.duration.inSeconds,
+            value: (progress.data ?? Duration.zero).inSeconds / player.book!.duration.inSeconds,
             color: Theme.of(context).colorScheme.onPrimaryContainer,
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           ),

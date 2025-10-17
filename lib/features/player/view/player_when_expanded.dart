@@ -43,9 +43,9 @@ class PlayerWhenExpanded extends HookConsumerWidget {
           earlyEnd,
         )
         .clamp(0.0, 1.0);
+
     final currentChapter = ref.watch(currentPlayingChapterProvider);
     final currentBookMetadata = ref.watch(currentBookMetadataProvider);
-
     return Column(
       children: [
         // sized box for system status bar; not needed as not full screen
@@ -104,10 +104,7 @@ class PlayerWhenExpanded extends HookConsumerWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .primary
-                        .withValues(alpha: 0.1),
+                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                     blurRadius: 32 * earlyPercentage,
                     spreadRadius: 8 * earlyPercentage,
                     // offset: Offset(0, 16 * earlyPercentage),
@@ -131,128 +128,130 @@ class PlayerWhenExpanded extends HookConsumerWidget {
         ),
 
         // the chapter title
-        Opacity(
-          opacity: earlyPercentage,
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: AppElementSizes.paddingRegular * 4 * earlyPercentage,
-              // horizontal: 16.0,
-            ),
-            // child: SizedBox(
-            // same as the image width
-            // width: imageSize,
-            child: currentChapter == null
-                ? const SizedBox()
-                : Text(
-                    currentChapter.title,
-                    style: Theme.of(context).textTheme.titleLarge,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-            // ),
-          ),
-        ),
-
-        // the book name and author
-        Opacity(
-          opacity: earlyPercentage,
-          child: Padding(
-            padding: EdgeInsets.only(
-              bottom: AppElementSizes.paddingRegular * earlyPercentage,
-              // horizontal: 16.0,
-            ),
-            // child: SizedBox(
-            // same as the image width
-            // width: imageSize,
-            child: Text(
-              [
-                currentBookMetadata?.title ?? '',
-                currentBookMetadata?.authorName ?? '',
-              ].join(' - '),
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withValues(alpha: 0.7),
-                  ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            // ),
-          ),
-        ),
-
-        const Spacer(),
-        // the progress bar
-        Opacity(
-          opacity: earlyPercentage,
-          child: SizedBox(
-            width: imageSize,
+        if (earlyPercentage > 0.4)
+          Opacity(
+            opacity: earlyPercentage,
             child: Padding(
               padding: EdgeInsets.only(
-                top: AppElementSizes.paddingRegular * earlyPercentage,
-                left: AppElementSizes.paddingRegular * earlyPercentage,
-                right: AppElementSizes.paddingRegular * earlyPercentage,
+                top: AppElementSizes.paddingRegular * 4 * earlyPercentage,
+                // horizontal: 16.0,
               ),
-              child: const AudiobookChapterProgressBar(),
+              // child: SizedBox(
+              // same as the image width
+              // width: imageSize,
+              child: currentChapter == null
+                  ? const SizedBox()
+                  : Text(
+                      currentChapter.title,
+                      style: Theme.of(context).textTheme.titleLarge,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+              // ),
             ),
           ),
-        ),
-        const Spacer(),
+
+        // the book name and author
+        if (earlyPercentage > 0.5)
+          Opacity(
+            opacity: earlyPercentage,
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: AppElementSizes.paddingRegular * earlyPercentage,
+                // horizontal: 16.0,
+              ),
+              // child: SizedBox(
+              // same as the image width
+              // width: imageSize,
+              child: Text(
+                [
+                  currentBookMetadata?.title ?? '',
+                  currentBookMetadata?.authorName ?? '',
+                ].join(' - '),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                    ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              // ),
+            ),
+          ),
+
+        if (earlyPercentage > 0.5) const Spacer(),
+        // the progress bar
+        if (earlyPercentage > 0.6)
+          Opacity(
+            opacity: earlyPercentage,
+            child: SizedBox(
+              width: imageSize,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: AppElementSizes.paddingRegular * earlyPercentage,
+                  left: AppElementSizes.paddingRegular * earlyPercentage,
+                  right: AppElementSizes.paddingRegular * earlyPercentage,
+                ),
+                child: const AudiobookChapterProgressBar(),
+              ),
+            ),
+          ),
+        if (earlyPercentage > 0.6) const Spacer(),
 
         // the chapter skip buttons, seek 30 seconds back and forward, and play/pause button
-        Opacity(
-          opacity: earlyPercentage,
-          child: SizedBox(
-            width: imageSize,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // previous chapter
-                const AudiobookPlayerSeekChapterButton(isForward: false),
-                // buttonSkipBackwards
-                const AudiobookPlayerSeekButton(isForward: false),
-                AudiobookPlayerPlayPauseButton(
-                  playPauseController: playPauseController,
-                ),
-                // buttonSkipForwards
-                const AudiobookPlayerSeekButton(isForward: true),
-                // next chapter
-                const AudiobookPlayerSeekChapterButton(isForward: true),
-              ],
+        if (earlyPercentage > 0.8)
+          Opacity(
+            opacity: earlyPercentage,
+            child: SizedBox(
+              width: imageSize,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // previous chapter
+                  const AudiobookPlayerSeekChapterButton(isForward: false),
+                  // buttonSkipBackwards
+                  const AudiobookPlayerSeekButton(isForward: false),
+                  AudiobookPlayerPlayPauseButton(
+                    playPauseController: playPauseController,
+                  ),
+                  // buttonSkipForwards
+                  const AudiobookPlayerSeekButton(isForward: true),
+                  // next chapter
+                  const AudiobookPlayerSeekChapterButton(isForward: true),
+                ],
+              ),
             ),
           ),
-        ),
-        const Spacer(),
+        if (earlyPercentage > 0.8) const Spacer(),
 
         // speed control, sleep timer, chapter list, and settings
-        Opacity(
-          opacity: earlyPercentage,
-          child: Padding(
-            padding: EdgeInsets.only(
-              bottom: AppElementSizes.paddingRegular * 4 * earlyPercentage,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                // speed control
-                const PlayerSpeedAdjustButton(),
-                // sleep timer
-                const SleepTimerButton(),
-                // chapter list
-                const ChapterSelectionButton(),
-                // settings
-                // IconButton(
-                //   icon: const Icon(Icons.more_horiz),
-                //   onPressed: () {
-                //     // show toast
-                //     showNotImplementedToast(context);
-                //   },
-                // ),
-              ],
+        if (earlyPercentage > 0.9)
+          Opacity(
+            opacity: earlyPercentage,
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: AppElementSizes.paddingRegular * 4 * earlyPercentage,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // speed control
+                  const PlayerSpeedAdjustButton(),
+                  // sleep timer
+                  const SleepTimerButton(),
+                  // chapter list
+                  const ChapterSelectionButton(),
+                  // settings
+                  // IconButton(
+                  //   icon: const Icon(Icons.more_horiz),
+                  //   onPressed: () {
+                  //     // show toast
+                  //     showNotImplementedToast(context);
+                  //   },
+                  // ),
+                ],
+              ),
             ),
           ),
-        ),
       ],
     );
   }
