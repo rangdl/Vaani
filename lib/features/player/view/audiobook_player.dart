@@ -93,7 +93,7 @@ class AudiobookPlayer extends HookConsumerWidget {
         maxHeight: playerMaxHeight,
         controller: audioBookMiniplayerController,
         elevation: 4,
-        duration: Duration(seconds: 3),
+        // duration: Duration(seconds: 3),
         onDismissed: () {
           // add a delay before closing the player
           // to allow the user to see the player closing

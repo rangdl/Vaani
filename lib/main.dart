@@ -23,6 +23,7 @@ final appLogger = Logger('vaani');
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   // Configure the root Logger
   await initLogging();
 
@@ -61,8 +62,7 @@ class MyApp extends ConsumerWidget {
     ColorScheme lightColorScheme = brandLightColorScheme;
     ColorScheme darkColorScheme = brandDarkColorScheme;
 
-    final shouldUseHighContrast =
-        themeSettings.highContrast || MediaQuery.of(context).highContrast;
+    final shouldUseHighContrast = themeSettings.highContrast || MediaQuery.of(context).highContrast;
 
     if (shouldUseHighContrast) {
       lightColorScheme = lightColorScheme.copyWith(
@@ -74,8 +74,7 @@ class MyApp extends ConsumerWidget {
     }
 
     if (themeSettings.useMaterialThemeFromSystem) {
-      var themes =
-          ref.watch(systemThemeProvider(highContrast: shouldUseHighContrast));
+      var themes = ref.watch(systemThemeProvider(highContrast: shouldUseHighContrast));
       if (themes.valueOrNull != null) {
         lightColorScheme = themes.valueOrNull!.$1;
         darkColorScheme = themes.valueOrNull!.$2;

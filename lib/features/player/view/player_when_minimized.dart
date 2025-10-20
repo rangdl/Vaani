@@ -38,9 +38,6 @@ class PlayerWhenMinimized extends HookConsumerWidget {
 
     var barHeight = vanishingPercentage * 3;
 
-    final adjuster = ProportionalAdjuster();
-    final rewindPercentage = adjuster.adjust(vanishingPercentage, 1.5);
-    final playPercentage = adjuster.adjust(vanishingPercentage, 1.8);
     return Stack(
       alignment: Alignment.topCenter,
       children: [
@@ -48,8 +45,8 @@ class PlayerWhenMinimized extends HookConsumerWidget {
           children: [
             // image
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: ((availWidth - maxImgSize) / 2) * percentageMiniplayer,
+              padding: EdgeInsets.only(
+                left: ((availWidth - maxImgSize) / 2) * percentageMiniplayer,
               ),
               child: InkWell(
                 onTap: () {
@@ -104,32 +101,32 @@ class PlayerWhenMinimized extends HookConsumerWidget {
             //     controller.animateToHeight(state: PanelState.MAX);
             //   },
             // ),
+
             // rewind button
-            if (rewindPercentage >= 1)
-              Opacity(
-                opacity: rewindPercentage,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.replay_30,
-                      size: AppElementSizes.iconSizeSmall,
-                    ),
-                    onPressed: () {},
+            Opacity(
+              opacity: vanishingPercentage,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.replay_30,
+                    size: AppElementSizes.iconSizeSmall,
                   ),
+                  onPressed: () {},
                 ),
               ),
+            ),
+
             // play/pause button
-            if (playPercentage >= 1)
-              Opacity(
-                opacity: playPercentage,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: AudiobookPlayerPlayPauseButton(
-                    playPauseController: playPauseController,
-                  ),
+            Opacity(
+              opacity: vanishingPercentage,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: AudiobookPlayerPlayPauseButton(
+                  playPauseController: playPauseController,
                 ),
               ),
+            ),
           ],
         ),
         const Spacer(),

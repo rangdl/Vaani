@@ -46,13 +46,6 @@ class PlayerWhenExpanded extends HookConsumerWidget {
     final currentChapter = ref.watch(currentPlayingChapterProvider);
     final currentBookMetadata = ref.watch(currentBookMetadataProvider);
 
-    final adjuster = ProportionalAdjuster();
-    final chapterPercentage = adjuster.adjust(earlyPercentage, 1.1);
-    final authorPercentage = adjuster.adjust(earlyPercentage, 1.2);
-    final progressPercentage = adjuster.adjust(earlyPercentage, 1.4);
-    final playPercentage = adjuster.adjust(earlyPercentage, 1.6);
-    final settingsPercentage = adjuster.adjust(earlyPercentage, 1.8);
-
     return Column(
       children: [
         // sized box for system status bar; not needed as not full screen
@@ -135,12 +128,12 @@ class PlayerWhenExpanded extends HookConsumerWidget {
         ),
 
         // the chapter title
-        if (chapterPercentage >= 1)
-          Opacity(
-            opacity: chapterPercentage,
+        Expanded(
+          child: Opacity(
+            opacity: earlyPercentage,
             child: Padding(
               padding: EdgeInsets.only(
-                top: AppElementSizes.paddingRegular * 4 * earlyPercentage,
+                top: AppElementSizes.paddingLarge * earlyPercentage,
                 // horizontal: 16.0,
               ),
               // child: SizedBox(
@@ -157,11 +150,12 @@ class PlayerWhenExpanded extends HookConsumerWidget {
               // ),
             ),
           ),
+        ),
 
         // the book name and author
-        if (authorPercentage >= 1)
-          Opacity(
-            opacity: authorPercentage,
+        Expanded(
+          child: Opacity(
+            opacity: earlyPercentage,
             child: Padding(
               padding: EdgeInsets.only(
                 bottom: AppElementSizes.paddingRegular * earlyPercentage,
@@ -184,12 +178,12 @@ class PlayerWhenExpanded extends HookConsumerWidget {
               // ),
             ),
           ),
-        if (authorPercentage >= 1) const Spacer(),
+        ),
 
         // the progress bar
-        if (progressPercentage >= 1)
-          Opacity(
-            opacity: progressPercentage,
+        Expanded(
+          child: Opacity(
+            opacity: earlyPercentage,
             child: SizedBox(
               width: imageSize,
               child: Padding(
@@ -202,12 +196,12 @@ class PlayerWhenExpanded extends HookConsumerWidget {
               ),
             ),
           ),
-        if (progressPercentage >= 1) const Spacer(),
+        ),
 
         // the chapter skip buttons, seek 30 seconds back and forward, and play/pause button
-        if (playPercentage >= 1)
-          Opacity(
-            opacity: playPercentage,
+        Expanded(
+          child: Opacity(
+            opacity: earlyPercentage,
             child: SizedBox(
               width: imageSize,
               child: Row(
@@ -228,12 +222,12 @@ class PlayerWhenExpanded extends HookConsumerWidget {
               ),
             ),
           ),
-        if (playPercentage >= 1) const Spacer(),
+        ),
 
         // speed control, sleep timer, chapter list, and settings
-        if (settingsPercentage >= 1)
-          Opacity(
-            opacity: settingsPercentage,
+        Expanded(
+          child: Opacity(
+            opacity: earlyPercentage,
             child: SizedBox(
               // padding: EdgeInsets.only(
               //   bottom: AppElementSizes.paddingRegular * 4 * earlyPercentage,
@@ -262,6 +256,7 @@ class PlayerWhenExpanded extends HookConsumerWidget {
               ),
             ),
           ),
+        ),
       ],
     );
   }
