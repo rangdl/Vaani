@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -33,16 +35,8 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // playerExpandProgress is used to animate bottom navigation bar to opacity 0 and slide down when player is expanded
-    // final playerProgress =
-    //     useValueListenable(ref.watch(playerExpandProgressNotifierProvider));
     final playerProgress = ref.watch(playerHeightProvider);
-    final playerMaxHeight = MediaQuery.of(context).size.height;
-    var percentExpandedMiniPlayer = (playerProgress - playerMinHeight) /
-        (playerMaxHeight - playerMinHeight);
-    // Clamp the value between 0 and 1
-    percentExpandedMiniPlayer = percentExpandedMiniPlayer.clamp(0.0, 1.0);
-
+    final isMobile = Platform.isAndroid || Platform.isIOS;
     onBackButtonPressed() async {
       final isPlayerExpanded = playerProgress != playerMinHeight;
 
@@ -96,61 +90,129 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
     return BackButtonListener(
       onBackButtonPressed: onBackButtonPressed,
       child: Scaffold(
-        body: Stack(
-          children: [
-            navigationShell,
-            const AudiobookPlayer(),
-          ],
-        ),
-        bottomNavigationBar: Opacity(
-          // Opacity is interpolated from 1 to 0 when player is expanded
-          opacity: 1 - percentExpandedMiniPlayer,
-          child: NavigationBar(
-            elevation: 0.0,
-            height: bottomBarHeight * (1 - percentExpandedMiniPlayer),
+        body: isMobile
+            ? Stack(
+                children: [
+                  navigationShell,
+                  const AudiobookPlayer(),
+                ],
+              )
+            : buildNavLeft(context, ref),
+        bottomNavigationBar: isMobile ? buildNavBottom(context, ref) : null,
+      ),
+    );
+  }
 
-            // TODO: get destinations from the navigationShell
-            // Here, the items of BottomNavigationBar are hard coded. In a real
-            // world scenario, the items would most likely be generated from the
-            // branches of the shell route, which can be fetched using
-            // `navigationShell.route.branches`.
+  Widget buildNavLeft(BuildContext context, WidgetRef ref) {
+    return Row(
+      children: [
+        SafeArea(
+          child: NavigationRail(
+            minWidth: 60,
+            minExtendedWidth: 120,
+            extended: MediaQuery.of(context).size.width > 640,
+            // extended: false,
             destinations: _navigationItems.map((item) {
               final isDestinationLibrary = item.name == 'Library';
-              var currentLibrary =
-                  ref.watch(currentLibraryProvider).valueOrNull;
+              var currentLibrary = ref.watch(currentLibraryProvider).valueOrNull;
               final libraryIcon = AbsIcons.getIconByName(
                 currentLibrary?.icon,
               );
-              final destinationWidget = NavigationDestination(
+              final destinationWidget = NavigationRailDestination(
                 icon: Icon(
                   isDestinationLibrary ? libraryIcon ?? item.icon : item.icon,
                 ),
                 selectedIcon: Icon(
-                  isDestinationLibrary
-                      ? libraryIcon ?? item.activeIcon
-                      : item.activeIcon,
+                  isDestinationLibrary ? libraryIcon ?? item.activeIcon : item.activeIcon,
                 ),
-                label: isDestinationLibrary
-                    ? currentLibrary?.name ?? item.name
-                    : item.name,
-                tooltip: item.tooltip,
+                label: Text(isDestinationLibrary ? currentLibrary?.name ?? item.name : item.name),
+                // tooltip: item.tooltip,
               );
-              if (isDestinationLibrary) {
-                return GestureDetector(
-                  onSecondaryTap: () => showLibrarySwitcher(context, ref),
-                  onDoubleTap: () => showLibrarySwitcher(context, ref),
-                  child:
-                      destinationWidget, // Wrap the actual NavigationDestination
-                );
-              } else {
-                // Return the unwrapped destination for other items
-                return destinationWidget;
-              }
+              // if (isDestinationLibrary) {
+              //   return GestureDetector(
+              //     onSecondaryTap: () => showLibrarySwitcher(context, ref),
+              //     onDoubleTap: () => showLibrarySwitcher(context, ref),
+              //     child:
+              //         destinationWidget, // Wrap the actual NavigationDestination
+              //   );
+              // } else {
+              //   // Return the unwrapped destination for other items
+              //   return destinationWidget;
+              // }
+              return destinationWidget;
+              // return NavigationRailDestination(icon: Icon(nav.icon), label: Text(nav.name));
             }).toList(),
             selectedIndex: navigationShell.currentIndex,
-            onDestinationSelected: (int index) => _onTap(context, index, ref),
+            onDestinationSelected: (int index) {
+              print(index);
+              _onTap(context, index, ref);
+            },
           ),
         ),
+        VerticalDivider(width: 0.5, thickness: 0.5),
+        Expanded(
+          child: Stack(
+            children: [
+              navigationShell,
+              const AudiobookPlayer(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildNavBottom(BuildContext context, WidgetRef ref) {
+    // playerExpandProgress is used to animate bottom navigation bar to opacity 0 and slide down when player is expanded
+    // final playerProgress =
+    //     useValueListenable(ref.watch(playerExpandProgressNotifierProvider));
+    final playerProgress = ref.watch(playerHeightProvider);
+    final playerMaxHeight = MediaQuery.of(context).size.height;
+    var percentExpandedMiniPlayer =
+        (playerProgress - playerMinHeight) / (playerMaxHeight - playerMinHeight);
+    // Clamp the value between 0 and 1
+    percentExpandedMiniPlayer = percentExpandedMiniPlayer.clamp(0.0, 1.0);
+    return Opacity(
+      // Opacity is interpolated from 1 to 0 when player is expanded
+      opacity: 1 - percentExpandedMiniPlayer,
+      child: NavigationBar(
+        elevation: 0.0,
+        height: bottomBarHeight * (1 - percentExpandedMiniPlayer),
+
+        // TODO: get destinations from the navigationShell
+        // Here, the items of BottomNavigationBar are hard coded. In a real
+        // world scenario, the items would most likely be generated from the
+        // branches of the shell route, which can be fetched using
+        // `navigationShell.route.branches`.
+        destinations: _navigationItems.map((item) {
+          final isDestinationLibrary = item.name == 'Library';
+          var currentLibrary = ref.watch(currentLibraryProvider).valueOrNull;
+          final libraryIcon = AbsIcons.getIconByName(
+            currentLibrary?.icon,
+          );
+          final destinationWidget = NavigationDestination(
+            icon: Icon(
+              isDestinationLibrary ? libraryIcon ?? item.icon : item.icon,
+            ),
+            selectedIcon: Icon(
+              isDestinationLibrary ? libraryIcon ?? item.activeIcon : item.activeIcon,
+            ),
+            label: isDestinationLibrary ? currentLibrary?.name ?? item.name : item.name,
+            tooltip: item.tooltip,
+          );
+          if (isDestinationLibrary) {
+            return GestureDetector(
+              onSecondaryTap: () => showLibrarySwitcher(context, ref),
+              onDoubleTap: () => showLibrarySwitcher(context, ref),
+              child: destinationWidget, // Wrap the actual NavigationDestination
+            );
+          } else {
+            // Return the unwrapped destination for other items
+            return destinationWidget;
+          }
+        }).toList(),
+        selectedIndex: navigationShell.currentIndex,
+        onDestinationSelected: (int index) => _onTap(context, index, ref),
       ),
     );
   }

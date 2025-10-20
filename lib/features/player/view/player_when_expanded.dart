@@ -43,9 +43,16 @@ class PlayerWhenExpanded extends HookConsumerWidget {
           earlyEnd,
         )
         .clamp(0.0, 1.0);
-
     final currentChapter = ref.watch(currentPlayingChapterProvider);
     final currentBookMetadata = ref.watch(currentBookMetadataProvider);
+
+    final adjuster = ProportionalAdjuster();
+    final chapterPercentage = adjuster.adjust(earlyPercentage, 1.1);
+    final authorPercentage = adjuster.adjust(earlyPercentage, 1.2);
+    final progressPercentage = adjuster.adjust(earlyPercentage, 1.4);
+    final playPercentage = adjuster.adjust(earlyPercentage, 1.6);
+    final settingsPercentage = adjuster.adjust(earlyPercentage, 1.8);
+
     return Column(
       children: [
         // sized box for system status bar; not needed as not full screen
@@ -128,9 +135,9 @@ class PlayerWhenExpanded extends HookConsumerWidget {
         ),
 
         // the chapter title
-        if (earlyPercentage > 0.4)
+        if (chapterPercentage >= 1)
           Opacity(
-            opacity: earlyPercentage,
+            opacity: chapterPercentage,
             child: Padding(
               padding: EdgeInsets.only(
                 top: AppElementSizes.paddingRegular * 4 * earlyPercentage,
@@ -152,9 +159,9 @@ class PlayerWhenExpanded extends HookConsumerWidget {
           ),
 
         // the book name and author
-        if (earlyPercentage > 0.5)
+        if (authorPercentage >= 1)
           Opacity(
-            opacity: earlyPercentage,
+            opacity: authorPercentage,
             child: Padding(
               padding: EdgeInsets.only(
                 bottom: AppElementSizes.paddingRegular * earlyPercentage,
@@ -177,17 +184,17 @@ class PlayerWhenExpanded extends HookConsumerWidget {
               // ),
             ),
           ),
+        if (authorPercentage >= 1) const Spacer(),
 
-        if (earlyPercentage > 0.5) const Spacer(),
         // the progress bar
-        if (earlyPercentage > 0.6)
+        if (progressPercentage >= 1)
           Opacity(
-            opacity: earlyPercentage,
+            opacity: progressPercentage,
             child: SizedBox(
               width: imageSize,
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: AppElementSizes.paddingRegular * earlyPercentage,
+                  // top: AppElementSizes.paddingRegular * earlyPercentage,
                   left: AppElementSizes.paddingRegular * earlyPercentage,
                   right: AppElementSizes.paddingRegular * earlyPercentage,
                 ),
@@ -195,12 +202,12 @@ class PlayerWhenExpanded extends HookConsumerWidget {
               ),
             ),
           ),
-        if (earlyPercentage > 0.6) const Spacer(),
+        if (progressPercentage >= 1) const Spacer(),
 
         // the chapter skip buttons, seek 30 seconds back and forward, and play/pause button
-        if (earlyPercentage > 0.8)
+        if (playPercentage >= 1)
           Opacity(
-            opacity: earlyPercentage,
+            opacity: playPercentage,
             child: SizedBox(
               width: imageSize,
               child: Row(
@@ -221,23 +228,26 @@ class PlayerWhenExpanded extends HookConsumerWidget {
               ),
             ),
           ),
-        if (earlyPercentage > 0.8) const Spacer(),
+        if (playPercentage >= 1) const Spacer(),
 
         // speed control, sleep timer, chapter list, and settings
-        if (earlyPercentage > 0.9)
+        if (settingsPercentage >= 1)
           Opacity(
-            opacity: earlyPercentage,
-            child: Padding(
-              padding: EdgeInsets.only(
-                bottom: AppElementSizes.paddingRegular * 4 * earlyPercentage,
-              ),
+            opacity: settingsPercentage,
+            child: SizedBox(
+              // padding: EdgeInsets.only(
+              //   bottom: AppElementSizes.paddingRegular * 4 * earlyPercentage,
+              // ),
+              width: imageSize,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   // speed control
                   const PlayerSpeedAdjustButton(),
+                  const Spacer(),
                   // sleep timer
                   const SleepTimerButton(),
+                  const Spacer(),
                   // chapter list
                   const ChapterSelectionButton(),
                   // settings

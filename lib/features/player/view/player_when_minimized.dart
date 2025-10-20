@@ -37,8 +37,12 @@ class PlayerWhenMinimized extends HookConsumerWidget {
     final bookMetaExpanded = ref.watch(currentBookMetadataProvider);
 
     var barHeight = vanishingPercentage * 3;
+
+    final adjuster = ProportionalAdjuster();
+    final rewindPercentage = adjuster.adjust(vanishingPercentage, 1.5);
+    final playPercentage = adjuster.adjust(vanishingPercentage, 1.8);
     return Stack(
-      alignment: Alignment.bottomCenter,
+      alignment: Alignment.topCenter,
       children: [
         Row(
           children: [
@@ -100,11 +104,10 @@ class PlayerWhenMinimized extends HookConsumerWidget {
             //     controller.animateToHeight(state: PanelState.MAX);
             //   },
             // ),
-
             // rewind button
-            if (vanishingPercentage > 0.6)
+            if (rewindPercentage >= 1)
               Opacity(
-                opacity: vanishingPercentage,
+                opacity: rewindPercentage,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8),
                   child: IconButton(
@@ -117,9 +120,9 @@ class PlayerWhenMinimized extends HookConsumerWidget {
                 ),
               ),
             // play/pause button
-            if (vanishingPercentage > 0.8)
+            if (playPercentage >= 1)
               Opacity(
-                opacity: vanishingPercentage,
+                opacity: playPercentage,
                 child: Padding(
                   padding: const EdgeInsets.only(right: 8),
                   child: AudiobookPlayerPlayPauseButton(
@@ -129,6 +132,7 @@ class PlayerWhenMinimized extends HookConsumerWidget {
               ),
           ],
         ),
+        const Spacer(),
         SizedBox(
           height: barHeight,
           child: LinearProgressIndicator(
