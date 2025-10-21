@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/features/downloads/providers/download_manager.dart';
 
 class DownloadsPage extends HookConsumerWidget {
@@ -7,7 +8,7 @@ class DownloadsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final manager = ref.read(simpleDownloadManagerProvider);
+    // final manager = ref.read(simpleDownloadManagerProvider);
     final downloadHistory = ref.watch(downloadHistoryProvider());
 
     return Scaffold(
@@ -25,8 +26,10 @@ class DownloadsPage extends HookConsumerWidget {
               itemBuilder: (context, index) {
                 final group = uniqueGroups.elementAt(index);
                 final groupRecords = records.where((e) => e.group == group);
+                final item = ref.watch(libraryItemProvider(group)).valueOrNull;
+
                 return ExpansionTile(
-                  title: Text(group ?? 'No Group'),
+                  title: Text(item?.media.metadata.title ?? group),
                   children: groupRecords
                       .map(
                         (e) => ListTile(

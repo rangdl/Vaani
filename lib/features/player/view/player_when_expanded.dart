@@ -133,7 +133,7 @@ class PlayerWhenExpanded extends HookConsumerWidget {
             opacity: earlyPercentage,
             child: Padding(
               padding: EdgeInsets.only(
-                top: AppElementSizes.paddingLarge * earlyPercentage,
+                top: AppElementSizes.paddingRegular * earlyPercentage,
                 // horizontal: 16.0,
               ),
               // child: SizedBox(
@@ -204,6 +204,7 @@ class PlayerWhenExpanded extends HookConsumerWidget {
             opacity: earlyPercentage,
             child: SizedBox(
               width: imageSize,
+              height: AppElementSizes.iconSizeRegular,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

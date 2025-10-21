@@ -129,7 +129,6 @@ class PlayerWhenMinimized extends HookConsumerWidget {
             ),
           ],
         ),
-        const Spacer(),
         SizedBox(
           height: barHeight,
           child: LinearProgressIndicator(
