@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/features/item_viewer/view/library_item_sliver_app_bar.dart';
 import 'package:vaani/features/player/view/mini_player_bottom_padding.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/shared/widgets/expandable_description.dart';
 
@@ -27,8 +28,7 @@ class LibraryItemPage extends HookConsumerWidget {
   static const double _showFabThreshold = 300.0;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final additionalItemData =
-        extra is LibraryItemExtras ? extra as LibraryItemExtras : null;
+    final additionalItemData = extra is LibraryItemExtras ? extra as LibraryItemExtras : null;
     final scrollController = useScrollController();
     final showFab = useState(false);
 
@@ -150,8 +150,10 @@ class LibraryItemDescription extends HookConsumerWidget {
       return const SizedBox();
     }
     return ExpandableDescription(
-      title: 'About the Book',
-      content: item.media.metadata.description ?? 'Sorry, no description found',
+      title: S.of(context).bookAbout,
+      content: item.media.metadata.description ?? S.of(context).bookAboutDefault,
+      readMoreText: S.of(context).readMore,
+      readLessText: S.of(context).readLess,
     );
   }
 }
@@ -166,10 +168,8 @@ double calculateWidth(
   /// height ratio of the cover image to the available height
   double maxHeightToUse = 0.25,
 }) {
-  final availHeight =
-      min(constraints.maxHeight, MediaQuery.of(context).size.height);
-  final availWidth =
-      min(constraints.maxWidth, MediaQuery.of(context).size.width);
+  final availHeight = min(constraints.maxHeight, MediaQuery.of(context).size.height);
+  final availWidth = min(constraints.maxWidth, MediaQuery.of(context).size.width);
 
   // make the width widthRatio of the available width
   var width = availWidth * widthRatio;

@@ -8,6 +8,7 @@ part of 'app_settings.dart';
 
 _$AppSettingsImpl _$$AppSettingsImplFromJson(Map<String, dynamic> json) =>
     _$AppSettingsImpl(
+      language: json['language'] as String? ?? 'zh',
       themeSettings: json['themeSettings'] == null
           ? const ThemeSettings()
           : ThemeSettings.fromJson(
@@ -40,6 +41,7 @@ _$AppSettingsImpl _$$AppSettingsImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$AppSettingsImplToJson(_$AppSettingsImpl instance) =>
     <String, dynamic>{
+      'language': instance.language,
       'themeSettings': instance.themeSettings,
       'playerSettings': instance.playerSettings,
       'sleepTimerSettings': instance.sleepTimerSettings,

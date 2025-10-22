@@ -31,6 +31,8 @@ class PlayerWhenMinimized extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final player = ref.watch(audiobookPlayerProvider);
+    final currentChapter = ref.watch(currentPlayingChapterProvider);
+
     final vanishingPercentage = 1 - percentageMiniplayer;
     final progress = useStream(player.slowPositionStream, initialData: Duration.zero);
 
@@ -77,7 +79,7 @@ class PlayerWhenMinimized extends HookConsumerWidget {
                   children: [
                     // AutoScrollText(
                     Text(
-                      bookMetaExpanded?.title ?? '',
+                      '${bookMetaExpanded?.title ?? ''} - ${currentChapter?.title ?? ''}',
                       maxLines: 1, overflow: TextOverflow.ellipsis,
                       // velocity:
                       //     const Velocity(pixelsPerSecond: Offset(16, 0)),

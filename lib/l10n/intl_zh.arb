@@ -1,0 +1,84 @@
+{
+    "@@locale": "zh",
+
+    "yes": "是",
+    "no": "否",
+    "ok": "确定",
+    "cancel": "取消",
+    "reset": "重置",
+    "delete": "Delete",
+    "deleteDialog": "确定要删除 {item} 吗？",
+    "@deleteDialog": {
+        "placeholders": {
+            "item": {
+                "type": "String"
+            }
+        }
+    },
+    "deleted": "已删除 {item}",
+    "@deleted": {
+        "description": "已删除 {}",
+        "placeholders": {
+            "item": {
+                "type": "String"
+            }
+        }
+    },
+
+    "pause": "暂停",
+    "play": "播放",
+    "resume": "继续",
+    "unknown": "未知",
+    "readMore": "展开",
+    "readLess": "折叠",
+
+    "home": "首页",
+    "homeListenAgain": "再听一遍",
+    "homeContinueListening": "继续收听",
+    "homeStartListening": "开始收听",
+    "bookAbout": "关于本书",
+    "bookAboutDefault": "抱歉，找不到描述",
+
+    "library": "媒体库",
+    "libraryTooltip": "浏览您的媒体库",
+    "explore": "探索",
+    "exploreTooltip": "搜索和探索",
+    "you": "我的",
+    "youTooltip": "您的个人资料和设置",
+
+    "appSettings": "应用设置",
+    "general": "通用",
+    "language": "语言",
+    "languageDescription": "语言切换",
+    "playerSettings": "播放器设置",
+    "playerSettingsDescription": "自定义播放器设置",
+    "autoTurnOnSleepTimer": "自动开启睡眠定时器",
+    "automaticallyDescription": "根据一天中的时间自动打开睡眠定时器",
+
+    "shakeDetector": "抖动检测器",
+    "shakeDetectorDescription": "自定义抖动检测器设置",
+    "appearance": "外观",
+    "themeSettings": "主题设置",
+    "themeSettingsDescription": "自定义应用主题",
+    "notificationMediaPlayer": "通知媒体播放器",
+    "notificationMediaPlayerDescription": "在通知中自定义媒体播放器",
+    "homePageSettings": "主页设置",
+    "homePageSettingsDescription": "自定义主页",
+    "backupAndRestore": "备份与恢复",
+    "copyToClipboard": "复制到剪贴板",
+    "copyToClipboardDescription": "将应用程序设置复制到剪贴板",
+    "copyToClipboardToast": "设置已复制到剪贴板",
+    "restore": "恢复",
+    "restoreDescription": "从备份中还原应用程序设置",
+    "restoreBackup": "恢复备份",
+    "backup": "备份",
+    "restoreBackupHint": "将备份粘贴到此处",
+    "restoreBackupValidator": "请将备份粘贴到此处",
+    "restoreBackupInvalid": "无效备份",
+    "restoreBackupSuccess": "设置已恢复",
+    
+    "resetAppSettings": "重置应用程序设置",
+    "resetAppSettingsDescription": "将应用程序设置重置为默认值",
+    "resetAppSettingsDialog": "您确定要重置应用程序设置吗？"
+
+}

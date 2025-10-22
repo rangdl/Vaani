@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaani/generated/l10n.dart';
 
 class OkButton<T> extends StatelessWidget {
   const OkButton({
@@ -12,7 +13,7 @@ class OkButton<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-      child: const Text('OK'),
+      child: Text(S.of(context).ok),
     );
   }
 }
@@ -32,7 +33,7 @@ class CancelButton extends StatelessWidget {
         onPressed?.call();
         Navigator.of(context).pop();
       },
-      child: const Text('Cancel'),
+      child: Text(S.of(context).cancel),
     );
   }
 }

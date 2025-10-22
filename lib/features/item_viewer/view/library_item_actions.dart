@@ -18,6 +18,7 @@ import 'package:vaani/features/item_viewer/view/library_item_page.dart';
 import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/features/player/providers/player_form.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/main.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/api_settings_provider.dart';
@@ -76,11 +77,9 @@ class LibraryItemActions extends HookConsumerWidget {
                       IconButton(
                         onPressed: () {
                           appLogger.fine('Sharing');
-                          var currentServerUrl =
-                              apiSettings.activeServer!.serverUrl;
+                          var currentServerUrl = apiSettings.activeServer!.serverUrl;
                           if (!currentServerUrl.hasScheme) {
-                            currentServerUrl =
-                                Uri.https(currentServerUrl.toString());
+                            currentServerUrl = Uri.https(currentServerUrl.toString());
                           }
                           handleLaunchUrl(
                             Uri.parse(
@@ -139,8 +138,7 @@ class LibraryItemActions extends HookConsumerWidget {
                                                         FileDownloader()
                                                             .database
                                                             .deleteRecordWithId(
-                                                              record
-                                                                  .task.taskId,
+                                                              record.task.taskId,
                                                             );
                                                         Navigator.pop(context);
                                                       },
@@ -159,8 +157,7 @@ class LibraryItemActions extends HookConsumerWidget {
                                           },
                                           onTap: () async {
                                             // open the file location
-                                            final didOpen =
-                                                await FileDownloader().openFile(
+                                            final didOpen = await FileDownloader().openFile(
                                               task: record.task,
                                             );
 
@@ -229,9 +226,7 @@ class LibItemDownloadButton extends HookConsumerWidget {
             onPressed: () {
               appLogger.fine('Pressed download button');
 
-              ref
-                  .read(downloadManagerProvider.notifier)
-                  .queueAudioBookDownload(item);
+              ref.read(downloadManagerProvider.notifier).queueAudioBookDownload(item);
             },
             icon: const Icon(
               Icons.download_rounded,
@@ -250,10 +245,7 @@ class ItemCurrentlyInDownloadQueue extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final progress = ref
-        .watch(itemDownloadProgressProvider(item.id))
-        .valueOrNull
-        ?.clamp(0.05, 1.0);
+    final progress = ref.watch(itemDownloadProgressProvider(item.id)).valueOrNull?.clamp(0.05, 1.0);
 
     if (progress == 1) {
       return AlreadyItemDownloadedButton(item: item);
@@ -366,7 +358,7 @@ class DownloadSheet extends HookConsumerWidget {
         //   },
         // ),
         ListTile(
-          title: const Text('Delete'),
+          title: Text(S.of(context).delete),
           leading: const Icon(
             Icons.delete_rounded,
           ),
@@ -377,28 +369,26 @@ class DownloadSheet extends HookConsumerWidget {
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  title: const Text('Delete'),
+                  title: Text(S.of(context).delete),
                   content: Text(
-                    'Are you sure you want to delete ${item.media.metadata.title}?',
+                    S.of(context).deleteDialog(item.media.metadata.title ?? ''),
                   ),
                   actions: [
                     TextButton(
                       onPressed: () {
                         // delete the file
-                        ref
-                            .read(downloadManagerProvider.notifier)
-                            .deleteDownloadedItem(
+                        ref.read(downloadManagerProvider.notifier).deleteDownloadedItem(
                               item,
                             );
                         GoRouter.of(context).pop(true);
                       },
-                      child: const Text('Yes'),
+                      child: Text(S.of(context).yes),
                     ),
                     TextButton(
                       onPressed: () {
                         GoRouter.of(context).pop(false);
                       },
-                      child: const Text('No'),
+                      child: Text(S.of(context).no),
                     ),
                   ],
                 );
@@ -406,12 +396,12 @@ class DownloadSheet extends HookConsumerWidget {
             );
 
             if (wasDeleted ?? false) {
-              appLogger.fine('Deleted ${item.media.metadata.title}');
+              appLogger.fine(S.of(context).deleted(item.media.metadata.title ?? ''));
               GoRouter.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
-                    'Deleted ${item.media.metadata.title}',
+                    S.of(context).deleted(item.media.metadata.title ?? ''),
                   ),
                 ),
               );
@@ -445,19 +435,19 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
       if (!isCurrentBookSetInPlayer) {
         // either play or resume or listen again based on the progress
         if (isBookCompleted) {
-          return 'Listen Again';
+          return S.of(context).homeListenAgain;
         }
         // if some progress is made, then 'continue listening'
         if (userMediaProgress?.progress != null) {
-          return 'Continue Listening';
+          return S.of(context).homeContinueListening;
         }
-        return 'Start Listening';
+        return S.of(context).homeStartListening;
       } else {
         // if book is set to player
         if (isPlayingThisBook) {
-          return 'Pause';
+          return S.of(context).pause;
         }
-        return 'Resume';
+        return S.of(context).resume;
       }
     }
 
@@ -529,8 +519,7 @@ Future<void> libraryItemPlayButtonOnPressed({
     appLogger.info('Setting the book ${book.libraryItemId}');
     appLogger.info('Initial position: ${userMediaProgress?.currentTime}');
     final downloadManager = ref.watch(simpleDownloadManagerProvider);
-    final libItem =
-        await ref.read(libraryItemProvider(book.libraryItemId).future);
+    final libItem = await ref.read(libraryItemProvider(book.libraryItemId).future);
     final downloadedUris = await downloadManager.getDownloadedFilesUri(libItem);
     setSourceFuture = player.setSourceAudiobook(
       book,
@@ -546,27 +535,23 @@ Future<void> libraryItemPlayButtonOnPressed({
     }
   }
   // set the volume as this is the first time playing and dismissing causes the volume to go to 0
-  var bookPlayerSettings =
-      ref.read(bookSettingsProvider(book.libraryItemId)).playerSettings;
+  var bookPlayerSettings = ref.read(bookSettingsProvider(book.libraryItemId)).playerSettings;
   var appPlayerSettings = ref.read(appSettingsProvider).playerSettings;
 
-  var configurePlayerForEveryBook =
-      appPlayerSettings.configurePlayerForEveryBook;
+  var configurePlayerForEveryBook = appPlayerSettings.configurePlayerForEveryBook;
 
   await Future.wait([
     setSourceFuture ?? Future.value(),
     // set the volume
     player.setVolume(
       configurePlayerForEveryBook
-          ? bookPlayerSettings.preferredDefaultVolume ??
-              appPlayerSettings.preferredDefaultVolume
+          ? bookPlayerSettings.preferredDefaultVolume ?? appPlayerSettings.preferredDefaultVolume
           : appPlayerSettings.preferredDefaultVolume,
     ),
     // set the speed
     player.setSpeed(
       configurePlayerForEveryBook
-          ? bookPlayerSettings.preferredDefaultSpeed ??
-              appPlayerSettings.preferredDefaultSpeed
+          ? bookPlayerSettings.preferredDefaultSpeed ?? appPlayerSettings.preferredDefaultSpeed
           : appPlayerSettings.preferredDefaultSpeed,
     ),
   ]);

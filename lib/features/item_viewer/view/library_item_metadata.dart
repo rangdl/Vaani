@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/library_item_provider.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 
 class LibraryItemMetadata extends HookConsumerWidget {
@@ -24,9 +25,8 @@ class LibraryItemMetadata extends HookConsumerWidget {
       if (book == null) {
         return null;
       }
-      final duration = book.audioFiles
-          .map((e) => e.duration)
-          .reduce((value, element) => value + element);
+      final duration =
+          book.audioFiles.map((e) => e.duration).reduce((value, element) => value + element);
       final hours = duration.inHours;
       final minutes = duration.inMinutes.remainder(60);
       return '${hours}h ${minutes}m';
@@ -41,10 +41,12 @@ class LibraryItemMetadata extends HookConsumerWidget {
       if (book == null) {
         return null;
       }
-      final size = book.audioFiles
-          .map((e) => e.metadata.size)
-          .reduce((value, element) => value + element);
-      return '${size / 1024 ~/ 1024} MB';
+      final size =
+          book.audioFiles.map((e) => e.metadata.size).reduce((value, element) => value + element);
+      if (size / 1024 / 1024 < 1024) {
+        return '${(size / 1024 / 1024).toStringAsFixed(2)} MB';
+      }
+      return '${(size / 1024 / 1024 / 1024).toStringAsFixed(2)} GB';
     }
 
     /// will return the codec and bitrate of the book
@@ -64,21 +66,21 @@ class LibraryItemMetadata extends HookConsumerWidget {
       // duration of the book
       _MetadataItem(
         title: switch (itemBookMetadata?.abridged) {
-          true => 'Abridged',
-          false => 'Unabridged',
-          _ => 'Length',
+          true => S.of(context).bookMetadataAbridged,
+          false => S.of(context).bookMetadataUnabridged,
+          _ => S.of(context).bookMetadataLength,
         },
         value: getDurationFormatted() ?? 'time is just a concept',
       ),
       _MetadataItem(
-        title: 'Published',
+        title: S.of(context).bookMetadataPublished,
         value: itemBookMetadata?.publishedDate ??
             itemBookMetadata?.publishedYear ??
-            'Unknown',
+            S.of(context).unknown,
       ),
       _MetadataItem(
         title: getCodecAndBitrate() ?? 'Codec & Bitrate',
-        value: getSizeFormatted() ?? 'Unknown',
+        value: getSizeFormatted() ?? S.of(context).unknown,
       ),
     ];
     return Padding(
@@ -96,10 +98,7 @@ class LibraryItemMetadata extends HookConsumerWidget {
               return VerticalDivider(
                 indent: 6,
                 endIndent: 6,
-                color: Theme.of(context)
-                    .colorScheme
-                    .onSurface
-                    .withValues(alpha: 0.6),
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
               );
             },
           ),

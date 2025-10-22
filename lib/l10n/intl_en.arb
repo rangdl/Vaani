@@ -1,0 +1,87 @@
+{
+    "@@locale": "en",
+    
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "reset": "Reset",
+    "delete": "Delete",
+    "deleteDialog": "Are you sure you want to delete {item}?",
+    "@deleteDialog": {
+        "placeholders": {
+            "item": {
+                "type": "String"
+            }
+        }
+    },
+    "deleted": "Deleted {item}",
+    "@deleted": {
+        "description": "已删除 {}",
+        "placeholders": {
+            "item": {
+                "type": "String"
+            }
+        }
+    },
+
+    "pause": "Pause",
+    "play": "Play",
+    "resume": "Resume",
+    "unknown": "Unknown",
+    "readMore": "Read More",
+    "readLess": "Read Less",
+
+    "home": "Home",
+    "homeListenAgain": "Listen Again",
+    "homeContinueListening": "Continue Listening",
+    "homeStartListening": "Start Listening",
+    "bookAbout": "About the Book",
+    "bookAboutDefault": "Sorry, no description found",
+    "bookMetadataAbridged": "Abridged",
+    "bookMetadataUnabridged": "Unabridged",
+    "bookMetadataLength": "Length",
+    "bookMetadataPublished": "Published",
+
+    "library": "Library",
+    "libraryTooltip": "Browse your library",
+    "explore": "explore",
+    "exploreTooltip": "Search and Explore",
+    "you": "You",
+    "youTooltip": "Your Profile and Settings",
+    
+    "appSettings": "App Settings",
+    "general": "General",
+    "language": "Language",
+    "languageDescription": "Language switch",
+    "playerSettings": "Player Settings",
+    "playerSettingsDescription": "Customize the player settings",
+    "autoTurnOnSleepTimer": "Auto Turn On Sleep Timer",
+    "automaticallyDescription": "Automatically turn on the sleep timer based on the time of day",
+    "shakeDetector": "Shake Detector",
+    "shakeDetectorDescription": "Customize the shake detector settings",
+    "appearance": "Appearance",
+    "themeSettings": "Theme Settings",
+    "themeSettingsDescription": "Customize the app theme",
+    "notificationMediaPlayer": "Notification Media Player",
+    "notificationMediaPlayerDescription": "Customize the media player in notifications",
+    "homePageSettings": "Home Page Settings",
+    "homePageSettingsDescription": "Customize the home page",
+    "backupAndRestore": "Backup and Restore",
+    "copyToClipboard": "Copy to Clipboard",
+    "copyToClipboardDescription": "Copy the app settings to the clipboard",
+    "copyToClipboardToast": "Settings copied to clipboard",
+    "restore": "Restore",
+    "restoreDescription": "Restore the app settings from the backup",
+    "restoreBackup": "Restore Backup",
+    "backup": "Backup",
+    "restoreBackupHint": "Paste the backup here",
+    "restoreBackupValidator": "Please paste the backup here",
+    "restoreBackupInvalid": "Invalid backup",
+    "restoreBackupSuccess": "Settings restored",
+    
+    "resetAppSettings": "Reset App Settings",
+    "resetAppSettingsDescription": "Reset the app settings to the default values",
+    "resetAppSettingsDialog": "Are you sure you want to reset the app settings?"
+
+}

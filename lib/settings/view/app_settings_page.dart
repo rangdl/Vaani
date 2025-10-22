@@ -7,6 +7,7 @@ import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
 import 'package:vaani/settings/models/app_settings.dart' as model;
@@ -18,14 +19,13 @@ class AppSettingsPage extends HookConsumerWidget {
   const AppSettingsPage({
     super.key,
   });
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appSettings = ref.watch(appSettingsProvider);
     final sleepTimerSettings = appSettings.sleepTimerSettings;
-
+    final locales = {'en': 'English', 'zh': '中文'};
     return SimpleSettingsPage(
-      title: const Text('App Settings'),
+      title: Text(S.of(context).appSettings),
       sections: [
         // General section
         SettingsSection(
@@ -34,25 +34,42 @@ class AppSettingsPage extends HookConsumerWidget {
             vertical: 8.0,
           ),
           title: Text(
-            'General',
+            S.of(context).general,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           tiles: [
             SettingsTile(
-              title: const Text('Player Settings'),
+              title: Text(S.of(context).language),
               leading: const Icon(Icons.play_arrow),
-              description: const Text(
-                'Customize the player settings',
+              trailing: DropdownButton(
+                value: appSettings.language,
+                items: S.delegate.supportedLocales.map((locale) {
+                  return DropdownMenuItem(
+                    value: locale.languageCode,
+                    child: Text(locales[locale.languageCode] ?? 'unknown'),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  ref.read(appSettingsProvider.notifier).update(
+                        appSettings.copyWith(
+                          language: value!,
+                        ),
+                      );
+                },
               ),
+              description: Text(S.of(context).languageDescription),
+            ),
+            SettingsTile(
+              title: Text(S.of(context).playerSettings),
+              leading: const Icon(Icons.play_arrow),
+              description: Text(S.of(context).playerSettingsDescription),
               onPressed: (context) {
                 context.pushNamed(Routes.playerSettings.name);
               },
             ),
             NavigationWithSwitchTile(
-              title: const Text('Auto Turn On Sleep Timer'),
-              description: const Text(
-                'Automatically turn on the sleep timer based on the time of day',
-              ),
+              title: Text(S.of(context).autoTurnOnSleepTimer),
+              description: Text(S.of(context).automaticallyDescription),
               leading: sleepTimerSettings.autoTurnOnTimer
                   ? const Icon(Symbols.time_auto, fill: 1)
                   : const Icon(Symbols.timer_off, fill: 1),
@@ -69,10 +86,10 @@ class AppSettingsPage extends HookConsumerWidget {
               },
             ),
             NavigationWithSwitchTile(
-              title: const Text('Shake Detector'),
+              title: Text(S.of(context).shakeDetector),
               leading: const Icon(Icons.vibration),
-              description: const Text(
-                'Customize the shake detector settings',
+              description: Text(
+                S.of(context).shakeDetectorDescription,
               ),
               value: appSettings.shakeDetectionSettings.isEnabled,
               onPressed: (context) {
@@ -96,36 +113,30 @@ class AppSettingsPage extends HookConsumerWidget {
             vertical: 8.0,
           ),
           title: Text(
-            'Appearance',
+            S.of(context).appearance,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           tiles: [
             SettingsTile.navigation(
               leading: const Icon(Icons.color_lens),
-              title: const Text('Theme Settings'),
-              description: const Text(
-                'Customize the app theme',
-              ),
+              title: Text(S.of(context).themeSettings),
+              description: Text(S.of(context).themeSettingsDescription),
               onPressed: (context) {
                 context.pushNamed(Routes.themeSettings.name);
               },
             ),
             SettingsTile(
-              title: const Text('Notification Media Player'),
+              title: Text(S.of(context).notificationMediaPlayer),
               leading: const Icon(Icons.play_lesson),
-              description: const Text(
-                'Customize the media player in notifications',
-              ),
+              description: Text(S.of(context).notificationMediaPlayerDescription),
               onPressed: (context) {
                 context.pushNamed(Routes.notificationSettings.name);
               },
             ),
             SettingsTile.navigation(
               leading: const Icon(Icons.home_filled),
-              title: const Text('Home Page Settings'),
-              description: const Text(
-                'Customize the home page',
-              ),
+              title: Text(S.of(context).homePageSettings),
+              description: Text(S.of(context).homePageSettingsDescription),
               onPressed: (context) {
                 context.pushNamed(Routes.homePageSettings.name);
               },
@@ -140,15 +151,15 @@ class AppSettingsPage extends HookConsumerWidget {
             vertical: 8.0,
           ),
           title: Text(
-            'Backup and Restore',
+            S.of(context).backupAndRestore,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           tiles: [
             SettingsTile(
-              title: const Text('Copy to Clipboard'),
+              title: Text(S.of(context).copyToClipboard),
               leading: const Icon(Icons.copy),
-              description: const Text(
-                'Copy the app settings to the clipboard',
+              description: Text(
+                S.of(context).copyToClipboardDescription,
               ),
               onPressed: (context) async {
                 // copy to clipboard
@@ -159,18 +170,16 @@ class AppSettingsPage extends HookConsumerWidget {
                 );
                 // show toast
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Settings copied to clipboard'),
+                  SnackBar(
+                    content: Text(S.of(context).copyToClipboardToast),
                   ),
                 );
               },
             ),
             SettingsTile(
-              title: const Text('Restore'),
+              title: Text(S.of(context).restore),
               leading: const Icon(Icons.restore),
-              description: const Text(
-                'Restore the app settings from the backup',
-              ),
+              description: Text(S.of(context).restoreDescription),
               onPressed: (context) {
                 // show a dialog to get the backup
                 showDialog(
@@ -184,33 +193,29 @@ class AppSettingsPage extends HookConsumerWidget {
 
             // a button to reset the app settings
             SettingsTile(
-              title: const Text('Reset App Settings'),
+              title: Text(S.of(context).resetAppSettings),
               leading: const Icon(Icons.settings_backup_restore),
-              description: const Text(
-                'Reset the app settings to the default values',
-              ),
+              description: Text(S.of(context).resetAppSettingsDescription),
               onPressed: (context) async {
                 // confirm the reset
                 final res = await showDialog(
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: const Text('Reset App Settings'),
-                      content: const Text(
-                        'Are you sure you want to reset the app settings?',
-                      ),
+                      title: Text(S.of(context).resetAppSettings),
+                      content: Text(S.of(context).resetAppSettingsDialog),
                       actions: [
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(false);
                           },
-                          child: const Text('Cancel'),
+                          child: Text(S.of(context).cancel),
                         ),
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(true);
                           },
-                          child: const Text('Reset'),
+                          child: Text(S.of(context).reset),
                         ),
                       ],
                     );
@@ -242,14 +247,14 @@ class RestoreDialogue extends HookConsumerWidget {
 
     final settingsInputController = useTextEditingController();
     return AlertDialog(
-      title: const Text('Restore Backup'),
+      title: Text(S.of(context).restoreBackup),
       content: Form(
         key: formKey,
         child: TextFormField(
           autofocus: true,
           decoration: InputDecoration(
-            labelText: 'Backup',
-            hintText: 'Paste the backup here',
+            labelText: S.of(context).backup,
+            hintText: S.of(context).restoreBackupHint,
             // clear button
             suffixIcon: IconButton(
               icon: Icon(Icons.clear),
@@ -260,7 +265,7 @@ class RestoreDialogue extends HookConsumerWidget {
           ),
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please paste the backup here';
+              return S.of(context).restoreBackupValidator;
             }
             try {
               // try to decode the backup
@@ -268,7 +273,7 @@ class RestoreDialogue extends HookConsumerWidget {
                 jsonDecode(value),
               );
             } catch (e) {
-              return 'Invalid backup';
+              return S.of(context).restoreBackupInvalid;
             }
             return null;
           },
@@ -281,8 +286,8 @@ class RestoreDialogue extends HookConsumerWidget {
             if (formKey.currentState!.validate()) {
               if (settings.value == null) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Invalid backup'),
+                  SnackBar(
+                    content: Text(S.of(context).restoreBackupInvalid),
                   ),
                 );
                 return;
@@ -291,19 +296,19 @@ class RestoreDialogue extends HookConsumerWidget {
               settingsInputController.clear();
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Settings restored'),
+                SnackBar(
+                  content: Text(S.of(context).restoreBackupSuccess),
                 ),
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Invalid backup'),
+                SnackBar(
+                  content: Text(S.of(context).restoreBackupInvalid),
                 ),
               );
             }
           },
-          child: const Text('Restore'),
+          child: Text(S.of(context).restore),
         ),
       ],
     );

@@ -1,5 +1,6 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:vaani/api/server_provider.dart';
@@ -12,6 +13,7 @@ import 'package:vaani/features/player/providers/audiobook_player.dart'
     show audiobookPlayerProvider, simpleAudiobookPlayerProvider;
 import 'package:vaani/features/shake_detection/providers/shake_detector.dart';
 import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/api_settings_provider.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
@@ -126,6 +128,15 @@ class MyApp extends ConsumerWidget {
     try {
       return MaterialApp.router(
         // debugShowCheckedModeBanner: false,
+        locale: Locale(appSettings.language),
+        localizationsDelegates: [
+          // 以下是其他代理
+          S.delegate, //String 资源的 本地化
+          GlobalMaterialLocalizations.delegate, //Material Widgets 的本地化
+          GlobalWidgetsLocalizations.delegate, //基础 Widgets 的本地化
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
         theme: appThemeLight,
         darkTheme: appThemeDark,
         themeMode: themeSettings.themeMode,

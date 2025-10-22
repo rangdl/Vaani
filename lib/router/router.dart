@@ -25,8 +25,7 @@ import 'transitions/slide.dart';
 
 part 'constants.dart';
 
-final GlobalKey<NavigatorState> rootNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'root');
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> sectionHomeNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'HomeNavigator');
 
@@ -94,10 +93,8 @@ class MyAppRouter {
                     //       itemId: itemId, extra: state.extra);
                     // },
                     pageBuilder: (context, state) {
-                      final itemId = state
-                          .pathParameters[Routes.libraryItem.pathParamName]!;
-                      final child =
-                          LibraryItemPage(itemId: itemId, extra: state.extra);
+                      final itemId = state.pathParameters[Routes.libraryItem.pathParamName]!;
+                      final child = LibraryItemPage(itemId: itemId, extra: state.extra);
                       return buildPageWithDefaultTransition(
                         context: context,
                         state: state,
@@ -204,8 +201,7 @@ class MyAppRouter {
                       GoRoute(
                         path: Routes.playerSettings.pathName,
                         name: Routes.playerSettings.name,
-                        pageBuilder:
-                            defaultPageBuilder(const PlayerSettingsPage()),
+                        pageBuilder: defaultPageBuilder(const PlayerSettingsPage()),
                       ),
                       GoRoute(
                         path: Routes.shakeDetectorSettings.pathName,
@@ -253,8 +249,7 @@ class MyAppRouter {
     final stateParam = state.uri.queryParameters['state'];
     appLogger.fine('deep linking callback: code: $code, state: $stateParam');
 
-    var callbackPage =
-        CallbackPage(code: code, state: stateParam, key: ValueKey(stateParam));
+    var callbackPage = CallbackPage(code: code, state: stateParam, key: ValueKey(stateParam));
     return buildPageWithDefaultTransition(
       context: context,
       state: state,

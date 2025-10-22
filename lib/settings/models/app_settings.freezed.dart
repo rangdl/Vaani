@@ -20,6 +20,7 @@ AppSettings _$AppSettingsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AppSettings {
+  String get language => throw _privateConstructorUsedError;
   ThemeSettings get themeSettings => throw _privateConstructorUsedError;
   PlayerSettings get playerSettings => throw _privateConstructorUsedError;
   SleepTimerSettings get sleepTimerSettings =>
@@ -48,7 +49,8 @@ abstract class $AppSettingsCopyWith<$Res> {
       _$AppSettingsCopyWithImpl<$Res, AppSettings>;
   @useResult
   $Res call(
-      {ThemeSettings themeSettings,
+      {String language,
+      ThemeSettings themeSettings,
       PlayerSettings playerSettings,
       SleepTimerSettings sleepTimerSettings,
       DownloadSettings downloadSettings,
@@ -80,6 +82,7 @@ class _$AppSettingsCopyWithImpl<$Res, $Val extends AppSettings>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? language = null,
     Object? themeSettings = null,
     Object? playerSettings = null,
     Object? sleepTimerSettings = null,
@@ -89,6 +92,10 @@ class _$AppSettingsCopyWithImpl<$Res, $Val extends AppSettings>
     Object? homePageSettings = null,
   }) {
     return _then(_value.copyWith(
+      language: null == language
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as String,
       themeSettings: null == themeSettings
           ? _value.themeSettings
           : themeSettings // ignore: cast_nullable_to_non_nullable
@@ -203,7 +210,8 @@ abstract class _$$AppSettingsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ThemeSettings themeSettings,
+      {String language,
+      ThemeSettings themeSettings,
       PlayerSettings playerSettings,
       SleepTimerSettings sleepTimerSettings,
       DownloadSettings downloadSettings,
@@ -240,6 +248,7 @@ class __$$AppSettingsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? language = null,
     Object? themeSettings = null,
     Object? playerSettings = null,
     Object? sleepTimerSettings = null,
@@ -249,6 +258,10 @@ class __$$AppSettingsImplCopyWithImpl<$Res>
     Object? homePageSettings = null,
   }) {
     return _then(_$AppSettingsImpl(
+      language: null == language
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as String,
       themeSettings: null == themeSettings
           ? _value.themeSettings
           : themeSettings // ignore: cast_nullable_to_non_nullable
@@ -285,7 +298,8 @@ class __$$AppSettingsImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AppSettingsImpl implements _AppSettings {
   const _$AppSettingsImpl(
-      {this.themeSettings = const ThemeSettings(),
+      {this.language = 'zh',
+      this.themeSettings = const ThemeSettings(),
       this.playerSettings = const PlayerSettings(),
       this.sleepTimerSettings = const SleepTimerSettings(),
       this.downloadSettings = const DownloadSettings(),
@@ -296,6 +310,9 @@ class _$AppSettingsImpl implements _AppSettings {
   factory _$AppSettingsImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppSettingsImplFromJson(json);
 
+  @override
+  @JsonKey()
+  final String language;
   @override
   @JsonKey()
   final ThemeSettings themeSettings;
@@ -320,7 +337,7 @@ class _$AppSettingsImpl implements _AppSettings {
 
   @override
   String toString() {
-    return 'AppSettings(themeSettings: $themeSettings, playerSettings: $playerSettings, sleepTimerSettings: $sleepTimerSettings, downloadSettings: $downloadSettings, notificationSettings: $notificationSettings, shakeDetectionSettings: $shakeDetectionSettings, homePageSettings: $homePageSettings)';
+    return 'AppSettings(language: $language, themeSettings: $themeSettings, playerSettings: $playerSettings, sleepTimerSettings: $sleepTimerSettings, downloadSettings: $downloadSettings, notificationSettings: $notificationSettings, shakeDetectionSettings: $shakeDetectionSettings, homePageSettings: $homePageSettings)';
   }
 
   @override
@@ -328,6 +345,8 @@ class _$AppSettingsImpl implements _AppSettings {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AppSettingsImpl &&
+            (identical(other.language, language) ||
+                other.language == language) &&
             (identical(other.themeSettings, themeSettings) ||
                 other.themeSettings == themeSettings) &&
             (identical(other.playerSettings, playerSettings) ||
@@ -348,6 +367,7 @@ class _$AppSettingsImpl implements _AppSettings {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      language,
       themeSettings,
       playerSettings,
       sleepTimerSettings,
@@ -374,7 +394,8 @@ class _$AppSettingsImpl implements _AppSettings {
 
 abstract class _AppSettings implements AppSettings {
   const factory _AppSettings(
-      {final ThemeSettings themeSettings,
+      {final String language,
+      final ThemeSettings themeSettings,
       final PlayerSettings playerSettings,
       final SleepTimerSettings sleepTimerSettings,
       final DownloadSettings downloadSettings,
@@ -385,6 +406,8 @@ abstract class _AppSettings implements AppSettings {
   factory _AppSettings.fromJson(Map<String, dynamic> json) =
       _$AppSettingsImpl.fromJson;
 
+  @override
+  String get language;
   @override
   ThemeSettings get themeSettings;
   @override

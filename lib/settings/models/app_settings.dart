@@ -12,18 +12,17 @@ part 'app_settings.g.dart';
 @freezed
 class AppSettings with _$AppSettings {
   const factory AppSettings({
+    @Default('zh') String language,
     @Default(ThemeSettings()) ThemeSettings themeSettings,
     @Default(PlayerSettings()) PlayerSettings playerSettings,
     @Default(SleepTimerSettings()) SleepTimerSettings sleepTimerSettings,
     @Default(DownloadSettings()) DownloadSettings downloadSettings,
     @Default(NotificationSettings()) NotificationSettings notificationSettings,
-    @Default(ShakeDetectionSettings())
-    ShakeDetectionSettings shakeDetectionSettings,
+    @Default(ShakeDetectionSettings()) ShakeDetectionSettings shakeDetectionSettings,
     @Default(HomePageSettings()) HomePageSettings homePageSettings,
   }) = _AppSettings;
 
-  factory AppSettings.fromJson(Map<String, dynamic> json) =>
-      _$AppSettingsFromJson(json);
+  factory AppSettings.fromJson(Map<String, dynamic> json) => _$AppSettingsFromJson(json);
 }
 
 @freezed
@@ -37,17 +36,14 @@ class ThemeSettings with _$ThemeSettings {
     @Default(true) bool useCurrentPlayerThemeThroughoutApp,
   }) = _ThemeSettings;
 
-  factory ThemeSettings.fromJson(Map<String, dynamic> json) =>
-      _$ThemeSettingsFromJson(json);
+  factory ThemeSettings.fromJson(Map<String, dynamic> json) => _$ThemeSettingsFromJson(json);
 }
 
 @freezed
 class PlayerSettings with _$PlayerSettings {
   const factory PlayerSettings({
-    @Default(MinimizedPlayerSettings())
-    MinimizedPlayerSettings miniPlayerSettings,
-    @Default(ExpandedPlayerSettings())
-    ExpandedPlayerSettings expandedPlayerSettings,
+    @Default(MinimizedPlayerSettings()) MinimizedPlayerSettings miniPlayerSettings,
+    @Default(ExpandedPlayerSettings()) ExpandedPlayerSettings expandedPlayerSettings,
     @Default(1) double preferredDefaultVolume,
     @Default(1) double preferredDefaultSpeed,
     @Default([1, 1.25, 1.5, 1.75, 2]) List<double> speedOptions,
@@ -60,8 +56,7 @@ class PlayerSettings with _$PlayerSettings {
     @Default(true) bool configurePlayerForEveryBook,
   }) = _PlayerSettings;
 
-  factory PlayerSettings.fromJson(Map<String, dynamic> json) =>
-      _$PlayerSettingsFromJson(json);
+  factory PlayerSettings.fromJson(Map<String, dynamic> json) => _$PlayerSettingsFromJson(json);
 }
 
 @freezed
@@ -144,8 +139,7 @@ class DownloadSettings with _$DownloadSettings {
     @Default(3) int maxConcurrentByGroup,
   }) = _DownloadSettings;
 
-  factory DownloadSettings.fromJson(Map<String, dynamic> json) =>
-      _$DownloadSettingsFromJson(json);
+  factory DownloadSettings.fromJson(Map<String, dynamic> json) => _$DownloadSettingsFromJson(json);
 }
 
 @freezed
@@ -202,8 +196,7 @@ class ShakeDetectionSettings with _$ShakeDetectionSettings {
     @Default(ShakeDirection.horizontal) ShakeDirection direction,
     @Default(5) double threshold,
     @Default(ShakeAction.resetSleepTimer) ShakeAction shakeAction,
-    @Default({ShakeDetectedFeedback.vibrate})
-    Set<ShakeDetectedFeedback> feedback,
+    @Default({ShakeDetectedFeedback.vibrate}) Set<ShakeDetectedFeedback> feedback,
     @Default(0.5) double beepVolume,
 
     /// the duration to wait before the shake detection is enabled again
@@ -241,6 +234,5 @@ class HomePageSettings with _$HomePageSettings {
     @Default(false) bool showPlayButtonOnListenAgainShelf,
   }) = _HomePageSettings;
 
-  factory HomePageSettings.fromJson(Map<String, dynamic> json) =>
-      _$HomePageSettingsFromJson(json);
+  factory HomePageSettings.fromJson(Map<String, dynamic> json) => _$HomePageSettingsFromJson(json);
 }
