@@ -112,7 +112,7 @@ class ChapterSelectionModal extends HookConsumerWidget {
                             key: isCurrent ? chapterKey : null,
                             onTap: () {
                               Navigator.of(context).pop();
-                              notifier.seek(chapter.start + 90.ms);
+                              notifier.seekInBook(chapter.start + 90.ms);
                               notifier.play();
                             },
                           );

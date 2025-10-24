@@ -174,12 +174,31 @@ class AudiobookPlayer extends AudioPlayer {
     };
   }
 
+  // @override
+  // Future<void> seek(Duration? positionInBook, {int? index, bool b = true}) async {
+  //   if (!b) {
+  //     return super.seek(positionInBook, index: index);
+  //   }
+  //   if (_book == null) {
+  //     _logger.warning('No book is set, not seeking');
+  //     return;
+  //   }
+  //   if (positionInBook == null) {
+  //     _logger.warning('Position given is null, not seeking');
+  //     return;
+  //   }
+  //   final tracks = _book!.tracks;
+  //   final trackToPlay = getTrackToPlay(_book!, positionInBook);
+  //   final i = tracks.indexOf(trackToPlay);
+  //   final positionInTrack = positionInBook - trackToPlay.startOffset;
+  //   return super.seek(positionInTrack, index: i);
+  // }
+
   /// need to override getDuration and getCurrentPosition to return according to the book instead of the current track
   /// this is because the book can be a list of audio files and the player is only aware of the current track
   /// so we need to calculate the duration and current position based on the book
 
-  @override
-  Future<void> seek(Duration? positionInBook, {int? index, bool b = true}) async {
+  Future<void> seekInBook(Duration? positionInBook, {int? index, bool b = true}) async {
     if (!b) {
       return super.seek(positionInBook, index: index);
     }
@@ -208,11 +227,11 @@ class AudiobookPlayer extends AudioPlayer {
   void seekForward() {
     final index = _book!.chapters.indexOf(currentChapter!);
     if (index < _book!.chapters.length - 1) {
-      seek(
+      super.seek(
         _book!.chapters[index + 1].start + offset,
       );
     } else {
-      seek(currentChapter!.end);
+      super.seek(currentChapter!.end);
     }
   }
 
@@ -227,7 +246,7 @@ class AudiobookPlayer extends AudioPlayer {
     } else {
       chapterToSeekTo = currentChapter!;
     }
-    seek(
+    super.seek(
       chapterToSeekTo.start + offset,
     );
   }

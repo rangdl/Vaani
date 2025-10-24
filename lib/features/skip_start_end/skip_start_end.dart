@@ -19,7 +19,7 @@ class SkipStartEnd {
           if (_index != index && player.position.inMilliseconds < 500) {
             _index = index!;
             Future.microtask(() {
-              player.seek(start, b: false);
+              player.seek(start);
             });
           }
         }),

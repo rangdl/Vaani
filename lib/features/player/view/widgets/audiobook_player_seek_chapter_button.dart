@@ -65,7 +65,7 @@ class AudiobookPlayerSeekChapterButton extends HookConsumerWidget {
         }
         // if chapter does not exist, go to the start or end of the book
         if (player.currentChapter == null) {
-          player.seek(isForward ? player.book!.duration : Duration.zero);
+          player.seekInBook(isForward ? player.book!.duration : Duration.zero);
           return;
         }
         if (isForward) {

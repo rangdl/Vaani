@@ -165,7 +165,7 @@ class AudiobookPlayerPlayPauseButton extends HookConsumerWidget {
         ),
       ProcessingState.completed => IconButton(
           onPressed: () async {
-            await player.seek(const Duration(seconds: 0));
+            await player.seekInBook(const Duration(seconds: 0));
             await player.play();
           },
           icon: const Icon(
@@ -220,7 +220,7 @@ class AudiobookChapterProgressBar extends HookConsumerWidget {
           : currentChapter.end - currentChapter.start,
       // ! TODO add onSeek
       onSeek: (duration) {
-        player.seek(
+        player.seekInBook(
           duration + (currentChapter?.start ?? const Duration(seconds: 0)),
         );
       },

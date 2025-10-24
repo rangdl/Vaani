@@ -201,6 +201,7 @@ class PlayerWhenExpanded extends HookConsumerWidget {
 
         // the chapter skip buttons, seek 30 seconds back and forward, and play/pause button
         Expanded(
+          flex: 2,
           child: Opacity(
             opacity: earlyPercentage,
             child: SizedBox(

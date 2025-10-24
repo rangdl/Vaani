@@ -22,9 +22,9 @@ class AudiobookPlayerSeekButton extends HookConsumerWidget {
       ),
       onPressed: () {
         if (isForward) {
-          player.seek(player.positionInBook + const Duration(seconds: 30));
+          player.seek(player.position + const Duration(seconds: 30));
         } else {
-          player.seek(player.positionInBook - const Duration(seconds: 30));
+          player.seek(player.position - const Duration(seconds: 30));
         }
       },
     );
