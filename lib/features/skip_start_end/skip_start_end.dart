@@ -17,10 +17,10 @@ class SkipStartEnd {
       _subscriptions.add(
         player.currentIndexStream.listen((index) {
           if (_index != index && player.position.inMilliseconds < 500) {
-            _index = index!;
             Future.microtask(() {
               player.seek(start);
             });
+            _index = index!;
           }
         }),
       );
@@ -31,8 +31,11 @@ class SkipStartEnd {
           if (player.duration != null &&
               player.duration!.inMilliseconds - player.position.inMilliseconds <
                   end.inMilliseconds) {
-            Future.microtask(() {
-              throttler.call(player.seekForward);
+            throttler.call(() {
+              print('跳过片尾');
+              Future.microtask(() {
+                throttler.call(player.seekToNext);
+              });
             });
           }
         }),

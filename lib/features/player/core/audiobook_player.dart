@@ -271,8 +271,7 @@ class AudiobookPlayer extends AudioPlayer {
   // - positionStream
   // - bufferedPositionStream
 
-  @override
-  Stream<Duration> get positionStream {
+  Stream<Duration> get positionStreamInBook {
     // return the positionInBook stream
     return super.positionStream.map((position) {
       if (_book == null) {
@@ -282,8 +281,7 @@ class AudiobookPlayer extends AudioPlayer {
     });
   }
 
-  @override
-  Stream<Duration> get bufferedPositionStream {
+  Stream<Duration> get bufferedPositionStreamInBook {
     return super.bufferedPositionStream.map((position) {
       if (_book == null) {
         return Duration.zero;
@@ -293,7 +291,7 @@ class AudiobookPlayer extends AudioPlayer {
   }
 
   /// a convenience getter for slow position stream
-  Stream<Duration> get slowPositionStream {
+  Stream<Duration> get slowPositionStreamInBook {
     final superPositionStream = createPositionStream(
       steps: 100,
       minPeriod: const Duration(milliseconds: 500),

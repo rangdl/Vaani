@@ -34,7 +34,7 @@ class PlayerWhenMinimized extends HookConsumerWidget {
     final currentChapter = ref.watch(currentPlayingChapterProvider);
 
     final vanishingPercentage = 1 - percentageMiniplayer;
-    final progress = useStream(player.slowPositionStream, initialData: Duration.zero);
+    final progress = useStream(player.slowPositionStreamInBook, initialData: Duration.zero);
 
     final bookMetaExpanded = ref.watch(currentBookMetadataProvider);
 

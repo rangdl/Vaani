@@ -197,11 +197,11 @@ class AudiobookChapterProgressBar extends HookConsumerWidget {
     final player = ref.watch(audiobookPlayerProvider);
     final currentChapter = ref.watch(currentPlayingChapterProvider);
     final position = useStream(
-      player.positionStream,
+      player.positionStreamInBook,
       initialData: const Duration(seconds: 0),
     );
     final buffered = useStream(
-      player.bufferedPositionStream,
+      player.bufferedPositionStreamInBook,
       initialData: const Duration(seconds: 0),
     );
 
