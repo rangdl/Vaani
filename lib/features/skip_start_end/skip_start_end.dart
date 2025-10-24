@@ -13,18 +13,18 @@ class SkipStartEnd {
   //     StreamController<PlaybackEvent>.broadcast();
 
   SkipStartEnd({required this.start, required this.end, required this.player}) : _index = 0 {
-    if (start > Duration()) {
-      _subscriptions.add(
-        player.currentIndexStream.listen((index) {
-          if (_index != index && player.position.inMilliseconds < 500) {
-            Future.microtask(() {
-              player.seek(start);
-            });
-            _index = index!;
-          }
-        }),
-      );
-    }
+    // if (start > Duration()) {
+    //   _subscriptions.add(
+    //     player.currentIndexStream.listen((index) {
+    //       if (_index != index && player.position.inMilliseconds < 500) {
+    //         Future.microtask(() {
+    //           player.seek(start);
+    //         });
+    //         _index = index!;
+    //       }
+    //     }),
+    //   );
+    // }
     if (end > Duration()) {
       _subscriptions.add(
         player.positionStream.distinct().listen((position) {
@@ -33,8 +33,9 @@ class SkipStartEnd {
                   end.inMilliseconds) {
             throttler.call(() {
               print('跳过片尾');
-              Future.microtask(() {
-                throttler.call(player.seekToNext);
+              Future.microtask(() async {
+                await player.stop();
+                player.seekToNext();
               });
             });
           }

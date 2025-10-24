@@ -173,7 +173,7 @@ class _EagerInitialization extends ConsumerWidget {
       ref.watch(playbackReporterProvider);
       ref.watch(simpleDownloadManagerProvider);
       ref.watch(shakeDetectorProvider);
-      ref.watch(skipStartEndProvider);
+      // ref.watch(skipStartEndProvider);
     } catch (e) {
       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
       appLogger.severe(e.toString());

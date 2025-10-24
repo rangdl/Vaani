@@ -8,6 +8,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:logging/logging.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
+import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
 import 'package:vaani/settings/models/app_settings.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
@@ -51,18 +52,7 @@ class AudiobookPlayer extends AudioPlayer {
   AudiobookPlayer(this.token, this.baseUrl) : super() {
     // set the source of the player to the first track in the book
     _logger.config('Setting up audiobook player');
-    // currentIndexStream.listen((index) {
-    //   print('播放器已切换到第 $index 首曲目');
-    //   skip = true;
-    // });
-    // positionStream.listen((position) {
-    //   if (skip != null && skip! && position.inSeconds < 20) {
-    //     super.seek(Duration(seconds: 20));
-    //     print('播放 $position');
-    //   }
-    // });
   }
-  bool? skip;
 
   /// the [BookExpanded] being played
   BookExpanded? _book;
@@ -82,10 +72,11 @@ class AudiobookPlayer extends AudioPlayer {
   final Uri baseUrl;
 
   // the current index of the audio file in the [book]
-  // final int _currentIndex = 0;
+  int _currentIndex = 0;
 
   // available audio tracks
   int? get availableTracks => _book?.tracks.length;
+  List<Uri>? downloadedUris;
 
   /// sets the current [AudioTrack] as the source of the player
   Future<void> setSourceAudiobook(
@@ -99,7 +90,7 @@ class AudiobookPlayer extends AudioPlayer {
     _logger.finer(
       'Initial position: $initialPosition, Downloaded URIs: $downloadedUris',
     );
-    final appSettings = loadOrCreateAppSettings();
+    // final appSettings = loadOrCreateAppSettings();
     if (book == null) {
       _book = null;
       _logger.info('Book is null, stopping player');
@@ -124,41 +115,75 @@ class AudiobookPlayer extends AudioPlayer {
     // after subtracting the duration of all the previous tracks
     // initialPosition ;
     final trackToPlay = getTrackToPlay(book, initialPosition ?? Duration.zero);
+
     final initialIndex = book.tracks.indexOf(trackToPlay);
     final initialPositionInTrack =
         initialPosition != null ? initialPosition - trackToPlay.startOffset : null;
+    await setAudioSourceTrack(initialIndex, initialPosition: initialPositionInTrack);
+    // _logger.finer('Setting audioSource');
+    // await setAudioSource(
+    //   preload: preload,
+    //   initialIndex: initialIndex,
+    //   initialPosition: initialPositionInTrack,
+    //   ConcatenatingAudioSource(
+    //     useLazyPreparation: true,
+    //     children: book.tracks.map((track) {
+    //       final retrievedUri = _getUri(track, downloadedUris, baseUrl: baseUrl, token: token);
+    //       _logger.fine(
+    //         'Setting source for track: ${track.title}, URI: ${retrievedUri.obfuscate()}',
+    //       );
+    //       return AudioSource.uri(
+    //         retrievedUri,
+    //         tag: MediaItem(
+    //           // Specify a unique ID for each media item:
+    //           id: book.libraryItemId + track.index.toString(),
+    //           // Metadata to display in the notification:
+    //           title: appSettings.notificationSettings.primaryTitle.formatNotificationTitle(book),
+    //           album: appSettings.notificationSettings.secondaryTitle.formatNotificationTitle(book),
+    //           artUri: artworkUri ??
+    //               Uri.parse(
+    //                 '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token&width=800',
+    //               ),
+    //         ),
+    //       );
+    //     }).toList(),
+    //   ),
+    // ).catchError((error) {
+    //   _logger.shout('Error in setting audio source: $error');
+    // });
+  }
 
-    _logger.finer('Setting audioSource');
+  Future<void> setAudioSourceTrack(int index, {Duration? initialPosition}) async {
+    if (_book == null) {
+      return stop();
+    }
+    if (index == _currentIndex) {
+      return;
+    }
+    AudioTrack track = _book!.tracks[index];
+    final appSettings = loadOrCreateAppSettings();
+    if (initialPosition == null || initialPosition <= Duration()) {
+      initialPosition = readFromBoxOrCreate(_book!.libraryItemId).playerSettings.skipChapterStart;
+    }
+
+    final retrievedUri = _getUri(track, downloadedUris, baseUrl: baseUrl, token: token);
+
     await setAudioSource(
-      preload: preload,
-      initialIndex: initialIndex,
-      initialPosition: initialPositionInTrack,
-      ConcatenatingAudioSource(
-        useLazyPreparation: true,
-        children: book.tracks.map((track) {
-          final retrievedUri = _getUri(track, downloadedUris, baseUrl: baseUrl, token: token);
-          _logger.fine(
-            'Setting source for track: ${track.title}, URI: ${retrievedUri.obfuscate()}',
-          );
-          return AudioSource.uri(
-            retrievedUri,
-            tag: MediaItem(
-              // Specify a unique ID for each media item:
-              id: book.libraryItemId + track.index.toString(),
-              // Metadata to display in the notification:
-              title: appSettings.notificationSettings.primaryTitle.formatNotificationTitle(book),
-              album: appSettings.notificationSettings.secondaryTitle.formatNotificationTitle(book),
-              artUri: artworkUri ??
-                  Uri.parse(
-                    '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token&width=800',
-                  ),
-            ),
-          );
-        }).toList(),
+      initialPosition: initialPosition,
+      AudioSource.uri(
+        retrievedUri,
+        tag: MediaItem(
+          // Specify a unique ID for each media item:
+          id: '${book?.libraryItemId}${track.index}',
+          // Metadata to display in the notification:
+          title: appSettings.notificationSettings.primaryTitle.formatNotificationTitle(book!),
+          album: appSettings.notificationSettings.secondaryTitle.formatNotificationTitle(book!),
+          artUri: Uri.parse(
+            '$baseUrl/api/items/${book?.libraryItemId}/cover?token=$token&width=800',
+          ),
+        ),
       ),
-    ).catchError((error) {
-      _logger.shout('Error in setting audio source: $error');
-    });
+    );
   }
 
   /// toggles the player between play and pause
@@ -235,6 +260,22 @@ class AudiobookPlayer extends AudioPlayer {
     }
   }
 
+  @override
+  Future<void> seekToNext() {
+    if (_currentIndex >= availableTracks!) {
+      return super.seek(duration);
+    }
+    return setAudioSourceTrack(_currentIndex++);
+  }
+
+  @override
+  Future<void> seekToPrevious() {
+    if (_currentIndex == 0) {
+      return super.seek(Duration());
+    }
+    return setAudioSourceTrack(_currentIndex--);
+  }
+
   /// seek backward to the previous chapter or the start of the current chapter
   void seekBackward() {
     final currentPlayingChapterIndex = _book!.chapters.indexOf(currentChapter!);
@@ -256,7 +297,8 @@ class AudiobookPlayer extends AudioPlayer {
     if (_book == null) {
       return Duration.zero;
     }
-    return position + _book!.tracks[sequenceState!.currentIndex].startOffset;
+    return position + _book!.tracks[_currentIndex].startOffset;
+    // return position + _book!.tracks[sequenceState!.currentIndex].startOffset;
   }
 
   /// a convenience method to get the buffered position in the book instead of the current track position
@@ -264,7 +306,8 @@ class AudiobookPlayer extends AudioPlayer {
     if (_book == null) {
       return Duration.zero;
     }
-    return bufferedPosition + _book!.tracks[sequenceState!.currentIndex].startOffset;
+    return bufferedPosition + _book!.tracks[_currentIndex].startOffset;
+    // return bufferedPosition + _book!.tracks[sequenceState!.currentIndex].startOffset;
   }
 
   /// streams to override to suit the book instead of the current track
@@ -277,7 +320,8 @@ class AudiobookPlayer extends AudioPlayer {
       if (_book == null) {
         return Duration.zero;
       }
-      return position + _book!.tracks[sequenceState!.currentIndex].startOffset;
+      return position + _book!.tracks[_currentIndex].startOffset;
+      // return position + _book!.tracks[sequenceState!.currentIndex].startOffset;
     });
   }
 
@@ -286,7 +330,8 @@ class AudiobookPlayer extends AudioPlayer {
       if (_book == null) {
         return Duration.zero;
       }
-      return position + _book!.tracks[sequenceState!.currentIndex].startOffset;
+      return position + _book!.tracks[_currentIndex].startOffset;
+      // return position + _book!.tracks[sequenceState!.currentIndex].startOffset;
     });
   }
 
@@ -302,7 +347,8 @@ class AudiobookPlayer extends AudioPlayer {
       if (_book == null) {
         return Duration.zero;
       }
-      return position + _book!.tracks[sequenceState!.currentIndex].startOffset;
+      return position + _book!.tracks[_currentIndex].startOffset;
+      // return position + _book!.tracks[sequenceState!.currentIndex].startOffset;
     });
   }
 
