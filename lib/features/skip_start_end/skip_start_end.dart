@@ -6,13 +6,13 @@ class SkipStartEnd {
   final Duration start;
   final Duration end;
   final AudiobookPlayer player;
-  int _index;
+  // int _index;
   final List<StreamSubscription> _subscriptions = [];
   final throttler = Throttler(delay: Duration(seconds: 3));
   // final StreamController<PlaybackEvent> _playbackController =
   //     StreamController<PlaybackEvent>.broadcast();
 
-  SkipStartEnd({required this.start, required this.end, required this.player}) : _index = 0 {
+  SkipStartEnd({required this.start, required this.end, required this.player}) {
     // if (start > Duration()) {
     //   _subscriptions.add(
     //     player.currentIndexStream.listen((index) {

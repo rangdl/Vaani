@@ -162,16 +162,19 @@ class AudiobookPlayer extends AudioPlayer {
     }
     AudioTrack track = _book!.tracks[index];
     final appSettings = loadOrCreateAppSettings();
-    if (initialPosition == null || initialPosition <= Duration()) {
-      initialPosition = readFromBoxOrCreate(_book!.libraryItemId).playerSettings.skipChapterStart;
-    }
+    final playerSettings = readFromBoxOrCreate(_book!.libraryItemId).playerSettings;
 
     final retrievedUri = _getUri(track, downloadedUris, baseUrl: baseUrl, token: token);
 
     await setAudioSource(
-      initialPosition: initialPosition,
-      AudioSource.uri(
-        retrievedUri,
+      initialPosition: initialPosition == null || initialPosition <= Duration()
+          ? playerSettings.skipChapterStart
+          : initialPosition,
+      ClippingAudioSource(
+        end: track.duration - playerSettings.skipChapterEnd,
+        child: AudioSource.uri(
+          retrievedUri,
+        ),
         tag: MediaItem(
           // Specify a unique ID for each media item:
           id: '${book?.libraryItemId}${track.index}',
