@@ -14,6 +14,8 @@ class NullablePlayerSettings with _$NullablePlayerSettings {
     List<double>? speedOptions,
     SleepTimerSettings? sleepTimerSettings,
     Duration? playbackReportInterval,
+    @Default(Duration()) Duration skipChapterStart,
+    @Default(Duration()) Duration skipChapterEnd,
   }) = _NullablePlayerSettings;
 
   factory NullablePlayerSettings.fromJson(Map<String, dynamic> json) =>

@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/library_provider.dart' show currentLibraryProvider;
-import 'package:vaani/features/you/view/widgets/library_switch_chip.dart'
-    show showLibrarySwitcher;
+import 'package:vaani/features/you/view/widgets/library_switch_chip.dart' show showLibrarySwitcher;
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/router.dart' show Routes;
 import 'package:vaani/shared/icons/abs_icons.dart' show AbsIcons;
-import 'package:vaani/shared/widgets/not_implemented.dart'
-    show showNotImplementedToast;
+import 'package:vaani/shared/widgets/not_implemented.dart' show showNotImplementedToast;
 
 class LibraryBrowserPage extends HookConsumerWidget {
   const LibraryBrowserPage({super.key});
@@ -20,7 +19,7 @@ class LibraryBrowserPage extends HookConsumerWidget {
         AbsIcons.getIconByName(currentLibrary?.icon) ?? Icons.library_books;
 
     // Determine the title text
-    final String appBarTitle = '${currentLibrary?.name ?? 'Your'} Library';
+    final String appBarTitle = currentLibrary?.name ?? S.of(context).library;
 
     return Scaffold(
       // Use CustomScrollView to enable slivers
@@ -33,7 +32,7 @@ class LibraryBrowserPage extends HookConsumerWidget {
             //     true, // Optional: uncomment if you want snapping behavior (usually with floating: true)
             leading: IconButton(
               icon: Icon(libraryIconData),
-              tooltip: 'Switch Library', // Helpful tooltip for users
+              tooltip: S.of(context).librarySwitchTooltip, // Helpful tooltip for users
               onPressed: () {
                 showLibrarySwitcher(context, ref);
               },
@@ -44,7 +43,7 @@ class LibraryBrowserPage extends HookConsumerWidget {
             delegate: SliverChildListDelegate(
               [
                 ListTile(
-                  title: const Text('Authors'),
+                  title: Text(S.of(context).bookAuthors),
                   leading: const Icon(Icons.person),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
@@ -52,7 +51,7 @@ class LibraryBrowserPage extends HookConsumerWidget {
                   },
                 ),
                 ListTile(
-                  title: const Text('Genres'),
+                  title: Text(S.of(context).bookGenres),
                   leading: const Icon(Icons.category),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
@@ -60,7 +59,7 @@ class LibraryBrowserPage extends HookConsumerWidget {
                   },
                 ),
                 ListTile(
-                  title: const Text('Series'),
+                  title: Text(S.of(context).bookSeries),
                   leading: const Icon(Icons.list),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
@@ -69,7 +68,7 @@ class LibraryBrowserPage extends HookConsumerWidget {
                 ),
                 // Downloads
                 ListTile(
-                  title: const Text('Downloads'),
+                  title: Text(S.of(context).bookDownloads),
                   leading: const Icon(Icons.download),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {

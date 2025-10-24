@@ -17,42 +17,42 @@ class AudiobookPlayerSeekChapterButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final player = ref.watch(audiobookPlayerProvider);
 
-    // add a small offset so the display does not show the previous chapter for a split second
-    const offset = Duration(milliseconds: 10);
+    // // add a small offset so the display does not show the previous chapter for a split second
+    // const offset = Duration(milliseconds: 10);
 
-    /// time into the current chapter to determine if we should go to the previous chapter or the start of the current chapter
-    const doNotSeekBackIfLessThan = Duration(seconds: 5);
+    // /// time into the current chapter to determine if we should go to the previous chapter or the start of the current chapter
+    // const doNotSeekBackIfLessThan = Duration(seconds: 5);
 
-    /// seek forward to the next chapter
-    void seekForward() {
-      final index = player.book!.chapters.indexOf(player.currentChapter!);
-      if (index < player.book!.chapters.length - 1) {
-        player.seek(
-          player.book!.chapters[index + 1].start + offset,
-        );
-      } else {
-        player.seek(player.currentChapter!.end);
-      }
-    }
+    // /// seek forward to the next chapter
+    // void seekForward() {
+    //   final index = player.book!.chapters.indexOf(player.currentChapter!);
+    //   if (index < player.book!.chapters.length - 1) {
+    //     player.seek(
+    //       player.book!.chapters[index + 1].start + offset,
+    //     );
+    //   } else {
+    //     player.seek(player.currentChapter!.end);
+    //   }
+    // }
 
-    /// seek backward to the previous chapter or the start of the current chapter
-    void seekBackward() {
-      final currentPlayingChapterIndex =
-          player.book!.chapters.indexOf(player.currentChapter!);
-      final chapterPosition =
-          player.positionInBook - player.currentChapter!.start;
-      BookChapter chapterToSeekTo;
-      // if player position is less than 5 seconds into the chapter, go to the previous chapter
-      if (chapterPosition < doNotSeekBackIfLessThan &&
-          currentPlayingChapterIndex > 0) {
-        chapterToSeekTo = player.book!.chapters[currentPlayingChapterIndex - 1];
-      } else {
-        chapterToSeekTo = player.currentChapter!;
-      }
-      player.seek(
-        chapterToSeekTo.start + offset,
-      );
-    }
+    // /// seek backward to the previous chapter or the start of the current chapter
+    // void seekBackward() {
+    //   final currentPlayingChapterIndex =
+    //       player.book!.chapters.indexOf(player.currentChapter!);
+    //   final chapterPosition =
+    //       player.positionInBook - player.currentChapter!.start;
+    //   BookChapter chapterToSeekTo;
+    //   // if player position is less than 5 seconds into the chapter, go to the previous chapter
+    //   if (chapterPosition < doNotSeekBackIfLessThan &&
+    //       currentPlayingChapterIndex > 0) {
+    //     chapterToSeekTo = player.book!.chapters[currentPlayingChapterIndex - 1];
+    //   } else {
+    //     chapterToSeekTo = player.currentChapter!;
+    //   }
+    //   player.seek(
+    //     chapterToSeekTo.start + offset,
+    //   );
+    // }
 
     return IconButton(
       icon: Icon(
@@ -69,9 +69,9 @@ class AudiobookPlayerSeekChapterButton extends HookConsumerWidget {
           return;
         }
         if (isForward) {
-          seekForward();
+          player.seekForward();
         } else {
-          seekBackward();
+          player.seekBackward();
         }
       },
     );

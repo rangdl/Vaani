@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/features/downloads/providers/download_manager.dart';
+import 'package:vaani/generated/l10n.dart';
 
 class DownloadsPage extends HookConsumerWidget {
   const DownloadsPage({super.key});
@@ -13,7 +14,7 @@ class DownloadsPage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Downloads'),
+        title: Text(S.of(context).bookDownloads),
       ),
       body: Center(
         // history of downloads

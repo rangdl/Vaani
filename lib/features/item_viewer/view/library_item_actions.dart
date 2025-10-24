@@ -509,6 +509,7 @@ Future<void> libraryItemPlayButtonOnPressed({
 }) async {
   appLogger.info('Pressed play/resume button');
   final player = ref.watch(audiobookPlayerProvider);
+  // final bookSettings = ref.watch(bookSettingsProvider(book.libraryItemId));
 
   final isCurrentBookSetInPlayer = player.book == book;
   final isPlayingThisBook = player.playing && isCurrentBookSetInPlayer;
@@ -554,6 +555,7 @@ Future<void> libraryItemPlayButtonOnPressed({
           ? bookPlayerSettings.preferredDefaultSpeed ?? appPlayerSettings.preferredDefaultSpeed
           : appPlayerSettings.preferredDefaultSpeed,
     ),
+    // player.setClip(start: Duration(seconds: 10)),
   ]);
 
   // toggle play/pause

@@ -12,16 +12,18 @@ import 'package:vaani/features/player/core/init.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart'
     show audiobookPlayerProvider, simpleAudiobookPlayerProvider;
 import 'package:vaani/features/shake_detection/providers/shake_detector.dart';
+import 'package:vaani/features/skip_start_end/skip_start_end_provider.dart';
 import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/api_settings_provider.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
+import 'package:vaani/settings/settings.dart';
 import 'package:vaani/theme/providers/system_theme_provider.dart';
 import 'package:vaani/theme/providers/theme_from_cover_provider.dart';
 import 'package:vaani/theme/theme.dart';
 
-final appLogger = Logger('vaani');
+final appLogger = Logger(AppMetadata.appName);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -171,6 +173,7 @@ class _EagerInitialization extends ConsumerWidget {
       ref.watch(playbackReporterProvider);
       ref.watch(simpleDownloadManagerProvider);
       ref.watch(shakeDetectorProvider);
+      ref.watch(skipStartEndProvider);
     } catch (e) {
       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
       appLogger.severe(e.toString());

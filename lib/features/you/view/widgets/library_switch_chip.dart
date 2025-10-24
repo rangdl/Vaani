@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' show Library;
 import 'package:vaani/api/library_provider.dart';
-import 'package:vaani/settings/api_settings_provider.dart'
-    show apiSettingsProvider;
+import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/settings/api_settings_provider.dart' show apiSettingsProvider;
 import 'package:vaani/shared/icons/abs_icons.dart';
 import 'dart:io' show Platform;
 
@@ -33,7 +33,7 @@ class LibrarySwitchChip extends HookConsumerWidget {
               : libraries.first.icon,
         ),
       ), // Replace with your icon
-      label: const Text('Change Library'),
+      label: Text(S.of(context).libraryChange),
       // Enable only if libraries are loaded and not empty
       onPressed: libraries.isNotEmpty
           ? () => showLibrarySwitcher(
@@ -69,7 +69,7 @@ void showLibrarySwitcher(
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Select Library'),
+        title: Text(S.of(context).librarySelect),
         content: SizedBox(
           // Constrain size for dialogs
           width: 300, // Adjust as needed
@@ -83,11 +83,11 @@ void showLibrarySwitcher(
               ref.invalidate(librariesProvider);
               Navigator.pop(dialogContext);
             },
-            child: const Text('Refresh'),
+            child: Text(S.of(context).refresh),
           ),
           TextButton(
             onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
+            child: Text(S.of(context).cancel),
           ),
         ],
       ),
@@ -99,8 +99,7 @@ void showLibrarySwitcher(
       // Make it scrollable and control height
       isScrollControlled: true,
       constraints: BoxConstraints(
-        maxHeight:
-            MediaQuery.of(context).size.height * 0.6, // Max 60% of screen
+        maxHeight: MediaQuery.of(context).size.height * 0.6, // Max 60% of screen
       ),
       builder: (sheetContext) => Padding(
         // Add padding within the bottom sheet
@@ -108,8 +107,8 @@ void showLibrarySwitcher(
         child: Column(
           mainAxisSize: MainAxisSize.min, // Take minimum necessary height
           children: [
-            const Text(
-              'Select Library',
+            Text(
+              S.of(context).librarySelect,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
@@ -121,7 +120,7 @@ void showLibrarySwitcher(
             const SizedBox(height: 10),
             ElevatedButton.icon(
               icon: const Icon(Icons.refresh),
-              label: const Text('Refresh'),
+              label: Text(S.of(context).refresh),
               onPressed: () {
                 // Invalidate the provider to trigger a refetch
                 ref.invalidate(librariesProvider);
@@ -157,14 +156,14 @@ class _LibrarySelectionContent extends ConsumerWidget {
               Icon(Icons.error_outline, color: errorColor),
               const SizedBox(height: 10),
               Text(
-                'Error loading libraries: $error',
+                S.of(context).libraryLoadError('$error'),
                 textAlign: TextAlign.center,
                 style: TextStyle(color: errorColor),
               ),
               const SizedBox(height: 16),
               ElevatedButton.icon(
                 icon: const Icon(Icons.refresh),
-                label: const Text('Retry'),
+                label: Text(S.of(context).retry),
                 onPressed: () {
                   // Invalidate the provider to trigger a refetch
                   ref.invalidate(librariesProvider);
@@ -179,10 +178,10 @@ class _LibrarySelectionContent extends ConsumerWidget {
       data: (libraries) {
         // Handle case where data loaded successfully but is empty
         if (libraries.isEmpty) {
-          return const Center(
+          return Center(
             child: Padding(
               padding: EdgeInsets.all(16.0),
-              child: Text('No libraries available.'),
+              child: Text(S.of(context).libraryEmpty),
             ),
           );
         }

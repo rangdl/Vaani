@@ -32,6 +32,12 @@ _$NullablePlayerSettingsImpl _$$NullablePlayerSettingsImplFromJson(
           ? null
           : Duration(
               microseconds: (json['playbackReportInterval'] as num).toInt()),
+      skipChapterStart: json['skipChapterStart'] == null
+          ? const Duration()
+          : Duration(microseconds: (json['skipChapterStart'] as num).toInt()),
+      skipChapterEnd: json['skipChapterEnd'] == null
+          ? const Duration()
+          : Duration(microseconds: (json['skipChapterEnd'] as num).toInt()),
     );
 
 Map<String, dynamic> _$$NullablePlayerSettingsImplToJson(
@@ -44,4 +50,6 @@ Map<String, dynamic> _$$NullablePlayerSettingsImplToJson(
       'speedOptions': instance.speedOptions,
       'sleepTimerSettings': instance.sleepTimerSettings,
       'playbackReportInterval': instance.playbackReportInterval?.inMicroseconds,
+      'skipChapterStart': instance.skipChapterStart.inMicroseconds,
+      'skipChapterEnd': instance.skipChapterEnd.inMicroseconds,
     };

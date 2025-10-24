@@ -24,8 +24,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(item) => "Deleted ${item}";
 
+  static String m2(error) => "Error loading libraries: ${error}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "account": MessageLookupByLibrary.simpleMessage("Account"),
+    "accountSwitch": MessageLookupByLibrary.simpleMessage("Switch Account"),
     "appSettings": MessageLookupByLibrary.simpleMessage("App Settings"),
     "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
     "autoTurnOnSleepTimer": MessageLookupByLibrary.simpleMessage(
@@ -42,11 +46,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "bookAboutDefault": MessageLookupByLibrary.simpleMessage(
       "Sorry, no description found",
     ),
+    "bookAuthors": MessageLookupByLibrary.simpleMessage("Authors"),
+    "bookDownloads": MessageLookupByLibrary.simpleMessage("Downloads"),
+    "bookGenres": MessageLookupByLibrary.simpleMessage("Genres"),
     "bookMetadataAbridged": MessageLookupByLibrary.simpleMessage("Abridged"),
     "bookMetadataLength": MessageLookupByLibrary.simpleMessage("Length"),
     "bookMetadataPublished": MessageLookupByLibrary.simpleMessage("Published"),
     "bookMetadataUnabridged": MessageLookupByLibrary.simpleMessage(
       "Unabridged",
+    ),
+    "bookSeries": MessageLookupByLibrary.simpleMessage("Series"),
+    "bookShelveEmpty": MessageLookupByLibrary.simpleMessage("Try again"),
+    "bookShelveEmptyText": MessageLookupByLibrary.simpleMessage(
+      "No shelves to display",
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "copyToClipboard": MessageLookupByLibrary.simpleMessage(
@@ -62,11 +74,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "deleteDialog": m0,
     "deleted": m1,
     "explore": MessageLookupByLibrary.simpleMessage("explore"),
+    "exploreHint": MessageLookupByLibrary.simpleMessage(
+      "Seek and you shall discover...",
+    ),
     "exploreTooltip": MessageLookupByLibrary.simpleMessage(
       "Search and Explore",
     ),
     "general": MessageLookupByLibrary.simpleMessage("General"),
+    "help": MessageLookupByLibrary.simpleMessage("Help"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "homeBookContinueListening": MessageLookupByLibrary.simpleMessage(
+      "Continue Listening",
+    ),
+    "homeBookContinueSeries": MessageLookupByLibrary.simpleMessage(
+      "Continue Series",
+    ),
+    "homeBookDiscover": MessageLookupByLibrary.simpleMessage("Discover"),
+    "homeBookListenAgain": MessageLookupByLibrary.simpleMessage("Listen Again"),
+    "homeBookNewestAuthors": MessageLookupByLibrary.simpleMessage(
+      "Newest Authors",
+    ),
+    "homeBookRecentlyAdded": MessageLookupByLibrary.simpleMessage(
+      "Recently Added",
+    ),
+    "homeBookRecommended": MessageLookupByLibrary.simpleMessage("Recommended"),
     "homeContinueListening": MessageLookupByLibrary.simpleMessage(
       "Continue Listening",
     ),
@@ -85,10 +116,22 @@ class MessageLookup extends MessageLookupByLibrary {
       "Language switch",
     ),
     "library": MessageLookupByLibrary.simpleMessage("Library"),
+    "libraryChange": MessageLookupByLibrary.simpleMessage("Change Library"),
+    "libraryEmpty": MessageLookupByLibrary.simpleMessage(
+      "No libraries available.",
+    ),
+    "libraryLoadError": m2,
+    "librarySelect": MessageLookupByLibrary.simpleMessage("Select Library"),
+    "librarySwitchTooltip": MessageLookupByLibrary.simpleMessage(
+      "Switch Library",
+    ),
     "libraryTooltip": MessageLookupByLibrary.simpleMessage(
       "Browse your library",
     ),
+    "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
+    "logs": MessageLookupByLibrary.simpleMessage("Logs"),
     "no": MessageLookupByLibrary.simpleMessage("No"),
+    "notImplemented": MessageLookupByLibrary.simpleMessage("Not implemented"),
     "notificationMediaPlayer": MessageLookupByLibrary.simpleMessage(
       "Notification Media Player",
     ),
@@ -102,8 +145,38 @@ class MessageLookup extends MessageLookupByLibrary {
     "playerSettingsDescription": MessageLookupByLibrary.simpleMessage(
       "Customize the player settings",
     ),
+    "playerSettingsPlaybackReporting": MessageLookupByLibrary.simpleMessage(
+      "Playback Reporting",
+    ),
+    "playerSettingsPlaybackReportingIgnore":
+        MessageLookupByLibrary.simpleMessage(
+          "Ignore Playback Position Less Than",
+        ),
+    "playerSettingsPlaybackReportingMinimum":
+        MessageLookupByLibrary.simpleMessage("Minimum Position to Report"),
+    "playerSettingsPlaybackReportingMinimumDescriptionHead":
+        MessageLookupByLibrary.simpleMessage(
+          "Do not report playback for the first ",
+        ),
+    "playerSettingsPlaybackReportingMinimumDescriptionTail":
+        MessageLookupByLibrary.simpleMessage("of the book"),
+    "playerSettingsRememberForEveryBook": MessageLookupByLibrary.simpleMessage(
+      "Remember Player Settings for Every Book",
+    ),
+    "playerSettingsRememberForEveryBookDescription":
+        MessageLookupByLibrary.simpleMessage(
+          "Settings like speed, loudness, etc. will be remembered for every book",
+        ),
+    "playerSettingsSpeedDefault": MessageLookupByLibrary.simpleMessage(
+      "Default Speed",
+    ),
+    "playerSettingsSpeedOptions": MessageLookupByLibrary.simpleMessage(
+      "Speed Options",
+    ),
+    "playlistsMine": MessageLookupByLibrary.simpleMessage("My Playlists"),
     "readLess": MessageLookupByLibrary.simpleMessage("Read Less"),
     "readMore": MessageLookupByLibrary.simpleMessage("Read More"),
+    "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
     "reset": MessageLookupByLibrary.simpleMessage("Reset"),
     "resetAppSettings": MessageLookupByLibrary.simpleMessage(
       "Reset App Settings",
@@ -132,6 +205,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Restore the app settings from the backup",
     ),
     "resume": MessageLookupByLibrary.simpleMessage("Resume"),
+    "retry": MessageLookupByLibrary.simpleMessage("Retry"),
+    "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "shakeDetector": MessageLookupByLibrary.simpleMessage("Shake Detector"),
     "shakeDetectorDescription": MessageLookupByLibrary.simpleMessage(
       "Customize the shake detector settings",
@@ -141,6 +216,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Customize the app theme",
     ),
     "unknown": MessageLookupByLibrary.simpleMessage("Unknown"),
+    "webVersion": MessageLookupByLibrary.simpleMessage("Web Version"),
     "yes": MessageLookupByLibrary.simpleMessage("Yes"),
     "you": MessageLookupByLibrary.simpleMessage("You"),
     "youTooltip": MessageLookupByLibrary.simpleMessage(

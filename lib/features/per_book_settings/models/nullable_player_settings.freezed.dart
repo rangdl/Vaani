@@ -31,6 +31,8 @@ mixin _$NullablePlayerSettings {
   SleepTimerSettings? get sleepTimerSettings =>
       throw _privateConstructorUsedError;
   Duration? get playbackReportInterval => throw _privateConstructorUsedError;
+  Duration get skipChapterStart => throw _privateConstructorUsedError;
+  Duration get skipChapterEnd => throw _privateConstructorUsedError;
 
   /// Serializes this NullablePlayerSettings to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,7 +57,9 @@ abstract class $NullablePlayerSettingsCopyWith<$Res> {
       double? preferredDefaultSpeed,
       List<double>? speedOptions,
       SleepTimerSettings? sleepTimerSettings,
-      Duration? playbackReportInterval});
+      Duration? playbackReportInterval,
+      Duration skipChapterStart,
+      Duration skipChapterEnd});
 
   $MinimizedPlayerSettingsCopyWith<$Res>? get miniPlayerSettings;
   $ExpandedPlayerSettingsCopyWith<$Res>? get expandedPlayerSettings;
@@ -85,6 +89,8 @@ class _$NullablePlayerSettingsCopyWithImpl<$Res,
     Object? speedOptions = freezed,
     Object? sleepTimerSettings = freezed,
     Object? playbackReportInterval = freezed,
+    Object? skipChapterStart = null,
+    Object? skipChapterEnd = null,
   }) {
     return _then(_value.copyWith(
       miniPlayerSettings: freezed == miniPlayerSettings
@@ -115,6 +121,14 @@ class _$NullablePlayerSettingsCopyWithImpl<$Res,
           ? _value.playbackReportInterval
           : playbackReportInterval // ignore: cast_nullable_to_non_nullable
               as Duration?,
+      skipChapterStart: null == skipChapterStart
+          ? _value.skipChapterStart
+          : skipChapterStart // ignore: cast_nullable_to_non_nullable
+              as Duration,
+      skipChapterEnd: null == skipChapterEnd
+          ? _value.skipChapterEnd
+          : skipChapterEnd // ignore: cast_nullable_to_non_nullable
+              as Duration,
     ) as $Val);
   }
 
@@ -180,7 +194,9 @@ abstract class _$$NullablePlayerSettingsImplCopyWith<$Res>
       double? preferredDefaultSpeed,
       List<double>? speedOptions,
       SleepTimerSettings? sleepTimerSettings,
-      Duration? playbackReportInterval});
+      Duration? playbackReportInterval,
+      Duration skipChapterStart,
+      Duration skipChapterEnd});
 
   @override
   $MinimizedPlayerSettingsCopyWith<$Res>? get miniPlayerSettings;
@@ -212,6 +228,8 @@ class __$$NullablePlayerSettingsImplCopyWithImpl<$Res>
     Object? speedOptions = freezed,
     Object? sleepTimerSettings = freezed,
     Object? playbackReportInterval = freezed,
+    Object? skipChapterStart = null,
+    Object? skipChapterEnd = null,
   }) {
     return _then(_$NullablePlayerSettingsImpl(
       miniPlayerSettings: freezed == miniPlayerSettings
@@ -242,6 +260,14 @@ class __$$NullablePlayerSettingsImplCopyWithImpl<$Res>
           ? _value.playbackReportInterval
           : playbackReportInterval // ignore: cast_nullable_to_non_nullable
               as Duration?,
+      skipChapterStart: null == skipChapterStart
+          ? _value.skipChapterStart
+          : skipChapterStart // ignore: cast_nullable_to_non_nullable
+              as Duration,
+      skipChapterEnd: null == skipChapterEnd
+          ? _value.skipChapterEnd
+          : skipChapterEnd // ignore: cast_nullable_to_non_nullable
+              as Duration,
     ));
   }
 }
@@ -256,7 +282,9 @@ class _$NullablePlayerSettingsImpl implements _NullablePlayerSettings {
       this.preferredDefaultSpeed,
       final List<double>? speedOptions,
       this.sleepTimerSettings,
-      this.playbackReportInterval})
+      this.playbackReportInterval,
+      this.skipChapterStart = const Duration(),
+      this.skipChapterEnd = const Duration()})
       : _speedOptions = speedOptions;
 
   factory _$NullablePlayerSettingsImpl.fromJson(Map<String, dynamic> json) =>
@@ -284,10 +312,16 @@ class _$NullablePlayerSettingsImpl implements _NullablePlayerSettings {
   final SleepTimerSettings? sleepTimerSettings;
   @override
   final Duration? playbackReportInterval;
+  @override
+  @JsonKey()
+  final Duration skipChapterStart;
+  @override
+  @JsonKey()
+  final Duration skipChapterEnd;
 
   @override
   String toString() {
-    return 'NullablePlayerSettings(miniPlayerSettings: $miniPlayerSettings, expandedPlayerSettings: $expandedPlayerSettings, preferredDefaultVolume: $preferredDefaultVolume, preferredDefaultSpeed: $preferredDefaultSpeed, speedOptions: $speedOptions, sleepTimerSettings: $sleepTimerSettings, playbackReportInterval: $playbackReportInterval)';
+    return 'NullablePlayerSettings(miniPlayerSettings: $miniPlayerSettings, expandedPlayerSettings: $expandedPlayerSettings, preferredDefaultVolume: $preferredDefaultVolume, preferredDefaultSpeed: $preferredDefaultSpeed, speedOptions: $speedOptions, sleepTimerSettings: $sleepTimerSettings, playbackReportInterval: $playbackReportInterval, skipChapterStart: $skipChapterStart, skipChapterEnd: $skipChapterEnd)';
   }
 
   @override
@@ -308,7 +342,11 @@ class _$NullablePlayerSettingsImpl implements _NullablePlayerSettings {
             (identical(other.sleepTimerSettings, sleepTimerSettings) ||
                 other.sleepTimerSettings == sleepTimerSettings) &&
             (identical(other.playbackReportInterval, playbackReportInterval) ||
-                other.playbackReportInterval == playbackReportInterval));
+                other.playbackReportInterval == playbackReportInterval) &&
+            (identical(other.skipChapterStart, skipChapterStart) ||
+                other.skipChapterStart == skipChapterStart) &&
+            (identical(other.skipChapterEnd, skipChapterEnd) ||
+                other.skipChapterEnd == skipChapterEnd));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -321,7 +359,9 @@ class _$NullablePlayerSettingsImpl implements _NullablePlayerSettings {
       preferredDefaultSpeed,
       const DeepCollectionEquality().hash(_speedOptions),
       sleepTimerSettings,
-      playbackReportInterval);
+      playbackReportInterval,
+      skipChapterStart,
+      skipChapterEnd);
 
   /// Create a copy of NullablePlayerSettings
   /// with the given fields replaced by the non-null parameter values.
@@ -348,7 +388,9 @@ abstract class _NullablePlayerSettings implements NullablePlayerSettings {
       final double? preferredDefaultSpeed,
       final List<double>? speedOptions,
       final SleepTimerSettings? sleepTimerSettings,
-      final Duration? playbackReportInterval}) = _$NullablePlayerSettingsImpl;
+      final Duration? playbackReportInterval,
+      final Duration skipChapterStart,
+      final Duration skipChapterEnd}) = _$NullablePlayerSettingsImpl;
 
   factory _NullablePlayerSettings.fromJson(Map<String, dynamic> json) =
       _$NullablePlayerSettingsImpl.fromJson;
@@ -367,6 +409,10 @@ abstract class _NullablePlayerSettings implements NullablePlayerSettings {
   SleepTimerSettings? get sleepTimerSettings;
   @override
   Duration? get playbackReportInterval;
+  @override
+  Duration get skipChapterStart;
+  @override
+  Duration get skipChapterEnd;
 
   /// Create a copy of NullablePlayerSettings
   /// with the given fields replaced by the non-null parameter values.

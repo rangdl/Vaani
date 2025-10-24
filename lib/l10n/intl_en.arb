@@ -5,7 +5,9 @@
     "no": "No",
     "ok": "OK",
     "cancel": "Cancel",
+    "refresh": "Refresh",
     "reset": "Reset",
+    "retry": "Retry",
     "delete": "Delete",
     "deleteDialog": "Are you sure you want to delete {item}?",
     "@deleteDialog": {
@@ -31,31 +33,74 @@
     "unknown": "Unknown",
     "readMore": "Read More",
     "readLess": "Read Less",
+    "loading": "Loading...",
+    "help": "Help",
 
     "home": "Home",
     "homeListenAgain": "Listen Again",
     "homeContinueListening": "Continue Listening",
     "homeStartListening": "Start Listening",
+    "homeBookContinueListening": "Continue Listening",
+    "homeBookContinueSeries": "Continue Series",
+    "homeBookRecentlyAdded": "Recently Added",
+    "homeBookRecommended": "Recommended",
+    "homeBookDiscover": "Discover",
+    "homeBookListenAgain": "Listen Again",
+    "homeBookNewestAuthors": "Newest Authors",
     "bookAbout": "About the Book",
     "bookAboutDefault": "Sorry, no description found",
     "bookMetadataAbridged": "Abridged",
     "bookMetadataUnabridged": "Unabridged",
     "bookMetadataLength": "Length",
     "bookMetadataPublished": "Published",
+    "bookShelveEmpty": "Try again",
+    "bookShelveEmptyText": "No shelves to display",
+    "bookAuthors": "Authors",
+    "bookGenres": "Genres",
+    "bookSeries": "Series",
+    "bookDownloads": "Downloads",
 
     "library": "Library",
     "libraryTooltip": "Browse your library",
+    "librarySwitchTooltip": "Switch Library",
+    "libraryChange": "Change Library",
+    "librarySelect": "Select Library",
+    "libraryEmpty": "No libraries available.",
+    "libraryLoadError": "Error loading libraries: {error}",
+    "@libraryLoadError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
     "explore": "explore",
     "exploreTooltip": "Search and Explore",
+    "exploreHint": "Seek and you shall discover...",
     "you": "You",
     "youTooltip": "Your Profile and Settings",
     
+    "settings": "Settings",
+    "account": "Account",
+    "accountSwitch": "Switch Account",
+    "playlistsMine": "My Playlists",
+    "webVersion": "Web Version",
+
     "appSettings": "App Settings",
     "general": "General",
     "language": "Language",
     "languageDescription": "Language switch",
     "playerSettings": "Player Settings",
     "playerSettingsDescription": "Customize the player settings",
+    "playerSettingsRememberForEveryBook": "Remember Player Settings for Every Book",
+    "playerSettingsRememberForEveryBookDescription": "Settings like speed, loudness, etc. will be remembered for every book",
+    "playerSettingsSpeedDefault": "Default Speed",
+    "playerSettingsSpeedOptions": "Speed Options",
+    "playerSettingsPlaybackReporting": "Playback Reporting",
+    "playerSettingsPlaybackReportingMinimum": "Minimum Position to Report",
+    "playerSettingsPlaybackReportingMinimumDescriptionHead": "Do not report playback for the first ",
+    "playerSettingsPlaybackReportingMinimumDescriptionTail": "of the book",
+    "playerSettingsPlaybackReportingIgnore": "Ignore Playback Position Less Than",
     "autoTurnOnSleepTimer": "Auto Turn On Sleep Timer",
     "automaticallyDescription": "Automatically turn on the sleep timer based on the time of day",
     "shakeDetector": "Shake Detector",
@@ -82,6 +127,11 @@
     
     "resetAppSettings": "Reset App Settings",
     "resetAppSettingsDescription": "Reset the app settings to the default values",
-    "resetAppSettingsDialog": "Are you sure you want to reset the app settings?"
+    "resetAppSettingsDialog": "Are you sure you want to reset the app settings?",
 
+
+
+
+    "logs": "Logs",
+    "notImplemented": "Not implemented"
 }

@@ -5,6 +5,7 @@ import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/library_provider.dart' show librariesProvider;
 import 'package:vaani/features/player/view/mini_player_bottom_padding.dart';
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/constants.dart';
 import 'package:vaani/shared/utils.dart';
@@ -25,7 +26,7 @@ class YouPage extends HookConsumerWidget {
         // title: const Text('You'),
         actions: [
           IconButton(
-            tooltip: 'Logs',
+            tooltip: S.of(context).logs,
             icon: const Icon(Icons.bug_report),
             onPressed: () {
               context.pushNamed(Routes.logs.name);
@@ -38,7 +39,7 @@ class YouPage extends HookConsumerWidget {
           //   },
           // ),
           IconButton(
-            tooltip: 'Settings',
+            tooltip: S.of(context).settings,
             icon: const Icon(Icons.settings),
             onPressed: () {
               context.pushNamed(Routes.settings.name);
@@ -61,14 +62,13 @@ class YouPage extends HookConsumerWidget {
                     children: [
                       ActionChip(
                         avatar: const Icon(Icons.switch_account_outlined),
-                        label: const Text('Switch Account'),
+                        label: Text(S.of(context).accountSwitch),
                         onPressed: () {
                           context.pushNamed(Routes.userManagement.name);
                         },
                       ),
                       librariesAsyncValue.when(
-                        data: (libraries) =>
-                            LibrarySwitchChip(libraries: libraries),
+                        data: (libraries) => LibrarySwitchChip(libraries: libraries),
                         loading: () => const ActionChip(
                           avatar: SizedBox(
                             width: 18,
@@ -88,13 +88,13 @@ class YouPage extends HookConsumerWidget {
                             // Maybe show error details or allow retry
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content:
-                                    Text('Failed to load libraries: $error'),
+                                content: Text('Failed to load libraries: $error'),
                               ),
                             );
                           },
                         ),
-                      ), // ActionChip(
+                      ),
+                      // ActionChip(
                       //   avatar: const Icon(Icons.logout),
                       //   label: const Text('Logout'),
                       //   onPressed: () {
@@ -113,7 +113,7 @@ class YouPage extends HookConsumerWidget {
                   const SizedBox(height: 16),
                   ListTile(
                     leading: const Icon(Icons.playlist_play),
-                    title: const Text('My Playlists'),
+                    title: Text(S.of(context).playlistsMine),
                     onTap: () {
                       // Handle navigation to playlists
                       showNotImplementedToast(context);
@@ -121,7 +121,7 @@ class YouPage extends HookConsumerWidget {
                   ),
                   ListTile(
                     leading: const Icon(Icons.web),
-                    title: const Text('Web Version'),
+                    title: Text(S.of(context).webVersion),
                     onTap: () {
                       handleLaunchUrl(
                         // get url from api and launch it
@@ -131,7 +131,7 @@ class YouPage extends HookConsumerWidget {
                   ),
                   ListTile(
                     leading: const Icon(Icons.help),
-                    title: const Text('Help'),
+                    title: Text(S.of(context).help),
                     onTap: () {
                       // Handle navigation to help website
                       showNotImplementedToast(context);
@@ -141,8 +141,7 @@ class YouPage extends HookConsumerWidget {
                     icon: const Icon(Icons.info),
                     applicationName: AppMetadata.appName,
                     applicationVersion: AppMetadata.version,
-                    applicationLegalese:
-                        'Made with ❤️ by ${AppMetadata.author}',
+                    applicationLegalese: 'Made with ❤️ by ${AppMetadata.author}',
                     aboutBoxChildren: [
                       // link to github repo
                       ListTile(
@@ -217,8 +216,7 @@ class UserBar extends HookConsumerWidget {
                 Text(
                   api.baseUrl.toString(),
                   style: textTheme.bodyMedium?.copyWith(
-                    color:
-                        themeData.colorScheme.onSurface.withValues(alpha: 0.6),
+                    color: themeData.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
               ],

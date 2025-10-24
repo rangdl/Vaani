@@ -5,8 +5,10 @@
     "no": "否",
     "ok": "确定",
     "cancel": "取消",
+    "refresh": "刷新",
     "reset": "重置",
-    "delete": "Delete",
+    "retry": "重试",
+    "delete": "删除",
     "deleteDialog": "确定要删除 {item} 吗？",
     "@deleteDialog": {
         "placeholders": {
@@ -31,20 +33,58 @@
     "unknown": "未知",
     "readMore": "展开",
     "readLess": "折叠",
+    "loading": "加载中...",
+    "help": "Help",
 
     "home": "首页",
     "homeListenAgain": "再听一遍",
     "homeContinueListening": "继续收听",
     "homeStartListening": "开始收听",
+    "homeBookContinueListening": "继续收听",
+    "homeBookContinueSeries": "继续系列",
+    "homeBookRecentlyAdded": "最近添加",
+    "homeBookRecommended": "推荐",
+    "homeBookDiscover": "发现",
+    "homeBookListenAgain": "再听一遍",
+    "homeBookNewestAuthors": "最新作者",
     "bookAbout": "关于本书",
     "bookAboutDefault": "抱歉，找不到描述",
+    "bookMetadataAbridged": "删节版",
+    "bookMetadataUnabridged": "未删节版",
+    "bookMetadataLength": "持续时间",
+    "bookMetadataPublished": "发布年份",
+    "bookShelveEmpty": "重试",
+    "bookShelveEmptyText": "未查询到书架",
+    "bookAuthors": "作者",
+    "bookGenres": "风格",
+    "bookSeries": "系列",
+    "bookDownloads": "下载",
 
     "library": "媒体库",
     "libraryTooltip": "浏览您的媒体库",
+    "librarySwitchTooltip": "切换媒体库",
+    "libraryChange": "更改媒体库",
+    "librarySelect": "选择媒体库",
+    "libraryEmpty": "没有可用的库。",
+    "libraryLoadError": "加载库时出错：{error}",
+    "@libraryLoadError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
     "explore": "探索",
     "exploreTooltip": "搜索和探索",
+    "exploreHint": "搜索与探索...",
     "you": "我的",
     "youTooltip": "您的个人资料和设置",
+
+    "settings": "设置",
+    "account": "账户",
+    "accountSwitch": "切换账户",
+    "playlistsMine": "播放列表",
+    "webVersion": "Web版本",
 
     "appSettings": "应用设置",
     "general": "通用",
@@ -52,9 +92,17 @@
     "languageDescription": "语言切换",
     "playerSettings": "播放器设置",
     "playerSettingsDescription": "自定义播放器设置",
+    "playerSettingsRememberForEveryBook": "记住每本书的播放器设置",
+    "playerSettingsRememberForEveryBookDescription": "每本书都会记住播放速度、音量等设置",
+    "playerSettingsSpeedDefault": "默认播放速度",
+    "playerSettingsSpeedOptions": "播放速度选项",
+    "playerSettingsPlaybackReporting": "回放报告",
+    "playerSettingsPlaybackReportingMinimum": "回放报告最小位置",
+    "playerSettingsPlaybackReportingMinimumDescriptionHead": "不要报告本书前 ",
+    "playerSettingsPlaybackReportingMinimumDescriptionTail": " 的播放",
+    "playerSettingsPlaybackReportingIgnore": "忽略播放位置小于",
     "autoTurnOnSleepTimer": "自动开启睡眠定时器",
     "automaticallyDescription": "根据一天中的时间自动打开睡眠定时器",
-
     "shakeDetector": "抖动检测器",
     "shakeDetectorDescription": "自定义抖动检测器设置",
     "appearance": "外观",
@@ -79,6 +127,8 @@
     
     "resetAppSettings": "重置应用程序设置",
     "resetAppSettingsDescription": "将应用程序设置重置为默认值",
-    "resetAppSettingsDialog": "您确定要重置应用程序设置吗？"
+    "resetAppSettingsDialog": "您确定要重置应用程序设置吗？",
 
+    "logs": "日志",
+    "notImplemented": "未实现"
 }

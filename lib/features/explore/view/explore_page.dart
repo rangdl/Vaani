@@ -11,6 +11,7 @@ import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/features/explore/providers/search_controller.dart';
 import 'package:vaani/features/explore/view/search_result_page.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/api_settings_provider.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
@@ -29,7 +30,7 @@ class ExplorePage extends HookConsumerWidget {
     final api = ref.watch(authenticatedApiProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Explore'),
+        title: Text(S.of(context).explore),
       ),
       body: const MySearchBar(),
     );
@@ -61,8 +62,8 @@ class MySearchBar extends HookConsumerWidget {
       currentQuery = query;
 
       // In a real application, there should be some error handling here.
-      final options = await api.libraries
-          .search(libraryId: settings.activeLibraryId!, query: query, limit: 3);
+      final options =
+          await api.libraries.search(libraryId: settings.activeLibraryId!, query: query, limit: 3);
 
       // If another search happened after this one, throw away these options.
       if (currentQuery != query) {
@@ -93,14 +94,11 @@ class MySearchBar extends HookConsumerWidget {
           // "Seek and you shall find... your next book!"
           // "Let's uncover your next favorite book..."
           // "Ready to dive into a new story?"
-          hintText: 'Seek and you shall discover...',
+          hintText: S.of(context).exploreHint,
           // opacity: 0.5 for the hint text
           hintStyle: WidgetStatePropertyAll(
             Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onSurface
-                      .withValues(alpha: 0.5),
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                 ),
           ),
           textInputAction: TextInputAction.search,
@@ -137,7 +135,7 @@ class MySearchBar extends HookConsumerWidget {
         // debugPrint('options: $options');
         if (options == null) {
           // TODO: show loading indicator or failure message
-          return <Widget>[const ListTile(title: Text('Loading...'))];
+          return <Widget>[ListTile(title: Text(S.of(context).loading))];
         }
         // see if BookLibrarySearchResponse or PodcastLibrarySearchResponse
         if (options is BookLibrarySearchResponse) {
@@ -233,9 +231,8 @@ class BookSearchResultMini extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final item = ref.watch(libraryItemProvider(book.libraryItemId)).valueOrNull;
-    final image = item == null
-        ? const AsyncValue.loading()
-        : ref.watch(coverImageProvider(item.id));
+    final image =
+        item == null ? const AsyncValue.loading() : ref.watch(coverImageProvider(item.id));
     return ListTile(
       leading: SizedBox(
         width: 50,

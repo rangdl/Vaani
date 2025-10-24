@@ -51,7 +51,18 @@ class AudiobookPlayer extends AudioPlayer {
   AudiobookPlayer(this.token, this.baseUrl) : super() {
     // set the source of the player to the first track in the book
     _logger.config('Setting up audiobook player');
+    // currentIndexStream.listen((index) {
+    //   print('播放器已切换到第 $index 首曲目');
+    //   skip = true;
+    // });
+    // positionStream.listen((position) {
+    //   if (skip != null && skip! && position.inSeconds < 20) {
+    //     super.seek(Duration(seconds: 20));
+    //     print('播放 $position');
+    //   }
+    // });
   }
+  bool? skip;
 
   /// the [BookExpanded] being played
   BookExpanded? _book;
@@ -114,9 +125,8 @@ class AudiobookPlayer extends AudioPlayer {
     // initialPosition ;
     final trackToPlay = getTrackToPlay(book, initialPosition ?? Duration.zero);
     final initialIndex = book.tracks.indexOf(trackToPlay);
-    final initialPositionInTrack = initialPosition != null
-        ? initialPosition - trackToPlay.startOffset
-        : null;
+    final initialPositionInTrack =
+        initialPosition != null ? initialPosition - trackToPlay.startOffset : null;
 
     _logger.finer('Setting audioSource');
     await setAudioSource(
@@ -126,8 +136,7 @@ class AudiobookPlayer extends AudioPlayer {
       ConcatenatingAudioSource(
         useLazyPreparation: true,
         children: book.tracks.map((track) {
-          final retrievedUri =
-              _getUri(track, downloadedUris, baseUrl: baseUrl, token: token);
+          final retrievedUri = _getUri(track, downloadedUris, baseUrl: baseUrl, token: token);
           _logger.fine(
             'Setting source for track: ${track.title}, URI: ${retrievedUri.obfuscate()}',
           );
@@ -137,10 +146,8 @@ class AudiobookPlayer extends AudioPlayer {
               // Specify a unique ID for each media item:
               id: book.libraryItemId + track.index.toString(),
               // Metadata to display in the notification:
-              title: appSettings.notificationSettings.primaryTitle
-                  .formatNotificationTitle(book),
-              album: appSettings.notificationSettings.secondaryTitle
-                  .formatNotificationTitle(book),
+              title: appSettings.notificationSettings.primaryTitle.formatNotificationTitle(book),
+              album: appSettings.notificationSettings.secondaryTitle.formatNotificationTitle(book),
               artUri: artworkUri ??
                   Uri.parse(
                     '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token&width=800',
@@ -172,7 +179,10 @@ class AudiobookPlayer extends AudioPlayer {
   /// so we need to calculate the duration and current position based on the book
 
   @override
-  Future<void> seek(Duration? positionInBook, {int? index}) async {
+  Future<void> seek(Duration? positionInBook, {int? index, bool b = true}) async {
+    if (!b) {
+      return super.seek(positionInBook, index: index);
+    }
     if (_book == null) {
       _logger.warning('No book is set, not seeking');
       return;
@@ -183,9 +193,43 @@ class AudiobookPlayer extends AudioPlayer {
     }
     final tracks = _book!.tracks;
     final trackToPlay = getTrackToPlay(_book!, positionInBook);
-    final index = tracks.indexOf(trackToPlay);
+    final i = tracks.indexOf(trackToPlay);
     final positionInTrack = positionInBook - trackToPlay.startOffset;
-    return super.seek(positionInTrack, index: index);
+    return super.seek(positionInTrack, index: i);
+  }
+
+  // add a small offset so the display does not show the previous chapter for a split second
+  final offset = Duration(milliseconds: 10);
+
+  /// time into the current chapter to determine if we should go to the previous chapter or the start of the current chapter
+  final doNotSeekBackIfLessThan = Duration(seconds: 5);
+
+  /// seek forward to the next chapter
+  void seekForward() {
+    final index = _book!.chapters.indexOf(currentChapter!);
+    if (index < _book!.chapters.length - 1) {
+      seek(
+        _book!.chapters[index + 1].start + offset,
+      );
+    } else {
+      seek(currentChapter!.end);
+    }
+  }
+
+  /// seek backward to the previous chapter or the start of the current chapter
+  void seekBackward() {
+    final currentPlayingChapterIndex = _book!.chapters.indexOf(currentChapter!);
+    final chapterPosition = positionInBook - currentChapter!.start;
+    BookChapter chapterToSeekTo;
+    // if player position is less than 5 seconds into the chapter, go to the previous chapter
+    if (chapterPosition < doNotSeekBackIfLessThan && currentPlayingChapterIndex > 0) {
+      chapterToSeekTo = _book!.chapters[currentPlayingChapterIndex - 1];
+    } else {
+      chapterToSeekTo = currentChapter!;
+    }
+    seek(
+      chapterToSeekTo.start + offset,
+    );
   }
 
   /// a convenience method to get position in the book instead of the current track position
@@ -201,8 +245,7 @@ class AudiobookPlayer extends AudioPlayer {
     if (_book == null) {
       return Duration.zero;
     }
-    return bufferedPosition +
-        _book!.tracks[sequenceState!.currentIndex].startOffset;
+    return bufferedPosition + _book!.tracks[sequenceState!.currentIndex].startOffset;
   }
 
   /// streams to override to suit the book instead of the current track
@@ -277,8 +320,7 @@ Uri _getUri(
     },
   );
 
-  return uri ??
-      Uri.parse('${baseUrl.toString()}${track.contentUrl}?token=$token');
+  return uri ?? Uri.parse('${baseUrl.toString()}${track.contentUrl}?token=$token');
 }
 
 extension FormatNotificationTitle on String {

@@ -74,9 +74,19 @@ class S {
     return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
   }
 
+  /// `Refresh`
+  String get refresh {
+    return Intl.message('Refresh', name: 'refresh', desc: '', args: []);
+  }
+
   /// `Reset`
   String get reset {
     return Intl.message('Reset', name: 'reset', desc: '', args: []);
+  }
+
+  /// `Retry`
+  String get retry {
+    return Intl.message('Retry', name: 'retry', desc: '', args: []);
   }
 
   /// `Delete`
@@ -134,6 +144,16 @@ class S {
     return Intl.message('Read Less', name: 'readLess', desc: '', args: []);
   }
 
+  /// `Loading...`
+  String get loading {
+    return Intl.message('Loading...', name: 'loading', desc: '', args: []);
+  }
+
+  /// `Help`
+  String get help {
+    return Intl.message('Help', name: 'help', desc: '', args: []);
+  }
+
   /// `Home`
   String get home {
     return Intl.message('Home', name: 'home', desc: '', args: []);
@@ -164,6 +184,76 @@ class S {
     return Intl.message(
       'Start Listening',
       name: 'homeStartListening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue Listening`
+  String get homeBookContinueListening {
+    return Intl.message(
+      'Continue Listening',
+      name: 'homeBookContinueListening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue Series`
+  String get homeBookContinueSeries {
+    return Intl.message(
+      'Continue Series',
+      name: 'homeBookContinueSeries',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recently Added`
+  String get homeBookRecentlyAdded {
+    return Intl.message(
+      'Recently Added',
+      name: 'homeBookRecentlyAdded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recommended`
+  String get homeBookRecommended {
+    return Intl.message(
+      'Recommended',
+      name: 'homeBookRecommended',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discover`
+  String get homeBookDiscover {
+    return Intl.message(
+      'Discover',
+      name: 'homeBookDiscover',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Listen Again`
+  String get homeBookListenAgain {
+    return Intl.message(
+      'Listen Again',
+      name: 'homeBookListenAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Newest Authors`
+  String get homeBookNewestAuthors {
+    return Intl.message(
+      'Newest Authors',
+      name: 'homeBookNewestAuthors',
       desc: '',
       args: [],
     );
@@ -229,6 +319,46 @@ class S {
     );
   }
 
+  /// `Try again`
+  String get bookShelveEmpty {
+    return Intl.message(
+      'Try again',
+      name: 'bookShelveEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No shelves to display`
+  String get bookShelveEmptyText {
+    return Intl.message(
+      'No shelves to display',
+      name: 'bookShelveEmptyText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Authors`
+  String get bookAuthors {
+    return Intl.message('Authors', name: 'bookAuthors', desc: '', args: []);
+  }
+
+  /// `Genres`
+  String get bookGenres {
+    return Intl.message('Genres', name: 'bookGenres', desc: '', args: []);
+  }
+
+  /// `Series`
+  String get bookSeries {
+    return Intl.message('Series', name: 'bookSeries', desc: '', args: []);
+  }
+
+  /// `Downloads`
+  String get bookDownloads {
+    return Intl.message('Downloads', name: 'bookDownloads', desc: '', args: []);
+  }
+
   /// `Library`
   String get library {
     return Intl.message('Library', name: 'library', desc: '', args: []);
@@ -241,6 +371,56 @@ class S {
       name: 'libraryTooltip',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Switch Library`
+  String get librarySwitchTooltip {
+    return Intl.message(
+      'Switch Library',
+      name: 'librarySwitchTooltip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Library`
+  String get libraryChange {
+    return Intl.message(
+      'Change Library',
+      name: 'libraryChange',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Library`
+  String get librarySelect {
+    return Intl.message(
+      'Select Library',
+      name: 'librarySelect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No libraries available.`
+  String get libraryEmpty {
+    return Intl.message(
+      'No libraries available.',
+      name: 'libraryEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error loading libraries: {error}`
+  String libraryLoadError(String error) {
+    return Intl.message(
+      'Error loading libraries: $error',
+      name: 'libraryLoadError',
+      desc: '',
+      args: [error],
     );
   }
 
@@ -259,6 +439,16 @@ class S {
     );
   }
 
+  /// `Seek and you shall discover...`
+  String get exploreHint {
+    return Intl.message(
+      'Seek and you shall discover...',
+      name: 'exploreHint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `You`
   String get you {
     return Intl.message('You', name: 'you', desc: '', args: []);
@@ -272,6 +462,41 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
+
+  /// `Account`
+  String get account {
+    return Intl.message('Account', name: 'account', desc: '', args: []);
+  }
+
+  /// `Switch Account`
+  String get accountSwitch {
+    return Intl.message(
+      'Switch Account',
+      name: 'accountSwitch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Playlists`
+  String get playlistsMine {
+    return Intl.message(
+      'My Playlists',
+      name: 'playlistsMine',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Web Version`
+  String get webVersion {
+    return Intl.message('Web Version', name: 'webVersion', desc: '', args: []);
   }
 
   /// `App Settings`
@@ -319,6 +544,96 @@ class S {
     return Intl.message(
       'Customize the player settings',
       name: 'playerSettingsDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remember Player Settings for Every Book`
+  String get playerSettingsRememberForEveryBook {
+    return Intl.message(
+      'Remember Player Settings for Every Book',
+      name: 'playerSettingsRememberForEveryBook',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings like speed, loudness, etc. will be remembered for every book`
+  String get playerSettingsRememberForEveryBookDescription {
+    return Intl.message(
+      'Settings like speed, loudness, etc. will be remembered for every book',
+      name: 'playerSettingsRememberForEveryBookDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Default Speed`
+  String get playerSettingsSpeedDefault {
+    return Intl.message(
+      'Default Speed',
+      name: 'playerSettingsSpeedDefault',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Speed Options`
+  String get playerSettingsSpeedOptions {
+    return Intl.message(
+      'Speed Options',
+      name: 'playerSettingsSpeedOptions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Playback Reporting`
+  String get playerSettingsPlaybackReporting {
+    return Intl.message(
+      'Playback Reporting',
+      name: 'playerSettingsPlaybackReporting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minimum Position to Report`
+  String get playerSettingsPlaybackReportingMinimum {
+    return Intl.message(
+      'Minimum Position to Report',
+      name: 'playerSettingsPlaybackReportingMinimum',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do not report playback for the first `
+  String get playerSettingsPlaybackReportingMinimumDescriptionHead {
+    return Intl.message(
+      'Do not report playback for the first ',
+      name: 'playerSettingsPlaybackReportingMinimumDescriptionHead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `of the book`
+  String get playerSettingsPlaybackReportingMinimumDescriptionTail {
+    return Intl.message(
+      'of the book',
+      name: 'playerSettingsPlaybackReportingMinimumDescriptionTail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ignore Playback Position Less Than`
+  String get playerSettingsPlaybackReportingIgnore {
+    return Intl.message(
+      'Ignore Playback Position Less Than',
+      name: 'playerSettingsPlaybackReportingIgnore',
       desc: '',
       args: [],
     );
@@ -564,6 +879,21 @@ class S {
     return Intl.message(
       'Are you sure you want to reset the app settings?',
       name: 'resetAppSettingsDialog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logs`
+  String get logs {
+    return Intl.message('Logs', name: 'logs', desc: '', args: []);
+  }
+
+  /// `Not implemented`
+  String get notImplemented {
+    return Intl.message(
+      'Not implemented',
+      name: 'notImplemented',
       desc: '',
       args: [],
     );

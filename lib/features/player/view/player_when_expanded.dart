@@ -5,6 +5,7 @@ import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/player/providers/player_form.dart';
 import 'package:vaani/features/player/view/audiobook_player.dart';
+import 'package:vaani/features/skip_start_end/player_skip_chapter_start_end.dart';
 import 'package:vaani/features/sleep_timer/view/sleep_timer_button.dart';
 import 'package:vaani/shared/extensions/inverse_lerp.dart';
 import 'package:vaani/shared/widgets/not_implemented.dart';
@@ -245,6 +246,9 @@ class PlayerWhenExpanded extends HookConsumerWidget {
                   const Spacer(),
                   // chapter list
                   const ChapterSelectionButton(),
+                  const Spacer(),
+                  // 跳过片头片尾
+                  SkipChapterStartEndButton(),
                   // settings
                   // IconButton(
                   //   icon: const Icon(Icons.more_horiz),

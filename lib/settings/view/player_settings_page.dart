@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
 import 'package:vaani/settings/view/buttons.dart';
 import 'package:vaani/settings/view/simple_settings_page.dart';
@@ -20,7 +21,7 @@ class PlayerSettingsPage extends HookConsumerWidget {
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     return SimpleSettingsPage(
-      title: const Text('Player Settings'),
+      title: Text(S.of(context).playerSettings),
       sections: [
         SettingsSection(
           margin: const EdgeInsetsDirectional.symmetric(
@@ -30,10 +31,10 @@ class PlayerSettingsPage extends HookConsumerWidget {
           tiles: [
             // preferred settings for every book
             SettingsTile.switchTile(
-              title: const Text('Remember Player Settings for Every Book'),
+              title: Text(S.of(context).playerSettingsRememberForEveryBook),
               leading: const Icon(Icons.settings_applications),
-              description: const Text(
-                'Settings like speed, loudness, etc. will be remembered for every book',
+              description: Text(
+                S.of(context).playerSettingsRememberForEveryBookDescription,
               ),
               initialValue: playerSettings.configurePlayerForEveryBook,
               onToggle: (value) {
@@ -47,11 +48,10 @@ class PlayerSettingsPage extends HookConsumerWidget {
 
             // preferred default speed
             SettingsTile(
-              title: const Text('Default Speed'),
+              title: Text(S.of(context).playerSettingsSpeedDefault),
               trailing: Text(
                 '${playerSettings.preferredDefaultSpeed}x',
-                style:
-                    TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
+                style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
               ),
               leading: const Icon(Icons.speed),
               onPressed: (context) async {
@@ -72,11 +72,10 @@ class PlayerSettingsPage extends HookConsumerWidget {
             ),
             // preferred speed options
             SettingsTile(
-              title: const Text('Speed Options'),
+              title: Text(S.of(context).playerSettingsSpeedOptions),
               description: Text(
                 playerSettings.speedOptions.map((e) => '${e}x').join(', '),
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: primaryColor),
+                style: TextStyle(fontWeight: FontWeight.bold, color: primaryColor),
               ),
               leading: const Icon(Icons.speed),
               onPressed: (context) async {
@@ -100,23 +99,23 @@ class PlayerSettingsPage extends HookConsumerWidget {
 
         // Playback Reporting
         SettingsSection(
-          title: const Text('Playback Reporting'),
+          title: Text(S.of(context).playerSettingsPlaybackReporting),
           tiles: [
             SettingsTile(
-              title: const Text('Minimum Position to Report'),
+              title: Text(S.of(context).playerSettingsPlaybackReportingMinimum),
               description: Text.rich(
                 TextSpan(
-                  text: 'Do not report playback for the first ',
+                  text: S.of(context).playerSettingsPlaybackReportingMinimumDescriptionHead,
                   children: [
                     TextSpan(
-                      text: playerSettings
-                          .minimumPositionForReporting.smartBinaryFormat,
+                      text: playerSettings.minimumPositionForReporting.smartBinaryFormat,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: primaryColor,
                       ),
                     ),
-                    const TextSpan(text: ' of the book'),
+                    TextSpan(
+                        text: S.of(context).playerSettingsPlaybackReportingMinimumDescriptionTail),
                   ],
                 ),
               ),
@@ -126,7 +125,7 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   context: context,
                   builder: (context) {
                     return TimeDurationSelector(
-                      title: const Text('Ignore Playback Position Less Than'),
+                      title: Text(S.of(context).playerSettingsPlaybackReportingIgnore),
                       baseUnit: BaseUnit.second,
                       initialValue: playerSettings.minimumPositionForReporting,
                     );
@@ -149,8 +148,7 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   text: 'Mark complete when less than ',
                   children: [
                     TextSpan(
-                      text: playerSettings
-                          .markCompleteWhenTimeLeft.smartBinaryFormat,
+                      text: playerSettings.markCompleteWhenTimeLeft.smartBinaryFormat,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: primaryColor,
@@ -189,8 +187,7 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   text: 'Report progress every ',
                   children: [
                     TextSpan(
-                      text: playerSettings
-                          .playbackReportInterval.smartBinaryFormat,
+                      text: playerSettings.playbackReportInterval.smartBinaryFormat,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: primaryColor,
@@ -234,8 +231,7 @@ class PlayerSettingsPage extends HookConsumerWidget {
               description: const Text(
                 'Show the total progress of the book in the player',
               ),
-              initialValue:
-                  playerSettings.expandedPlayerSettings.showTotalProgress,
+              initialValue: playerSettings.expandedPlayerSettings.showTotalProgress,
               onToggle: (value) {
                 ref.read(appSettingsProvider.notifier).update(
                       appSettings.copyWith.playerSettings
@@ -250,13 +246,11 @@ class PlayerSettingsPage extends HookConsumerWidget {
               description: const Text(
                 'Show the progress of the current chapter in the player',
               ),
-              initialValue:
-                  playerSettings.expandedPlayerSettings.showChapterProgress,
+              initialValue: playerSettings.expandedPlayerSettings.showChapterProgress,
               onToggle: (value) {
                 ref.read(appSettingsProvider.notifier).update(
                       appSettings.copyWith.playerSettings(
-                        expandedPlayerSettings: playerSettings
-                            .expandedPlayerSettings
+                        expandedPlayerSettings: playerSettings.expandedPlayerSettings
                             .copyWith(showChapterProgress: value),
                       ),
                     );
@@ -315,8 +309,7 @@ class SpeedPicker extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final speedController =
-        useTextEditingController(text: initialValue.toString());
+    final speedController = useTextEditingController(text: initialValue.toString());
     final speed = useState<double?>(initialValue);
     return AlertDialog(
       title: const Text('Select Speed'),
@@ -375,8 +368,7 @@ class SpeedOptionsPicker extends HookConsumerWidget {
                     onDeleted: speed == 1
                         ? null
                         : () {
-                            speedOptions.value =
-                                speedOptions.value.where((element) {
+                            speedOptions.value = speedOptions.value.where((element) {
                               // speed option 1 can't be removed
                               return element != speed;
                             }).toList();
