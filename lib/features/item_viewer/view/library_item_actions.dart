@@ -555,7 +555,6 @@ Future<void> libraryItemPlayButtonOnPressed({
           ? bookPlayerSettings.preferredDefaultSpeed ?? appPlayerSettings.preferredDefaultSpeed
           : appPlayerSettings.preferredDefaultSpeed,
     ),
-    // player.setClip(start: Duration(seconds: 10)),
   ]);
 
   // toggle play/pause

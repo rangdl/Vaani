@@ -220,9 +220,10 @@ class AudiobookChapterProgressBar extends HookConsumerWidget {
           : currentChapter.end - currentChapter.start,
       // ! TODO add onSeek
       onSeek: (duration) {
-        player.seekInBook(
-          duration + (currentChapter?.start ?? const Duration(seconds: 0)),
-        );
+        // player.seekInBook(
+        //   duration + (currentChapter?.start ?? const Duration(seconds: 0)),
+        // );
+        player.seek(duration);
       },
       thumbRadius: 8,
       buffered: currentChapterBuffered ?? buffered.data ?? const Duration(seconds: 0),

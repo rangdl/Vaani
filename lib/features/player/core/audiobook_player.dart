@@ -52,6 +52,11 @@ class AudiobookPlayer extends AudioPlayer {
   AudiobookPlayer(this.token, this.baseUrl) : super() {
     // set the source of the player to the first track in the book
     _logger.config('Setting up audiobook player');
+    playerStateStream.listen((playerState) {
+      if (playerState.processingState == ProcessingState.completed) {
+        Future.microtask(seekToNext);
+      }
+    });
   }
 
   /// the [BookExpanded] being played
@@ -76,7 +81,7 @@ class AudiobookPlayer extends AudioPlayer {
 
   // available audio tracks
   int? get availableTracks => _book?.tracks.length;
-  List<Uri>? downloadedUris;
+  List<Uri>? _downloadedUris;
 
   /// sets the current [AudioTrack] as the source of the player
   Future<void> setSourceAudiobook(
@@ -107,7 +112,7 @@ class AudiobookPlayer extends AudioPlayer {
     await stop();
 
     _book = book;
-
+    _downloadedUris = downloadedUris;
     // some calculations to set the initial index and position
     // initialPosition is of the entire book not just the current track
     // hence first we need to calculate the current track which will be used to set the initial position
@@ -157,14 +162,15 @@ class AudiobookPlayer extends AudioPlayer {
     if (_book == null) {
       return stop();
     }
-    if (index == _currentIndex) {
+    if (_currentIndex != 0 && index == _currentIndex) {
       return;
     }
+    _currentIndex = index;
     AudioTrack track = _book!.tracks[index];
     final appSettings = loadOrCreateAppSettings();
     final playerSettings = readFromBoxOrCreate(_book!.libraryItemId).playerSettings;
 
-    final retrievedUri = _getUri(track, downloadedUris, baseUrl: baseUrl, token: token);
+    final retrievedUri = _getUri(track, _downloadedUris, baseUrl: baseUrl, token: token);
 
     await setAudioSource(
       initialPosition: initialPosition == null || initialPosition <= Duration()
@@ -226,10 +232,7 @@ class AudiobookPlayer extends AudioPlayer {
   /// this is because the book can be a list of audio files and the player is only aware of the current track
   /// so we need to calculate the duration and current position based on the book
 
-  Future<void> seekInBook(Duration? positionInBook, {int? index, bool b = true}) async {
-    if (!b) {
-      return super.seek(positionInBook, index: index);
-    }
+  Future<void> seekInBook(Duration? positionInBook, {int? index}) async {
     if (_book == null) {
       _logger.warning('No book is set, not seeking');
       return;
@@ -242,7 +245,8 @@ class AudiobookPlayer extends AudioPlayer {
     final trackToPlay = getTrackToPlay(_book!, positionInBook);
     final i = tracks.indexOf(trackToPlay);
     final positionInTrack = positionInBook - trackToPlay.startOffset;
-    return super.seek(positionInTrack, index: i);
+    return setAudioSourceTrack(i, initialPosition: positionInTrack);
+    // return super.seek(positionInTrack, index: i);
   }
 
   // add a small offset so the display does not show the previous chapter for a split second
@@ -253,14 +257,15 @@ class AudiobookPlayer extends AudioPlayer {
 
   /// seek forward to the next chapter
   void seekForward() {
-    final index = _book!.chapters.indexOf(currentChapter!);
-    if (index < _book!.chapters.length - 1) {
-      super.seek(
-        _book!.chapters[index + 1].start + offset,
-      );
-    } else {
-      super.seek(currentChapter!.end);
-    }
+    seekToNext();
+    // final index = _book!.chapters.indexOf(currentChapter!);
+    // if (index < _book!.chapters.length - 1) {
+    //   super.seek(
+    //     _book!.chapters[index + 1].start + offset,
+    //   );
+    // } else {
+    //   super.seek(currentChapter!.end);
+    // }
   }
 
   @override
@@ -268,7 +273,7 @@ class AudiobookPlayer extends AudioPlayer {
     if (_currentIndex >= availableTracks!) {
       return super.seek(duration);
     }
-    return setAudioSourceTrack(_currentIndex++);
+    return setAudioSourceTrack(_currentIndex + 1);
   }
 
   @override
@@ -276,23 +281,24 @@ class AudiobookPlayer extends AudioPlayer {
     if (_currentIndex == 0) {
       return super.seek(Duration());
     }
-    return setAudioSourceTrack(_currentIndex--);
+    return setAudioSourceTrack(_currentIndex - 1);
   }
 
   /// seek backward to the previous chapter or the start of the current chapter
   void seekBackward() {
-    final currentPlayingChapterIndex = _book!.chapters.indexOf(currentChapter!);
-    final chapterPosition = positionInBook - currentChapter!.start;
-    BookChapter chapterToSeekTo;
-    // if player position is less than 5 seconds into the chapter, go to the previous chapter
-    if (chapterPosition < doNotSeekBackIfLessThan && currentPlayingChapterIndex > 0) {
-      chapterToSeekTo = _book!.chapters[currentPlayingChapterIndex - 1];
-    } else {
-      chapterToSeekTo = currentChapter!;
-    }
-    super.seek(
-      chapterToSeekTo.start + offset,
-    );
+    seekToPrevious();
+    // final currentPlayingChapterIndex = _book!.chapters.indexOf(currentChapter!);
+    // final chapterPosition = positionInBook - currentChapter!.start;
+    // BookChapter chapterToSeekTo;
+    // // if player position is less than 5 seconds into the chapter, go to the previous chapter
+    // if (chapterPosition < doNotSeekBackIfLessThan && currentPlayingChapterIndex > 0) {
+    //   chapterToSeekTo = _book!.chapters[currentPlayingChapterIndex - 1];
+    // } else {
+    //   chapterToSeekTo = currentChapter!;
+    // }
+    // super.seek(
+    //   chapterToSeekTo.start + offset,
+    // );
   }
 
   /// a convenience method to get position in the book instead of the current track position
