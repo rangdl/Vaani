@@ -195,7 +195,7 @@ jobs:
             dist/*/*.zip
   
   build_ios_macos:
-    # needs: test
+    needs: test
     runs-on: macos-latest
     permissions:
       contents: write
