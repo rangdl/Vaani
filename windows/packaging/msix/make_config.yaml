@@ -1,0 +1,7 @@
+display_name: Vaani
+publisher_display_name: rang
+identity_name: com.rang.vaani
+logo_path: assets/icon/icon.png
+capabilities: internetClient, location, microphone, webcam
+languages: en-us
+install_certificate: "false"
