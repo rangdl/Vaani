@@ -221,6 +221,25 @@ jobs:
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
+      - name: Build IPA
+        run: |
+          flutter build ios --release --no-codesign
+
+      - name: Create IPA
+        run: |
+          mkdir build/ios/iphoneos/Payload
+          cp -R build/ios/iphoneos/Runner.app build/ios/iphoneos/Payload/Runner.app
+          cd build/ios/iphoneos/
+          zip -q -r ios_no_sign.ipa Payload
+          cd ../../..
+
+      - name: Upload IPA to Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-release-artifacts
+          path: |
+            build/ios/iphoneos/ios_no_sign.ipa
+
       - name: Build MacOS
         run: |
           flutter_distributor package --platform macos --targets dmg,zip --skip-clean
@@ -274,6 +293,12 @@ jobs:
         with:
           name: macos-release-artifacts
           path: ./release-artifacts/macos
+      
+      - name: Download IOS Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ios-release-artifacts
+          path: ./release-artifacts/ios
 
       - name: List downloaded files (for debugging)
         run: ls -R ./release-artifacts
