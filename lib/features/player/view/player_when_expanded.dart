@@ -105,7 +105,10 @@ class PlayerWhenExpanded extends HookConsumerWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withValues(alpha: 0.1),
                     blurRadius: 32 * earlyPercentage,
                     spreadRadius: 8 * earlyPercentage,
                     // offset: Offset(0, 16 * earlyPercentage),
@@ -171,7 +174,10 @@ class PlayerWhenExpanded extends HookConsumerWidget {
                   currentBookMetadata?.authorName ?? '',
                 ].join(' - '),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.7),
                     ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

@@ -36,7 +36,8 @@ class PlayerWhenMinimized extends HookConsumerWidget {
     final vanishingPercentage = 1 - percentageMiniplayer;
     // final progress =
     //     useStream(player.slowPositionStreamInBook, initialData: Duration.zero);
-    final progress = useStream(player.positionStream, initialData: Duration.zero);
+    final progress =
+        useStream(player.positionStream, initialData: Duration.zero);
 
     final bookMetaExpanded = ref.watch(currentBookMetadataProvider);
 
@@ -58,7 +59,8 @@ class PlayerWhenMinimized extends HookConsumerWidget {
                   context.pushNamed(
                     Routes.libraryItem.name,
                     pathParameters: {
-                      Routes.libraryItem.pathParamName!: player.book!.libraryItemId,
+                      Routes.libraryItem.pathParamName!:
+                          player.book!.libraryItemId,
                     },
                   );
                 },
@@ -92,7 +94,10 @@ class PlayerWhenMinimized extends HookConsumerWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.7),
                           ),
                     ),
                   ],
@@ -138,7 +143,8 @@ class PlayerWhenMinimized extends HookConsumerWidget {
           child: LinearProgressIndicator(
             // value: (progress.data ?? Duration.zero).inSeconds /
             //     player.book!.duration.inSeconds,
-            value: (progress.data ?? Duration.zero).inSeconds / player.duration!.inSeconds,
+            value: (progress.data ?? Duration.zero).inSeconds /
+                player.duration!.inSeconds,
             color: Theme.of(context).colorScheme.onPrimaryContainer,
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           ),
