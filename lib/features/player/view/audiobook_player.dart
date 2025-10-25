@@ -31,8 +31,7 @@ class AudiobookPlayer extends HookConsumerWidget {
     if (currentBook == null) {
       return const SizedBox.shrink();
     }
-    final itemBeingPlayed =
-        ref.watch(libraryItemProvider(currentBook.libraryItemId));
+    final itemBeingPlayed = ref.watch(libraryItemProvider(currentBook.libraryItemId));
     final player = ref.watch(audiobookPlayerProvider);
     final imageOfItemBeingPlayed = itemBeingPlayed.valueOrNull != null
         ? ref.watch(
@@ -65,8 +64,7 @@ class AudiobookPlayer extends HookConsumerWidget {
       themeOfLibraryItemProvider(
         itemBeingPlayed.valueOrNull?.id,
         brightness: Theme.of(context).brightness,
-        highContrast: appSettings.themeSettings.highContrast ||
-            MediaQuery.of(context).highContrast,
+        highContrast: appSettings.themeSettings.highContrast || MediaQuery.of(context).highContrast,
       ),
     );
 
@@ -88,8 +86,7 @@ class AudiobookPlayer extends HookConsumerWidget {
         onDragDown: (percentage) async {
           // preferred volume
           // set volume to 0 when dragging down
-          await player
-              .setVolume(preferredVolume * (1 - percentage.clamp(0, .75)));
+          await player.setVolume(preferredVolume * (1 - percentage.clamp(0, .75)));
         },
         minHeight: playerMinHeight,
         // subtract the height of notches and other system UI
@@ -109,10 +106,8 @@ class AudiobookPlayer extends HookConsumerWidget {
           // at what point should the player switch from miniplayer to expanded player
           // also at this point the image should be at its max size and in the center of the player
           final miniplayerPercentageDeclaration =
-              (maxImgSize - playerMinHeight) /
-                  (playerMaxHeight - playerMinHeight);
-          final bool isFormMiniplayer =
-              percentage < miniplayerPercentageDeclaration;
+              (maxImgSize - playerMinHeight) / (playerMaxHeight - playerMinHeight);
+          final bool isFormMiniplayer = percentage < miniplayerPercentageDeclaration;
 
           if (!isFormMiniplayer) {
             // this calculation needs a refactor
@@ -212,17 +207,14 @@ class AudiobookChapterProgressBar extends HookConsumerWidget {
 
     // now find the chapter that corresponds to the current time
     // and calculate the progress of the current chapter
-    final currentChapterProgress = currentChapter == null
-        ? null
-        : (player.positionInBook - currentChapter.start);
+    final currentChapterProgress =
+        currentChapter == null ? null : (player.positionInBook - currentChapter.start);
 
-    final currentChapterBuffered = currentChapter == null
-        ? null
-        : (player.bufferedPositionInBook - currentChapter.start);
+    final currentChapterBuffered =
+        currentChapter == null ? null : (player.bufferedPositionInBook - currentChapter.start);
 
     return ProgressBar(
-      progress:
-          currentChapterProgress ?? position.data ?? const Duration(seconds: 0),
+      progress: currentChapterProgress ?? position.data ?? const Duration(seconds: 0),
       total: currentChapter == null
           ? player.book?.duration ?? const Duration(seconds: 0)
           : currentChapter.end - currentChapter.start,
@@ -234,8 +226,31 @@ class AudiobookChapterProgressBar extends HookConsumerWidget {
         player.seek(duration);
       },
       thumbRadius: 8,
-      buffered:
-          currentChapterBuffered ?? buffered.data ?? const Duration(seconds: 0),
+      buffered: currentChapterBuffered ?? buffered.data ?? const Duration(seconds: 0),
+      bufferedBarColor: Theme.of(context).colorScheme.secondary,
+      timeLabelType: TimeLabelType.remainingTime,
+      timeLabelLocation: TimeLabelLocation.below,
+    );
+  }
+}
+
+class AudiobookProgressBar extends HookConsumerWidget {
+  const AudiobookProgressBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final player = ref.watch(audiobookPlayerProvider);
+    final position = useStream(
+      player.slowPositionStreamInBook,
+      initialData: const Duration(seconds: 0),
+    );
+
+    return ProgressBar(
+      progress: position.data ?? const Duration(seconds: 0),
+      total: player.book?.duration ?? const Duration(seconds: 0),
+      thumbRadius: 8,
       bufferedBarColor: Theme.of(context).colorScheme.secondary,
       timeLabelType: TimeLabelType.remainingTime,
       timeLabelLocation: TimeLabelLocation.below,

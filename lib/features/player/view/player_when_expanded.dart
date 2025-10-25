@@ -105,10 +105,7 @@ class PlayerWhenExpanded extends HookConsumerWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .primary
-                        .withValues(alpha: 0.1),
+                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                     blurRadius: 32 * earlyPercentage,
                     spreadRadius: 8 * earlyPercentage,
                     // offset: Offset(0, 16 * earlyPercentage),
@@ -174,10 +171,7 @@ class PlayerWhenExpanded extends HookConsumerWidget {
                   currentBookMetadata?.authorName ?? '',
                 ].join(' - '),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withValues(alpha: 0.7),
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -200,6 +194,23 @@ class PlayerWhenExpanded extends HookConsumerWidget {
                   right: AppElementSizes.paddingRegular * earlyPercentage,
                 ),
                 child: const AudiobookChapterProgressBar(),
+              ),
+            ),
+          ),
+        ),
+
+        Expanded(
+          child: Opacity(
+            opacity: earlyPercentage,
+            child: SizedBox(
+              width: imageSize,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  // top: AppElementSizes.paddingRegular * earlyPercentage,
+                  left: AppElementSizes.paddingRegular * earlyPercentage,
+                  right: AppElementSizes.paddingRegular * earlyPercentage,
+                ),
+                child: const AudiobookProgressBar(),
               ),
             ),
           ),
