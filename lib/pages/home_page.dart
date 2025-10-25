@@ -7,7 +7,8 @@ import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/main.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/api_settings_provider.dart';
-import 'package:vaani/settings/app_settings_provider.dart' show appSettingsProvider;
+import 'package:vaani/settings/app_settings_provider.dart'
+    show appSettingsProvider;
 import 'package:vaani/settings/constants.dart';
 
 import '../shared/widgets/shelves/home_shelf.dart';
@@ -72,9 +73,12 @@ class HomePage extends HookConsumerWidget {
               // check if showPlayButton is enabled for the shelf
               // using the id of the shelf
               final showPlayButton = switch (shelf.id) {
-                'continue-listening' => homePageSettings.showPlayButtonOnContinueListeningShelf,
-                'continue-series' => homePageSettings.showPlayButtonOnContinueSeriesShelf,
-                'listen-again' => homePageSettings.showPlayButtonOnListenAgainShelf,
+                'continue-listening' =>
+                  homePageSettings.showPlayButtonOnContinueListeningShelf,
+                'continue-series' =>
+                  homePageSettings.showPlayButtonOnContinueSeriesShelf,
+                'listen-again' =>
+                  homePageSettings.showPlayButtonOnListenAgainShelf,
                 _ => homePageSettings.showPlayButtonOnAllRemainingShelves,
               };
               final showLabel = switch (shelf.label) {
@@ -111,7 +115,8 @@ class HomePage extends HookConsumerWidget {
           },
           loading: () => const HomePageSkeleton(),
           error: (error, stack) {
-            if (apiSettings.activeUser == null || apiSettings.activeServer == null) {
+            if (apiSettings.activeUser == null ||
+                apiSettings.activeServer == null) {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

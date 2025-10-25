@@ -77,9 +77,11 @@ class LibraryItemActions extends HookConsumerWidget {
                       IconButton(
                         onPressed: () {
                           appLogger.fine('Sharing');
-                          var currentServerUrl = apiSettings.activeServer!.serverUrl;
+                          var currentServerUrl =
+                              apiSettings.activeServer!.serverUrl;
                           if (!currentServerUrl.hasScheme) {
-                            currentServerUrl = Uri.https(currentServerUrl.toString());
+                            currentServerUrl =
+                                Uri.https(currentServerUrl.toString());
                           }
                           handleLaunchUrl(
                             Uri.parse(
@@ -138,7 +140,8 @@ class LibraryItemActions extends HookConsumerWidget {
                                                         FileDownloader()
                                                             .database
                                                             .deleteRecordWithId(
-                                                              record.task.taskId,
+                                                              record
+                                                                  .task.taskId,
                                                             );
                                                         Navigator.pop(context);
                                                       },
@@ -157,7 +160,8 @@ class LibraryItemActions extends HookConsumerWidget {
                                           },
                                           onTap: () async {
                                             // open the file location
-                                            final didOpen = await FileDownloader().openFile(
+                                            final didOpen =
+                                                await FileDownloader().openFile(
                                               task: record.task,
                                             );
 
@@ -226,7 +230,9 @@ class LibItemDownloadButton extends HookConsumerWidget {
             onPressed: () {
               appLogger.fine('Pressed download button');
 
-              ref.read(downloadManagerProvider.notifier).queueAudioBookDownload(item);
+              ref
+                  .read(downloadManagerProvider.notifier)
+                  .queueAudioBookDownload(item);
             },
             icon: const Icon(
               Icons.download_rounded,
@@ -245,7 +251,10 @@ class ItemCurrentlyInDownloadQueue extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final progress = ref.watch(itemDownloadProgressProvider(item.id)).valueOrNull?.clamp(0.05, 1.0);
+    final progress = ref
+        .watch(itemDownloadProgressProvider(item.id))
+        .valueOrNull
+        ?.clamp(0.05, 1.0);
 
     if (progress == 1) {
       return AlreadyItemDownloadedButton(item: item);
@@ -333,7 +342,7 @@ class DownloadSheet extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final manager = ref.watch(downloadManagerProvider);
+    // final manager = ref.watch(downloadManagerProvider);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -377,7 +386,9 @@ class DownloadSheet extends HookConsumerWidget {
                     TextButton(
                       onPressed: () {
                         // delete the file
-                        ref.read(downloadManagerProvider.notifier).deleteDownloadedItem(
+                        ref
+                            .read(downloadManagerProvider.notifier)
+                            .deleteDownloadedItem(
                               item,
                             );
                         GoRouter.of(context).pop(true);
@@ -396,7 +407,8 @@ class DownloadSheet extends HookConsumerWidget {
             );
 
             if (wasDeleted ?? false) {
-              appLogger.fine(S.of(context).deleted(item.media.metadata.title ?? ''));
+              appLogger
+                  .fine(S.of(context).deleted(item.media.metadata.title ?? ''));
               GoRouter.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -520,7 +532,8 @@ Future<void> libraryItemPlayButtonOnPressed({
     appLogger.info('Setting the book ${book.libraryItemId}');
     appLogger.info('Initial position: ${userMediaProgress?.currentTime}');
     final downloadManager = ref.watch(simpleDownloadManagerProvider);
-    final libItem = await ref.read(libraryItemProvider(book.libraryItemId).future);
+    final libItem =
+        await ref.read(libraryItemProvider(book.libraryItemId).future);
     final downloadedUris = await downloadManager.getDownloadedFilesUri(libItem);
     setSourceFuture = player.setSourceAudiobook(
       book,
@@ -536,23 +549,27 @@ Future<void> libraryItemPlayButtonOnPressed({
     }
   }
   // set the volume as this is the first time playing and dismissing causes the volume to go to 0
-  var bookPlayerSettings = ref.read(bookSettingsProvider(book.libraryItemId)).playerSettings;
+  var bookPlayerSettings =
+      ref.read(bookSettingsProvider(book.libraryItemId)).playerSettings;
   var appPlayerSettings = ref.read(appSettingsProvider).playerSettings;
 
-  var configurePlayerForEveryBook = appPlayerSettings.configurePlayerForEveryBook;
+  var configurePlayerForEveryBook =
+      appPlayerSettings.configurePlayerForEveryBook;
 
   await Future.wait([
     setSourceFuture ?? Future.value(),
     // set the volume
     player.setVolume(
       configurePlayerForEveryBook
-          ? bookPlayerSettings.preferredDefaultVolume ?? appPlayerSettings.preferredDefaultVolume
+          ? bookPlayerSettings.preferredDefaultVolume ??
+              appPlayerSettings.preferredDefaultVolume
           : appPlayerSettings.preferredDefaultVolume,
     ),
     // set the speed
     player.setSpeed(
       configurePlayerForEveryBook
-          ? bookPlayerSettings.preferredDefaultSpeed ?? appPlayerSettings.preferredDefaultSpeed
+          ? bookPlayerSettings.preferredDefaultSpeed ??
+              appPlayerSettings.preferredDefaultSpeed
           : appPlayerSettings.preferredDefaultSpeed,
     ),
   ]);

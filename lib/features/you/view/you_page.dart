@@ -68,7 +68,8 @@ class YouPage extends HookConsumerWidget {
                         },
                       ),
                       librariesAsyncValue.when(
-                        data: (libraries) => LibrarySwitchChip(libraries: libraries),
+                        data: (libraries) =>
+                            LibrarySwitchChip(libraries: libraries),
                         loading: () => const ActionChip(
                           avatar: SizedBox(
                             width: 18,
@@ -88,7 +89,8 @@ class YouPage extends HookConsumerWidget {
                             // Maybe show error details or allow retry
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Failed to load libraries: $error'),
+                                content:
+                                    Text('Failed to load libraries: $error'),
                               ),
                             );
                           },
@@ -141,7 +143,8 @@ class YouPage extends HookConsumerWidget {
                     icon: const Icon(Icons.info),
                     applicationName: AppMetadata.appName,
                     applicationVersion: AppMetadata.version,
-                    applicationLegalese: 'Made with ❤️ by ${AppMetadata.author}',
+                    applicationLegalese:
+                        'Made with ❤️ by ${AppMetadata.author}',
                     aboutBoxChildren: [
                       // link to github repo
                       ListTile(
@@ -216,7 +219,8 @@ class UserBar extends HookConsumerWidget {
                 Text(
                   api.baseUrl.toString(),
                   style: textTheme.bodyMedium?.copyWith(
-                    color: themeData.colorScheme.onSurface.withValues(alpha: 0.6),
+                    color:
+                        themeData.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
               ],

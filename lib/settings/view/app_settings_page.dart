@@ -128,7 +128,8 @@ class AppSettingsPage extends HookConsumerWidget {
             SettingsTile(
               title: Text(S.of(context).notificationMediaPlayer),
               leading: const Icon(Icons.play_lesson),
-              description: Text(S.of(context).notificationMediaPlayerDescription),
+              description:
+                  Text(S.of(context).notificationMediaPlayerDescription),
               onPressed: (context) {
                 context.pushNamed(Routes.notificationSettings.name);
               },

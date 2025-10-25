@@ -3,7 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' show Library;
 import 'package:vaani/api/library_provider.dart';
 import 'package:vaani/generated/l10n.dart';
-import 'package:vaani/settings/api_settings_provider.dart' show apiSettingsProvider;
+import 'package:vaani/settings/api_settings_provider.dart'
+    show apiSettingsProvider;
 import 'package:vaani/shared/icons/abs_icons.dart';
 import 'dart:io' show Platform;
 
@@ -99,7 +100,8 @@ void showLibrarySwitcher(
       // Make it scrollable and control height
       isScrollControlled: true,
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.6, // Max 60% of screen
+        maxHeight:
+            MediaQuery.of(context).size.height * 0.6, // Max 60% of screen
       ),
       builder: (sheetContext) => Padding(
         // Add padding within the bottom sheet

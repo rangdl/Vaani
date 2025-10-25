@@ -116,7 +116,8 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
               // extended: false,
               destinations: _navigationItems(context).map((item) {
                 final isDestinationLibrary = item.name == S.of(context).library;
-                var currentLibrary = ref.watch(currentLibraryProvider).valueOrNull;
+                var currentLibrary =
+                    ref.watch(currentLibraryProvider).valueOrNull;
                 final libraryIcon = AbsIcons.getIconByName(
                   currentLibrary?.icon,
                 );
@@ -125,9 +126,13 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
                     isDestinationLibrary ? libraryIcon ?? item.icon : item.icon,
                   ),
                   selectedIcon: Icon(
-                    isDestinationLibrary ? libraryIcon ?? item.activeIcon : item.activeIcon,
+                    isDestinationLibrary
+                        ? libraryIcon ?? item.activeIcon
+                        : item.activeIcon,
                   ),
-                  label: Text(isDestinationLibrary ? currentLibrary?.name ?? item.name : item.name),
+                  label: Text(isDestinationLibrary
+                      ? currentLibrary?.name ?? item.name
+                      : item.name),
                   // tooltip: item.tooltip,
                 );
                 // if (isDestinationLibrary) {
@@ -166,8 +171,8 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
     //     useValueListenable(ref.watch(playerExpandProgressNotifierProvider));
     final playerProgress = ref.watch(playerHeightProvider);
     final playerMaxHeight = MediaQuery.of(context).size.height;
-    var percentExpandedMiniPlayer =
-        (playerProgress - playerMinHeight) / (playerMaxHeight - playerMinHeight);
+    var percentExpandedMiniPlayer = (playerProgress - playerMinHeight) /
+        (playerMaxHeight - playerMinHeight);
     // Clamp the value between 0 and 1
     percentExpandedMiniPlayer = percentExpandedMiniPlayer.clamp(0.0, 1.0);
     return Opacity(
@@ -193,9 +198,13 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
               isDestinationLibrary ? libraryIcon ?? item.icon : item.icon,
             ),
             selectedIcon: Icon(
-              isDestinationLibrary ? libraryIcon ?? item.activeIcon : item.activeIcon,
+              isDestinationLibrary
+                  ? libraryIcon ?? item.activeIcon
+                  : item.activeIcon,
             ),
-            label: isDestinationLibrary ? currentLibrary?.name ?? item.name : item.name,
+            label: isDestinationLibrary
+                ? currentLibrary?.name ?? item.name
+                : item.name,
             tooltip: item.tooltip,
           );
           if (isDestinationLibrary) {

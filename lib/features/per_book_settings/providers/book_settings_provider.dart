@@ -1,7 +1,8 @@
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaani/db/available_boxes.dart';
-import 'package:vaani/features/per_book_settings/models/book_settings.dart' as model;
+import 'package:vaani/features/per_book_settings/models/book_settings.dart'
+    as model;
 import 'package:vaani/features/per_book_settings/models/nullable_player_settings.dart';
 
 part 'book_settings_provider.g.dart';

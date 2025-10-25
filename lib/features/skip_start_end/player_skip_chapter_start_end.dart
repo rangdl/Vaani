@@ -50,7 +50,8 @@ class PlayerSkipChapterStartEnd extends HookConsumerWidget {
       body: Column(
         children: [
           ListTile(
-            title: Text('跳过片头 ${bookSettings.playerSettings.skipChapterStart.inSeconds}s'),
+            title: Text(
+                '跳过片头 ${bookSettings.playerSettings.skipChapterStart.inSeconds}s'),
           ),
           Expanded(
             child: TimeIntervalSlider(
@@ -65,14 +66,16 @@ class PlayerSkipChapterStartEnd extends HookConsumerWidget {
                       bookSettingsProvider(bookId).notifier,
                     )
                     .update(
-                      bookSettings.copyWith.playerSettings(skipChapterStart: interval),
+                      bookSettings.copyWith
+                          .playerSettings(skipChapterStart: interval),
                     );
                 ref.read(audiobookPlayerProvider).setClip(start: interval);
               },
             ),
           ),
           ListTile(
-            title: Text('跳过片尾 ${bookSettings.playerSettings.skipChapterEnd.inSeconds}s'),
+            title: Text(
+                '跳过片尾 ${bookSettings.playerSettings.skipChapterEnd.inSeconds}s'),
           ),
           Expanded(
             child: TimeIntervalSlider(
@@ -87,7 +90,8 @@ class PlayerSkipChapterStartEnd extends HookConsumerWidget {
                       bookSettingsProvider(bookId).notifier,
                     )
                     .update(
-                      bookSettings.copyWith.playerSettings(skipChapterEnd: interval),
+                      bookSettings.copyWith
+                          .playerSettings(skipChapterEnd: interval),
                     );
               },
             ),

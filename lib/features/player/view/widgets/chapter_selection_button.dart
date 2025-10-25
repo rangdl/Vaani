@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart' show audiobookPlayerProvider;
+import 'package:vaani/features/player/providers/audiobook_player.dart'
+    show audiobookPlayerProvider;
 import 'package:vaani/features/player/providers/currently_playing_provider.dart'
     show currentPlayingChapterProvider, currentlyPlayingBookProvider;
-import 'package:vaani/features/player/view/player_when_expanded.dart' show pendingPlayerModals;
+import 'package:vaani/features/player/view/player_when_expanded.dart'
+    show pendingPlayerModals;
 import 'package:vaani/features/player/view/widgets/playing_indicator_icon.dart';
 import 'package:vaani/main.dart' show appLogger;
 import 'package:vaani/shared/extensions/chapter.dart' show ChapterDuration;
-import 'package:vaani/shared/extensions/duration_format.dart' show DurationFormat;
+import 'package:vaani/shared/extensions/duration_format.dart'
+    show DurationFormat;
 import 'package:vaani/shared/hooks.dart' show useTimer;
 
 class ChapterSelectionButton extends HookConsumerWidget {
@@ -88,11 +91,13 @@ class ChapterSelectionModal extends HookConsumerWidget {
                       children: currentBook!.chapters.map(
                         (chapter) {
                           final isCurrent = currentChapterIndex == chapter.id;
-                          final isPlayed =
-                              currentChapterIndex != null && chapter.id < currentChapterIndex;
+                          final isPlayed = currentChapterIndex != null &&
+                              chapter.id < currentChapterIndex;
                           return ListTile(
                             autofocus: isCurrent,
-                            iconColor: isPlayed && !isCurrent ? theme.disabledColor : null,
+                            iconColor: isPlayed && !isCurrent
+                                ? theme.disabledColor
+                                : null,
                             title: Text(
                               chapter.title,
                               style: isPlayed && !isCurrent

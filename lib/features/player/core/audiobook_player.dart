@@ -122,9 +122,11 @@ class AudiobookPlayer extends AudioPlayer {
     final trackToPlay = getTrackToPlay(book, initialPosition ?? Duration.zero);
 
     final initialIndex = book.tracks.indexOf(trackToPlay);
-    final initialPositionInTrack =
-        initialPosition != null ? initialPosition - trackToPlay.startOffset : null;
-    await setAudioSourceTrack(initialIndex, initialPosition: initialPositionInTrack);
+    final initialPositionInTrack = initialPosition != null
+        ? initialPosition - trackToPlay.startOffset
+        : null;
+    await setAudioSourceTrack(initialIndex,
+        initialPosition: initialPositionInTrack);
     // _logger.finer('Setting audioSource');
     // await setAudioSource(
     //   preload: preload,
@@ -158,7 +160,8 @@ class AudiobookPlayer extends AudioPlayer {
     // });
   }
 
-  Future<void> setAudioSourceTrack(int index, {Duration? initialPosition}) async {
+  Future<void> setAudioSourceTrack(int index,
+      {Duration? initialPosition}) async {
     if (_book == null) {
       return stop();
     }
@@ -168,9 +171,11 @@ class AudiobookPlayer extends AudioPlayer {
     _currentIndex = index;
     AudioTrack track = _book!.tracks[index];
     final appSettings = loadOrCreateAppSettings();
-    final playerSettings = readFromBoxOrCreate(_book!.libraryItemId).playerSettings;
+    final playerSettings =
+        readFromBoxOrCreate(_book!.libraryItemId).playerSettings;
 
-    final retrievedUri = _getUri(track, _downloadedUris, baseUrl: baseUrl, token: token);
+    final retrievedUri =
+        _getUri(track, _downloadedUris, baseUrl: baseUrl, token: token);
 
     await setAudioSource(
       initialPosition: initialPosition == null || initialPosition <= Duration()
@@ -185,8 +190,10 @@ class AudiobookPlayer extends AudioPlayer {
           // Specify a unique ID for each media item:
           id: '${book?.libraryItemId}${track.index}',
           // Metadata to display in the notification:
-          title: appSettings.notificationSettings.primaryTitle.formatNotificationTitle(book!),
-          album: appSettings.notificationSettings.secondaryTitle.formatNotificationTitle(book!),
+          title: appSettings.notificationSettings.primaryTitle
+              .formatNotificationTitle(book!),
+          album: appSettings.notificationSettings.secondaryTitle
+              .formatNotificationTitle(book!),
           artUri: Uri.parse(
             '$baseUrl/api/items/${book?.libraryItemId}/cover?token=$token&width=800',
           ),
@@ -392,7 +399,8 @@ Uri _getUri(
     },
   );
 
-  return uri ?? Uri.parse('${baseUrl.toString()}${track.contentUrl}?token=$token');
+  return uri ??
+      Uri.parse('${baseUrl.toString()}${track.contentUrl}?token=$token');
 }
 
 extension FormatNotificationTitle on String {

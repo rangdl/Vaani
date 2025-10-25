@@ -26,8 +26,8 @@ class ExplorePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // hooks for the dark mode
-    final settings = ref.watch(appSettingsProvider);
-    final api = ref.watch(authenticatedApiProvider);
+    ref.watch(appSettingsProvider);
+    // final api = ref.watch(authenticatedApiProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).explore),
@@ -62,8 +62,8 @@ class MySearchBar extends HookConsumerWidget {
       currentQuery = query;
 
       // In a real application, there should be some error handling here.
-      final options =
-          await api.libraries.search(libraryId: settings.activeLibraryId!, query: query, limit: 3);
+      final options = await api.libraries
+          .search(libraryId: settings.activeLibraryId!, query: query, limit: 3);
 
       // If another search happened after this one, throw away these options.
       if (currentQuery != query) {
@@ -98,7 +98,10 @@ class MySearchBar extends HookConsumerWidget {
           // opacity: 0.5 for the hint text
           hintStyle: WidgetStatePropertyAll(
             Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.5),
                 ),
           ),
           textInputAction: TextInputAction.search,
@@ -231,8 +234,9 @@ class BookSearchResultMini extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final item = ref.watch(libraryItemProvider(book.libraryItemId)).valueOrNull;
-    final image =
-        item == null ? const AsyncValue.loading() : ref.watch(coverImageProvider(item.id));
+    final image = item == null
+        ? const AsyncValue.loading()
+        : ref.watch(coverImageProvider(item.id));
     return ListTile(
       leading: SizedBox(
         width: 50,

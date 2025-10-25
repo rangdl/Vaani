@@ -28,7 +28,8 @@ class LibraryItemPage extends HookConsumerWidget {
   static const double _showFabThreshold = 300.0;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final additionalItemData = extra is LibraryItemExtras ? extra as LibraryItemExtras : null;
+    final additionalItemData =
+        extra is LibraryItemExtras ? extra as LibraryItemExtras : null;
     final scrollController = useScrollController();
     final showFab = useState(false);
 
@@ -151,7 +152,8 @@ class LibraryItemDescription extends HookConsumerWidget {
     }
     return ExpandableDescription(
       title: S.of(context).bookAbout,
-      content: item.media.metadata.description ?? S.of(context).bookAboutDefault,
+      content:
+          item.media.metadata.description ?? S.of(context).bookAboutDefault,
       readMoreText: S.of(context).readMore,
       readLessText: S.of(context).readLess,
     );
@@ -168,8 +170,10 @@ double calculateWidth(
   /// height ratio of the cover image to the available height
   double maxHeightToUse = 0.25,
 }) {
-  final availHeight = min(constraints.maxHeight, MediaQuery.of(context).size.height);
-  final availWidth = min(constraints.maxWidth, MediaQuery.of(context).size.width);
+  final availHeight =
+      min(constraints.maxHeight, MediaQuery.of(context).size.height);
+  final availWidth =
+      min(constraints.maxWidth, MediaQuery.of(context).size.width);
 
   // make the width widthRatio of the available width
   var width = availWidth * widthRatio;
