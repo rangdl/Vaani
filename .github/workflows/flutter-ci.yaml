@@ -158,10 +158,43 @@ jobs:
             dist/vaani-linux-amd64.deb
             dist/vaani-linux-amd64.AppImage
 
+  build_windows:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.32.0"
+          cache: true
+      - name: Restore Packages
+        run: |
+          flutter pub get
+
+      - name: Install flutter_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Build Windows
+        run: |
+          flutter_distributor package --platform windows --targets msix,zip --skip-clean
+
+      - name: Upload Windows APP to Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: |
+            dist/*/*.msix
+            dist/*/*.zip
+
   # Job 4: Create GitHub Release (NEW - runs only on tag pushes)
   create_release:
     name: Create GitHub Release
-    needs: [build_android, build_linux] # Depends on successful builds
+    needs: [build_android, build_linux, build_windows] # Depends on successful builds
     runs-on: ubuntu-latest
     permissions:
       contents: write # Need write access to create release

@@ -26,7 +26,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
 
   FlutterWindow window(project);
   // 居中
-  UINT windowWidth = 832, windowHeight = 640;
+  UINT windowWidth = 1050, windowHeight = 700;
   UINT scrWidth, scrHeight, xShaft, yShaft;
   scrWidth = GetSystemMetrics(SM_CXFULLSCREEN);
   scrHeight = GetSystemMetrics(SM_CYFULLSCREEN);
