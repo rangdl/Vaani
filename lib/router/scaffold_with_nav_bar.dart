@@ -36,8 +36,10 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final size = MediaQuery.of(context).size;
     final playerProgress = ref.watch(playerHeightProvider);
-    final isMobile = Platform.isFuchsia || Platform.isAndroid || Platform.isIOS;
+    final isMobile = Platform.isAndroid || Platform.isIOS || Platform.isFuchsia;
+    final isVertical = size.height > size.width;
     onBackButtonPressed() async {
       final isPlayerExpanded = playerProgress != playerMinHeight;
 
@@ -93,11 +95,14 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
       child: Scaffold(
         body: Stack(
           children: [
-            isMobile ? navigationShell : buildNavLeft(context, ref),
+            isMobile && isVertical
+                ? navigationShell
+                : buildNavLeft(context, ref),
             const AudiobookPlayer(),
           ],
         ),
-        bottomNavigationBar: isMobile ? buildNavBottom(context, ref) : null,
+        bottomNavigationBar:
+            isMobile && isVertical ? buildNavBottom(context, ref) : null,
       ),
     );
   }
@@ -165,63 +170,65 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
     );
   }
 
-  Widget buildNavBottom(BuildContext context, WidgetRef ref) {
-    // playerExpandProgress is used to animate bottom navigation bar to opacity 0 and slide down when player is expanded
-    // final playerProgress =
-    //     useValueListenable(ref.watch(playerExpandProgressNotifierProvider));
+  Widget? buildNavBottom(BuildContext context, WidgetRef ref) {
+    final size = MediaQuery.of(context).size;
     final playerProgress = ref.watch(playerHeightProvider);
-    final playerMaxHeight = MediaQuery.of(context).size.height;
+    final playerMaxHeight = size.height;
     var percentExpandedMiniPlayer = (playerProgress - playerMinHeight) /
         (playerMaxHeight - playerMinHeight);
     // Clamp the value between 0 and 1
     percentExpandedMiniPlayer = percentExpandedMiniPlayer.clamp(0.0, 1.0);
-    return Opacity(
-      // Opacity is interpolated from 1 to 0 when player is expanded
-      opacity: 1 - percentExpandedMiniPlayer,
-      child: NavigationBar(
-        elevation: 0.0,
-        height: bottomBarHeight * (1 - percentExpandedMiniPlayer),
+    return percentExpandedMiniPlayer == 1
+        ? Opacity(
+            // Opacity is interpolated from 1 to 0 when player is expanded
+            opacity: 1 - percentExpandedMiniPlayer,
+            child: NavigationBar(
+              elevation: 0.0,
+              height: bottomBarHeight * (1 - percentExpandedMiniPlayer),
 
-        // TODO: get destinations from the navigationShell
-        // Here, the items of BottomNavigationBar are hard coded. In a real
-        // world scenario, the items would most likely be generated from the
-        // branches of the shell route, which can be fetched using
-        // `navigationShell.route.branches`.
-        destinations: _navigationItems(context).map((item) {
-          final isDestinationLibrary = item.name == S.of(context).library;
-          var currentLibrary = ref.watch(currentLibraryProvider).valueOrNull;
-          final libraryIcon = AbsIcons.getIconByName(
-            currentLibrary?.icon,
-          );
-          final destinationWidget = NavigationDestination(
-            icon: Icon(
-              isDestinationLibrary ? libraryIcon ?? item.icon : item.icon,
+              // TODO: get destinations from the navigationShell
+              // Here, the items of BottomNavigationBar are hard coded. In a real
+              // world scenario, the items would most likely be generated from the
+              // branches of the shell route, which can be fetched using
+              // `navigationShell.route.branches`.
+              destinations: _navigationItems(context).map((item) {
+                final isDestinationLibrary = item.name == S.of(context).library;
+                var currentLibrary =
+                    ref.watch(currentLibraryProvider).valueOrNull;
+                final libraryIcon = AbsIcons.getIconByName(
+                  currentLibrary?.icon,
+                );
+                final destinationWidget = NavigationDestination(
+                  icon: Icon(
+                    isDestinationLibrary ? libraryIcon ?? item.icon : item.icon,
+                  ),
+                  selectedIcon: Icon(
+                    isDestinationLibrary
+                        ? libraryIcon ?? item.activeIcon
+                        : item.activeIcon,
+                  ),
+                  label: isDestinationLibrary
+                      ? currentLibrary?.name ?? item.name
+                      : item.name,
+                  tooltip: item.tooltip,
+                );
+                if (isDestinationLibrary) {
+                  return GestureDetector(
+                    onSecondaryTap: () => showLibrarySwitcher(context, ref),
+                    onDoubleTap: () => showLibrarySwitcher(context, ref),
+                    child:
+                        destinationWidget, // Wrap the actual NavigationDestination
+                  );
+                } else {
+                  // Return the unwrapped destination for other items
+                  return destinationWidget;
+                }
+              }).toList(),
+              selectedIndex: navigationShell.currentIndex,
+              onDestinationSelected: (int index) => _onTap(context, index, ref),
             ),
-            selectedIcon: Icon(
-              isDestinationLibrary
-                  ? libraryIcon ?? item.activeIcon
-                  : item.activeIcon,
-            ),
-            label: isDestinationLibrary
-                ? currentLibrary?.name ?? item.name
-                : item.name,
-            tooltip: item.tooltip,
-          );
-          if (isDestinationLibrary) {
-            return GestureDetector(
-              onSecondaryTap: () => showLibrarySwitcher(context, ref),
-              onDoubleTap: () => showLibrarySwitcher(context, ref),
-              child: destinationWidget, // Wrap the actual NavigationDestination
-            );
-          } else {
-            // Return the unwrapped destination for other items
-            return destinationWidget;
-          }
-        }).toList(),
-        selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: (int index) => _onTap(context, index, ref),
-      ),
-    );
+          )
+        : null;
   }
 
   List<_NavigationItem> _navigationItems(BuildContext context) {

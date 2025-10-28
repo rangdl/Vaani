@@ -144,7 +144,7 @@ class PlayerWhenMinimized extends HookConsumerWidget {
             // value: (progress.data ?? Duration.zero).inSeconds /
             //     player.book!.duration.inSeconds,
             value: (progress.data ?? Duration.zero).inSeconds /
-                player.duration!.inSeconds,
+                (player.duration?.inSeconds ?? 1),
             color: Theme.of(context).colorScheme.onPrimaryContainer,
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           ),

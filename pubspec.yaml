@@ -108,6 +108,7 @@ dev_dependencies:
   json_serializable: ^6.8.0
   riverpod_generator: ^2.4.2
   riverpod_lint: ^2.3.10
+  flutter_launcher_icons: "^0.14.4"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -156,3 +157,9 @@ flutter:
         - asset: assets/fonts/AbsIcons.ttf
 flutter_intl:
   enabled: true
+
+flutter_launcher_icons:
+  android: false # 如果只为iOS配置，可关闭Android
+  ios: true
+  image_path: "assets/icon/logo.png" # 你的1024x1024源图标路径
+  remove_alpha_ios: true # 建议设为true，移除透明度，符合App Store审核要求[citation:6]
