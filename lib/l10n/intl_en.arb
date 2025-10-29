@@ -36,6 +36,33 @@
     "loading": "Loading...",
     "help": "Help",
 
+    "loginTitle": "Welcome to {appName}",
+    "@loginTitle": {
+        "placeholders": {
+            "appName": {
+                "type": "String"
+            }
+        }
+    },
+    "loginServerConnected": "Server connected, please login",
+    "loginServerNoConnected": "Please enter the URL of your AudiobookShelf Server",
+    "loginServerNo": "Do not have a server? ",
+    "loginServerClick": "Click here",
+    "loginServerTo": " to know how to setup a server.",
+    "loginServerNot": "Server is not reachable {error}",
+    "@loginServerNot": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "loginLocal": "Local",
+    "loginOpenID": "OpenID",
+    "loginToken": "Token",
+    "loginUsername": "Username",
+    "loginPassword": "Password",
+    "loginLogin": "Login",
     "home": "Home",
     "homeListenAgain": "Listen Again",
     "homeContinueListening": "Continue Listening",

@@ -4,7 +4,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/features/onboarding/view/user_login.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/settings/api_settings_provider.dart';
+import 'package:vaani/settings/constants.dart';
 import 'package:vaani/shared/utils.dart';
 import 'package:vaani/shared/widgets/add_new_server.dart';
 
@@ -77,7 +79,7 @@ class OnboardingBody extends HookConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            'Welcome to Vaani',
+            S.of(context).loginTitle(AppMetadata.appName),
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),
@@ -91,7 +93,7 @@ class OnboardingBody extends HookConsumerWidget {
             transitionBuilder: fadeSlideTransitionBuilder,
             child: canUserLogin.value
                 ? Text(
-                    'Server connected, please login',
+                    S.of(context).loginServerConnected,
                     key: const ValueKey('connected'),
                     style: Theme.of(context).textTheme.bodyMedium,
                   )
@@ -145,7 +147,7 @@ class RedirectToABS extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // a simple text with hyper link to only the "click here" part
-          const Text('Do not have a server? '),
+          Text(S.of(context).loginServerNo),
           // a simple text with hyper link to the github page
           TextButton(
             autofocus: false,
@@ -159,16 +161,16 @@ class RedirectToABS extends StatelessWidget {
             onPressed: () async {
               // open the github page
               // ignore: avoid_print
-              print('Opening the github page');
+              // print('Opening the github page');
               await handleLaunchUrl(
                 Uri.parse(
                   'https://www.audiobookshelf.org',
                 ),
               );
             },
-            child: const Text('Click here'),
+            child: Text(S.of(context).loginServerClick),
           ),
-          const Text(' to know how to setup a server.'),
+          Text(S.of(context).loginServerTo),
         ],
       ),
     );

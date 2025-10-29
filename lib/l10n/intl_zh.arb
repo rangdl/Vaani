@@ -36,6 +36,33 @@
     "loading": "加载中...",
     "help": "Help",
 
+    "loginTitle": "欢迎使用 {appName}",
+    "@loginTitle": {
+        "placeholders": {
+            "appName": {
+                "type": "String"
+            }
+        }
+    },
+    "loginServerConnected": "服务器已连接，请登录",
+    "loginServerNoConnected": "请输入您的AudiobookShelf服务器的URL",
+    "loginServerNo": "没有服务器? ",
+    "loginServerClick": "单击此处",
+    "loginServerTo": " 了解如何设置服务器。",
+    "loginServerNot": "Server is not reachable {error}",
+    "@loginServerNot": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "loginLocal": "Local",
+    "loginOpenID": "OpenID",
+    "loginToken": "Token",
+    "loginUsername": "用户名",
+    "loginPassword": "密码",
+    "loginLogin": "登录",
     "home": "首页",
     "homeListenAgain": "再听一遍",
     "homeContinueListening": "继续收听",

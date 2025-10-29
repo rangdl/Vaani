@@ -154,6 +154,106 @@ class S {
     return Intl.message('Help', name: 'help', desc: '', args: []);
   }
 
+  /// `Welcome to {appName}`
+  String loginTitle(String appName) {
+    return Intl.message(
+      'Welcome to $appName',
+      name: 'loginTitle',
+      desc: '',
+      args: [appName],
+    );
+  }
+
+  /// `Server connected, please login`
+  String get loginServerConnected {
+    return Intl.message(
+      'Server connected, please login',
+      name: 'loginServerConnected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the URL of your AudiobookShelf Server`
+  String get loginServerNoConnected {
+    return Intl.message(
+      'Please enter the URL of your AudiobookShelf Server',
+      name: 'loginServerNoConnected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do not have a server? `
+  String get loginServerNo {
+    return Intl.message(
+      'Do not have a server? ',
+      name: 'loginServerNo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Click here`
+  String get loginServerClick {
+    return Intl.message(
+      'Click here',
+      name: 'loginServerClick',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` to know how to setup a server.`
+  String get loginServerTo {
+    return Intl.message(
+      ' to know how to setup a server.',
+      name: 'loginServerTo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Server is not reachable {error}`
+  String loginServerNot(String error) {
+    return Intl.message(
+      'Server is not reachable $error',
+      name: 'loginServerNot',
+      desc: '',
+      args: [error],
+    );
+  }
+
+  /// `Local`
+  String get loginLocal {
+    return Intl.message('Local', name: 'loginLocal', desc: '', args: []);
+  }
+
+  /// `OpenID`
+  String get loginOpenID {
+    return Intl.message('OpenID', name: 'loginOpenID', desc: '', args: []);
+  }
+
+  /// `Token`
+  String get loginToken {
+    return Intl.message('Token', name: 'loginToken', desc: '', args: []);
+  }
+
+  /// `Username`
+  String get loginUsername {
+    return Intl.message('Username', name: 'loginUsername', desc: '', args: []);
+  }
+
+  /// `Password`
+  String get loginPassword {
+    return Intl.message('Password', name: 'loginPassword', desc: '', args: []);
+  }
+
+  /// `Login`
+  String get loginLogin {
+    return Intl.message('Login', name: 'loginLogin', desc: '', args: []);
+  }
+
   /// `Home`
   String get home {
     return Intl.message('Home', name: 'home', desc: '', args: []);

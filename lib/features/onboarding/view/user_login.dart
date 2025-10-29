@@ -14,6 +14,7 @@ import 'package:vaani/features/onboarding/view/user_login_with_password.dart'
     show UserLoginWithPassword;
 import 'package:vaani/features/onboarding/view/user_login_with_token.dart'
     show UserLoginWithToken;
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/hacks/fix_autofill_losing_focus.dart'
     show InactiveFocusScopeObserver;
 import 'package:vaani/models/error_response.dart' show ErrorResponseHandler;
@@ -64,7 +65,7 @@ class UserLoginWidget extends HookConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Server is not reachable: $error'),
+              Text(S.of(context).loginServerNot('$error')),
               ElevatedButton(
                 onPressed: () {
                   ref.invalidate(
@@ -74,7 +75,7 @@ class UserLoginWidget extends HookConsumerWidget {
                     ),
                   );
                 },
-                child: const Text('Try again'),
+                child: Text(S.of(context).retry),
               ),
             ],
           ),
@@ -154,7 +155,7 @@ class UserLoginMultipleAuth extends HookConsumerWidget {
                     // a small label to show the user what to do
                     if (localAvailable)
                       ChoiceChip(
-                        label: const Text('Local'),
+                        label: Text(S.of(context).loginLocal),
                         selected: methodChoice.value == AuthMethodChoice.local,
                         onSelected: (selected) {
                           if (selected) {
@@ -164,7 +165,7 @@ class UserLoginMultipleAuth extends HookConsumerWidget {
                       ),
                     if (openIDAvailable)
                       ChoiceChip(
-                        label: const Text('OpenID'),
+                        label: Text(S.of(context).loginOpenID),
                         selected: methodChoice.value == AuthMethodChoice.openid,
                         onSelected: (selected) {
                           if (selected) {
@@ -173,7 +174,7 @@ class UserLoginMultipleAuth extends HookConsumerWidget {
                         },
                       ),
                     ChoiceChip(
-                      label: const Text('Token'),
+                      label: Text(S.of(context).loginToken),
                       selected:
                           methodChoice.value == AuthMethodChoice.authToken,
                       onSelected: (selected) {

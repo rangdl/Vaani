@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/authenticated_users_provider.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/hacks/fix_autofill_losing_focus.dart';
 import 'package:vaani/models/error_response.dart';
 import 'package:vaani/router/router.dart';
@@ -107,7 +108,7 @@ class UserLoginWithPassword extends HookConsumerWidget {
                 autofillHints: const [AutofillHints.username],
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
-                  labelText: 'Username',
+                  labelText: S.of(context).loginUsername,
                   labelStyle: TextStyle(
                     color: Theme.of(context)
                         .colorScheme
@@ -127,7 +128,7 @@ class UserLoginWithPassword extends HookConsumerWidget {
                   loginAndSave();
                 },
                 decoration: InputDecoration(
-                  labelText: 'Password',
+                  labelText: S.of(context).loginPassword,
                   labelStyle: TextStyle(
                     color: Theme.of(context)
                         .colorScheme
@@ -165,7 +166,7 @@ class UserLoginWithPassword extends HookConsumerWidget {
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: loginAndSave,
-                child: const Text('Login'),
+                child: Text(S.of(context).loginLogin),
               ),
             ],
           ),
