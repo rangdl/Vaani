@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
 import 'package:vaani/settings/models/app_settings.dart';
 import 'package:vaani/settings/view/buttons.dart';
@@ -23,7 +24,7 @@ class ShakeDetectorSettingsPage extends HookConsumerWidget {
         : Theme.of(context).disabledColor;
 
     return SimpleSettingsPage(
-      title: const Text('Shake Detector Settings'),
+      title: Text(S.of(context).shakeDetectorSettings),
       sections: [
         SettingsSection(
           margin: const EdgeInsetsDirectional.symmetric(
@@ -35,9 +36,9 @@ class ShakeDetectorSettingsPage extends HookConsumerWidget {
               leading: shakeDetectionSettings.isEnabled
                   ? const Icon(Icons.vibration)
                   : const Icon(Icons.not_interested),
-              title: const Text('Enable Shake Detection'),
-              description: const Text(
-                'Enable shake detection to do various actions',
+              title: Text(S.of(context).shakeDetectorEnable),
+              description: Text(
+                S.of(context).shakeDetectorEnableDescription,
               ),
               initialValue: shakeDetectionSettings.isEnabled,
               onToggle: (value) {
@@ -57,9 +58,9 @@ class ShakeDetectorSettingsPage extends HookConsumerWidget {
             SettingsTile(
               enabled: isShakeDetectionEnabled,
               leading: const Icon(Icons.flag_circle),
-              title: const Text('Shake Activation Threshold'),
-              description: const Text(
-                'The higher the threshold, the harder you need to shake',
+              title: Text(S.of(context).shakeActivationThreshold),
+              description: Text(
+                S.of(context).shakeActivationThresholdDescription,
               ),
               trailing: Text(
                 '${shakeDetectionSettings.threshold} m/s²',
@@ -90,9 +91,9 @@ class ShakeDetectorSettingsPage extends HookConsumerWidget {
             SettingsTile(
               enabled: isShakeDetectionEnabled,
               leading: const Icon(Icons.directions_run),
-              title: const Text('Shake Action'),
-              description: const Text(
-                'The action to perform when a shake is detected',
+              title: Text(S.of(context).shakeAction),
+              description: Text(
+                S.of(context).shakeActionDescription,
               ),
               trailing: Icon(
                 shakeDetectionSettings.shakeAction.icon,
@@ -120,9 +121,9 @@ class ShakeDetectorSettingsPage extends HookConsumerWidget {
             SettingsTile(
               enabled: isShakeDetectionEnabled,
               leading: const Icon(Icons.feedback),
-              title: const Text('Shake Feedback'),
-              description: const Text(
-                'The feedback to give when a shake is detected',
+              title: Text(S.of(context).shakeFeedback),
+              description: Text(
+                S.of(context).shakeFeedbackDescription,
               ),
               trailing: shakeDetectionSettings.feedback.isEmpty
                   ? Icon(
@@ -177,7 +178,7 @@ class ShakeFeedbackSelector extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final feedback = useState(initialValue);
     return AlertDialog(
-      title: const Text('Select Shake Feedback'),
+      title: Text(S.of(context).shakeSelectFeedback),
       content: Wrap(
         spacing: 8.0,
         runSpacing: 8.0,
@@ -225,7 +226,7 @@ class ShakeActionSelector extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final shakeAction = useState(initialValue);
     return AlertDialog(
-      title: const Text('Select Shake Action'),
+      title: Text(S.of(context).shakeSelectAction),
       content: Wrap(
         spacing: 8.0,
         runSpacing: 8.0,
@@ -268,7 +269,7 @@ class ShakeForceSelector extends HookConsumerWidget {
     final shakeForce = useState(initialValue);
     final controller = useTextEditingController(text: initialValue.toString());
     return AlertDialog(
-      title: const Text('Select Shake Activation Threshold'),
+      title: Text(S.of(context).shakeSelectActivationThreshold),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -291,8 +292,8 @@ class ShakeForceSelector extends HookConsumerWidget {
                   shakeForce.value = 0;
                 },
               ),
-              helper: const Text(
-                'Enter a number to set the threshold in m/s²',
+              helper: Text(
+                S.of(context).shakeSelectActivationThresholdHelper,
               ),
             ),
           ),

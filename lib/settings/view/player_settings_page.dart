@@ -150,10 +150,10 @@ class PlayerSettingsPage extends HookConsumerWidget {
             ),
             // when to mark complete
             SettingsTile(
-              title: const Text('Mark Complete When Time Left'),
+              title: Text(S.of(context).playerSettingsCompleteTime),
               description: Text.rich(
                 TextSpan(
-                  text: 'Mark complete when less than ',
+                  text: S.of(context).playerSettingsCompleteTimeDescriptionHead,
                   children: [
                     TextSpan(
                       text: playerSettings
@@ -163,7 +163,10 @@ class PlayerSettingsPage extends HookConsumerWidget {
                         color: primaryColor,
                       ),
                     ),
-                    const TextSpan(text: ' left in the book'),
+                    TextSpan(
+                        text: S
+                            .of(context)
+                            .playerSettingsCompleteTimeDescriptionTail),
                   ],
                 ),
               ),
@@ -173,7 +176,7 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   context: context,
                   builder: (context) {
                     return TimeDurationSelector(
-                      title: const Text('Mark Complete When Time Left'),
+                      title: Text(S.of(context).playerSettingsCompleteTime),
                       baseUnit: BaseUnit.second,
                       initialValue: playerSettings.markCompleteWhenTimeLeft,
                     );
@@ -190,10 +193,12 @@ class PlayerSettingsPage extends HookConsumerWidget {
             ),
             // playback report interval
             SettingsTile(
-              title: const Text('Playback Report Interval'),
+              title: Text(S.of(context).playerSettingsPlaybackInterval),
               description: Text.rich(
                 TextSpan(
-                  text: 'Report progress every ',
+                  text: S
+                      .of(context)
+                      .playerSettingsPlaybackIntervalDescriptionHead,
                   children: [
                     TextSpan(
                       text: playerSettings
@@ -203,7 +208,10 @@ class PlayerSettingsPage extends HookConsumerWidget {
                         color: primaryColor,
                       ),
                     ),
-                    const TextSpan(text: ' to the server'),
+                    TextSpan(
+                        text: S
+                            .of(context)
+                            .playerSettingsPlaybackIntervalDescriptionTail),
                   ],
                 ),
               ),
@@ -213,7 +221,7 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   context: context,
                   builder: (context) {
                     return TimeDurationSelector(
-                      title: const Text('Playback Report Interval'),
+                      title: Text(S.of(context).playerSettingsPlaybackInterval),
                       baseUnit: BaseUnit.second,
                       initialValue: playerSettings.playbackReportInterval,
                     );
@@ -232,14 +240,14 @@ class PlayerSettingsPage extends HookConsumerWidget {
         ),
         // Display Settings
         SettingsSection(
-          title: const Text('Display Settings'),
+          title: Text(S.of(context).playerSettingsDisplay),
           tiles: [
             // show total progress
             SettingsTile.switchTile(
-              title: const Text('Show Total Progress'),
+              title: Text(S.of(context).playerSettingsDisplayTotalProgress),
               leading: const Icon(Icons.show_chart),
-              description: const Text(
-                'Show the total progress of the book in the player',
+              description: Text(
+                S.of(context).playerSettingsDisplayTotalProgressDescription,
               ),
               initialValue:
                   playerSettings.expandedPlayerSettings.showTotalProgress,
@@ -252,10 +260,10 @@ class PlayerSettingsPage extends HookConsumerWidget {
             ),
             // show chapter progress
             SettingsTile.switchTile(
-              title: const Text('Show Chapter Progress'),
+              title: Text(S.of(context).playerSettingsDisplayChapterProgress),
               leading: const Icon(Icons.show_chart),
-              description: const Text(
-                'Show the progress of the current chapter in the player',
+              description: Text(
+                S.of(context).playerSettingsDisplayChapterProgressDescription,
               ),
               initialValue:
                   playerSettings.expandedPlayerSettings.showChapterProgress,
@@ -326,7 +334,7 @@ class SpeedPicker extends HookConsumerWidget {
         useTextEditingController(text: initialValue.toString());
     final speed = useState<double?>(initialValue);
     return AlertDialog(
-      title: const Text('Select Speed'),
+      title: Text(S.of(context).playerSettingsSpeedSelect),
       content: TextField(
         controller: speedController,
         onChanged: (value) => speed.value = double.tryParse(value),
@@ -335,11 +343,9 @@ class SpeedPicker extends HookConsumerWidget {
         },
         autofocus: true,
         keyboardType: TextInputType.number,
-        decoration: const InputDecoration(
-          labelText: 'Speed',
-          helper: Text(
-            'Enter the speed you want to set when playing for the first time',
-          ),
+        decoration: InputDecoration(
+          labelText: S.of(context).playerSettingsSpeed,
+          helper: Text(S.of(context).playerSettingsSpeedSelectHelper),
         ),
       ),
       actions: [
@@ -368,7 +374,7 @@ class SpeedOptionsPicker extends HookConsumerWidget {
     final speedOptions = useState<List<double>>(initialValue);
     final focusNode = useFocusNode();
     return AlertDialog(
-      title: const Text('Select Speed Options'),
+      title: Text(S.of(context).playerSettingsSpeedOptionsSelect),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -413,9 +419,10 @@ class SpeedOptionsPicker extends HookConsumerWidget {
               focusNode.requestFocus();
             },
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              labelText: 'Add Speed Option',
-              helper: Text('Enter a new speed option to add'),
+            decoration: InputDecoration(
+              labelText: S.of(context).playerSettingsSpeedOptionsSelectAdd,
+              helper:
+                  Text(S.of(context).playerSettingsSpeedOptionsSelectAddHelper),
             ),
           ),
         ],

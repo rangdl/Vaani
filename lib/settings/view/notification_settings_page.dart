@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
 import 'package:vaani/settings/models/app_settings.dart';
 import 'package:vaani/settings/view/buttons.dart';
@@ -19,7 +20,7 @@ class NotificationSettingsPage extends HookConsumerWidget {
     final notificationSettings = appSettings.notificationSettings;
     final primaryColor = Theme.of(context).colorScheme.primary;
     return SimpleSettingsPage(
-      title: const Text('Notification Settings'),
+      title: Text(S.of(context).notificationMediaPlayer),
       sections: [
         SettingsSection(
           margin: const EdgeInsetsDirectional.only(
@@ -31,10 +32,10 @@ class NotificationSettingsPage extends HookConsumerWidget {
           tiles: [
             // set the primary and secondary titles
             SettingsTile(
-              title: const Text('Primary Title'),
+              title: Text(S.of(context).nmpSettingsTitle),
               description: Text.rich(
                 TextSpan(
-                  text: 'The title of the notification\n',
+                  text: S.of(context).nmpSettingsTitleDescription,
                   children: [
                     TextSpan(
                       text: notificationSettings.primaryTitle,
@@ -54,7 +55,7 @@ class NotificationSettingsPage extends HookConsumerWidget {
                   builder: (context) {
                     return NotificationTitlePicker(
                       initialValue: notificationSettings.primaryTitle,
-                      title: 'Primary Title',
+                      title: S.of(context).nmpSettingsTitle,
                     );
                   },
                 );
@@ -69,10 +70,10 @@ class NotificationSettingsPage extends HookConsumerWidget {
             ),
 
             SettingsTile(
-              title: const Text('Secondary Title'),
+              title: Text(S.of(context).nmpSettingsSubTitle),
               description: Text.rich(
                 TextSpan(
-                  text: 'The subtitle of the notification\n',
+                  text: S.of(context).nmpSettingsSubTitleDescription,
                   children: [
                     TextSpan(
                       text: notificationSettings.secondaryTitle,
@@ -92,7 +93,7 @@ class NotificationSettingsPage extends HookConsumerWidget {
                   builder: (context) {
                     return NotificationTitlePicker(
                       initialValue: notificationSettings.secondaryTitle,
-                      title: 'Secondary Title',
+                      title: S.of(context).nmpSettingsSubTitle,
                     );
                   },
                 );
@@ -108,11 +109,13 @@ class NotificationSettingsPage extends HookConsumerWidget {
 
             // set forward and backward intervals
             SettingsTile(
-              title: const Text('Forward Interval'),
+              title: Text(S.of(context).nmpSettingsForward),
               description: Row(
                 children: [
                   Text(
-                    '${notificationSettings.fastForwardInterval.inSeconds} seconds',
+                    S.of(context).timeSecond(
+                          notificationSettings.fastForwardInterval.inSeconds,
+                        ),
                   ),
                   Expanded(
                     child: TimeIntervalSlider(
@@ -131,11 +134,13 @@ class NotificationSettingsPage extends HookConsumerWidget {
               leading: const Icon(Icons.fast_forward),
             ),
             SettingsTile(
-              title: const Text('Backward Interval'),
+              title: Text(S.of(context).nmpSettingsBackward),
               description: Row(
                 children: [
                   Text(
-                    '${notificationSettings.rewindInterval.inSeconds} seconds',
+                    S.of(context).timeSecond(
+                          notificationSettings.rewindInterval.inSeconds,
+                        ),
                   ),
                   Expanded(
                     child: TimeIntervalSlider(
@@ -155,10 +160,11 @@ class NotificationSettingsPage extends HookConsumerWidget {
             ),
             // set the media controls
             SettingsTile(
-              title: const Text('Media Controls'),
+              title: Text(S.of(context).nmpSettingsMediaControls),
               leading: const Icon(Icons.control_camera),
               // description: const Text('Select the media controls to display'),
-              description: const Text('Select the media controls to display'),
+              description:
+                  Text(S.of(context).nmpSettingsMediaControlsDescription),
               trailing: Wrap(
                 spacing: 8.0,
                 children: notificationSettings.mediaControls
@@ -192,10 +198,10 @@ class NotificationSettingsPage extends HookConsumerWidget {
 
             // set the progress bar to show chapter progress
             SettingsTile.switchTile(
-              title: const Text('Show Chapter Progress'),
+              title: Text(S.of(context).nmpSettingsShowChapterProgress),
               leading: const Icon(Icons.book),
               description:
-                  const Text('instead of the overall progress of the book'),
+                  Text(S.of(context).nmpSettingsShowChapterProgressDescription),
               initialValue: notificationSettings.progressBarIsChapterProgress,
               onToggle: (value) {
                 ref.read(appSettingsProvider.notifier).update(
@@ -224,7 +230,7 @@ class MediaControlsPicker extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedMediaControls = useState(selectedControls);
     return AlertDialog(
-      title: const Text('Media Controls'),
+      title: Text(S.of(context).nmpSettingsMediaControls),
       actions: [
         const CancelButton(),
         OkButton(
@@ -296,7 +302,7 @@ class TimeIntervalSlider extends HookConsumerWidget {
           min: min.inSeconds.toDouble(),
           max: max.inSeconds.toDouble(),
           divisions: ((max.inSeconds - min.inSeconds) ~/ step.inSeconds),
-          label: '${selectedInterval.value.inSeconds} seconds',
+          label: S.of(context).timeSecond(selectedInterval.value.inSeconds),
           onChanged: (value) {
             selectedInterval.value = Duration(seconds: value.toInt());
             onChanged?.call(selectedInterval.value);
@@ -345,7 +351,7 @@ class NotificationTitlePicker extends HookConsumerWidget {
               selectedTitle.value = value;
             },
             decoration: InputDecoration(
-              helper: const Text('Select a field below to insert it'),
+              helper: Text(S.of(context).nmpSettingsSelectOne),
               suffix: IconButton(
                 icon: const Icon(Icons.clear),
                 onPressed: () {

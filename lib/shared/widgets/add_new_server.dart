@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/api_provider.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/main.dart';
 
 final httpUrlRegExp = RegExp('https?://');
@@ -66,7 +67,7 @@ class AddNewServer extends HookConsumerWidget {
             }
           : null,
       decoration: InputDecoration(
-        labelText: 'Server URI',
+        labelText: S.of(context).accountServerURI,
         labelStyle: TextStyle(
           color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
         ),
@@ -82,7 +83,7 @@ class AddNewServer extends HookConsumerWidget {
                 margin: const EdgeInsets.only(left: 8, right: 8),
                 child: IconButton.filled(
                   icon: const Icon(Icons.add),
-                  tooltip: 'Add new server',
+                  tooltip: S.of(context).accountAddUserTooltip,
                   color: Theme.of(context).colorScheme.inversePrimary,
                   focusColor: Theme.of(context).colorScheme.onSurface,
 

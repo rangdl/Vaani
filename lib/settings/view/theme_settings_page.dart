@@ -1,13 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
-import 'package:vaani/settings/view/buttons.dart';
 import 'package:vaani/settings/view/simple_settings_page.dart';
-import 'package:vaani/shared/extensions/enum.dart';
 
 class ThemeSettingsPage extends HookConsumerWidget {
   const ThemeSettingsPage({
@@ -18,10 +16,10 @@ class ThemeSettingsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final appSettings = ref.watch(appSettingsProvider);
     final themeSettings = appSettings.themeSettings;
-    final primaryColor = Theme.of(context).colorScheme.primary;
+    // final primaryColor = Theme.of(context).colorScheme.primary;
 
     return SimpleSettingsPage(
-      title: const Text('Theme Settings'),
+      title: Text(S.of(context).themeSettings),
       sections: [
         SettingsSection(
           margin: const EdgeInsetsDirectional.symmetric(
@@ -31,7 +29,7 @@ class ThemeSettingsPage extends HookConsumerWidget {
           tiles: [
             // choose system , light or dark theme
             SettingsTile(
-              title: const Text('Theme Mode'),
+              title: Text(S.of(context).themeMode),
               description: SegmentedButton(
                 expandedInsets: const EdgeInsets.only(top: 8.0),
                 showSelectedIcon: true,
@@ -48,17 +46,17 @@ class ThemeSettingsPage extends HookConsumerWidget {
                   ButtonSegment(
                     value: ThemeMode.light,
                     icon: Icon(Icons.light_mode),
-                    label: const Text('Light'),
+                    label: Text(S.of(context).themeModeLight),
                   ),
                   ButtonSegment(
                     value: ThemeMode.system,
                     icon: Icon(Icons.auto_awesome),
-                    label: const Text('System'),
+                    label: Text(S.of(context).themeModeSystem),
                   ),
                   ButtonSegment(
                     value: ThemeMode.dark,
                     icon: Icon(Icons.dark_mode),
-                    label: const Text('Dark'),
+                    label: Text(S.of(context).themeModeDark),
                   ),
                 ],
               ),
@@ -77,9 +75,9 @@ class ThemeSettingsPage extends HookConsumerWidget {
                   ? const Icon(Icons.accessibility)
                   : const Icon(Icons.accessibility_new_outlined),
               initialValue: themeSettings.highContrast,
-              title: const Text('High Contrast Mode'),
-              description: const Text(
-                'Increase the contrast between the background and the text',
+              title: Text(S.of(context).themeModeHighContrast),
+              description: Text(
+                S.of(context).themeModeHighContrastDescription,
               ),
               onToggle: (value) {
                 ref.read(appSettingsProvider.notifier).update(
@@ -94,11 +92,9 @@ class ThemeSettingsPage extends HookConsumerWidget {
             SettingsTile.switchTile(
               initialValue: themeSettings.useMaterialThemeFromSystem,
               title: Platform.isAndroid
-                  ? const Text('Use Material You')
-                  : const Text('Material Theme from System'),
-              description: const Text(
-                'Use the system theme colors for the app',
-              ),
+                  ? Text(S.of(context).themeSettingsColorsAndroid)
+                  : Text(S.of(context).themeSettingsColors),
+              description: Text(S.of(context).themeSettingsColorsDescription),
               leading: themeSettings.useMaterialThemeFromSystem
                   ? const Icon(Icons.auto_awesome)
                   : const Icon(Icons.auto_fix_off),
@@ -156,10 +152,9 @@ class ThemeSettingsPage extends HookConsumerWidget {
             // use theme throughout the app when playing item
             SettingsTile.switchTile(
               initialValue: themeSettings.useCurrentPlayerThemeThroughoutApp,
-              title: const Text('Adapt theme from currently playing item'),
-              description: const Text(
-                'Use the theme colors from the currently playing item for the app',
-              ),
+              title: Text(S.of(context).themeSettingsColorsCurrent),
+              description:
+                  Text(S.of(context).themeSettingsColorsCurrentDescription),
               leading: themeSettings.useCurrentPlayerThemeThroughoutApp
                   ? const Icon(Icons.auto_fix_high)
                   : const Icon(Icons.auto_fix_off),
@@ -174,10 +169,9 @@ class ThemeSettingsPage extends HookConsumerWidget {
 
             SettingsTile.switchTile(
               initialValue: themeSettings.useMaterialThemeOnItemPage,
-              title: const Text('Adaptive Theme on Item Page'),
-              description: const Text(
-                'get fancy with the colors on the item page at the cost of some performance',
-              ),
+              title: Text(S.of(context).themeSettingsColorsBook),
+              description:
+                  Text(S.of(context).themeSettingsColorsBookDescription),
               leading: themeSettings.useMaterialThemeOnItemPage
                   ? const Icon(Icons.auto_fix_high)
                   : const Icon(Icons.auto_fix_off),

@@ -20,20 +20,92 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(item) => "Are you sure you want to delete ${item}?";
+  static String m0(host) => "Add User to ${host}";
 
-  static String m1(item) => "Deleted ${item}";
+  static String m1(user) => "Users: ${user}";
 
-  static String m2(error) => "Error loading libraries: ${error}";
+  static String m2(item) => "Are you sure you want to delete ${item}?";
+
+  static String m3(item) => "Deleted ${item}";
+
+  static String m4(error) => "Error loading libraries: ${error}";
+
+  static String m5(second) => "${second} seconds";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "account": MessageLookupByLibrary.simpleMessage("Account"),
+        "accountAddNewServer": MessageLookupByLibrary.simpleMessage(
+          "Add New Server",
+        ),
+        "accountAddUser": MessageLookupByLibrary.simpleMessage("Add User"),
+        "accountAddUserDialog": m0,
+        "accountAddUserSuccessDialog": MessageLookupByLibrary.simpleMessage(
+          "User added successfully! Switch?",
+        ),
+        "accountAddUserTooltip": MessageLookupByLibrary.simpleMessage(
+          "Add new server",
+        ),
+        "accountAnonymous": MessageLookupByLibrary.simpleMessage("Anonymous"),
+        "accountDeleteServer": MessageLookupByLibrary.simpleMessage(
+          "Delete Server",
+        ),
+        "accountInvalidURL":
+            MessageLookupByLibrary.simpleMessage("Invalid URL"),
+        "accountManage":
+            MessageLookupByLibrary.simpleMessage("Manage Accounts"),
+        "accountRegisteredServers": MessageLookupByLibrary.simpleMessage(
+          "Registered Servers",
+        ),
+        "accountRemoveServerAndUsers": MessageLookupByLibrary.simpleMessage(
+          "Remove Server and Users",
+        ),
+        "accountRemoveServerAndUsersHead": MessageLookupByLibrary.simpleMessage(
+          "This will remove the server ",
+        ),
+        "accountRemoveServerAndUsersTail": MessageLookupByLibrary.simpleMessage(
+          " and all its users\' login info from this app.",
+        ),
+        "accountRemoveUserLogin": MessageLookupByLibrary.simpleMessage(
+          "Remove User Login",
+        ),
+        "accountRemoveUserLoginHead": MessageLookupByLibrary.simpleMessage(
+          "This will remove login details of the user ",
+        ),
+        "accountRemoveUserLoginTail": MessageLookupByLibrary.simpleMessage(
+          " from this app.",
+        ),
+        "accountServerURI": MessageLookupByLibrary.simpleMessage("Server URI"),
         "accountSwitch": MessageLookupByLibrary.simpleMessage("Switch Account"),
+        "accountUsersCount": m1,
         "appSettings": MessageLookupByLibrary.simpleMessage("App Settings"),
         "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
+        "autoSleepTimerSettings": MessageLookupByLibrary.simpleMessage(
+          "Auto Sleep Timer Settings",
+        ),
         "autoTurnOnSleepTimer": MessageLookupByLibrary.simpleMessage(
           "Auto Turn On Sleep Timer",
+        ),
+        "autoTurnOnTimer": MessageLookupByLibrary.simpleMessage(
+          "Auto Turn On Timer",
+        ),
+        "autoTurnOnTimerAlways": MessageLookupByLibrary.simpleMessage(
+          "Always Auto Turn On Timer",
+        ),
+        "autoTurnOnTimerAlwaysDescription":
+            MessageLookupByLibrary.simpleMessage(
+          "Always turn on the sleep timer, no matter what",
+        ),
+        "autoTurnOnTimerDescription": MessageLookupByLibrary.simpleMessage(
+          "Automatically turn on the sleep timer based on the time of day",
+        ),
+        "autoTurnOnTimerFrom": MessageLookupByLibrary.simpleMessage("From"),
+        "autoTurnOnTimerFromDescription": MessageLookupByLibrary.simpleMessage(
+          "Turn on the sleep timer at the specified time",
+        ),
+        "autoTurnOnTimerUntil": MessageLookupByLibrary.simpleMessage("Until"),
+        "autoTurnOnTimerUntilDescription": MessageLookupByLibrary.simpleMessage(
+          "Turn off the sleep timer at the specified time",
         ),
         "automaticallyDescription": MessageLookupByLibrary.simpleMessage(
           "Automatically turn on the sleep timer based on the time of day",
@@ -73,8 +145,8 @@ class MessageLookup extends MessageLookupByLibrary {
           "Settings copied to clipboard",
         ),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
-        "deleteDialog": m0,
-        "deleted": m1,
+        "deleteDialog": m2,
+        "deleted": m3,
         "explore": MessageLookupByLibrary.simpleMessage("explore"),
         "exploreHint": MessageLookupByLibrary.simpleMessage(
           "Seek and you shall discover...",
@@ -88,12 +160,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "homeBookContinueListening": MessageLookupByLibrary.simpleMessage(
           "Continue Listening",
         ),
+        "homeBookContinueListeningDescription":
+            MessageLookupByLibrary.simpleMessage(
+          "Show play button for books in currently listening shelf",
+        ),
         "homeBookContinueSeries": MessageLookupByLibrary.simpleMessage(
           "Continue Series",
+        ),
+        "homeBookContinueSeriesDescription":
+            MessageLookupByLibrary.simpleMessage(
+          "Show play button for books in continue series shelf",
         ),
         "homeBookDiscover": MessageLookupByLibrary.simpleMessage("Discover"),
         "homeBookListenAgain":
             MessageLookupByLibrary.simpleMessage("Listen Again"),
+        "homeBookListenAgainDescription": MessageLookupByLibrary.simpleMessage(
+          "Show play button for all books in listen again shelf",
+        ),
         "homeBookNewestAuthors": MessageLookupByLibrary.simpleMessage(
           "Newest Authors",
         ),
@@ -112,6 +195,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "homePageSettingsDescription": MessageLookupByLibrary.simpleMessage(
           "Customize the home page",
         ),
+        "homePageSettingsOtherShelves": MessageLookupByLibrary.simpleMessage(
+          "Other shelves",
+        ),
+        "homePageSettingsOtherShelvesDescription":
+            MessageLookupByLibrary.simpleMessage(
+          "Show play button for all books in all remaining shelves",
+        ),
+        "homePageSettingsQuickPlay": MessageLookupByLibrary.simpleMessage(
+          "Quick Play",
+        ),
         "homeStartListening": MessageLookupByLibrary.simpleMessage(
           "Start Listening",
         ),
@@ -124,7 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "libraryEmpty": MessageLookupByLibrary.simpleMessage(
           "No libraries available.",
         ),
-        "libraryLoadError": m2,
+        "libraryLoadError": m4,
         "librarySelect": MessageLookupByLibrary.simpleMessage("Select Library"),
         "librarySwitchTooltip": MessageLookupByLibrary.simpleMessage(
           "Switch Library",
@@ -134,6 +227,40 @@ class MessageLookup extends MessageLookupByLibrary {
         ),
         "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
         "logs": MessageLookupByLibrary.simpleMessage("Logs"),
+        "nmpSettingsBackward": MessageLookupByLibrary.simpleMessage(
+          "Backward Interval",
+        ),
+        "nmpSettingsForward": MessageLookupByLibrary.simpleMessage(
+          "Forward Interval",
+        ),
+        "nmpSettingsMediaControls": MessageLookupByLibrary.simpleMessage(
+          "Media Controls",
+        ),
+        "nmpSettingsMediaControlsDescription":
+            MessageLookupByLibrary.simpleMessage(
+          "Select the media controls to display",
+        ),
+        "nmpSettingsSelectOne": MessageLookupByLibrary.simpleMessage(
+          "Select a field below to insert it",
+        ),
+        "nmpSettingsShowChapterProgress": MessageLookupByLibrary.simpleMessage(
+          "Show Chapter Progress",
+        ),
+        "nmpSettingsShowChapterProgressDescription":
+            MessageLookupByLibrary.simpleMessage(
+          "Instead of the overall progress of the book",
+        ),
+        "nmpSettingsSubTitle": MessageLookupByLibrary.simpleMessage(
+          "Secondary Title",
+        ),
+        "nmpSettingsSubTitleDescription": MessageLookupByLibrary.simpleMessage(
+          "The subtitle of the notification\n",
+        ),
+        "nmpSettingsTitle":
+            MessageLookupByLibrary.simpleMessage("Primary Title"),
+        "nmpSettingsTitleDescription": MessageLookupByLibrary.simpleMessage(
+          "The title of the notification\n",
+        ),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "notImplemented":
             MessageLookupByLibrary.simpleMessage("Not implemented"),
@@ -149,9 +276,41 @@ class MessageLookup extends MessageLookupByLibrary {
         "play": MessageLookupByLibrary.simpleMessage("Play"),
         "playerSettings":
             MessageLookupByLibrary.simpleMessage("Player Settings"),
+        "playerSettingsCompleteTime": MessageLookupByLibrary.simpleMessage(
+          "Mark Complete When Time Left",
+        ),
+        "playerSettingsCompleteTimeDescriptionHead":
+            MessageLookupByLibrary.simpleMessage(
+                "Mark complete when less than "),
+        "playerSettingsCompleteTimeDescriptionTail":
+            MessageLookupByLibrary.simpleMessage(" left in the book"),
         "playerSettingsDescription": MessageLookupByLibrary.simpleMessage(
           "Customize the player settings",
         ),
+        "playerSettingsDisplay": MessageLookupByLibrary.simpleMessage(
+          "Display Settings",
+        ),
+        "playerSettingsDisplayChapterProgress":
+            MessageLookupByLibrary.simpleMessage("Show Chapter Progress"),
+        "playerSettingsDisplayChapterProgressDescription":
+            MessageLookupByLibrary.simpleMessage(
+          "Show the progress of the current chapter in the player",
+        ),
+        "playerSettingsDisplayTotalProgress":
+            MessageLookupByLibrary.simpleMessage(
+          "Show Total Progress",
+        ),
+        "playerSettingsDisplayTotalProgressDescription":
+            MessageLookupByLibrary.simpleMessage(
+          "Show the total progress of the book in the player",
+        ),
+        "playerSettingsPlaybackInterval": MessageLookupByLibrary.simpleMessage(
+          "Playback Report Interval",
+        ),
+        "playerSettingsPlaybackIntervalDescriptionHead":
+            MessageLookupByLibrary.simpleMessage("Report progress every "),
+        "playerSettingsPlaybackIntervalDescriptionTail":
+            MessageLookupByLibrary.simpleMessage(" to the server"),
         "playerSettingsPlaybackReporting": MessageLookupByLibrary.simpleMessage(
           "Playback Reporting",
         ),
@@ -175,11 +334,29 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
           "Settings like speed, loudness, etc. will be remembered for every book",
         ),
+        "playerSettingsSpeed": MessageLookupByLibrary.simpleMessage("Speed"),
         "playerSettingsSpeedDefault": MessageLookupByLibrary.simpleMessage(
           "Default Speed",
         ),
         "playerSettingsSpeedOptions": MessageLookupByLibrary.simpleMessage(
           "Speed Options",
+        ),
+        "playerSettingsSpeedOptionsSelect":
+            MessageLookupByLibrary.simpleMessage(
+          "Select Speed Options",
+        ),
+        "playerSettingsSpeedOptionsSelectAdd":
+            MessageLookupByLibrary.simpleMessage(
+          "Add Speed Option",
+        ),
+        "playerSettingsSpeedOptionsSelectAddHelper":
+            MessageLookupByLibrary.simpleMessage(
+                "Enter a new speed option to add"),
+        "playerSettingsSpeedSelect": MessageLookupByLibrary.simpleMessage(
+          "Select Speed",
+        ),
+        "playerSettingsSpeedSelectHelper": MessageLookupByLibrary.simpleMessage(
+          "Enter the speed you want to set when playing for the first time",
         ),
         "playlistsMine": MessageLookupByLibrary.simpleMessage("My Playlists"),
         "readLess": MessageLookupByLibrary.simpleMessage("Read Less"),
@@ -215,14 +392,86 @@ class MessageLookup extends MessageLookupByLibrary {
         "resume": MessageLookupByLibrary.simpleMessage("Resume"),
         "retry": MessageLookupByLibrary.simpleMessage("Retry"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "shakeAction": MessageLookupByLibrary.simpleMessage("Shake Action"),
+        "shakeActionDescription": MessageLookupByLibrary.simpleMessage(
+          "The action to perform when a shake is detected",
+        ),
+        "shakeActivationThreshold": MessageLookupByLibrary.simpleMessage(
+          "Shake Activation Threshold",
+        ),
+        "shakeActivationThresholdDescription":
+            MessageLookupByLibrary.simpleMessage(
+          "The higher the threshold, the harder you need to shake",
+        ),
         "shakeDetector": MessageLookupByLibrary.simpleMessage("Shake Detector"),
         "shakeDetectorDescription": MessageLookupByLibrary.simpleMessage(
           "Customize the shake detector settings",
         ),
+        "shakeDetectorEnable": MessageLookupByLibrary.simpleMessage(
+          "Enable Shake Detection",
+        ),
+        "shakeDetectorEnableDescription": MessageLookupByLibrary.simpleMessage(
+          "Enable shake detection to do various actions",
+        ),
+        "shakeDetectorSettings": MessageLookupByLibrary.simpleMessage(
+          "Shake Detector Settings",
+        ),
+        "shakeFeedback": MessageLookupByLibrary.simpleMessage("Shake Feedback"),
+        "shakeFeedbackDescription": MessageLookupByLibrary.simpleMessage(
+          "The feedback to give when a shake is detected",
+        ),
+        "shakeSelectAction": MessageLookupByLibrary.simpleMessage(
+          "Select Shake Action",
+        ),
+        "shakeSelectActivationThreshold": MessageLookupByLibrary.simpleMessage(
+          "Select Shake Activation Threshold",
+        ),
+        "shakeSelectActivationThresholdHelper":
+            MessageLookupByLibrary.simpleMessage(
+          "Enter a number to set the threshold in m/s²",
+        ),
+        "shakeSelectFeedback": MessageLookupByLibrary.simpleMessage(
+          "Select Shake Feedback",
+        ),
+        "themeMode": MessageLookupByLibrary.simpleMessage("Theme Mode"),
+        "themeModeDark": MessageLookupByLibrary.simpleMessage("Dark"),
+        "themeModeHighContrast": MessageLookupByLibrary.simpleMessage(
+          "High Contrast Mode",
+        ),
+        "themeModeHighContrastDescription":
+            MessageLookupByLibrary.simpleMessage(
+          "Increase the contrast between the background and the text",
+        ),
+        "themeModeLight": MessageLookupByLibrary.simpleMessage("Light"),
+        "themeModeSystem": MessageLookupByLibrary.simpleMessage("System"),
         "themeSettings": MessageLookupByLibrary.simpleMessage("Theme Settings"),
+        "themeSettingsColors": MessageLookupByLibrary.simpleMessage(
+          "Material Theme from System",
+        ),
+        "themeSettingsColorsAndroid": MessageLookupByLibrary.simpleMessage(
+          "Use Material You",
+        ),
+        "themeSettingsColorsBook": MessageLookupByLibrary.simpleMessage(
+          "Adaptive Theme on Item Page",
+        ),
+        "themeSettingsColorsBookDescription":
+            MessageLookupByLibrary.simpleMessage(
+          "Get fancy with the colors on the item page at the cost of some performance",
+        ),
+        "themeSettingsColorsCurrent": MessageLookupByLibrary.simpleMessage(
+          "Adapt theme from currently playing item",
+        ),
+        "themeSettingsColorsCurrentDescription":
+            MessageLookupByLibrary.simpleMessage(
+          "Use the theme colors from the currently playing item for the app",
+        ),
+        "themeSettingsColorsDescription": MessageLookupByLibrary.simpleMessage(
+          "Use the system theme colors for the app",
+        ),
         "themeSettingsDescription": MessageLookupByLibrary.simpleMessage(
           "Customize the app theme",
         ),
+        "timeSecond": m5,
         "unknown": MessageLookupByLibrary.simpleMessage("Unknown"),
         "webVersion": MessageLookupByLibrary.simpleMessage("Web Version"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),

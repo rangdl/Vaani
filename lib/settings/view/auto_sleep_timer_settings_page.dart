@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
 import 'package:vaani/settings/view/simple_settings_page.dart';
 import 'package:vaani/shared/extensions/time_of_day.dart';
@@ -22,7 +23,7 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
         ? Theme.of(context).colorScheme.primary
         : Theme.of(context).disabledColor;
     return SimpleSettingsPage(
-      title: const Text('Auto Sleep Timer Settings'),
+      title: Text(S.of(context).autoSleepTimerSettings),
       sections: [
         SettingsSection(
           margin: const EdgeInsetsDirectional.symmetric(
@@ -32,9 +33,9 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
           tiles: [
             SettingsTile.switchTile(
               // initialValue: sleepTimerSettings.autoTurnOnTimer,
-              title: const Text('Auto Turn On Timer'),
-              description: const Text(
-                'Automatically turn on the sleep timer based on the time of day',
+              title: Text(S.of(context).autoTurnOnTimer),
+              description: Text(
+                S.of(context).autoTurnOnTimerDescription,
               ),
               leading: sleepTimerSettings.autoTurnOnTimer
                   ? const Icon(Symbols.time_auto)
@@ -52,9 +53,9 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
             SettingsTile.navigation(
               enabled: enabled,
               leading: const Icon(Symbols.timer_play),
-              title: const Text('From'),
-              description: const Text(
-                'Turn on the sleep timer at the specified time',
+              title: Text(S.of(context).autoTurnOnTimerFrom),
+              description: Text(
+                S.of(context).autoTurnOnTimerFromDescription,
               ),
               onPressed: (context) async {
                 // navigate to the time picker
@@ -78,9 +79,9 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
             SettingsTile.navigation(
               enabled: enabled,
               leading: const Icon(Symbols.timer_pause),
-              title: const Text('Until'),
-              description: const Text(
-                'Turn off the sleep timer at the specified time',
+              title: Text(S.of(context).autoTurnOnTimerUntil),
+              description: Text(
+                S.of(context).autoTurnOnTimerUntilDescription,
               ),
               onPressed: (context) async {
                 // navigate to the time picker
@@ -107,9 +108,9 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
             // switch tile for always auto turn on timer no matter what
             SettingsTile.switchTile(
               leading: const Icon(Symbols.all_inclusive),
-              title: const Text('Always Auto Turn On Timer'),
-              description: const Text(
-                'Always turn on the sleep timer, no matter what',
+              title: Text(S.of(context).autoTurnOnTimerAlways),
+              description: Text(
+                S.of(context).autoTurnOnTimerAlwaysDescription,
               ),
               onToggle: (value) {
                 ref.read(appSettingsProvider.notifier).update(

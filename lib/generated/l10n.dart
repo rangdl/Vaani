@@ -199,11 +199,31 @@ class S {
     );
   }
 
+  /// `Show play button for books in currently listening shelf`
+  String get homeBookContinueListeningDescription {
+    return Intl.message(
+      'Show play button for books in currently listening shelf',
+      name: 'homeBookContinueListeningDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Continue Series`
   String get homeBookContinueSeries {
     return Intl.message(
       'Continue Series',
       name: 'homeBookContinueSeries',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show play button for books in continue series shelf`
+  String get homeBookContinueSeriesDescription {
+    return Intl.message(
+      'Show play button for books in continue series shelf',
+      name: 'homeBookContinueSeriesDescription',
       desc: '',
       args: [],
     );
@@ -244,6 +264,16 @@ class S {
     return Intl.message(
       'Listen Again',
       name: 'homeBookListenAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show play button for all books in listen again shelf`
+  String get homeBookListenAgainDescription {
+    return Intl.message(
+      'Show play button for all books in listen again shelf',
+      name: 'homeBookListenAgainDescription',
       desc: '',
       args: [],
     );
@@ -484,6 +514,181 @@ class S {
     );
   }
 
+  /// `Manage Accounts`
+  String get accountManage {
+    return Intl.message(
+      'Manage Accounts',
+      name: 'accountManage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registered Servers`
+  String get accountRegisteredServers {
+    return Intl.message(
+      'Registered Servers',
+      name: 'accountRegisteredServers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Users: {user}`
+  String accountUsersCount(Object user) {
+    return Intl.message(
+      'Users: $user',
+      name: 'accountUsersCount',
+      desc: '',
+      args: [user],
+    );
+  }
+
+  /// `Add New Server`
+  String get accountAddNewServer {
+    return Intl.message(
+      'Add New Server',
+      name: 'accountAddNewServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid URL`
+  String get accountInvalidURL {
+    return Intl.message(
+      'Invalid URL',
+      name: 'accountInvalidURL',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Server`
+  String get accountDeleteServer {
+    return Intl.message(
+      'Delete Server',
+      name: 'accountDeleteServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove Server and Users`
+  String get accountRemoveServerAndUsers {
+    return Intl.message(
+      'Remove Server and Users',
+      name: 'accountRemoveServerAndUsers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This will remove the server `
+  String get accountRemoveServerAndUsersHead {
+    return Intl.message(
+      'This will remove the server ',
+      name: 'accountRemoveServerAndUsersHead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` and all its users' login info from this app.`
+  String get accountRemoveServerAndUsersTail {
+    return Intl.message(
+      ' and all its users\' login info from this app.',
+      name: 'accountRemoveServerAndUsersTail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add User`
+  String get accountAddUser {
+    return Intl.message('Add User', name: 'accountAddUser', desc: '', args: []);
+  }
+
+  /// `Add new server`
+  String get accountAddUserTooltip {
+    return Intl.message(
+      'Add new server',
+      name: 'accountAddUserTooltip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add User to {host}`
+  String accountAddUserDialog(String host) {
+    return Intl.message(
+      'Add User to $host',
+      name: 'accountAddUserDialog',
+      desc: '',
+      args: [host],
+    );
+  }
+
+  /// `User added successfully! Switch?`
+  String get accountAddUserSuccessDialog {
+    return Intl.message(
+      'User added successfully! Switch?',
+      name: 'accountAddUserSuccessDialog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Anonymous`
+  String get accountAnonymous {
+    return Intl.message(
+      'Anonymous',
+      name: 'accountAnonymous',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove User Login`
+  String get accountRemoveUserLogin {
+    return Intl.message(
+      'Remove User Login',
+      name: 'accountRemoveUserLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This will remove login details of the user `
+  String get accountRemoveUserLoginHead {
+    return Intl.message(
+      'This will remove login details of the user ',
+      name: 'accountRemoveUserLoginHead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` from this app.`
+  String get accountRemoveUserLoginTail {
+    return Intl.message(
+      ' from this app.',
+      name: 'accountRemoveUserLoginTail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Server URI`
+  String get accountServerURI {
+    return Intl.message(
+      'Server URI',
+      name: 'accountServerURI',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `My Playlists`
   String get playlistsMine {
     return Intl.message(
@@ -497,6 +702,16 @@ class S {
   /// `Web Version`
   String get webVersion {
     return Intl.message('Web Version', name: 'webVersion', desc: '', args: []);
+  }
+
+  /// `{second} seconds`
+  String timeSecond(int second) {
+    return Intl.message(
+      '$second seconds',
+      name: 'timeSecond',
+      desc: '',
+      args: [second],
+    );
   }
 
   /// `App Settings`
@@ -589,6 +804,66 @@ class S {
     );
   }
 
+  /// `Select Speed Options`
+  String get playerSettingsSpeedOptionsSelect {
+    return Intl.message(
+      'Select Speed Options',
+      name: 'playerSettingsSpeedOptionsSelect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Speed Option`
+  String get playerSettingsSpeedOptionsSelectAdd {
+    return Intl.message(
+      'Add Speed Option',
+      name: 'playerSettingsSpeedOptionsSelectAdd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a new speed option to add`
+  String get playerSettingsSpeedOptionsSelectAddHelper {
+    return Intl.message(
+      'Enter a new speed option to add',
+      name: 'playerSettingsSpeedOptionsSelectAddHelper',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Speed`
+  String get playerSettingsSpeed {
+    return Intl.message(
+      'Speed',
+      name: 'playerSettingsSpeed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Speed`
+  String get playerSettingsSpeedSelect {
+    return Intl.message(
+      'Select Speed',
+      name: 'playerSettingsSpeedSelect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the speed you want to set when playing for the first time`
+  String get playerSettingsSpeedSelectHelper {
+    return Intl.message(
+      'Enter the speed you want to set when playing for the first time',
+      name: 'playerSettingsSpeedSelectHelper',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Playback Reporting`
   String get playerSettingsPlaybackReporting {
     return Intl.message(
@@ -639,6 +914,116 @@ class S {
     );
   }
 
+  /// `Mark Complete When Time Left`
+  String get playerSettingsCompleteTime {
+    return Intl.message(
+      'Mark Complete When Time Left',
+      name: 'playerSettingsCompleteTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mark complete when less than `
+  String get playerSettingsCompleteTimeDescriptionHead {
+    return Intl.message(
+      'Mark complete when less than ',
+      name: 'playerSettingsCompleteTimeDescriptionHead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` left in the book`
+  String get playerSettingsCompleteTimeDescriptionTail {
+    return Intl.message(
+      ' left in the book',
+      name: 'playerSettingsCompleteTimeDescriptionTail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Playback Report Interval`
+  String get playerSettingsPlaybackInterval {
+    return Intl.message(
+      'Playback Report Interval',
+      name: 'playerSettingsPlaybackInterval',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Report progress every `
+  String get playerSettingsPlaybackIntervalDescriptionHead {
+    return Intl.message(
+      'Report progress every ',
+      name: 'playerSettingsPlaybackIntervalDescriptionHead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` to the server`
+  String get playerSettingsPlaybackIntervalDescriptionTail {
+    return Intl.message(
+      ' to the server',
+      name: 'playerSettingsPlaybackIntervalDescriptionTail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Display Settings`
+  String get playerSettingsDisplay {
+    return Intl.message(
+      'Display Settings',
+      name: 'playerSettingsDisplay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show Total Progress`
+  String get playerSettingsDisplayTotalProgress {
+    return Intl.message(
+      'Show Total Progress',
+      name: 'playerSettingsDisplayTotalProgress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show the total progress of the book in the player`
+  String get playerSettingsDisplayTotalProgressDescription {
+    return Intl.message(
+      'Show the total progress of the book in the player',
+      name: 'playerSettingsDisplayTotalProgressDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show Chapter Progress`
+  String get playerSettingsDisplayChapterProgress {
+    return Intl.message(
+      'Show Chapter Progress',
+      name: 'playerSettingsDisplayChapterProgress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show the progress of the current chapter in the player`
+  String get playerSettingsDisplayChapterProgressDescription {
+    return Intl.message(
+      'Show the progress of the current chapter in the player',
+      name: 'playerSettingsDisplayChapterProgressDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Auto Turn On Sleep Timer`
   String get autoTurnOnSleepTimer {
     return Intl.message(
@@ -659,6 +1044,96 @@ class S {
     );
   }
 
+  /// `Auto Sleep Timer Settings`
+  String get autoSleepTimerSettings {
+    return Intl.message(
+      'Auto Sleep Timer Settings',
+      name: 'autoSleepTimerSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Auto Turn On Timer`
+  String get autoTurnOnTimer {
+    return Intl.message(
+      'Auto Turn On Timer',
+      name: 'autoTurnOnTimer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Automatically turn on the sleep timer based on the time of day`
+  String get autoTurnOnTimerDescription {
+    return Intl.message(
+      'Automatically turn on the sleep timer based on the time of day',
+      name: 'autoTurnOnTimerDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `From`
+  String get autoTurnOnTimerFrom {
+    return Intl.message(
+      'From',
+      name: 'autoTurnOnTimerFrom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Turn on the sleep timer at the specified time`
+  String get autoTurnOnTimerFromDescription {
+    return Intl.message(
+      'Turn on the sleep timer at the specified time',
+      name: 'autoTurnOnTimerFromDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Until`
+  String get autoTurnOnTimerUntil {
+    return Intl.message(
+      'Until',
+      name: 'autoTurnOnTimerUntil',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Turn off the sleep timer at the specified time`
+  String get autoTurnOnTimerUntilDescription {
+    return Intl.message(
+      'Turn off the sleep timer at the specified time',
+      name: 'autoTurnOnTimerUntilDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Always Auto Turn On Timer`
+  String get autoTurnOnTimerAlways {
+    return Intl.message(
+      'Always Auto Turn On Timer',
+      name: 'autoTurnOnTimerAlways',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Always turn on the sleep timer, no matter what`
+  String get autoTurnOnTimerAlwaysDescription {
+    return Intl.message(
+      'Always turn on the sleep timer, no matter what',
+      name: 'autoTurnOnTimerAlwaysDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Shake Detector`
   String get shakeDetector {
     return Intl.message(
@@ -674,6 +1149,136 @@ class S {
     return Intl.message(
       'Customize the shake detector settings',
       name: 'shakeDetectorDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shake Detector Settings`
+  String get shakeDetectorSettings {
+    return Intl.message(
+      'Shake Detector Settings',
+      name: 'shakeDetectorSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable Shake Detection`
+  String get shakeDetectorEnable {
+    return Intl.message(
+      'Enable Shake Detection',
+      name: 'shakeDetectorEnable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable shake detection to do various actions`
+  String get shakeDetectorEnableDescription {
+    return Intl.message(
+      'Enable shake detection to do various actions',
+      name: 'shakeDetectorEnableDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shake Activation Threshold`
+  String get shakeActivationThreshold {
+    return Intl.message(
+      'Shake Activation Threshold',
+      name: 'shakeActivationThreshold',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The higher the threshold, the harder you need to shake`
+  String get shakeActivationThresholdDescription {
+    return Intl.message(
+      'The higher the threshold, the harder you need to shake',
+      name: 'shakeActivationThresholdDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Shake Feedback`
+  String get shakeSelectFeedback {
+    return Intl.message(
+      'Select Shake Feedback',
+      name: 'shakeSelectFeedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Shake Action`
+  String get shakeSelectAction {
+    return Intl.message(
+      'Select Shake Action',
+      name: 'shakeSelectAction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Shake Activation Threshold`
+  String get shakeSelectActivationThreshold {
+    return Intl.message(
+      'Select Shake Activation Threshold',
+      name: 'shakeSelectActivationThreshold',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a number to set the threshold in m/s²`
+  String get shakeSelectActivationThresholdHelper {
+    return Intl.message(
+      'Enter a number to set the threshold in m/s²',
+      name: 'shakeSelectActivationThresholdHelper',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shake Action`
+  String get shakeAction {
+    return Intl.message(
+      'Shake Action',
+      name: 'shakeAction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The action to perform when a shake is detected`
+  String get shakeActionDescription {
+    return Intl.message(
+      'The action to perform when a shake is detected',
+      name: 'shakeActionDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shake Feedback`
+  String get shakeFeedback {
+    return Intl.message(
+      'Shake Feedback',
+      name: 'shakeFeedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The feedback to give when a shake is detected`
+  String get shakeFeedbackDescription {
+    return Intl.message(
+      'The feedback to give when a shake is detected',
+      name: 'shakeFeedbackDescription',
       desc: '',
       args: [],
     );
@@ -704,6 +1309,116 @@ class S {
     );
   }
 
+  /// `Theme Mode`
+  String get themeMode {
+    return Intl.message('Theme Mode', name: 'themeMode', desc: '', args: []);
+  }
+
+  /// `Light`
+  String get themeModeLight {
+    return Intl.message('Light', name: 'themeModeLight', desc: '', args: []);
+  }
+
+  /// `System`
+  String get themeModeSystem {
+    return Intl.message('System', name: 'themeModeSystem', desc: '', args: []);
+  }
+
+  /// `Dark`
+  String get themeModeDark {
+    return Intl.message('Dark', name: 'themeModeDark', desc: '', args: []);
+  }
+
+  /// `High Contrast Mode`
+  String get themeModeHighContrast {
+    return Intl.message(
+      'High Contrast Mode',
+      name: 'themeModeHighContrast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Increase the contrast between the background and the text`
+  String get themeModeHighContrastDescription {
+    return Intl.message(
+      'Increase the contrast between the background and the text',
+      name: 'themeModeHighContrastDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use Material You`
+  String get themeSettingsColorsAndroid {
+    return Intl.message(
+      'Use Material You',
+      name: 'themeSettingsColorsAndroid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Material Theme from System`
+  String get themeSettingsColors {
+    return Intl.message(
+      'Material Theme from System',
+      name: 'themeSettingsColors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use the system theme colors for the app`
+  String get themeSettingsColorsDescription {
+    return Intl.message(
+      'Use the system theme colors for the app',
+      name: 'themeSettingsColorsDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Adapt theme from currently playing item`
+  String get themeSettingsColorsCurrent {
+    return Intl.message(
+      'Adapt theme from currently playing item',
+      name: 'themeSettingsColorsCurrent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use the theme colors from the currently playing item for the app`
+  String get themeSettingsColorsCurrentDescription {
+    return Intl.message(
+      'Use the theme colors from the currently playing item for the app',
+      name: 'themeSettingsColorsCurrentDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Adaptive Theme on Item Page`
+  String get themeSettingsColorsBook {
+    return Intl.message(
+      'Adaptive Theme on Item Page',
+      name: 'themeSettingsColorsBook',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get fancy with the colors on the item page at the cost of some performance`
+  String get themeSettingsColorsBookDescription {
+    return Intl.message(
+      'Get fancy with the colors on the item page at the cost of some performance',
+      name: 'themeSettingsColorsBookDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Notification Media Player`
   String get notificationMediaPlayer {
     return Intl.message(
@@ -724,6 +1439,116 @@ class S {
     );
   }
 
+  /// `Primary Title`
+  String get nmpSettingsTitle {
+    return Intl.message(
+      'Primary Title',
+      name: 'nmpSettingsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The title of the notification\n`
+  String get nmpSettingsTitleDescription {
+    return Intl.message(
+      'The title of the notification\n',
+      name: 'nmpSettingsTitleDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Secondary Title`
+  String get nmpSettingsSubTitle {
+    return Intl.message(
+      'Secondary Title',
+      name: 'nmpSettingsSubTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The subtitle of the notification\n`
+  String get nmpSettingsSubTitleDescription {
+    return Intl.message(
+      'The subtitle of the notification\n',
+      name: 'nmpSettingsSubTitleDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forward Interval`
+  String get nmpSettingsForward {
+    return Intl.message(
+      'Forward Interval',
+      name: 'nmpSettingsForward',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Backward Interval`
+  String get nmpSettingsBackward {
+    return Intl.message(
+      'Backward Interval',
+      name: 'nmpSettingsBackward',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Media Controls`
+  String get nmpSettingsMediaControls {
+    return Intl.message(
+      'Media Controls',
+      name: 'nmpSettingsMediaControls',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select the media controls to display`
+  String get nmpSettingsMediaControlsDescription {
+    return Intl.message(
+      'Select the media controls to display',
+      name: 'nmpSettingsMediaControlsDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show Chapter Progress`
+  String get nmpSettingsShowChapterProgress {
+    return Intl.message(
+      'Show Chapter Progress',
+      name: 'nmpSettingsShowChapterProgress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Instead of the overall progress of the book`
+  String get nmpSettingsShowChapterProgressDescription {
+    return Intl.message(
+      'Instead of the overall progress of the book',
+      name: 'nmpSettingsShowChapterProgressDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a field below to insert it`
+  String get nmpSettingsSelectOne {
+    return Intl.message(
+      'Select a field below to insert it',
+      name: 'nmpSettingsSelectOne',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Home Page Settings`
   String get homePageSettings {
     return Intl.message(
@@ -739,6 +1564,36 @@ class S {
     return Intl.message(
       'Customize the home page',
       name: 'homePageSettingsDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quick Play`
+  String get homePageSettingsQuickPlay {
+    return Intl.message(
+      'Quick Play',
+      name: 'homePageSettingsQuickPlay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Other shelves`
+  String get homePageSettingsOtherShelves {
+    return Intl.message(
+      'Other shelves',
+      name: 'homePageSettingsOtherShelves',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show play button for all books in all remaining shelves`
+  String get homePageSettingsOtherShelvesDescription {
+    return Intl.message(
+      'Show play button for all books in all remaining shelves',
+      name: 'homePageSettingsOtherShelvesDescription',
       desc: '',
       args: [],
     );

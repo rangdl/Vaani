@@ -11,6 +11,7 @@ import 'package:vaani/features/onboarding/view/user_login.dart'
     show UserLoginWidget;
 import 'package:vaani/features/player/view/mini_player_bottom_padding.dart'
     show MiniPlayerBottomPadding;
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/main.dart' show appLogger;
 import 'package:vaani/router/router.dart' show Routes;
 import 'package:vaani/settings/api_settings_provider.dart'
@@ -28,7 +29,7 @@ class ServerManagerPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Manage Accounts'),
+        title: Text(S.of(context).accountManage),
       ),
       body: Center(
         child: Padding(
@@ -61,8 +62,8 @@ class ServerManagerBody extends HookConsumerWidget {
       // crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        const Text(
-          'Registered Servers',
+        Text(
+          S.of(context).accountRegisteredServers,
         ),
         Expanded(
           child: ListView.builder(
@@ -73,7 +74,13 @@ class ServerManagerBody extends HookConsumerWidget {
               return ExpansionTile(
                 title: Text(registeredServer.serverUrl.toString()),
                 subtitle: Text(
-                  'Users: ${availableUsers.where((element) => element.server == registeredServer).length}',
+                  S.of(context).accountUsersCount(
+                        availableUsers
+                            .where(
+                                (element) => element.server == registeredServer)
+                            .length,
+                      ),
+                  // 'Users: ${availableUsers.where((element) => element.server == registeredServer).length}',
                 ),
                 // children are list of users of this server
                 children: availableUsers
@@ -96,9 +103,9 @@ class ServerManagerBody extends HookConsumerWidget {
           ),
         ),
         const SizedBox(height: 20),
-        const Padding(
+        Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text('Add New Server'),
+          child: Text(S.of(context).accountAddNewServer),
         ),
         Form(
           key: formKey,
@@ -129,8 +136,8 @@ class ServerManagerBody extends HookConsumerWidget {
                 }
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Invalid URL'),
+                  SnackBar(
+                    content: Text(S.of(context).accountInvalidURL),
                   ),
                 );
               }
@@ -155,20 +162,20 @@ class DeleteServerTile extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
       leading: const Icon(Icons.delete),
-      title: const Text('Delete Server'),
+      title: Text(S.of(context).accountDeleteServer),
       onTap: () {
         showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: const Text('Remove Server and Users'),
+              title: Text(S.of(context).accountRemoveServerAndUsers),
               // Make content scrollable in case of smaller screens/keyboard
               content: SingleChildScrollView(
                 child: Text.rich(
                   TextSpan(
                     children: [
-                      const TextSpan(
-                        text: 'This will remove the server ',
+                      TextSpan(
+                        text: S.of(context).accountRemoveServerAndUsersHead,
                       ),
                       TextSpan(
                         text: server.serverUrl.host,
@@ -177,8 +184,8 @@ class DeleteServerTile extends HookConsumerWidget {
                           color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
-                      const TextSpan(
-                        text: ' and all its users\' login info from this app.',
+                      TextSpan(
+                        text: S.of(context).accountRemoveServerAndUsersTail,
                       ),
                     ],
                   ),
@@ -189,7 +196,7 @@ class DeleteServerTile extends HookConsumerWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Cancel'),
+                  child: Text(S.of(context).cancel),
                 ),
                 TextButton(
                   onPressed: () {
@@ -203,7 +210,7 @@ class DeleteServerTile extends HookConsumerWidget {
                         );
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Delete'),
+                  child: Text(S.of(context).delete),
                 ),
               ],
             );
@@ -226,7 +233,7 @@ class AddUserTile extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
       leading: const Icon(Icons.person_add),
-      title: const Text('Add User'),
+      title: Text(S.of(context).accountAddUser),
       onTap: () async {
         await showDialog(
           context: context,
@@ -234,7 +241,9 @@ class AddUserTile extends HookConsumerWidget {
           builder: (dialogContext) {
             // Use a different context name to avoid conflicts
             return AlertDialog(
-              title: Text('Add User to ${server.serverUrl.host}'),
+              title: Text(
+                S.of(context).accountAddUserDialog(server.serverUrl.host),
+              ),
               // Make content scrollable in case of smaller screens/keyboard
               content: SingleChildScrollView(
                 child: UserLoginWidget(
@@ -247,7 +256,8 @@ class AddUserTile extends HookConsumerWidget {
                     // Optional: Show a confirmation SnackBar
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('User added successfully! Switch?'),
+                        content:
+                            Text(S.of(context).accountAddUserSuccessDialog),
                         action: SnackBarAction(
                           label: 'Switch',
                           onPressed: () {
@@ -270,7 +280,7 @@ class AddUserTile extends HookConsumerWidget {
                   onPressed: () {
                     Navigator.of(dialogContext).pop(); // Close the dialog
                   },
-                  child: const Text('Cancel'),
+                  child: Text(S.of(context).cancel),
                 ),
               ],
             );
@@ -299,7 +309,7 @@ class AvailableUserTile extends HookConsumerWidget {
       leading: apiSettings.activeUser == user
           ? const Icon(Icons.person)
           : const Icon(Icons.person_off_outlined),
-      title: Text(user.username ?? 'Anonymous'),
+      title: Text(user.username ?? S.of(context).accountAnonymous),
       onTap: apiSettings.activeUser == user
           ? null
           : () {
@@ -323,22 +333,22 @@ class AvailableUserTile extends HookConsumerWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text('Remove User Login'),
+                title: Text(S.of(context).accountRemoveUserLogin),
                 content: Text.rich(
                   TextSpan(
                     children: [
-                      const TextSpan(
-                        text: 'This will remove login details of the user ',
+                      TextSpan(
+                        text: S.of(context).accountRemoveUserLoginHead,
                       ),
                       TextSpan(
-                        text: user.username ?? 'Anonymous',
+                        text: user.username ?? S.of(context).accountAnonymous,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
-                      const TextSpan(
-                        text: ' from this app.',
+                      TextSpan(
+                        text: S.of(context).accountRemoveUserLoginTail,
                       ),
                     ],
                   ),
@@ -348,7 +358,7 @@ class AvailableUserTile extends HookConsumerWidget {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text('Cancel'),
+                    child: Text(S.of(context).cancel),
                   ),
                   TextButton(
                     onPressed: () {
@@ -359,7 +369,7 @@ class AvailableUserTile extends HookConsumerWidget {
                           .removeUser(user);
                       Navigator.of(context).pop();
                     },
-                    child: const Text('Delete'),
+                    child: Text(S.of(context).delete),
                   ),
                 ],
               );
