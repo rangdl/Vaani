@@ -95,14 +95,14 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
       child: Scaffold(
         body: Stack(
           children: [
-            isMobile && isVertical
+            isMobile || isVertical
                 ? navigationShell
                 : buildNavLeft(context, ref),
             const AudiobookPlayer(),
           ],
         ),
         bottomNavigationBar:
-            isMobile && isVertical ? buildNavBottom(context, ref) : null,
+            isMobile || isVertical ? buildNavBottom(context, ref) : null,
       ),
     );
   }
@@ -178,7 +178,7 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
         (playerMaxHeight - playerMinHeight);
     // Clamp the value between 0 and 1
     percentExpandedMiniPlayer = percentExpandedMiniPlayer.clamp(0.0, 1.0);
-    return percentExpandedMiniPlayer == 1
+    return percentExpandedMiniPlayer != 1
         ? Opacity(
             // Opacity is interpolated from 1 to 0 when player is expanded
             opacity: 1 - percentExpandedMiniPlayer,
