@@ -177,6 +177,14 @@ class PlaybackReporter {
         deviceInfo: await _getDeviceInfo(),
         forceDirectPlay: false,
         forceTranscode: false,
+        supportedMimeTypes: [
+          "audio/flac",
+          "audio/mpeg",
+          "audio/mp4",
+          "audio/ogg",
+          "audio/aac",
+          "audio/webm",
+        ],
       ),
       responseErrorHandler: _responseErrorHandler,
     );

@@ -124,8 +124,10 @@ class AudiobookPlayer extends AudioPlayer {
     final initialPositionInTrack = initialPosition != null
         ? initialPosition - trackToPlay.startOffset
         : null;
-    await setAudioSourceTrack(initialIndex,
-        initialPosition: initialPositionInTrack);
+    await setAudioSourceTrack(
+      initialIndex,
+      initialPosition: initialPositionInTrack,
+    );
     // _logger.finer('Setting audioSource');
     // await setAudioSource(
     //   preload: preload,
@@ -159,27 +161,34 @@ class AudiobookPlayer extends AudioPlayer {
     // });
   }
 
-  Future<void> setAudioSourceTrack(int index,
-      {Duration? initialPosition}) async {
+  Future<void> setAudioSourceTrack(
+    int index, {
+    Duration? initialPosition,
+  }) async {
     if (_book == null) {
       return stop();
     }
     if (_currentIndex != 0 && index == _currentIndex) {
+      if (initialPosition != null && initialPosition <= position) {
+        seek(initialPosition);
+      }
       return;
     }
+
     _currentIndex = index;
     AudioTrack track = _book!.tracks[index];
     final appSettings = loadOrCreateAppSettings();
     final playerSettings =
         readFromBoxOrCreate(_book!.libraryItemId).playerSettings;
 
+    if (initialPosition == null || initialPosition <= Duration(seconds: 1)) {
+      initialPosition = playerSettings.skipChapterStart;
+    }
     final retrievedUri =
         _getUri(track, _downloadedUris, baseUrl: baseUrl, token: token);
 
     await setAudioSource(
-      initialPosition: initialPosition == null || initialPosition <= Duration()
-          ? playerSettings.skipChapterStart
-          : initialPosition,
+      initialPosition: initialPosition,
       ClippingAudioSource(
         end: track.duration - playerSettings.skipChapterEnd,
         child: AudioSource.uri(
@@ -263,7 +272,7 @@ class AudiobookPlayer extends AudioPlayer {
 
   /// seek forward to the next chapter
   void seekForward() {
-    seekToNext();
+    seekInBook(currentChapter!.end + offset);
     // final index = _book!.chapters.indexOf(currentChapter!);
     // if (index < _book!.chapters.length - 1) {
     //   super.seek(
@@ -272,6 +281,30 @@ class AudiobookPlayer extends AudioPlayer {
     // } else {
     //   super.seek(currentChapter!.end);
     // }
+  }
+
+  /// seek backward to the previous chapter or the start of the current chapter
+  void seekBackward() {
+    final currentPlayingChapterIndex = _book!.chapters.indexOf(currentChapter!);
+    if (position > doNotSeekBackIfLessThan || currentPlayingChapterIndex <= 0) {
+      seekInBook(currentChapter!.start + offset);
+      return;
+    }
+    BookChapter chapterToSeekTo =
+        _book!.chapters[currentPlayingChapterIndex - 1];
+    seekInBook(chapterToSeekTo.start + offset);
+    // final currentPlayingChapterIndex = _book!.chapters.indexOf(currentChapter!);
+    // final chapterPosition = positionInBook - currentChapter!.start;
+    // BookChapter chapterToSeekTo;
+    // // if player position is less than 5 seconds into the chapter, go to the previous chapter
+    // if (chapterPosition < doNotSeekBackIfLessThan && currentPlayingChapterIndex > 0) {
+    //   chapterToSeekTo = _book!.chapters[currentPlayingChapterIndex - 1];
+    // } else {
+    //   chapterToSeekTo = currentChapter!;
+    // }
+    // super.seek(
+    //   chapterToSeekTo.start + offset,
+    // );
   }
 
   @override
@@ -288,23 +321,6 @@ class AudiobookPlayer extends AudioPlayer {
       return super.seek(Duration());
     }
     return setAudioSourceTrack(_currentIndex - 1);
-  }
-
-  /// seek backward to the previous chapter or the start of the current chapter
-  void seekBackward() {
-    seekToPrevious();
-    // final currentPlayingChapterIndex = _book!.chapters.indexOf(currentChapter!);
-    // final chapterPosition = positionInBook - currentChapter!.start;
-    // BookChapter chapterToSeekTo;
-    // // if player position is less than 5 seconds into the chapter, go to the previous chapter
-    // if (chapterPosition < doNotSeekBackIfLessThan && currentPlayingChapterIndex > 0) {
-    //   chapterToSeekTo = _book!.chapters[currentPlayingChapterIndex - 1];
-    // } else {
-    //   chapterToSeekTo = currentChapter!;
-    // }
-    // super.seek(
-    //   chapterToSeekTo.start + offset,
-    // );
   }
 
   /// a convenience method to get position in the book instead of the current track position
