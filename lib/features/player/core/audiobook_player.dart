@@ -394,7 +394,8 @@ class AudiobookPlayer extends AudioPlayer {
     }
     return _book!.chapters.firstWhere(
       (element) {
-        return element.start <= positionInBook && element.end >= positionInBook;
+        return element.start <= positionInBook &&
+            element.end >= positionInBook + offset;
       },
       orElse: () => _book!.chapters.first,
     );
