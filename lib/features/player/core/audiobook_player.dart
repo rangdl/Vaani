@@ -169,7 +169,7 @@ class AudiobookPlayer extends AudioPlayer {
       return stop();
     }
     if (_currentIndex != 0 && index == _currentIndex) {
-      if (initialPosition != null && initialPosition <= position) {
+      if (initialPosition != null) {
         seek(initialPosition);
       }
       return;
