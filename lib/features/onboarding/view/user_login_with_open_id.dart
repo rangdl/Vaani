@@ -31,7 +31,7 @@ class UserLoginWithOpenID extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final serverStatus = ref.watch(serverStatusProvider(server));
+    ref.watch(serverStatusProvider(server));
     void openIDLoginFlow() async {
       appLogger.fine('Clicked Login with OpenID');
 

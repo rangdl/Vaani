@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
 

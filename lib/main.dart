@@ -12,7 +12,6 @@ import 'package:vaani/features/player/core/init.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart'
     show audiobookPlayerProvider, simpleAudiobookPlayerProvider;
 import 'package:vaani/features/shake_detection/providers/shake_detector.dart';
-import 'package:vaani/features/skip_start_end/skip_start_end_provider.dart';
 import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/router.dart';

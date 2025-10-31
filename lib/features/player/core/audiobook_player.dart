@@ -12,7 +12,6 @@ import 'package:vaani/features/per_book_settings/providers/book_settings_provide
 import 'package:vaani/settings/app_settings_provider.dart';
 import 'package:vaani/settings/models/app_settings.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
-import 'package:vaani/shared/extensions/obfuscation.dart';
 
 final _logger = Logger('AudiobookPlayer');
 
