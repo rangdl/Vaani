@@ -14,19 +14,34 @@ import 'package:vaani/features/player/providers/audiobook_player.dart'
 import 'package:vaani/features/shake_detection/providers/shake_detector.dart';
 import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart';
 import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/models/tray.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/api_settings_provider.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
 import 'package:vaani/settings/settings.dart';
+import 'package:vaani/shared/utils/utils.dart';
 import 'package:vaani/theme/providers/system_theme_provider.dart';
 import 'package:vaani/theme/providers/theme_from_cover_provider.dart';
 import 'package:vaani/theme/theme.dart';
+import 'package:window_manager/window_manager.dart';
 
 final appLogger = Logger(AppMetadata.appName);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // 初始化窗口管理器
+  if (Utils.isDesktop()) {
+    await windowManager.ensureInitialized();
+    final windowOptions = WindowOptions(
+      minimumSize: Size(1050, 700),
+      center: true,
+      skipTaskbar: false,
+    );
+    await windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.setPreventClose(true);
+    });
+  }
   // Configure the root Logger
   await initLogging();
 
@@ -39,7 +54,7 @@ void main() async {
   // run the app
   runApp(
     const ProviderScope(
-      child: _EagerInitialization(child: MyApp()),
+      child: _EagerInitialization(child: TrayFramework(MyApp())),
     ),
   );
 }

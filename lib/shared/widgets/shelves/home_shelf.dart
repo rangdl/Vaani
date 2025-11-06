@@ -70,7 +70,7 @@ class SimpleHomeShelf extends HookConsumerWidget {
           ),
           // fix the height of the shelf as a percentage of the screen height
           SizedBox(
-            height: height ?? getDefaultShelfHeight(context, perCent: 0.5),
+            height: height ?? getDefaultShelfHeight(context, perCent: 0.45),
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {

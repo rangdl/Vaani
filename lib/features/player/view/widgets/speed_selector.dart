@@ -28,7 +28,9 @@ class SpeedSelector extends HookConsumerWidget {
     // hook the onSpeedSelected function to the state
     useEffect(
       () {
-        onSpeedSelected(speedState.value);
+        Future.microtask(() {
+          onSpeedSelected(speedState.value);
+        });
         return null;
       },
       [speedState.value],

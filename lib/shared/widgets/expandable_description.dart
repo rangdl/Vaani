@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class ExpandableDescription extends HookWidget {
   const ExpandableDescription({
@@ -78,18 +79,28 @@ class ExpandableDescription extends HookWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: AnimatedSwitcher(
               duration: duration * 3,
-              child: isDescExpanded.value
-                  ? Text(
-                      style: textTheme.bodyMedium,
-                      content,
-                      maxLines: null,
-                    )
-                  : Text(
-                      style: textTheme.bodyMedium,
-                      content,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+              // child: isDescExpanded.value
+              //     ? Text(
+              //         style: textTheme.bodyMedium,
+              //         content,
+              //         maxLines: null,
+              //       )
+              //     : Text(
+              //         style: textTheme.bodyMedium,
+              //         content,
+              //         maxLines: 3,
+              //         overflow: TextOverflow.ellipsis,
+              //       ),
+              child: Html(
+                data: '<div class="vaani-ellipsis">$content</div>',
+                style: {
+                  "div": Style(
+                    maxLines: isDescExpanded.value ? null : 3,
+                    textOverflow: TextOverflow.ellipsis,
+                    fontStyle: textTheme.bodyMedium?.fontStyle,
+                  ),
+                },
+              ),
             ),
           ),
 
