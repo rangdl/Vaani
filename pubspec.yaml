@@ -62,22 +62,23 @@ dependencies:
   isar: ^4.0.0-dev.13
   isar_flutter_libs: ^4.0.0-dev.13
   json_annotation: ^4.9.0
-  just_audio: ^0.9.37
+  just_audio: ^0.10.5
   just_audio_background:
     # TODO Remove git dep when https://github.com/ryanheise/just_audio/issues/912 is closed
     git:
       url: https://github.com/Dr-Blank/just_audio
       ref: media-notification-config
       path: just_audio_background
+  just_audio_windows: ^0.2.2
   just_audio_media_kit: ^2.0.4
+  media_kit_libs_linux: any
+  # media_kit_libs_windows_audio: any
   list_wheel_scroll_view_nls: ^0.0.3
   logging: ^1.2.0
   logging_appenders: ^1.3.1
   lottie: ^3.1.0
   material_color_utilities: ^0.11.1
   material_symbols_icons: ^4.2785.1
-  media_kit_libs_linux: any
-  media_kit_libs_windows_audio: any
   miniplayer:
     git:
       url: https://github.com/Dr-Blank/miniplayer.git
