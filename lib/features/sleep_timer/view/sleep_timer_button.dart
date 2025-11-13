@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:list_wheel_scroll_view_nls/list_wheel_scroll_view_nls.dart';
-import 'package:material_symbols_icons/symbols.dart';
-import 'package:vaani/features/player/view/player_when_expanded.dart';
+import 'package:vaani/features/player/view/player_expanded.dart';
 import 'package:vaani/features/player/view/widgets/speed_selector.dart';
 import 'package:vaani/features/sleep_timer/core/sleep_timer.dart';
 import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart'
@@ -54,7 +53,7 @@ class SleepTimerButton extends HookConsumerWidget {
           duration: const Duration(milliseconds: 300),
           child: sleepTimer == null
               ? Icon(
-                  Symbols.bedtime,
+                  Icons.bedtime_outlined,
                   color: Theme.of(context).colorScheme.onSurface,
                 )
               : RemainingSleepTimeDisplay(
@@ -153,7 +152,7 @@ class SleepTimerBottomSheet extends HookConsumerWidget {
               onDurationSelected?.call(null);
               Navigator.of(context).pop();
             },
-            icon: const Icon(Symbols.bedtime_off),
+            icon: const Icon(Icons.bedtime_off_outlined),
             label: const Text('Cancel Sleep Timer'),
           ),
         ),

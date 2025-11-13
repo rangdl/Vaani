@@ -9,7 +9,7 @@ import 'package:vaani/settings/models/app_settings.dart';
 
 Future<void> configurePlayer() async {
   // for playing audio on windows, linux
-  JustAudioMediaKit.ensureInitialized(windows: false);
+  JustAudioMediaKit.ensureInitialized();
 
   // for configuring how this app will interact with other audio apps
   final session = await AudioSession.instance;

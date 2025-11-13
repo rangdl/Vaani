@@ -1,19 +1,16 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:miniplayer/miniplayer.dart';
 import 'package:vaani/api/library_provider.dart' show currentLibraryProvider;
 import 'package:vaani/features/explore/providers/search_controller.dart';
 import 'package:vaani/features/player/providers/player_form.dart';
-import 'package:vaani/features/player/view/audiobook_player.dart';
-import 'package:vaani/features/player/view/player_when_expanded.dart';
+import 'package:vaani/features/player/view/player_minimized.dart';
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/main.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/icons/abs_icons.dart' show AbsIcons;
+import 'package:vaani/shared/utils/utils.dart';
 
 // stack to track changes in navigationShell.currentIndex
 // home is always at index 0 and at the start and should be the last before popping
@@ -37,73 +34,21 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
-    final playerProgress = ref.watch(playerHeightProvider);
-    final isMobile = Platform.isAndroid || Platform.isIOS || Platform.isFuchsia;
     final isVertical = size.height > size.width;
-    onBackButtonPressed() async {
-      final isPlayerExpanded = playerProgress != playerMinHeight;
 
-      appLogger.fine(
-        'BackButtonListener: Back button pressed, isPlayerExpanded: $isPlayerExpanded, stack: $navigationShellStack, pendingPlayerModals: $pendingPlayerModals',
-      );
-
-      // close miniplayer if it is open
-      if (isPlayerExpanded && pendingPlayerModals == 0) {
-        appLogger.fine(
-          'BackButtonListener: closing the player',
-        );
-        audioBookMiniplayerController.animateToHeight(state: PanelState.MIN);
-        return true;
-      }
-
-      // do the the following only if the current branch has nothing to pop
-      final canPop = GoRouter.of(context).canPop();
-
-      if (canPop) {
-        appLogger.fine(
-          'BackButtonListener: passing it to the router as canPop is true',
-        );
-        return false;
-      }
-
-      if (navigationShellStack.isNotEmpty) {
-        // pop the last index from the stack and navigate to it
-        final index = navigationShellStack.last;
-        navigationShellStack.remove(index);
-        appLogger.fine('BackButtonListener: popping the stack, index: $index');
-
-        // if the stack is empty, navigate to home else navigate to the last index
-        if (navigationShellStack.isNotEmpty) {
-          navigationShell.goBranch(navigationShellStack.last);
-          return true;
-        }
-      }
-      if (navigationShell.currentIndex != 0) {
-        // if the stack is empty and the current branch is not home, navigate to home
-        appLogger.fine('BackButtonListener: navigating to home');
-        navigationShell.goBranch(0);
-        return true;
-      }
-
-      appLogger.fine('BackButtonListener: passing it to the router');
-      return false;
-    }
-
-    // TODO: Implement a better way to handle back button presses to minimize player
-    return BackButtonListener(
-      onBackButtonPressed: onBackButtonPressed,
-      child: Scaffold(
-        body: Stack(
-          children: [
-            isMobile || isVertical
-                ? navigationShell
-                : buildNavLeft(context, ref),
-            const AudiobookPlayer(),
-          ],
-        ),
-        bottomNavigationBar:
-            isMobile || isVertical ? buildNavBottom(context, ref) : null,
+    return Scaffold(
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Utils.isMobile() || isVertical
+              ? navigationShell
+              : buildNavLeft(context, ref),
+          // const AudiobookPlayer(),
+          const PlayerMinimized(),
+        ],
       ),
+      bottomNavigationBar:
+          Utils.isMobile() || isVertical ? buildNavBottom(context, ref) : null,
     );
   }
 
@@ -116,7 +61,7 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
           SafeArea(
             child: NavigationRail(
               minWidth: 60,
-              minExtendedWidth: 120,
+              minExtendedWidth: 180,
               extended: MediaQuery.of(context).size.width > 640,
               // extended: false,
               destinations: _navigationItems(context).map((item) {

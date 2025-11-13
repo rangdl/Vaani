@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/features/player/view/player_when_expanded.dart';
+import 'package:vaani/features/player/view/player_expanded.dart';
 import 'package:vaani/features/player/view/widgets/speed_selector.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
 

@@ -1,18 +1,28 @@
 import 'dart:async';
 
+import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/features/player/core/audiobook_player.dart';
+import 'package:vaani/shared/extensions/chapter.dart';
+import 'package:vaani/shared/utils/throttler.dart';
 
 class SkipStartEnd {
   final Duration start;
   final Duration end;
   final AudiobookPlayer player;
+  // 当前章节的id
+  int? chapterId;
   // int _index;
   final List<StreamSubscription> _subscriptions = [];
   final throttler = Throttler(delay: Duration(seconds: 3));
   // final StreamController<PlaybackEvent> _playbackController =
   //     StreamController<PlaybackEvent>.broadcast();
 
-  SkipStartEnd({required this.start, required this.end, required this.player}) {
+  SkipStartEnd({
+    required this.start,
+    required this.end,
+    required this.player,
+    this.chapterId,
+  }) {
     // if (start > Duration()) {
     //   _subscriptions.add(
     //     player.currentIndexStream.listen((index) {
@@ -25,22 +35,78 @@ class SkipStartEnd {
     //     }),
     //   );
     // }
-    if (end > Duration()) {
+    // if (end > Duration()) {
+    //   _subscriptions.add(
+    //     player.positionStream.distinct().listen((position) {
+    //       if (player.duration != null &&
+    //           player.duration!.inMilliseconds - player.position.inMilliseconds <
+    //               end.inMilliseconds) {
+    //         throttler.call(() {
+    //           print('跳过片尾');
+    //           Future.microtask(() async {
+    //             await player.stop();
+    //             player.seekToNext();
+    //           });
+    //         });
+    //       }
+    //     }),
+    //   );
+    // }
+    if (start > Duration.zero || end > Duration.zero) {
       _subscriptions.add(
-        player.positionStream.distinct().listen((position) {
-          if (player.duration != null &&
-              player.duration!.inMilliseconds - player.position.inMilliseconds <
-                  end.inMilliseconds) {
-            throttler.call(() {
-              print('跳过片尾');
-              Future.microtask(() async {
-                await player.stop();
-                player.seekToNext();
+        player.positionStream.listen((position) {
+          final chapter = player.currentChapter;
+          if (chapter == null) {
+            return;
+          }
+          if (chapter.id == chapterId) {
+            if (end > Duration.zero &&
+                chapter.duration - (player.positionInBook - chapter.start) <
+                    end) {
+              throttler.call(() {
+                Future.microtask(() => skipEnd(chapter));
               });
-            });
+            }
+          }
+          if (chapter.id != chapterId) {
+            if (start > Duration.zero &&
+                player.positionInBook - chapter.start < Duration(seconds: 1)) {
+              throttler.call(() {
+                Future.microtask(() => skipStart(chapter));
+              });
+            }
+
+            chapterId = chapter.id;
           }
         }),
       );
+    }
+  }
+
+  void skipStart(BookChapter chapter) {
+    print('跳过片头');
+    final globalPosition = player.positionInBook;
+    if (globalPosition - chapter.start < Duration(seconds: 1)) {
+      player.seekInBook(chapter.start + start);
+    }
+  }
+
+  void skipEnd(chapter) {
+    print('跳过片尾');
+    final book = player.book;
+    if (book == null) {
+      return;
+    }
+    if (start > Duration.zero) {
+      final currentIndex = book.chapters.indexOf(chapter);
+      if (currentIndex < book.chapters.length - 1) {
+        final nextChapter = book.chapters[currentIndex + 1];
+        // 跳过片头+片尾
+        print('跳过片头+片尾');
+        player.skipToChapter(nextChapter.id, position: start);
+      }
+    } else {
+      player.seekToPrevious();
     }
   }
 
@@ -51,40 +117,5 @@ class SkipStartEnd {
     }
     throttler.dispose();
     // _playbackController.close();
-  }
-}
-
-class Throttler {
-  final Duration delay;
-  Timer? _timer;
-  DateTime? _lastRun;
-
-  Throttler({required this.delay});
-
-  void call(void Function() callback) {
-    // 如果是第一次调用，立即执行
-    if (_lastRun == null) {
-      callback();
-      _lastRun = DateTime.now();
-      return;
-    }
-
-    // 如果距离上次执行已经超过延迟时间，立即执行
-    if (DateTime.now().difference(_lastRun!) > delay) {
-      callback();
-      _lastRun = DateTime.now();
-    }
-    // 否则，安排在下个周期执行
-    else {
-      _timer?.cancel();
-      _timer = Timer(delay, () {
-        callback();
-        _lastRun = DateTime.now();
-      });
-    }
-  }
-
-  void dispose() {
-    _timer?.cancel();
   }
 }

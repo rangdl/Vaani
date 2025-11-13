@@ -6,7 +6,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:material_symbols_icons/symbols.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
@@ -71,8 +70,8 @@ class AppSettingsPage extends HookConsumerWidget {
               title: Text(S.of(context).autoTurnOnSleepTimer),
               description: Text(S.of(context).automaticallyDescription),
               leading: sleepTimerSettings.autoTurnOnTimer
-                  ? const Icon(Symbols.time_auto, fill: 1)
-                  : const Icon(Symbols.timer_off, fill: 1),
+                  ? const Icon(Icons.timer, fill: 1)
+                  : const Icon(Icons.timer_off, fill: 1),
               onPressed: (context) {
                 context.pushNamed(Routes.autoSleepTimerSettings.name);
               },

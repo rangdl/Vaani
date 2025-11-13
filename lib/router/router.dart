@@ -8,6 +8,7 @@ import 'package:vaani/features/library_browser/view/library_browser_page.dart';
 import 'package:vaani/features/logging/view/logs_page.dart';
 import 'package:vaani/features/onboarding/view/callback_page.dart';
 import 'package:vaani/features/onboarding/view/onboarding_single_page.dart';
+import 'package:vaani/features/player/view/player_expanded.dart';
 import 'package:vaani/features/you/view/server_manager.dart';
 import 'package:vaani/features/you/view/you_page.dart';
 import 'package:vaani/main.dart';
@@ -232,6 +233,13 @@ class MyAppRouter {
                 ],
               ),
             ],
+          ),
+
+          // loggers page
+          GoRoute(
+            path: Routes.player.localPath,
+            name: Routes.player.name,
+            pageBuilder: defaultPageBuilder(const PlayerExpanded()),
           ),
 
           // loggers page

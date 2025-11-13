@@ -5,7 +5,7 @@ import 'package:vaani/features/player/providers/audiobook_player.dart'
     show audiobookPlayerProvider;
 import 'package:vaani/features/player/providers/currently_playing_provider.dart'
     show currentPlayingChapterProvider, currentlyPlayingBookProvider;
-import 'package:vaani/features/player/view/player_when_expanded.dart'
+import 'package:vaani/features/player/view/player_expanded.dart'
     show pendingPlayerModals;
 import 'package:vaani/features/player/view/widgets/playing_indicator_icon.dart';
 import 'package:vaani/main.dart' show appLogger;
@@ -117,7 +117,8 @@ class ChapterSelectionModal extends HookConsumerWidget {
                             key: isCurrent ? chapterKey : null,
                             onTap: () {
                               Navigator.of(context).pop();
-                              notifier.seekInBook(chapter.start + 90.ms);
+                              // notifier.seekInBook(chapter.start + 90.ms);
+                              notifier.skipToChapter(chapter.id);
                               notifier.play();
                             },
                           );

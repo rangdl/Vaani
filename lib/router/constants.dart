@@ -43,7 +43,7 @@ class Routes {
     parentRoute: settings,
   );
   static const playerSettings = _SimpleRoute(
-    pathName: 'player',
+    pathName: 'playerSettings',
     name: 'playerSettings',
     parentRoute: settings,
   );
@@ -99,6 +99,12 @@ class Routes {
     pathName: 'callback',
     name: 'openIDCallback',
     parentRoute: onboarding,
+  );
+
+  // player page
+  static const player = _SimpleRoute(
+    pathName: 'player',
+    name: 'player',
   );
 
   // logs page

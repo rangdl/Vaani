@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:material_symbols_icons/symbols.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
 import 'package:vaani/settings/view/simple_settings_page.dart';
@@ -38,8 +37,8 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
                 S.of(context).autoTurnOnTimerDescription,
               ),
               leading: sleepTimerSettings.autoTurnOnTimer
-                  ? const Icon(Symbols.time_auto)
-                  : const Icon(Symbols.timer_off),
+                  ? const Icon(Icons.timer_outlined)
+                  : const Icon(Icons.timer_off_outlined),
               onToggle: (value) {
                 ref.read(appSettingsProvider.notifier).update(
                       appSettings.copyWith.sleepTimerSettings(
@@ -52,7 +51,7 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
             // auto turn on time settings, enabled only when autoTurnOnTimer is enabled
             SettingsTile.navigation(
               enabled: enabled,
-              leading: const Icon(Symbols.timer_play),
+              leading: const Icon(Icons.play_circle),
               title: Text(S.of(context).autoTurnOnTimerFrom),
               description: Text(
                 S.of(context).autoTurnOnTimerFromDescription,
@@ -78,7 +77,7 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
             ),
             SettingsTile.navigation(
               enabled: enabled,
-              leading: const Icon(Symbols.timer_pause),
+              leading: const Icon(Icons.pause_circle),
               title: Text(S.of(context).autoTurnOnTimerUntil),
               description: Text(
                 S.of(context).autoTurnOnTimerUntilDescription,
@@ -107,7 +106,7 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
 
             // switch tile for always auto turn on timer no matter what
             SettingsTile.switchTile(
-              leading: const Icon(Symbols.all_inclusive),
+              leading: const Icon(Icons.all_inclusive),
               title: Text(S.of(context).autoTurnOnTimerAlways),
               description: Text(
                 S.of(context).autoTurnOnTimerAlwaysDescription,

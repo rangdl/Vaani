@@ -5,12 +5,13 @@ import 'package:vaani/features/skip_start_end/skip_start_end.dart' as core;
 
 part 'skip_start_end_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 class SkipStartEnd extends _$SkipStartEnd {
   @override
   core.SkipStartEnd? build() {
-    final player = ref.watch(audiobookPlayerProvider);
-    final bookId = player.book?.libraryItemId ?? '_';
+    final player = ref.watch(simpleAudiobookPlayerProvider);
+    final book = ref.watch(audiobookPlayerProvider.select((v) => v.book));
+    final bookId = book?.libraryItemId ?? '_';
     if (bookId == '_') {
       return null;
     }
@@ -18,6 +19,13 @@ class SkipStartEnd extends _$SkipStartEnd {
     final start = bookSettings.playerSettings.skipChapterStart;
     final end = bookSettings.playerSettings.skipChapterEnd;
 
-    return core.SkipStartEnd(start: start, end: end, player: player);
+    final skipStartEnd = core.SkipStartEnd(
+      start: start,
+      end: end,
+      player: player,
+      chapterId: player.currentChapter?.id,
+    );
+    ref.onDispose(skipStartEnd.dispose);
+    return skipStartEnd;
   }
 }

@@ -12,4 +12,6 @@ class AppElementSizes {
   static const double iconSizeRegular = 48.0;
   static const double iconSizeSmall = 36.0;
   static const double iconSizeLarge = 64.0;
+
+  static const double barHeight = 3.0;
 }

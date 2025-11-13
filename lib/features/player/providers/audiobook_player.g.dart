@@ -6,6 +6,23 @@ part of 'audiobook_player.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$isPlayerPlayingHash() => r'b81fa9cfb51c88c8d9e8f5c1f4f6a12d9e5a0cc1';
+
+/// See also [isPlayerPlaying].
+@ProviderFor(isPlayerPlaying)
+final isPlayerPlayingProvider = AutoDisposeProvider<bool>.internal(
+  isPlayerPlaying,
+  name: r'isPlayerPlayingProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$isPlayerPlayingHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef IsPlayerPlayingRef = AutoDisposeProviderRef<bool>;
 String _$simpleAudiobookPlayerHash() =>
     r'5e94bbff4314adceb5affa704fc4d079d4016afa';
 

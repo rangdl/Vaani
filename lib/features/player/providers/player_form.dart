@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:miniplayer/miniplayer.dart';
+// import 'package:miniplayer/miniplayer.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
 
@@ -60,7 +60,7 @@ double playerHeight(
   return playerExpandProgress.value;
 }
 
-final audioBookMiniplayerController = MiniplayerController();
+// final audioBookMiniplayerController = MiniplayerController();
 
 @Riverpod(keepAlive: true)
 bool isPlayerActive(

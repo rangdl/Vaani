@@ -68,9 +68,9 @@ class AudiobookPlayerSeekChapterButton extends HookConsumerWidget {
           return;
         }
         if (isForward) {
-          player.seekForward();
+          player.seekToNext();
         } else {
-          player.seekBackward();
+          player.seekToPrevious();
         }
       },
     );

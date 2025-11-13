@@ -1,3 +1,4 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaani/api/api_provider.dart';
@@ -50,4 +51,13 @@ class AudiobookPlayer extends _$AudiobookPlayer {
     await state.setSpeed(speed);
     ref.notifyListeners();
   }
+}
+
+@riverpod
+bool isPlayerPlaying(
+  Ref ref,
+) {
+  final player = ref.watch(audiobookPlayerProvider);
+  print("playing: ${player.playing}");
+  return player.playing;
 }
