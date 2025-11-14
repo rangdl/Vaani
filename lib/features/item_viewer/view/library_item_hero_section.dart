@@ -1,8 +1,8 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' as shelfsdk;
 import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/api/library_item_provider.dart';
@@ -223,8 +223,6 @@ class _HeroSectionSubLabelWithIcon extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeData = Theme.of(context);
-    final useFontAwesome =
-        icon.runtimeType == FontAwesomeIcons.book.runtimeType;
     final useMaterialThemeOnItemPage =
         ref.watch(appSettingsProvider).themeSettings.useMaterialThemeOnItemPage;
     final color = useMaterialThemeOnItemPage
@@ -236,17 +234,11 @@ class _HeroSectionSubLabelWithIcon extends HookConsumerWidget {
         children: [
           Container(
             margin: const EdgeInsets.only(right: 8, top: 2),
-            child: useFontAwesome
-                ? FaIcon(
-                    icon,
-                    size: 16,
-                    color: color,
-                  )
-                : Icon(
-                    icon,
-                    size: 16,
-                    color: color,
-                  ),
+            child: Icon(
+              icon,
+              size: 16,
+              color: color,
+            ),
           ),
           Expanded(
             child: text,
@@ -347,65 +339,43 @@ class _BookCover extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final coverImage = ref.watch(coverImageProvider(itemId));
-    final themeData = Theme.of(context);
+    // final themeData = Theme.of(context);
     // final item = ref.watch(libraryItemProvider(itemId));
-    final themeSettings = ref.watch(appSettingsProvider).themeSettings;
+    // final themeSettings = ref.watch(appSettingsProvider).themeSettings;
 
-    ColorScheme? coverColorScheme;
-    if (themeSettings.useMaterialThemeOnItemPage) {
-      coverColorScheme = ref
-          .watch(
-            themeOfLibraryItemProvider(
-              itemId,
-              brightness: Theme.of(context).brightness,
-              highContrast: themeSettings.highContrast ||
-                  MediaQuery.of(context).highContrast,
-            ),
-          )
-          .valueOrNull;
-    }
+    // ColorScheme? coverColorScheme;
+    // if (themeSettings.useMaterialThemeOnItemPage) {
+    //   coverColorScheme = ref
+    //       .watch(
+    //         themeOfLibraryItemProvider(
+    //           itemId,
+    //           brightness: Theme.of(context).brightness,
+    //           highContrast: themeSettings.highContrast ||
+    //               MediaQuery.of(context).highContrast,
+    //         ),
+    //       )
+    //       .valueOrNull;
+    // }
 
-    return ThemeSwitcher(
-      builder: (context) {
-        // change theme after 2 seconds
-        if (themeSettings.useMaterialThemeOnItemPage) {
-          final theme = ThemeSwitcher.of(context);
-          Future.delayed(150.ms, () {
-            try {
-              theme.changeTheme(
-                theme: coverColorScheme != null
-                    ? ThemeData.from(
-                        colorScheme: coverColorScheme,
-                        textTheme: themeData.textTheme,
-                      )
-                    : themeData,
-              );
-            } catch (e) {
-              appLogger.severe('Error changing theme: $e');
-            }
-          });
+    return coverImage.when(
+      data: (image) {
+        // return const BookCoverSkeleton();
+        if (image.isEmpty) {
+          return const Icon(Icons.error);
         }
-        return coverImage.when(
-          data: (image) {
-            // return const BookCoverSkeleton();
-            if (image.isEmpty) {
-              return const Icon(Icons.error);
-            }
 
-            return Image.memory(
-              image,
-              fit: BoxFit.cover,
-            );
-          },
-          loading: () {
-            return const Center(
-              child: BookCoverSkeleton(),
-            );
-          },
-          error: (error, stack) {
-            return const Center(child: Icon(Icons.error));
-          },
+        return Image.memory(
+          image,
+          fit: BoxFit.cover,
         );
+      },
+      loading: () {
+        return const Center(
+          child: BookCoverSkeleton(),
+        );
+      },
+      error: (error, stack) {
+        return const Center(child: Icon(Icons.error));
       },
     );
   }
@@ -480,7 +450,7 @@ class _BookAuthors extends StatelessWidget {
     return generateAuthorsString() == ''
         ? const SizedBox.shrink()
         : _HeroSectionSubLabelWithIcon(
-            icon: FontAwesomeIcons.penNib,
+            icon: FontAwesome.pen_nib_solid,
             text: Text(
               style: themeData.textTheme.titleSmall,
               generateAuthorsString(),
