@@ -1,14 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:logging_appenders/logging_appenders.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/shared/extensions/duration_format.dart';
 
 Future<String> getLoggingFilePath() async {
-  final Directory directory = await getApplicationDocumentsDirectory();
-  return '${directory.path}/vaani.log';
+  // final Directory directory = await getApplicationDocumentsDirectory();
+  return '${appStorageDir.path}/$appName.log';
 }
 
 Future<void> initLogging() async {

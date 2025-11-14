@@ -7,10 +7,10 @@ import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/authenticated_users_provider.dart';
 import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/hacks/fix_autofill_losing_focus.dart';
 import 'package:vaani/models/error_response.dart';
 import 'package:vaani/router/router.dart';
-import 'package:vaani/settings/constants.dart';
 import 'package:vaani/settings/models/models.dart' as model;
 import 'package:vaani/shared/utils.dart';
 
@@ -214,10 +214,10 @@ Future<void> handleServerError(
                   onPressed: () {
                     // open an issue on the github page
                     handleLaunchUrl(
-                      AppMetadata.githubRepo
+                      githubRepo
                           // append the issue url
                           .replace(
-                        path: '${AppMetadata.githubRepo.path}/issues/new',
+                        path: '${githubRepo.path}/issues/new',
                       ),
                     );
                   },

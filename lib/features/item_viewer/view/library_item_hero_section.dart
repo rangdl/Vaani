@@ -9,7 +9,7 @@ import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/features/item_viewer/view/library_item_page.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/main.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
 import 'package:vaani/shared/extensions/duration_format.dart';
@@ -369,9 +369,10 @@ class _BookCover extends HookConsumerWidget {
       builder: (context) {
         // change theme after 2 seconds
         if (themeSettings.useMaterialThemeOnItemPage) {
+          final theme = ThemeSwitcher.of(context);
           Future.delayed(150.ms, () {
             try {
-              ThemeSwitcher.of(context).changeTheme(
+              theme.changeTheme(
                 theme: coverColorScheme != null
                     ? ThemeData.from(
                         colorScheme: coverColorScheme,

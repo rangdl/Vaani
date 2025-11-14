@@ -2,31 +2,27 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:logging/logging.dart';
 import 'package:vaani/api/server_provider.dart';
 import 'package:vaani/db/storage.dart';
 import 'package:vaani/features/downloads/providers/download_manager.dart';
 import 'package:vaani/features/logging/core/logger.dart';
 import 'package:vaani/features/playback_reporting/providers/playback_reporter_provider.dart';
 import 'package:vaani/features/player/core/init.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart'
-    show audiobookPlayerProvider, simpleAudiobookPlayerProvider;
+import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/features/shake_detection/providers/shake_detector.dart';
 import 'package:vaani/features/skip_start_end/skip_start_end_provider.dart';
 import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart';
 import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/models/tray.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/api_settings_provider.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
-import 'package:vaani/settings/settings.dart';
 import 'package:vaani/shared/utils/utils.dart';
 import 'package:vaani/theme/providers/system_theme_provider.dart';
 import 'package:vaani/theme/providers/theme_from_cover_provider.dart';
 import 'package:vaani/theme/theme.dart';
 import 'package:window_manager/window_manager.dart';
-
-final appLogger = Logger(AppMetadata.appName);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +39,9 @@ void main() async {
       await windowManager.setPreventClose(true);
     });
   }
+  // Configure the App Metadata
+  await initialize();
+
   // Configure the root Logger
   await initLogging();
 
@@ -55,15 +54,15 @@ void main() async {
   // run the app
   runApp(
     const ProviderScope(
-      child: _EagerInitialization(child: TrayFramework(MyApp())),
+      child: _EagerInitialization(child: TrayFramework(AbsApp())),
     ),
   );
 }
 
 var routerConfig = const MyAppRouter().config;
 
-class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+class AbsApp extends ConsumerWidget {
+  const AbsApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

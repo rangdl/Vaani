@@ -1,6 +1,7 @@
 {
   "cmake.configureOnOpen": false,
   "cSpell.words": [
+    "Audiobookshelf",
     "audioplayers",
     "autolabeler",
     "Autovalidate",
@@ -13,6 +14,7 @@
     "mocktail",
     "nodename",
     "numberpicker",
+    "Prefs",
     "riverpod",
     "Schyler",
     "shelfsdk",

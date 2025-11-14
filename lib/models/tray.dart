@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/settings/constants.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/shared/utils/utils.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -36,7 +36,7 @@ class _TrayFrameworkState extends ConsumerState<TrayFramework>
     await trayManager.setIcon(
       Utils.isWindows() ? 'assets/icon/logo.ico' : 'assets/icon/logo.png',
     );
-    await trayManager.setToolTip(AppMetadata.appName);
+    await trayManager.setToolTip(appName);
     Menu menu = Menu(
       items: [
         MenuItem(

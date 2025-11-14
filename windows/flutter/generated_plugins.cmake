@@ -5,7 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
   isar_flutter_libs
-  media_kit_libs_windows_audio
+  just_audio_windows
   permission_handler_windows
   screen_retriever_windows
   share_plus

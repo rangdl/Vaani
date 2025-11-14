@@ -94,11 +94,15 @@ class ExpandableDescription extends HookWidget {
               child: Html(
                 data: '<div class="vaani-ellipsis">$content</div>',
                 style: {
-                  "div": Style(
-                    maxLines: isDescExpanded.value ? null : 3,
-                    textOverflow: TextOverflow.ellipsis,
-                    fontStyle: textTheme.bodyMedium?.fontStyle,
-                  ),
+                  "div.vaani-ellipsis": !isDescExpanded.value
+                      ? Style(
+                          maxLines: 3,
+                          textOverflow: TextOverflow.ellipsis,
+                          fontStyle: textTheme.bodyMedium?.fontStyle,
+                        )
+                      : Style(
+                          fontStyle: textTheme.bodyMedium?.fontStyle,
+                        ),
                 },
               ),
             ),

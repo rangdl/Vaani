@@ -5,8 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/features/onboarding/view/user_login.dart';
 import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/settings/api_settings_provider.dart';
-import 'package:vaani/settings/constants.dart';
 import 'package:vaani/shared/utils.dart';
 import 'package:vaani/shared/widgets/add_new_server.dart';
 
@@ -79,7 +79,7 @@ class OnboardingBody extends HookConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            S.of(context).loginTitle(AppMetadata.appName),
+            S.of(context).loginTitle(appName),
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),

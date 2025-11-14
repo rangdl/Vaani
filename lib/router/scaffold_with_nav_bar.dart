@@ -7,7 +7,7 @@ import 'package:vaani/features/player/providers/player_form.dart';
 import 'package:vaani/features/player/view/player_minimized.dart';
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart';
 import 'package:vaani/generated/l10n.dart';
-import 'package:vaani/main.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/icons/abs_icons.dart' show AbsIcons;
 import 'package:vaani/shared/utils/utils.dart';

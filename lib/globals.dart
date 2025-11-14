@@ -1,18 +1,53 @@
+// 全局变量
+import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:logging/logging.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
-part 'metadata_provider.g.dart';
+late String appName;
+const String appScheme = "vaani";
+late String appVersion;
+const String appAuthor = "rang";
+late String appBuildNumber;
 
-@Riverpod(keepAlive: true)
-Future<String> deviceName(Ref ref) async {
-  final data = await _getDeviceData(DeviceInfoPlugin());
+Uri githubRepo = Uri.parse('https://github.com/rangdl/Vaani');
 
+Future<void> initialize() async {
+  final packageInfo = await PackageInfo.fromPlatform();
+  appName = packageInfo.appName;
+  appVersion = packageInfo.version;
+  appBuildNumber = packageInfo.buildNumber;
+  deviceData = await _getDeviceData(DeviceInfoPlugin());
+  deviceName = getDeviceName(deviceData);
+  deviceModel = getDeviceModel(deviceData);
+  deviceSdkVersion = getDeviceSdkVersion(deviceData);
+  deviceManufacturer = getDeviceManufacturer(deviceData);
+  appLogger = Logger(appName);
+  final dir = await getApplicationDocumentsDirectory();
+  appStorageDir = Directory(
+    p.join(dir.path, appName),
+  );
+  await appStorageDir.create(recursive: true);
+}
+
+late Map<String, dynamic> deviceData;
+
+late String deviceName;
+late String deviceModel;
+late String deviceSdkVersion;
+late String deviceManufacturer;
+
+late Logger appLogger;
+late Directory appStorageDir;
+
+String getDeviceName(data) {
   // try different keys to get the device name
-  return
-      // android
+  return // android
       data['product'] ??
           // ios
           data['name'] ??
@@ -27,10 +62,7 @@ Future<String> deviceName(Ref ref) async {
           'Unknown name';
 }
 
-@Riverpod(keepAlive: true)
-Future<String> deviceModel(Ref ref) async {
-  final data = await _getDeviceData(DeviceInfoPlugin());
-
+String getDeviceModel(data) {
   // try different keys to get the device model
   return
       // android, eg: Google Pixel 4
@@ -48,10 +80,7 @@ Future<String> deviceModel(Ref ref) async {
           'Unknown model';
 }
 
-@Riverpod(keepAlive: true)
-Future<String> deviceSdkVersion(Ref ref) async {
-  final data = await _getDeviceData(DeviceInfoPlugin());
-
+String getDeviceSdkVersion(data) {
   // try different keys to get the device sdk version
   return
       // android, eg: 30
@@ -69,10 +98,7 @@ Future<String> deviceSdkVersion(Ref ref) async {
           'Unknown sdk version';
 }
 
-@Riverpod(keepAlive: true)
-Future<String> deviceManufacturer(Ref ref) async {
-  final data = await _getDeviceData(DeviceInfoPlugin());
-
+String getDeviceManufacturer(data) {
   // try different keys to get the device manufacturer
   return
       // android, eg: Google

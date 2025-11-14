@@ -6,8 +6,8 @@ import 'package:vaani/api/library_provider.dart' show librariesProvider;
 import 'package:vaani/features/player/view/mini_player_bottom_padding.dart';
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart';
 import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
-import 'package:vaani/settings/constants.dart';
 import 'package:vaani/shared/utils.dart';
 import 'package:vaani/shared/widgets/not_implemented.dart';
 import 'package:vaani/shared/widgets/vaani_logo.dart';
@@ -141,17 +141,16 @@ class YouPage extends HookConsumerWidget {
                   ),
                   AboutListTile(
                     icon: const Icon(Icons.info),
-                    applicationName: AppMetadata.appName,
-                    applicationVersion: AppMetadata.version,
-                    applicationLegalese:
-                        'Made with ❤️ by ${AppMetadata.author}',
+                    applicationName: appName,
+                    applicationVersion: appVersion,
+                    applicationLegalese: 'Made with ❤️ by $appAuthor',
                     aboutBoxChildren: [
                       // link to github repo
                       ListTile(
                         leading: Icon(Icons.code),
                         title: Text('Source Code'),
                         onTap: () {
-                          handleLaunchUrl(AppMetadata.githubRepo);
+                          handleLaunchUrl(githubRepo);
                         },
                       ),
                     ],

@@ -6,10 +6,9 @@ import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/features/onboarding/providers/oauth_provider.dart';
 import 'package:vaani/features/onboarding/view/user_login_with_password.dart';
-import 'package:vaani/main.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/models/error_response.dart';
 import 'package:vaani/router/router.dart';
-import 'package:vaani/settings/constants.dart';
 import 'package:vaani/settings/models/models.dart' as model;
 import 'package:vaani/shared/extensions/obfuscation.dart';
 import 'package:vaani/shared/utils.dart';
@@ -40,9 +39,9 @@ class UserLoginWithOpenID extends HookConsumerWidget {
 
       appLogger.fine('Generated verifier: $verifier\nchallenge: $challenge');
       final appRedirectUri =
-          '${AppMetadata.appScheme}://${Routes.openIDCallback.fullPath.substring(1)}';
+          '$appScheme://${Routes.openIDCallback.fullPath.substring(1)}';
       final (openIDLoginEndpoint, authCookie) = await api.server.oauth2Request(
-        clientId: AppMetadata.appName,
+        clientId: appName,
         codeChallenge: challenge,
         // redirectUri: Uri(
         //   scheme: AppMetadata.appScheme,

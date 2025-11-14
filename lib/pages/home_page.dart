@@ -4,12 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/generated/l10n.dart';
-import 'package:vaani/main.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/api_settings_provider.dart';
 import 'package:vaani/settings/app_settings_provider.dart'
     show appSettingsProvider;
-import 'package:vaani/settings/constants.dart';
 
 import '../shared/widgets/shelves/home_shelf.dart';
 
@@ -28,7 +27,7 @@ class HomePage extends HookConsumerWidget {
       appBar: AppBar(
         title: GestureDetector(
           child: Text(
-            AppMetadata.appName,
+            appName,
             style: Theme.of(context).textTheme.headlineLarge,
           ),
           onTap: () {

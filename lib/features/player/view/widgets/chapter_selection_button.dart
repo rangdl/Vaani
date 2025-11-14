@@ -8,7 +8,7 @@ import 'package:vaani/features/player/providers/currently_playing_provider.dart'
 import 'package:vaani/features/player/view/player_expanded.dart'
     show pendingPlayerModals;
 import 'package:vaani/features/player/view/widgets/playing_indicator_icon.dart';
-import 'package:vaani/main.dart' show appLogger;
+import 'package:vaani/globals.dart';
 import 'package:vaani/shared/extensions/chapter.dart' show ChapterDuration;
 import 'package:vaani/shared/extensions/duration_format.dart'
     show DurationFormat;

@@ -1,15 +1,15 @@
+import 'dart:io' show Platform;
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' show Library;
 import 'package:vaani/api/library_provider.dart';
 import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/settings/api_settings_provider.dart'
     show apiSettingsProvider;
 import 'package:vaani/shared/icons/abs_icons.dart';
-import 'dart:io' show Platform;
-
-import 'package:flutter/foundation.dart';
-import 'package:vaani/main.dart' show appLogger;
 
 class LibrarySwitchChip extends HookConsumerWidget {
   const LibrarySwitchChip({

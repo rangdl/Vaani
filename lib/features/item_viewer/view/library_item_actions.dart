@@ -19,7 +19,7 @@ import 'package:vaani/features/per_book_settings/providers/book_settings_provide
 import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/features/player/providers/player_form.dart';
 import 'package:vaani/generated/l10n.dart';
-import 'package:vaani/main.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/api_settings_provider.dart';
 import 'package:vaani/settings/app_settings_provider.dart';

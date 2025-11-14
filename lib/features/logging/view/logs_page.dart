@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:vaani/features/logging/providers/logs_provider.dart';
-import 'package:vaani/main.dart';
+import 'package:vaani/globals.dart';
 
 class LogsPage extends HookConsumerWidget {
   const LogsPage({super.key});
