@@ -5,7 +5,7 @@ library;
 
 import 'package:collection/collection.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
+// import 'package:just_audio_background/just_audio_background.dart';
 import 'package:logging/logging.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 
@@ -124,19 +124,19 @@ class AudiobookPlayer extends AudioPlayer {
       // );
       return AudioSource.uri(
         retrievedUri,
-        tag: MediaItem(
-          // Specify a unique ID for each media item:
-          id: book.libraryItemId + track.index.toString(),
-          // Metadata to display in the notification:
-          title: appSettings.notificationSettings.primaryTitle
-              .formatNotificationTitle(book),
-          album: appSettings.notificationSettings.secondaryTitle
-              .formatNotificationTitle(book),
-          artUri: artworkUri ??
-              Uri.parse(
-                '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token&width=800',
-              ),
-        ),
+        // tag: MediaItem(
+        //   // Specify a unique ID for each media item:
+        //   id: book.libraryItemId + track.index.toString(),
+        //   // Metadata to display in the notification:
+        //   title: appSettings.notificationSettings.primaryTitle
+        //       .formatNotificationTitle(book),
+        //   album: appSettings.notificationSettings.secondaryTitle
+        //       .formatNotificationTitle(book),
+        //   artUri: artworkUri ??
+        //       Uri.parse(
+        //         '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token&width=800',
+        //       ),
+        // ),
       );
     }).toList();
     await setAudioSources(

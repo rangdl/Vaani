@@ -12,8 +12,8 @@ final _logger = Logger('CurrentlyPlayingProvider');
 @riverpod
 BookExpanded? currentlyPlayingBook(Ref ref) {
   try {
-    final player = ref.watch(audiobookPlayerProvider);
-    return player.book;
+    final book = ref.watch(simpleAudiobookPlayerProvider.select((v) => v.book));
+    return book;
   } catch (e) {
     _logger.warning('Error getting currently playing book: $e');
     return null;

@@ -11,7 +11,7 @@ import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/api/library_item_provider.dart' show libraryItemProvider;
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/features/item_viewer/view/library_item_actions.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
+import 'package:vaani/features/player/providers/session_provider.dart';
 import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
@@ -212,10 +212,12 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final me = ref.watch(meProvider);
-    final player = ref.watch(audiobookPlayerProvider);
-    final isCurrentBookSetInPlayer =
-        player.book?.libraryItemId == libraryItemId;
-    final isPlayingThisBook = player.playing && isCurrentBookSetInPlayer;
+    // final player = ref.watch(audiobookPlayerProvider);
+    final session = ref.watch(sessionProvider.select((v) => v.session));
+    final sessionLoading = ref.watch(sessionLoadingProvider(libraryItemId));
+    final playerState = ref.watch(playStateProvider);
+    final isCurrentBookSetInPlayer = session?.libraryItemId == libraryItemId;
+    final isPlayingThisBook = playerState.playing && isCurrentBookSetInPlayer;
 
     final userProgress = me.valueOrNull?.mediaProgress
         ?.firstWhereOrNull((element) => element.libraryItemId == libraryItemId);
@@ -285,19 +287,13 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
                       .withValues(alpha: 0.9),
                 ),
               ),
-              onPressed: () async {
-                final book =
-                    await ref.watch(libraryItemProvider(libraryItemId).future);
-
-                libraryItemPlayButtonOnPressed(
-                  ref: ref,
-                  book: book.media.asBookExpanded,
-                  userMediaProgress: userProgress,
-                );
-              },
+              onPressed: () => session?.libraryItemId == libraryItemId
+                  ? ref.read(sessionProvider).load(libraryItemId, null)
+                  : ref.read(playerProvider).togglePlayPause(),
               icon: Hero(
                 tag: HeroTagPrefixes.libraryItemPlayButton + libraryItemId,
                 child: DynamicItemPlayIcon(
+                  isLoading: sessionLoading,
                   isBookCompleted: isBookCompleted,
                   isPlayingThisBook: isPlayingThisBook,
                   isCurrentBookSetInPlayer: isCurrentBookSetInPlayer,
@@ -334,5 +330,32 @@ class BookCoverSkeleton extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class BookCoverWidget extends HookConsumerWidget {
+  const BookCoverWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final session = ref.watch(sessionProvider).session;
+    if (session == null) {
+      return const BookCoverSkeleton();
+    }
+    final itemBeingPlayed =
+        ref.watch(libraryItemProvider(session.libraryItemId));
+    final imageOfItemBeingPlayed = itemBeingPlayed.valueOrNull != null
+        ? ref.watch(
+            coverImageProvider(itemBeingPlayed.valueOrNull!.id),
+          )
+        : null;
+    return imageOfItemBeingPlayed?.valueOrNull != null
+        ? Image.memory(
+            imageOfItemBeingPlayed!.valueOrNull!,
+            fit: BoxFit.cover,
+          )
+        : const BookCoverSkeleton();
   }
 }

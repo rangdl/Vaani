@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tray_manager/tray_manager.dart';
+import 'package:vaani/features/downloads/providers/download_manager.dart';
+import 'package:vaani/features/playback_reporting/providers/playback_reporter_provider.dart';
+import 'package:vaani/features/player/core/audiobook_player_session.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
+import 'package:vaani/features/player/providers/session_provider.dart';
+import 'package:vaani/features/shake_detection/providers/shake_detector.dart';
+import 'package:vaani/features/skip_start_end/skip_start_end_provider.dart';
+import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/shared/utils/utils.dart';
 import 'package:window_manager/window_manager.dart';
 
-class TrayFramework extends ConsumerStatefulWidget {
+class Framework extends ConsumerStatefulWidget {
   final Widget child;
-  const TrayFramework(this.child, {super.key});
+  final AbsAudioHandler? audioHandler;
+  const Framework({required this.child, this.audioHandler, super.key});
 
   @override
-  ConsumerState<TrayFramework> createState() => _TrayFrameworkState();
+  ConsumerState<Framework> createState() => _FrameworkState();
 }
 
-class _TrayFrameworkState extends ConsumerState<TrayFramework>
+class _FrameworkState extends ConsumerState<Framework>
     with TrayListener, WindowListener {
   @override
   void initState() {
@@ -77,7 +85,26 @@ class _TrayFrameworkState extends ConsumerState<TrayFramework>
 
   @override
   Widget build(BuildContext context) {
-    return widget.child;
+    // Eagerly initialize providers by watching them.
+    // By using "watch", the provider will stay alive and not be disposed.
+    final audioService = ref.watch(audioHandlerInitProvider);
+    try {
+      // ref.watch(simpleAudiobookPlayerProvider);
+      // ref.watch(sleepTimerProvider);
+      // ref.watch(playbackReporterProvider);
+      // ref.watch(simpleDownloadManagerProvider);
+      // ref.watch(shakeDetectorProvider);
+      // ref.watch(skipStartEndProvider);
+    } catch (e) {
+      debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
+      appLogger.severe(e.toString());
+    }
+    return audioService.maybeWhen(
+      data: (_) {
+        return widget.child;
+      },
+      orElse: () => SizedBox.shrink(),
+    );
   }
 
   @override

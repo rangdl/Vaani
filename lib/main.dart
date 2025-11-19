@@ -1,24 +1,20 @@
+import 'dart:io';
+
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/server_provider.dart';
 import 'package:vaani/db/storage.dart';
-import 'package:vaani/features/downloads/providers/download_manager.dart';
 import 'package:vaani/features/logging/core/logger.dart';
-import 'package:vaani/features/playback_reporting/providers/playback_reporter_provider.dart';
-import 'package:vaani/features/player/core/init.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/features/shake_detection/providers/shake_detector.dart';
-import 'package:vaani/features/skip_start_end/skip_start_end_provider.dart';
-import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart';
+import 'package:vaani/framework.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
-import 'package:vaani/models/tray.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/api_settings_provider.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
-import 'package:vaani/shared/utils/utils.dart';
 import 'package:vaani/theme/providers/system_theme_provider.dart';
 import 'package:vaani/theme/providers/theme_from_cover_provider.dart';
 import 'package:vaani/theme/theme.dart';
@@ -27,18 +23,8 @@ import 'package:window_manager/window_manager.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 初始化窗口管理器
-  if (Utils.isDesktop()) {
-    await windowManager.ensureInitialized();
-    final windowOptions = WindowOptions(
-      minimumSize: Size(1050, 700),
-      center: true,
-      skipTaskbar: false,
-    );
-    await windowManager.waitUntilReadyToShow(windowOptions, () async {
-      await windowManager.setPreventClose(true);
-    });
-  }
+  _runPlatformSpecificCode();
+
   // Configure the App Metadata
   await initialize();
 
@@ -49,14 +35,45 @@ void main() async {
   await initStorage();
 
   // initialize audio player
-  await configurePlayer();
+  // await configurePlayer();
 
   // run the app
   runApp(
     const ProviderScope(
-      child: _EagerInitialization(child: TrayFramework(AbsApp())),
+      child: Framework(
+        // audioHandler: ,
+        child: AbsApp(),
+      ),
     ),
   );
+}
+
+Future<void> _runPlatformSpecificCode() async {
+  if (kIsWeb) return;
+  switch (Platform.operatingSystem) {
+    case 'android':
+      break;
+    case 'ios':
+      break;
+    case 'linux':
+      break;
+    case 'macos':
+      break;
+    case 'windows':
+      // 初始化窗口管理器
+      await windowManager.ensureInitialized();
+      final windowOptions = WindowOptions(
+        minimumSize: Size(1050, 700),
+        center: true,
+        skipTaskbar: false,
+      );
+      await windowManager.waitUntilReadyToShow(windowOptions, () async {
+        await windowManager.setPreventClose(true);
+      });
+      break;
+    default:
+      break;
+  }
 }
 
 var routerConfig = const MyAppRouter().config;
@@ -170,31 +187,5 @@ class AbsApp extends ConsumerWidget {
       }
       return const SizedBox.shrink();
     }
-  }
-}
-
-// https://riverpod.dev/docs/essentials/eager_initialization
-// Eagerly initialize providers by watching them.
-class _EagerInitialization extends ConsumerWidget {
-  const _EagerInitialization({required this.child});
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Eagerly initialize providers by watching them.
-    // By using "watch", the provider will stay alive and not be disposed.
-    try {
-      ref.watch(simpleAudiobookPlayerProvider);
-      ref.watch(sleepTimerProvider);
-      ref.watch(playbackReporterProvider);
-      ref.watch(simpleDownloadManagerProvider);
-      ref.watch(shakeDetectorProvider);
-      ref.watch(skipStartEndProvider);
-    } catch (e) {
-      debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
-      appLogger.severe(e.toString());
-    }
-
-    return child;
   }
 }

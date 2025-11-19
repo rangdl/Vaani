@@ -3,10 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:vaani/api/image_provider.dart';
-import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/constants/sizes.dart';
-import 'package:vaani/features/player/providers/currently_playing_provider.dart';
+import 'package:vaani/features/player/providers/session_provider.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
 import 'package:vaani/features/player/view/widgets/player_progress_bar.dart';
 import 'package:vaani/features/skip_start_end/player_skip_chapter_start_end.dart';
@@ -28,32 +26,20 @@ class PlayerExpanded extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final session = ref.watch(sessionProvider).session;
+    if (session == null) {
+      return SizedBox.shrink();
+    }
+
     /// all the properties that help in building the widget are calculated from the [percentageExpandedPlayer]
     /// however, some properties need to start later than 0% and end before 100%
-    final currentBook = ref.watch(currentlyPlayingBookProvider);
-    if (currentBook == null) {
-      return const SizedBox.shrink();
-    }
-    final currentChapter = ref.watch(currentPlayingChapterProvider);
-    final currentBookMetadata = ref.watch(currentBookMetadataProvider);
+    final currentChapter = ref.watch(currentChapterProvider);
+    // final currentBookMetadata = ref.watch(currentBookMetadataProvider);
     // max height of the player is the height of the screen
     final playerMaxHeight = MediaQuery.of(context).size.height;
     final availWidth = MediaQuery.of(context).size.width;
     // the image width when the player is expanded
     final imageSize = min(playerMaxHeight * 0.5, availWidth * 0.9);
-    final itemBeingPlayed =
-        ref.watch(libraryItemProvider(currentBook.libraryItemId));
-    final imageOfItemBeingPlayed = itemBeingPlayed.valueOrNull != null
-        ? ref.watch(
-            coverImageProvider(itemBeingPlayed.valueOrNull!.id),
-          )
-        : null;
-    final imgWidget = imageOfItemBeingPlayed?.valueOrNull != null
-        ? Image.memory(
-            imageOfItemBeingPlayed!.valueOrNull!,
-            fit: BoxFit.cover,
-          )
-        : const BookCoverSkeleton();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -104,7 +90,7 @@ class PlayerExpanded extends HookConsumerWidget {
                       borderRadius: BorderRadius.circular(
                         AppElementSizes.borderRadiusRegular,
                       ),
-                      child: imgWidget,
+                      child: BookCoverWidget(),
                     ),
                   ),
                 ),
@@ -133,8 +119,8 @@ class PlayerExpanded extends HookConsumerWidget {
               padding: EdgeInsets.only(bottom: AppElementSizes.paddingRegular),
               child: Text(
                 [
-                  currentBookMetadata?.title ?? '',
-                  currentBookMetadata?.authorName ?? '',
+                  session.displayTitle,
+                  session.displayAuthor,
                 ].join(' - '),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: Theme.of(context)

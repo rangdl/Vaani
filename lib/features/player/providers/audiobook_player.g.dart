@@ -43,7 +43,7 @@ final simpleAudiobookPlayerProvider =
 );
 
 typedef _$SimpleAudiobookPlayer = Notifier<core.AudiobookPlayer>;
-String _$audiobookPlayerHash() => r'0f180308067486896fec6a65a6afb0e6686ac4a0';
+String _$audiobookPlayerHash() => r'04448247e79c5d60b9fd6f98eeeb865f1e8d0ff8';
 
 /// See also [AudiobookPlayer].
 @ProviderFor(AudiobookPlayer)

@@ -12,17 +12,14 @@ import 'package:vaani/features/downloads/providers/download_manager.dart'
         downloadManagerProvider,
         isItemDownloadedProvider,
         isItemDownloadingProvider,
-        itemDownloadProgressProvider,
-        simpleDownloadManagerProvider;
+        itemDownloadProgressProvider;
 import 'package:vaani/features/item_viewer/view/library_item_page.dart';
-import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/features/player/providers/player_form.dart';
+import 'package:vaani/features/player/providers/session_provider.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/api_settings_provider.dart';
-import 'package:vaani/settings/app_settings_provider.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/utils.dart';
 
@@ -302,7 +299,7 @@ class AlreadyItemDownloadedButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isBookPlaying = ref.watch(audiobookPlayerProvider).book != null;
+    final isBookPlaying = ref.watch(playStateProvider).playing;
 
     return IconButton(
       onPressed: () {
@@ -435,9 +432,14 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final book = item.media.asBookExpanded;
-    final player = ref.watch(audiobookPlayerProvider);
-    final isCurrentBookSetInPlayer = player.book == book;
-    final isPlayingThisBook = player.playing && isCurrentBookSetInPlayer;
+    final session = ref.watch(sessionProvider.select((v) => v.session));
+    final sessionLoading =
+        ref.watch(sessionLoadingProvider(book.libraryItemId));
+    final playerState = ref.watch(playStateProvider);
+    // final player = ref.watch(audiobookPlayerProvider);
+    final isCurrentBookSetInPlayer =
+        session?.libraryItemId == book.libraryItemId;
+    final isPlayingThisBook = playerState.playing && isCurrentBookSetInPlayer;
 
     final userMediaProgress = item.userMediaProgress;
     final isBookCompleted = userMediaProgress?.isFinished ?? false;
@@ -464,14 +466,13 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
     }
 
     return ElevatedButton.icon(
-      onPressed: () => libraryItemPlayButtonOnPressed(
-        ref: ref,
-        book: book,
-        userMediaProgress: userMediaProgress,
-      ),
+      onPressed: () => session?.libraryItemId == book.libraryItemId
+          ? ref.read(sessionProvider).load(book.libraryItemId, null)
+          : ref.read(playerProvider).togglePlayPause(),
       icon: Hero(
         tag: HeroTagPrefixes.libraryItemPlayButton + book.libraryItemId,
         child: DynamicItemPlayIcon(
+          isLoading: sessionLoading,
           isCurrentBookSetInPlayer: isCurrentBookSetInPlayer,
           isPlayingThisBook: isPlayingThisBook,
           isBookCompleted: isBookCompleted,
@@ -493,87 +494,32 @@ class DynamicItemPlayIcon extends StatelessWidget {
     required this.isCurrentBookSetInPlayer,
     required this.isPlayingThisBook,
     required this.isBookCompleted,
+    this.isLoading = false,
   });
 
   final bool isCurrentBookSetInPlayer;
   final bool isPlayingThisBook;
   final bool isBookCompleted;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
-    return Icon(
-      isCurrentBookSetInPlayer
-          ? isPlayingThisBook
-              ? Icons.pause_rounded
-              : Icons.play_arrow_rounded
-          : isBookCompleted
-              ? Icons.replay_rounded
-              : Icons.play_arrow_rounded,
-    );
+    return isLoading
+        ? SizedBox(
+            // width: 20,
+            // height: 20,
+            child: CircularProgressIndicator(
+              strokeWidth: 4,
+            ),
+          )
+        : Icon(
+            isCurrentBookSetInPlayer
+                ? isPlayingThisBook
+                    ? Icons.pause_rounded
+                    : Icons.play_arrow_rounded
+                : isBookCompleted
+                    ? Icons.replay_rounded
+                    : Icons.play_arrow_rounded,
+          );
   }
-}
-
-/// Handles the play button pressed on the library item
-Future<void> libraryItemPlayButtonOnPressed({
-  required WidgetRef ref,
-  required shelfsdk.BookExpanded book,
-  shelfsdk.MediaProgress? userMediaProgress,
-}) async {
-  appLogger.info('Pressed play/resume button');
-  final player = ref.watch(audiobookPlayerProvider);
-  // final bookSettings = ref.watch(bookSettingsProvider(book.libraryItemId));
-
-  final isCurrentBookSetInPlayer = player.book == book;
-  final isPlayingThisBook = player.playing && isCurrentBookSetInPlayer;
-
-  Future<void>? setSourceFuture;
-  // set the book to the player if not already set
-  if (!isCurrentBookSetInPlayer) {
-    appLogger.info('Setting the book ${book.libraryItemId}');
-    appLogger.info('Initial position: ${userMediaProgress?.currentTime}');
-    final downloadManager = ref.watch(simpleDownloadManagerProvider);
-    final libItem =
-        await ref.read(libraryItemProvider(book.libraryItemId).future);
-    final downloadedUris = await downloadManager.getDownloadedFilesUri(libItem);
-    setSourceFuture = player.setSourceAudiobook(
-      book,
-      initialPosition: userMediaProgress?.currentTime,
-      downloadedUris: downloadedUris,
-    );
-  } else {
-    appLogger.info('Book was already set');
-    if (isPlayingThisBook) {
-      appLogger.info('Pausing the book');
-      await player.pause();
-      return;
-    }
-  }
-  // set the volume as this is the first time playing and dismissing causes the volume to go to 0
-  var bookPlayerSettings =
-      ref.read(bookSettingsProvider(book.libraryItemId)).playerSettings;
-  var appPlayerSettings = ref.read(appSettingsProvider).playerSettings;
-
-  var configurePlayerForEveryBook =
-      appPlayerSettings.configurePlayerForEveryBook;
-
-  await Future.wait([
-    setSourceFuture ?? Future.value(),
-    // set the volume
-    player.setVolume(
-      configurePlayerForEveryBook
-          ? bookPlayerSettings.preferredDefaultVolume ??
-              appPlayerSettings.preferredDefaultVolume
-          : appPlayerSettings.preferredDefaultVolume,
-    ),
-    // set the speed
-    player.setSpeed(
-      configurePlayerForEveryBook
-          ? bookPlayerSettings.preferredDefaultSpeed ??
-              appPlayerSettings.preferredDefaultSpeed
-          : appPlayerSettings.preferredDefaultSpeed,
-    ),
-  ]);
-
-  // toggle play/pause
-  await player.play();
 }

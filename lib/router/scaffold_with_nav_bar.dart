@@ -80,9 +80,11 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
                         ? libraryIcon ?? item.activeIcon
                         : item.activeIcon,
                   ),
-                  label: Text(isDestinationLibrary
-                      ? currentLibrary?.name ?? item.name
-                      : item.name),
+                  label: Text(
+                    isDestinationLibrary
+                        ? currentLibrary?.name ?? item.name
+                        : item.name,
+                  ),
                   // tooltip: item.tooltip,
                 );
                 // if (isDestinationLibrary) {
@@ -101,7 +103,6 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
               }).toList(),
               selectedIndex: navigationShell.currentIndex,
               onDestinationSelected: (int index) {
-                print(index);
                 _onTap(context, index, ref);
               },
             ),
@@ -116,64 +117,56 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
   }
 
   Widget? buildNavBottom(BuildContext context, WidgetRef ref) {
-    final size = MediaQuery.of(context).size;
-    final playerProgress = ref.watch(playerHeightProvider);
-    final playerMaxHeight = size.height;
-    var percentExpandedMiniPlayer = (playerProgress - playerMinHeight) /
-        (playerMaxHeight - playerMinHeight);
-    // Clamp the value between 0 and 1
-    percentExpandedMiniPlayer = percentExpandedMiniPlayer.clamp(0.0, 1.0);
-    return percentExpandedMiniPlayer != 1
-        ? Opacity(
-            // Opacity is interpolated from 1 to 0 when player is expanded
-            opacity: 1 - percentExpandedMiniPlayer,
-            child: NavigationBar(
-              elevation: 0.0,
-              height: bottomBarHeight * (1 - percentExpandedMiniPlayer),
+    // final size = MediaQuery.of(context).size;
+    // final playerProgress = ref.watch(playerHeightProvider);
+    // final playerMaxHeight = size.height;
+    // var percentExpandedMiniPlayer = (playerProgress - playerMinHeight) /
+    //     (playerMaxHeight - playerMinHeight);
+    // // Clamp the value between 0 and 1
+    // percentExpandedMiniPlayer = percentExpandedMiniPlayer.clamp(0.0, 1.0);
+    return NavigationBar(
+      elevation: 0.0,
+      height: bottomBarHeight.toDouble(),
 
-              // TODO: get destinations from the navigationShell
-              // Here, the items of BottomNavigationBar are hard coded. In a real
-              // world scenario, the items would most likely be generated from the
-              // branches of the shell route, which can be fetched using
-              // `navigationShell.route.branches`.
-              destinations: _navigationItems(context).map((item) {
-                final isDestinationLibrary = item.name == S.of(context).library;
-                var currentLibrary =
-                    ref.watch(currentLibraryProvider).valueOrNull;
-                final libraryIcon = AbsIcons.getIconByName(
-                  currentLibrary?.icon,
-                );
-                final destinationWidget = NavigationDestination(
-                  icon: Icon(
-                    isDestinationLibrary ? libraryIcon ?? item.icon : item.icon,
-                  ),
-                  selectedIcon: Icon(
-                    isDestinationLibrary
-                        ? libraryIcon ?? item.activeIcon
-                        : item.activeIcon,
-                  ),
-                  label: isDestinationLibrary
-                      ? currentLibrary?.name ?? item.name
-                      : item.name,
-                  tooltip: item.tooltip,
-                );
-                if (isDestinationLibrary) {
-                  return GestureDetector(
-                    onSecondaryTap: () => showLibrarySwitcher(context, ref),
-                    onDoubleTap: () => showLibrarySwitcher(context, ref),
-                    child:
-                        destinationWidget, // Wrap the actual NavigationDestination
-                  );
-                } else {
-                  // Return the unwrapped destination for other items
-                  return destinationWidget;
-                }
-              }).toList(),
-              selectedIndex: navigationShell.currentIndex,
-              onDestinationSelected: (int index) => _onTap(context, index, ref),
-            ),
-          )
-        : null;
+      // TODO: get destinations from the navigationShell
+      // Here, the items of BottomNavigationBar are hard coded. In a real
+      // world scenario, the items would most likely be generated from the
+      // branches of the shell route, which can be fetched using
+      // `navigationShell.route.branches`.
+      destinations: _navigationItems(context).map((item) {
+        final isDestinationLibrary = item.name == S.of(context).library;
+        var currentLibrary = ref.watch(currentLibraryProvider).valueOrNull;
+        final libraryIcon = AbsIcons.getIconByName(
+          currentLibrary?.icon,
+        );
+        final destinationWidget = NavigationDestination(
+          icon: Icon(
+            isDestinationLibrary ? libraryIcon ?? item.icon : item.icon,
+          ),
+          selectedIcon: Icon(
+            isDestinationLibrary
+                ? libraryIcon ?? item.activeIcon
+                : item.activeIcon,
+          ),
+          label: isDestinationLibrary
+              ? currentLibrary?.name ?? item.name
+              : item.name,
+          tooltip: item.tooltip,
+        );
+        if (isDestinationLibrary) {
+          return GestureDetector(
+            onSecondaryTap: () => showLibrarySwitcher(context, ref),
+            onDoubleTap: () => showLibrarySwitcher(context, ref),
+            child: destinationWidget, // Wrap the actual NavigationDestination
+          );
+        } else {
+          // Return the unwrapped destination for other items
+          return destinationWidget;
+        }
+      }).toList(),
+      selectedIndex: navigationShell.currentIndex,
+      onDestinationSelected: (int index) => _onTap(context, index, ref),
+    );
   }
 
   List<_NavigationItem> _navigationItems(BuildContext context) {
