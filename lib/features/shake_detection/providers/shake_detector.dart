@@ -3,7 +3,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart'
-    show audiobookPlayerProvider, simpleAudiobookPlayerProvider;
+    show simpleAudiobookPlayerProvider;
 import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart'
     show sleepTimerProvider;
 import 'package:vaani/settings/app_settings_provider.dart'
@@ -132,12 +132,12 @@ class ShakeDetector extends _$ShakeDetector {
       case ShakeDetectedFeedback.vibrate:
         _logger.fine('Vibrating');
 
-        if (await Vibration.hasAmplitudeControl() ?? false) {
+        if (await Vibration.hasAmplitudeControl()) {
           Vibration.vibrate(amplitude: 128, duration: 200);
           break;
         }
 
-        if (await Vibration.hasVibrator() ?? false) {
+        if (await Vibration.hasVibrator()) {
           Vibration.vibrate();
           break;
         }
