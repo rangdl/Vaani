@@ -87,25 +87,16 @@ class _FrameworkState extends ConsumerState<Framework>
     // Eagerly initialize providers by watching them.
     // By using "watch", the provider will stay alive and not be disposed.
     try {
-      final audioService = ref.watch(audioHandlerInitProvider);
-      ref.watch(playbackReporterProvider);
-      // ref.watch(simpleAudiobookPlayerProvider);
-      ref.watch(sleepTimerProvider);
-      // ref.watch(playbackReporterProvider);
       ref.watch(simpleDownloadManagerProvider);
       if (Utils.isAndroid()) ref.watch(shakeDetectorProvider);
+      ref.watch(sleepTimerProvider);
       ref.watch(skipStartEndProvider);
-      return audioService.maybeWhen(
-        data: (_) {
-          return widget.child;
-        },
-        orElse: () => SizedBox.shrink(),
-      );
+      ref.watch(playbackReporterProvider);
     } catch (e) {
       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
       appLogger.severe(e.toString());
-      return SizedBox.shrink();
     }
+    return widget.child;
   }
 
   @override

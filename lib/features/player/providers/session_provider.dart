@@ -15,13 +15,17 @@ import 'package:vaani/features/player/providers/player_status_provider.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/settings/app_settings_provider.dart';
 import 'package:vaani/shared/extensions/obfuscation.dart';
+import 'package:vaani/shared/utils/utils.dart';
 
 part 'session_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 Future<AbsAudioHandler> audioHandlerInit(Ref ref) async {
-  // JustAudioMediaKit.ensureInitialized(windows: false);
-  JustAudioMediaKit.ensureInitialized();
+  if (Utils.isWindows() || Utils.isLinux()) {
+    // JustAudioMediaKit.ensureInitialized(windows: false);
+    JustAudioMediaKit.ensureInitialized();
+  }
+
   final audioService = await AudioService.init(
     builder: () => AbsAudioHandler(ref),
     config: const AudioServiceConfig(

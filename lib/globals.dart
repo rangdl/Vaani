@@ -8,6 +8,7 @@ import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:vaani/router/router.dart';
 
 late String appName;
 const String appScheme = "vaani";
@@ -44,6 +45,8 @@ late String deviceManufacturer;
 
 late Logger appLogger;
 late Directory appStorageDir;
+
+var routerConfig = const MyAppRouter().config;
 
 String getDeviceName(data) {
   // try different keys to get the device name

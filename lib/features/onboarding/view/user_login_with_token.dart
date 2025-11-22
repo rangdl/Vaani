@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/authenticated_users_provider.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/models/error_response.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/settings/models/models.dart' as model;
@@ -109,7 +110,7 @@ class UserLoginWithToken extends HookConsumerWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: loginAndSave,
-            child: const Text('Login'),
+            child: Text(S.of(context).loginLogin),
           ),
         ],
       ),

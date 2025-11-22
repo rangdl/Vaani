@@ -9,6 +9,7 @@ import 'package:vaani/api/server_provider.dart';
 import 'package:vaani/db/storage.dart';
 import 'package:vaani/features/logging/core/logger.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
+import 'package:vaani/features/player/providers/session_provider.dart';
 import 'package:vaani/framework.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
@@ -23,6 +24,7 @@ import 'package:window_manager/window_manager.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  final container = ProviderContainer();
   _runPlatformSpecificCode();
 
   // Configure the App Metadata
@@ -36,11 +38,12 @@ void main() async {
 
   // initialize audio player
   // await configurePlayer();
-
+  await container.read(audioHandlerInitProvider.future);
   // run the app
   runApp(
-    const ProviderScope(
-      child: Framework(
+    UncontrolledProviderScope(
+      container: container,
+      child: const Framework(
         // audioHandler: ,
         child: AbsApp(),
       ),
@@ -75,8 +78,6 @@ Future<void> _runPlatformSpecificCode() async {
       break;
   }
 }
-
-var routerConfig = const MyAppRouter().config;
 
 class AbsApp extends ConsumerWidget {
   const AbsApp({super.key});

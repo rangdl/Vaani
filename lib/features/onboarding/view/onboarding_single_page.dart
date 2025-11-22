@@ -98,7 +98,7 @@ class OnboardingBody extends HookConsumerWidget {
                     style: Theme.of(context).textTheme.bodyMedium,
                   )
                 : Text(
-                    'Please enter the URL of your AudiobookShelf Server',
+                    S.of(context).loginServerNoConnected,
                     key: const ValueKey('not_connected'),
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
