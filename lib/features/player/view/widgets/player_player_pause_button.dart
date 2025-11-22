@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:vaani/constants/sizes.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
+import 'package:vaani/features/player/core/player_status.dart';
+import 'package:vaani/features/player/providers/player_status_provider.dart';
+import 'package:vaani/features/player/providers/session_provider.dart';
 
 class AudiobookPlayerPlayPauseButton extends HookConsumerWidget {
   const AudiobookPlayerPlayPauseButton({
@@ -15,42 +14,42 @@ class AudiobookPlayerPlayPauseButton extends HookConsumerWidget {
   final double iconSize;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final player = ref.watch(audiobookPlayerProvider);
-    final playing = ref.watch(isPlayerPlayingProvider);
-    final playPauseController = useAnimationController(
-      duration: const Duration(milliseconds: 200),
-      initialValue: 1,
+    final playerStatus =
+        ref.watch(playerStatusProvider.select((v) => v.playStatus));
+
+    return PlatformIconButton(
+      icon: _getIcon(playerStatus, context),
+      onPressed: () => _actionButtonPressed(playerStatus, ref),
     );
-    if (playing) {
-      playPauseController.forward();
-    } else {
-      playPauseController.reverse();
+  }
+
+  Widget _getIcon(PlayStatus playerStatus, BuildContext context) {
+    switch (playerStatus) {
+      case PlayStatus.playing:
+        return Icon(size: iconSize, PlatformIcons(context).pause);
+      case PlayStatus.paused:
+        return Icon(size: iconSize, PlatformIcons(context).playArrow);
+      case PlayStatus.loading:
+        return PlatformCircularProgressIndicator();
+      default:
+        return Icon(size: iconSize, PlatformIcons(context).playArrow);
     }
-    return switch (player.processingState) {
-      ProcessingState.loading || ProcessingState.buffering => const Padding(
-          padding: EdgeInsets.all(AppElementSizes.paddingRegular),
-          child: CircularProgressIndicator(),
-        ),
-      ProcessingState.completed => IconButton(
-          onPressed: () async {
-            await player.seekInBook(const Duration(seconds: 0));
-            await player.play();
-          },
-          icon: const Icon(
-            Icons.replay,
-          ),
-        ),
-      ProcessingState.ready => IconButton(
-          onPressed: () async {
-            await player.togglePlayPause();
-          },
-          iconSize: iconSize,
-          icon: AnimatedIcon(
-            icon: AnimatedIcons.play_pause,
-            progress: playPauseController,
-          ),
-        ),
-      ProcessingState.idle => const SizedBox.shrink(),
-    };
+  }
+
+  void _actionButtonPressed(PlayStatus playerStatus, WidgetRef ref) async {
+    final player = ref.read(playerProvider);
+    switch (playerStatus) {
+      case PlayStatus.loading:
+        break;
+      case PlayStatus.playing:
+        await player.pause();
+        break;
+      case PlayStatus.completed:
+        await player.seekInBook(const Duration(seconds: 0));
+        await player.play();
+        break;
+      default:
+        await player.play();
+    }
   }
 }

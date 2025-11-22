@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:vaani/api/image_provider.dart';
-import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/constants/sizes.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/features/player/providers/currently_playing_provider.dart';
+import 'package:vaani/features/player/providers/session_provider.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
@@ -20,25 +17,11 @@ class PlayerMinimized extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentBook = ref.watch(currentlyPlayingBookProvider);
-    if (currentBook == null) {
-      return const SizedBox.shrink();
+    final session = ref.watch(sessionProvider);
+    if (session == null) {
+      return SizedBox.shrink();
     }
-    final itemBeingPlayed =
-        ref.watch(libraryItemProvider(currentBook.libraryItemId));
-    final imageOfItemBeingPlayed = itemBeingPlayed.valueOrNull != null
-        ? ref.watch(
-            coverImageProvider(itemBeingPlayed.valueOrNull!.id),
-          )
-        : null;
-    final imgWidget = imageOfItemBeingPlayed?.valueOrNull != null
-        ? Image.memory(
-            imageOfItemBeingPlayed!.valueOrNull!,
-            fit: BoxFit.cover,
-          )
-        : const BookCoverSkeleton();
-    final bookMetaExpanded = ref.watch(currentBookMetadataProvider);
-    final currentChapter = ref.watch(currentPlayingChapterProvider);
+    final currentChapter = ref.watch(currentChapterProvider);
 
     return PlayerMinimizedFramework(
       children: [
@@ -51,7 +34,7 @@ class PlayerMinimized extends HookConsumerWidget {
               context.pushNamed(
                 Routes.libraryItem.name,
                 pathParameters: {
-                  Routes.libraryItem.pathParamName!: currentBook.libraryItemId,
+                  Routes.libraryItem.pathParamName!: session.libraryItemId,
                 },
               );
             },
@@ -59,7 +42,7 @@ class PlayerMinimized extends HookConsumerWidget {
               constraints: BoxConstraints(
                 maxWidth: playerMinimizedHeight,
               ),
-              child: imgWidget,
+              child: BookCoverWidget(),
             ),
           ),
         ),
@@ -75,15 +58,15 @@ class PlayerMinimized extends HookConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // AutoScrollText(
-                Text(
-                  '${bookMetaExpanded?.title ?? ''} - ${currentChapter?.title ?? ''}',
+                PlatformText(
+                  '${session.displayTitle} - ${currentChapter?.title ?? ''}',
                   maxLines: 1, overflow: TextOverflow.ellipsis,
                   // velocity:
                   //     const Velocity(pixelsPerSecond: Offset(16, 0)),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                Text(
-                  bookMetaExpanded?.authorName ?? '',
+                PlatformText(
+                  session.displayAuthor,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -101,7 +84,7 @@ class PlayerMinimized extends HookConsumerWidget {
         // rewind button
         Padding(
           padding: const EdgeInsets.only(left: 8),
-          child: IconButton(
+          child: PlatformIconButton(
             icon: const Icon(
               Icons.replay_30,
               size: AppElementSizes.iconSizeSmall,
@@ -127,9 +110,9 @@ class PlayerMinimizedFramework extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final player = ref.watch(audiobookPlayerProvider);
+    final player = ref.watch(playerProvider);
     final progress =
-        useStream(player.positionStream, initialData: Duration.zero);
+        useStream(player.positionStreamInChapter, initialData: Duration.zero);
     return GestureDetector(
       onTap: () => context.pushNamed(Routes.player.name),
       child: Container(
@@ -144,12 +127,10 @@ class PlayerMinimizedFramework extends HookConsumerWidget {
             SizedBox(
               height: AppElementSizes.barHeight,
               child: LinearProgressIndicator(
-                // value: (progress.data ?? Duration.zero).inSeconds /
-                //     player.book!.duration.inSeconds,
                 value: (progress.data ?? Duration.zero).inSeconds /
-                    (player.duration?.inSeconds ?? 1),
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                    (player.chapterDuration?.inSeconds ?? 1),
+                // color: Theme.of(context).colorScheme.onPrimaryContainer,
+                // backgroundColor: Theme.of(context).colorScheme.primaryContainer,
               ),
             ),
           ],

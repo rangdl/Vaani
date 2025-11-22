@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/library_provider.dart' show currentLibraryProvider;
 import 'package:vaani/features/explore/providers/search_controller.dart';
 import 'package:vaani/features/player/providers/player_form.dart';
+import 'package:vaani/features/player/providers/session_provider.dart';
 import 'package:vaani/features/player/view/player_minimized.dart';
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart';
 import 'package:vaani/generated/l10n.dart';
@@ -53,9 +54,10 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
   }
 
   Widget buildNavLeft(BuildContext context, WidgetRef ref) {
-    final isPlayerActive = ref.watch(isPlayerActiveProvider);
+    // final isPlayerActive = ref.watch(isPlayerActiveProvider);
+    final session = ref.watch(sessionProvider);
     return Padding(
-      padding: EdgeInsets.only(bottom: isPlayerActive ? playerMinHeight : 0),
+      padding: EdgeInsets.only(bottom: session != null ? playerMinHeight : 0),
       child: Row(
         children: [
           SafeArea(
@@ -80,9 +82,11 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
                         ? libraryIcon ?? item.activeIcon
                         : item.activeIcon,
                   ),
-                  label: Text(isDestinationLibrary
-                      ? currentLibrary?.name ?? item.name
-                      : item.name),
+                  label: Text(
+                    isDestinationLibrary
+                        ? currentLibrary?.name ?? item.name
+                        : item.name,
+                  ),
                   // tooltip: item.tooltip,
                 );
                 // if (isDestinationLibrary) {
@@ -101,7 +105,6 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
               }).toList(),
               selectedIndex: navigationShell.currentIndex,
               onDestinationSelected: (int index) {
-                print(index);
                 _onTap(context, index, ref);
               },
             ),
@@ -121,7 +124,7 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
     // final playerMaxHeight = size.height;
     // var percentExpandedMiniPlayer = (playerProgress - playerMinHeight) /
     //     (playerMaxHeight - playerMinHeight);
-    // Clamp the value between 0 and 1
+    // // Clamp the value between 0 and 1
     // percentExpandedMiniPlayer = percentExpandedMiniPlayer.clamp(0.0, 1.0);
     return NavigationBar(
       elevation: 0.0,

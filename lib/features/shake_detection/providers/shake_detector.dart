@@ -2,8 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart'
-    show simpleAudiobookPlayerProvider;
+import 'package:vaani/features/player/providers/session_provider.dart';
 import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart'
     show sleepTimerProvider;
 import 'package:vaani/settings/app_settings_provider.dart'
@@ -32,7 +31,7 @@ class ShakeDetector extends _$ShakeDetector {
     }
 
     // if no book is loaded, shake detection should not be enabled
-    final player = ref.watch(simpleAudiobookPlayerProvider);
+    final player = ref.watch(playerProvider);
     player.playerStateStream.listen((event) {
       if (event.processingState == ProcessingState.idle && wasPlayerLoaded) {
         _logger.config('Player is now not loaded, invalidating');
@@ -46,7 +45,7 @@ class ShakeDetector extends _$ShakeDetector {
       }
     });
 
-    if (player.book == null) {
+    if (player.session == null) {
       _logger.config('No book is loaded, disabling shake detection');
       wasPlayerLoaded = false;
       return null;
@@ -87,8 +86,8 @@ class ShakeDetector extends _$ShakeDetector {
     ShakeAction shakeAction, {
     required Ref ref,
   }) {
-    final player = ref.read(simpleAudiobookPlayerProvider);
-    if (player.book == null && shakeAction.isPlaybackManagementEnabled) {
+    final player = ref.read(playerProvider);
+    if (player.session == null && shakeAction.isPlaybackManagementEnabled) {
       _logger.warning('No book is loaded');
       return false;
     }
@@ -104,19 +103,19 @@ class ShakeDetector extends _$ShakeDetector {
         return true;
       case ShakeAction.fastForward:
         _logger.fine('Fast forwarding');
-        if (!player.playing) {
+        if (!player.player.playerState.playing) {
           _logger.warning('Player is not playing');
           return false;
         }
-        player.seek(player.position + const Duration(seconds: 30));
+        player.seek(player.player.position + const Duration(seconds: 30));
         return true;
       case ShakeAction.rewind:
         _logger.fine('Rewinding');
-        if (!player.playing) {
+        if (!player.player.playerState.playing) {
           _logger.warning('Player is not playing');
           return false;
         }
-        player.seek(player.position - const Duration(seconds: 30));
+        player.seek(player.player.position - const Duration(seconds: 30));
         return true;
       case ShakeAction.playPause:
         _logger.fine('Toggling play/pause');

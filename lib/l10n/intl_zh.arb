@@ -90,6 +90,13 @@
     "bookSeries": "系列",
     "bookDownloads": "下载",
 
+    "chapterSelect": "选择章节",
+    "chapters": "章节列表",
+    "chapterNotFound": "未找到章节",
+    "chapterSkip": "跳过章节片头片尾",
+    "chapterSkipOpen": "跳过章节片头 ",
+    "chapterSkipEnd": "跳过章节片尾 ",
+
     "library": "媒体库",
     "libraryTooltip": "浏览您的媒体库",
     "librarySwitchTooltip": "切换媒体库",

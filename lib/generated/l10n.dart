@@ -489,6 +489,61 @@ class S {
     return Intl.message('Downloads', name: 'bookDownloads', desc: '', args: []);
   }
 
+  /// `Select Chapter`
+  String get chapterSelect {
+    return Intl.message(
+      'Select Chapter',
+      name: 'chapterSelect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chapters`
+  String get chapters {
+    return Intl.message('Chapters', name: 'chapters', desc: '', args: []);
+  }
+
+  /// `Chapters`
+  String get chapterNotFound {
+    return Intl.message(
+      'Chapters',
+      name: 'chapterNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip chapter opening and ending`
+  String get chapterSkip {
+    return Intl.message(
+      'Skip chapter opening and ending',
+      name: 'chapterSkip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip chapter opening for `
+  String get chapterSkipOpen {
+    return Intl.message(
+      'Skip chapter opening for ',
+      name: 'chapterSkipOpen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip chapter opening for `
+  String get chapterSkipEnd {
+    return Intl.message(
+      'Skip chapter opening for ',
+      name: 'chapterSkipEnd',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Library`
   String get library {
     return Intl.message('Library', name: 'library', desc: '', args: []);

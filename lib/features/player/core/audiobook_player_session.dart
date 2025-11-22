@@ -1,90 +1,99 @@
 // my_audio_handler.dart
+import 'dart:io';
+
 import 'package:audio_service/audio_service.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
+import 'package:vaani/features/player/core/player_status.dart' as core;
+import 'package:vaani/features/player/providers/player_status_provider.dart';
+import 'package:vaani/shared/extensions/chapter.dart';
 
 // add a small offset so the display does not show the previous chapter for a split second
 final offset = Duration(milliseconds: 10);
 
-class HookAudioHandler extends BaseAudioHandler {
+class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   final AudioPlayer _player = AudioPlayer();
-  final List<AudioSource> _playlist = [];
+  // final List<AudioSource> _playlist = [];
   final Ref ref;
 
-  BookExpanded? _book;
+  PlaybackSessionExpanded? _session;
 
-  /// the authentication token to access the [AudioTrack.contentUrl]
-  final String token;
-
-  /// the base url for the audio files
-  final Uri baseUrl;
-
-  HookAudioHandler(this.ref, {required this.token, required this.baseUrl}) {
+  final _currentChapterObject = BehaviorSubject<BookChapter?>.seeded(null);
+  AbsAudioHandler(this.ref) {
     _setupAudioPlayer();
   }
 
   void _setupAudioPlayer() {
-    _player.setAudioSources(_playlist);
-
-    // // 监听播放位置变化，更新全局位置
-    // _player.positionStream.listen((position) {
-    //   // _updateGlobalPosition(position);
-    // });
-
-    // // 监听音轨变化
-    // _player.currentIndexStream.listen((index) {
-    //   if (index != null) {
-    //     _onTrackChanged(index);
-    //   }
-    // });
+    final statusNotifier = ref.read(playerStatusProvider.notifier);
 
     // 转发播放状态
     _player.playbackEventStream.map(_transformEvent).pipe(playbackState);
+    _player.playerStateStream.listen((event) {
+      if (event.playing) {
+        statusNotifier.setPlayStatusVerify(core.PlayStatus.playing);
+      } else {
+        statusNotifier.setPlayStatusVerify(core.PlayStatus.paused);
+      }
+    });
+    _player.positionStream.distinct().listen((position) {
+      final chapter = _session?.findChapterAtTime(positionInBook);
+      if (chapter != currentChapter) {
+        _currentChapterObject.sink.add(chapter);
+      }
+    });
   }
 
   // 加载有声书
   Future<void> setSourceAudiobook(
-    BookExpanded audiobook, {
-    Duration? initialPosition,
+    PlaybackSessionExpanded playbackSession, {
+    required Uri baseUrl,
+    required String token,
     List<Uri>? downloadedUris,
   }) async {
-    _book = audiobook;
-
-    // 清空现有播放列表
-    _playlist.clear();
+    _session = playbackSession;
 
     // 添加所有音轨
-    for (final track in audiobook.tracks) {
-      final audioSource = ProgressiveAudioSource(
-        _getUri(track, downloadedUris, baseUrl: baseUrl, token: token),
-        tag: MediaItem(
-          id: '${audiobook.libraryItemId}${track.index}',
-          title: track.title,
-          duration: track.duration,
+    List<AudioSource> audioSources = [];
+    for (final track in playbackSession.audioTracks) {
+      audioSources.add(
+        AudioSource.uri(
+          _getUri(track, downloadedUris, baseUrl: baseUrl, token: token),
         ),
       );
-      _playlist.add(audioSource);
     }
 
-    // 初始化队列显示
-    final mediaItems = audiobook.tracks
-        .map(
-          (track) => MediaItem(
-            id: '${audiobook.libraryItemId}${track.index}',
-            title: track.title,
-            duration: track.duration,
-          ),
-        )
-        .toList();
+    playMediaItem(
+      MediaItem(
+        id: playbackSession.libraryItemId,
+        album: playbackSession.mediaMetadata.title,
+        title: playbackSession.displayTitle,
+        displaySubtitle: playbackSession.mediaType == MediaType.book
+            ? (playbackSession.mediaMetadata as BookMetadata).subtitle
+            : null,
+        duration: playbackSession.duration,
+        artUri: Uri.parse(
+          '$baseUrl/api/items/${playbackSession.libraryItemId}/cover?token=$token',
+        ),
+      ),
+    );
+    final track = playbackSession.findTrackAtTime(playbackSession.currentTime);
+    final index = playbackSession.audioTracks.indexOf(track);
 
-    queue.add(mediaItems);
-
+    await _player.setAudioSources(
+      audioSources,
+      initialIndex: index,
+      initialPosition: playbackSession.currentTime - track.startOffset,
+    );
+    _player.seek(playbackSession.currentTime - track.startOffset, index: index);
+    await play();
     // 恢复上次播放位置（如果有）
-    if (initialPosition != null) {
-      await seekToPosition(initialPosition);
-    }
+    // if (initialPosition != null) {
+    //   await seekInBook(initialPosition);
+    // }
   }
 
   // // 音轨切换处理
@@ -97,51 +106,108 @@ class HookAudioHandler extends BaseAudioHandler {
 
   // 核心功能：跳转到指定章节
   Future<void> skipToChapter(int chapterId) async {
-    if (_book == null) return;
+    if (_session == null) return;
 
-    final chapter = _book!.chapters.firstWhere(
+    final chapter = _session!.chapters.firstWhere(
       (ch) => ch.id == chapterId,
       orElse: () => throw Exception('Chapter not found'),
     );
-
-    await seekToPosition(chapter.start + offset);
+    await seekInBook(chapter.start + offset);
   }
 
-  Duration get positionInBook {
-    if (_book != null && _player.currentIndex != null) {
-      return _book!.tracks[_player.currentIndex!].startOffset +
-          _player.position;
-    }
-    return Duration.zero;
-  }
+  PlaybackSessionExpanded? get session => _session;
 
   // 当前音轨
   AudioTrack? get currentTrack {
-    if (_book == null) {
+    if (_session == null || _player.currentIndex == null) {
       return null;
     }
-    return _book!.findTrackAtTime(positionInBook);
+    return _session!.audioTracks[_player.currentIndex!];
   }
 
   // 当前章节
   BookChapter? get currentChapter {
-    if (_book == null) {
-      return null;
+    return _currentChapterObject.value;
+  }
+
+  Duration get position => _player.position;
+  Duration get positionInChapter {
+    return _player.position +
+        (currentTrack?.startOffset ?? Duration.zero) -
+        (currentChapter?.start ?? Duration.zero);
+  }
+
+  Duration get positionInBook {
+    return _player.position + (currentTrack?.startOffset ?? Duration.zero);
+  }
+
+  Duration get bufferedPositionInBook {
+    return _player.bufferedPosition +
+        (currentTrack?.startOffset ?? Duration.zero);
+  }
+
+  Duration? get chapterDuration => currentChapter?.duration;
+
+  Stream<PlayerState> get playerStateStream => _player.playerStateStream;
+
+  Stream<Duration> get positionStream => _player.positionStream;
+
+  Stream<Duration> get positionStreamInBook {
+    return _player.positionStream.map((position) {
+      return position + (currentTrack?.startOffset ?? Duration.zero);
+    });
+  }
+
+  Stream<Duration> get slowPositionStreamInBook {
+    final superPositionStream = _player.createPositionStream(
+      steps: 100,
+      minPeriod: const Duration(milliseconds: 500),
+      maxPeriod: const Duration(seconds: 1),
+    );
+    return superPositionStream.map((position) {
+      return position + (currentTrack?.startOffset ?? Duration.zero);
+    });
+  }
+
+  Stream<Duration> get bufferedPositionStreamInBook {
+    return _player.bufferedPositionStream.map((position) {
+      return position + (currentTrack?.startOffset ?? Duration.zero);
+    });
+  }
+
+  Stream<Duration> get positionStreamInChapter {
+    return _player.positionStream.distinct().map((position) {
+      return position +
+          (currentTrack?.startOffset ?? Duration.zero) -
+          (currentChapter?.start ?? Duration.zero);
+    });
+  }
+
+  Stream<BookChapter?> get chapterStream => _currentChapterObject.stream;
+
+  Future<void> togglePlayPause() async {
+    // check if book is set
+    if (_session == null) {
+      return Future.value();
     }
-    return _book!.findChapterAtTime(positionInBook);
+    _player.playerState.playing ? await pause() : await play();
   }
 
   // 播放控制方法
   @override
-  Future<void> play() => _player.play();
+  Future<void> play() async {
+    await _player.play();
+  }
 
   @override
-  Future<void> pause() => _player.pause();
+  Future<void> pause() async {
+    await _player.pause();
+  }
 
   // 重写上一曲/下一曲为章节导航
   @override
   Future<void> skipToNext() async {
-    if (_book == null) {
+    if (_session == null) {
       // 回退到默认行为
       return _player.seekToNext();
     }
@@ -150,32 +216,28 @@ class HookAudioHandler extends BaseAudioHandler {
       // 回退到默认行为
       return _player.seekToNext();
     }
-    final currentIndex = _book!.chapters.indexOf(chapter);
-    if (currentIndex < _book!.chapters.length - 1) {
+    final chapterIndex = _session!.chapters.indexOf(chapter);
+    if (chapterIndex < _session!.chapters.length - 1) {
       // 跳到下一章
-      final nextChapter = _book!.chapters[currentIndex + 1];
+      final nextChapter = _session!.chapters[chapterIndex + 1];
       await skipToChapter(nextChapter.id);
     }
   }
 
   @override
   Future<void> skipToPrevious() async {
-    if (_book == null) {
-      return _player.seekToPrevious();
-    }
-
     final chapter = currentChapter;
-    if (chapter == null) {
+    if (_session == null || chapter == null) {
       return _player.seekToPrevious();
     }
-    final currentIndex = _book!.chapters.indexOf(chapter);
+    final currentIndex = _session!.chapters.indexOf(chapter);
     if (currentIndex > 0) {
       // 跳到上一章
-      final prevChapter = _book!.chapters[currentIndex - 1];
+      final prevChapter = _session!.chapters[currentIndex - 1];
       await skipToChapter(prevChapter.id);
     } else {
       // 已经是第一章，回到开头
-      await seekToPosition(Duration.zero);
+      await seekInBook(Duration.zero);
     }
   }
 
@@ -188,30 +250,53 @@ class HookAudioHandler extends BaseAudioHandler {
     if (track != null) {
       startOffset = track.startOffset;
     }
-    await seekToPosition(startOffset + position);
+    await seekInBook(startOffset + position);
+  }
+
+  Future<void> setVolume(double volume) async {
+    await _player.setVolume(volume);
+  }
+
+  @override
+  Future<void> setSpeed(double speed) async {
+    await _player.setSpeed(speed);
   }
 
   // 核心功能：跳转到全局时间位置
-  Future<void> seekToPosition(Duration globalPosition) async {
-    if (_book == null) return;
+  Future<void> seekInBook(Duration globalPosition) async {
+    if (_session == null) return;
     // 找到目标音轨和在音轨内的位置
-    final track = _book!.findTrackAtTime(globalPosition);
-    final index = _book!.tracks.indexOf(track);
+    final track = _session!.findTrackAtTime(globalPosition);
+    final index = _session!.audioTracks.indexOf(track);
     Duration positionInTrack = globalPosition - track.startOffset;
-    if (positionInTrack <= Duration.zero) {
-      positionInTrack = offset;
+    if (positionInTrack < Duration.zero) {
+      positionInTrack = Duration.zero;
     }
     // 切换到目标音轨具体位置
     await _player.seek(positionInTrack, index: index);
   }
 
+  AudioPlayer get player => _player;
   PlaybackState _transformEvent(PlaybackEvent event) {
     return PlaybackState(
       controls: [
-        MediaControl.skipToPrevious,
+        if (kIsWeb || !Platform.isAndroid) MediaControl.skipToPrevious,
+        MediaControl.rewind,
         if (_player.playing) MediaControl.pause else MediaControl.play,
-        MediaControl.skipToNext,
+        MediaControl.stop,
+        MediaControl.fastForward,
+        if (kIsWeb || !Platform.isAndroid) MediaControl.skipToNext,
       ],
+      systemActions: {
+        if (kIsWeb || !Platform.isAndroid) MediaAction.skipToPrevious,
+        MediaAction.rewind,
+        MediaAction.seek,
+        MediaAction.fastForward,
+        MediaAction.stop,
+        MediaAction.setSpeed,
+        if (kIsWeb || !Platform.isAndroid) MediaAction.skipToNext,
+      },
+      androidCompactActionIndices: const [1, 2, 3],
       processingState: const {
             ProcessingState.idle: AudioProcessingState.idle,
             ProcessingState.loading: AudioProcessingState.loading,
@@ -222,9 +307,10 @@ class HookAudioHandler extends BaseAudioHandler {
           AudioProcessingState.idle,
       playing: _player.playing,
       updatePosition: _player.position,
-      bufferedPosition: _player.bufferedPosition,
+      bufferedPosition: event.bufferedPosition,
       speed: _player.speed,
       queueIndex: event.currentIndex,
+      captioningEnabled: false,
     );
   }
 }
@@ -246,7 +332,7 @@ Uri _getUri(
       Uri.parse('${baseUrl.toString()}${track.contentUrl}?token=$token');
 }
 
-extension BookExpandedExtension on BookExpanded {
+extension PlaybackSessionExpandedExtension on PlaybackSessionExpanded {
   BookChapter findChapterAtTime(Duration position) {
     return chapters.firstWhere(
       (element) {
@@ -257,16 +343,23 @@ extension BookExpandedExtension on BookExpanded {
   }
 
   AudioTrack findTrackAtTime(Duration position) {
-    return tracks.firstWhere(
+    return audioTracks.firstWhere(
       (element) {
         return element.startOffset <= position &&
             element.startOffset + element.duration >= position + offset;
       },
-      orElse: () => tracks.first,
+      orElse: () => audioTracks.first,
     );
   }
 
+  int findTrackIndexAtTime(Duration position) {
+    return audioTracks.indexWhere((element) {
+      return element.startOffset <= position &&
+          element.startOffset + element.duration >= position + offset;
+    });
+  }
+
   Duration getTrackStartOffset(int index) {
-    return tracks[index].startOffset;
+    return audioTracks[index].startOffset;
   }
 }

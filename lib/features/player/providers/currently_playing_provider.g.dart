@@ -7,7 +7,7 @@ part of 'currently_playing_provider.dart';
 // **************************************************************************
 
 String _$currentlyPlayingBookHash() =>
-    r'e4258694c8f0d1e89651b330fae0f672ca13a484';
+    r'f2c47028340d253be9440dc29f835328ff30c0e6';
 
 /// See also [currentlyPlayingBook].
 @ProviderFor(currentlyPlayingBook)

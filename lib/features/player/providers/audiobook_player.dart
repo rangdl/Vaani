@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shelfsdk/audiobookshelf_api.dart' as shelfsdk;
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/features/player/core/audiobook_player.dart' as core;
 
@@ -38,9 +39,9 @@ class AudiobookPlayer extends _$AudiobookPlayer {
     ref.onDispose(player.dispose);
 
     // bind notify listeners to the player
-    player.playerStateStream.listen((_) {
-      ref.notifyListeners();
-    });
+    // player.playerStateStream.listen((_) {
+    //   ref.notifyListeners();
+    // });
 
     _logger.finer('created player');
 
@@ -49,6 +50,13 @@ class AudiobookPlayer extends _$AudiobookPlayer {
 
   Future<void> setSpeed(double speed) async {
     await state.setSpeed(speed);
+    ref.notifyListeners();
+  }
+
+  Future<void> setSourceAudiobook({
+    required shelfsdk.BookExpanded book,
+    shelfsdk.MediaProgress? userMediaProgress,
+  }) async {
     ref.notifyListeners();
   }
 }
