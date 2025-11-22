@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
-import 'package:vaani/features/player/core/audiobook_player.dart';
+import 'package:vaani/features/player/core/audiobook_player_session.dart';
 import 'package:vaani/shared/extensions/obfuscation.dart';
 
 final _logger = Logger('PlaybackReporter');
@@ -14,7 +14,7 @@ final _logger = Logger('PlaybackReporter');
 /// and also report when the player is paused/stopped/finished/playing
 class PlaybackReporter {
   /// The player to watch
-  final AudiobookPlayer player;
+  final AbsAudioHandler player;
 
   /// the api to report to
   final AudiobookshelfApi authenticatedApi;
@@ -55,7 +55,7 @@ class PlaybackReporter {
   PlaybackReporter(
     this.player,
     this.authenticatedApi, {
-    required PlaybackSession session,
+    required PlaybackSessionExpanded session,
     this.reportingDurationThreshold = const Duration(seconds: 1),
     Duration reportingInterval = const Duration(seconds: 10),
     this.minimumPositionForReporting,
@@ -63,28 +63,28 @@ class PlaybackReporter {
   })  : _reportingInterval = reportingInterval,
         _session = session {
     // initial conditions
-    if (player.playing) {
-      _stopwatch.start();
-      _setReportTimerIfNotAlready();
-      _logger.fine('starting stopwatch');
-    } else {
-      _logger.fine('not starting stopwatch');
-    }
+    // if (player.playing) {
+    //   _stopwatch.start();
+    //   _setReportTimerIfNotAlready();
+    //   _logger.fine('starting stopwatch');
+    // } else {
+    //   _logger.fine('not starting stopwatch');
+    // }
 
     _subscriptions.add(
       player.playerStateStream.listen((state) async {
         // set timer if any book is playing and cancel if not
-        if (player.book != null) {
-          if (state.playing) {
-            _setReportTimerIfNotAlready();
-          } else {
-            _cancelReportTimer();
-          }
-        } else if (player.book == null && _reportTimer != null) {
-          _logger.info('book is null, closing session');
-          await closeSession();
+        // if (player.book != null) {
+        if (state.playing) {
+          _setReportTimerIfNotAlready();
+        } else {
           _cancelReportTimer();
         }
+        // } else if (player.book == null && _reportTimer != null) {
+        //   _logger.info('book is null, closing session');
+        //   await closeSession();
+        //   _cancelReportTimer();
+        // }
 
         // start or stop the stopwatch based on the playing state
         if (state.playing) {
@@ -114,9 +114,7 @@ class PlaybackReporter {
     _logger.fine(
       'callback called when elapsed ${_stopwatch.elapsed}',
     );
-    if (player.book != null &&
-        player.positionInBook >=
-            player.book!.duration - markCompleteWhenTimeLeft) {
+    if (player.positionInBook >= _session.duration - markCompleteWhenTimeLeft) {
       _logger.info(
         'marking complete as time left is less than $markCompleteWhenTimeLeft',
       );
@@ -145,23 +143,23 @@ class PlaybackReporter {
 
   /// current sessionId
   /// this is used to report the playback
-  PlaybackSession? _session;
-  String? get sessionId => _session?.id;
+  PlaybackSession _session;
+  String? get sessionId => _session.id;
 
   Future<void> markComplete() async {
-    if (player.book == null) {
-      throw NoAudiobookPlayingError();
-    }
+    // if (player.book == null) {
+    //   throw NoAudiobookPlayingError();
+    // }
     await authenticatedApi.me.createUpdateMediaProgress(
-      libraryItemId: player.book!.libraryItemId,
+      libraryItemId: _session.libraryItemId,
       parameters: CreateUpdateProgressReqParams(
         isFinished: true,
         currentTime: player.positionInBook,
-        duration: player.book!.duration,
+        duration: _session.duration,
       ),
       responseErrorHandler: _responseErrorHandler,
     );
-    _logger.info('Marked complete for book: ${player.book!.libraryItemId}');
+    _logger.info('Marked complete for book: ${_session.libraryItemId}');
   }
 
   Future<void> syncCurrentPosition() async {
@@ -197,7 +195,7 @@ class PlaybackReporter {
       parameters: _getSyncData(),
       responseErrorHandler: _responseErrorHandler,
     );
-    _session = null;
+    // _session = null;
     _logger.info('Closed session');
   }
 
@@ -223,12 +221,12 @@ class PlaybackReporter {
   }
 
   SyncSessionReqParams? _getSyncData() {
-    if (player.book?.libraryItemId != _session?.libraryItemId) {
-      _logger.info(
-        'Book changed, not syncing position for session: $sessionId',
-      );
-      return null;
-    }
+    // if (player.book?.libraryItemId != _session?.libraryItemId) {
+    //   _logger.info(
+    //     'Book changed, not syncing position for session: $sessionId',
+    //   );
+    //   return null;
+    // }
 
     // if in the ignore duration, don't sync
     if (minimumPositionForReporting != null &&
@@ -249,7 +247,7 @@ class PlaybackReporter {
     return SyncSessionReqParams(
       currentTime: player.positionInBook,
       timeListened: _stopwatch.elapsed,
-      duration: player.book?.duration ?? Duration.zero,
+      duration: _session.duration,
     );
   }
 }

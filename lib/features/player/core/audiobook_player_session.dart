@@ -6,8 +6,10 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
-import 'package:vaani/features/player/providers/session_provider.dart';
+import 'package:vaani/features/player/core/player_status.dart' as core;
+import 'package:vaani/features/player/providers/player_status_provider.dart';
 import 'package:vaani/shared/extensions/chapter.dart';
 
 // add a small offset so the display does not show the previous chapter for a split second
@@ -20,27 +22,28 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   PlaybackSessionExpanded? _session;
 
+  final _currentChapterObject = BehaviorSubject<BookChapter?>.seeded(null);
   AbsAudioHandler(this.ref) {
     _setupAudioPlayer();
   }
 
   void _setupAudioPlayer() {
-    // // 监听播放位置变化，更新全局位置
-    // _player.positionStream.listen((position) {
-    //   // _updateGlobalPosition(position);
-    // });
-
-    // // 监听音轨变化
-    // _player.currentIndexStream.listen((index) {
-    //   if (index != null) {
-    //     _onTrackChanged(index);
-    //   }
-    // });
+    final statusNotifier = ref.read(playerStatusProvider.notifier);
 
     // 转发播放状态
     _player.playbackEventStream.map(_transformEvent).pipe(playbackState);
-    _player.playerStateStream.distinct().listen((event) {
-      ref.read(playStateProvider.notifier).setState(event);
+    _player.playerStateStream.listen((event) {
+      if (event.playing) {
+        statusNotifier.setPlayStatusVerify(core.PlayStatus.playing);
+      } else {
+        statusNotifier.setPlayStatusVerify(core.PlayStatus.paused);
+      }
+    });
+    _player.positionStream.distinct().listen((position) {
+      final chapter = _session?.findChapterAtTime(positionInBook);
+      if (chapter != currentChapter) {
+        _currentChapterObject.sink.add(chapter);
+      }
     });
   }
 
@@ -109,58 +112,85 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       (ch) => ch.id == chapterId,
       orElse: () => throw Exception('Chapter not found'),
     );
-
     await seekInBook(chapter.start + offset);
   }
 
-  Duration get positionInBook {
-    if (_session != null && _player.currentIndex != null) {
-      return _session!.audioTracks[_player.currentIndex!].startOffset +
-          _player.position;
-    }
-    return Duration.zero;
-  }
+  PlaybackSessionExpanded? get session => _session;
 
   // 当前音轨
   AudioTrack? get currentTrack {
-    if (_session == null) {
+    if (_session == null || _player.currentIndex == null) {
       return null;
     }
-    return _session!.findTrackAtTime(positionInBook);
+    return _session!.audioTracks[_player.currentIndex!];
   }
 
   // 当前章节
   BookChapter? get currentChapter {
-    if (_session == null) {
-      return null;
-    }
-    return _session!.findChapterAtTime(positionInBook);
+    return _currentChapterObject.value;
+  }
+
+  Duration get position => _player.position;
+  Duration get positionInChapter {
+    return _player.position +
+        (currentTrack?.startOffset ?? Duration.zero) -
+        (currentChapter?.start ?? Duration.zero);
+  }
+
+  Duration get positionInBook {
+    return _player.position + (currentTrack?.startOffset ?? Duration.zero);
+  }
+
+  Duration get bufferedPositionInBook {
+    return _player.bufferedPosition +
+        (currentTrack?.startOffset ?? Duration.zero);
   }
 
   Duration? get chapterDuration => currentChapter?.duration;
+
+  Stream<PlayerState> get playerStateStream => _player.playerStateStream;
+
   Stream<Duration> get positionStream => _player.positionStream;
-  Stream<Duration> get positionStreamInChapter {
+
+  Stream<Duration> get positionStreamInBook {
     return _player.positionStream.map((position) {
-      final currentIndex = _player.currentIndex;
-      if (_session == null || currentIndex == null) {
-        return Duration.zero;
-      }
-      final globalPosition =
-          position + _session!.audioTracks[currentIndex].startOffset;
-      final chapter = _session!.findChapterAtTime(globalPosition);
-      return globalPosition - chapter.start;
+      return position + (currentTrack?.startOffset ?? Duration.zero);
     });
   }
 
-  Future<void> togglePlayPause() {
+  Stream<Duration> get slowPositionStreamInBook {
+    final superPositionStream = _player.createPositionStream(
+      steps: 100,
+      minPeriod: const Duration(milliseconds: 500),
+      maxPeriod: const Duration(seconds: 1),
+    );
+    return superPositionStream.map((position) {
+      return position + (currentTrack?.startOffset ?? Duration.zero);
+    });
+  }
+
+  Stream<Duration> get bufferedPositionStreamInBook {
+    return _player.bufferedPositionStream.map((position) {
+      return position + (currentTrack?.startOffset ?? Duration.zero);
+    });
+  }
+
+  Stream<Duration> get positionStreamInChapter {
+    return _player.positionStream.distinct().map((position) {
+      return position +
+          (currentTrack?.startOffset ?? Duration.zero) -
+          (currentChapter?.start ?? Duration.zero);
+    });
+  }
+
+  Stream<BookChapter?> get chapterStream => _currentChapterObject.stream;
+
+  Future<void> togglePlayPause() async {
     // check if book is set
     if (_session == null) {
       return Future.value();
     }
-
-    return switch (_player.playerState) {
-      PlayerState(playing: var isPlaying) => isPlaying ? pause() : play(),
-    };
+    _player.playerState.playing ? await pause() : await play();
   }
 
   // 播放控制方法
@@ -196,12 +226,8 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   @override
   Future<void> skipToPrevious() async {
-    if (_session == null) {
-      return _player.seekToPrevious();
-    }
-
     final chapter = currentChapter;
-    if (chapter == null) {
+    if (_session == null || chapter == null) {
       return _player.seekToPrevious();
     }
     final currentIndex = _session!.chapters.indexOf(chapter);
@@ -243,8 +269,8 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     final track = _session!.findTrackAtTime(globalPosition);
     final index = _session!.audioTracks.indexOf(track);
     Duration positionInTrack = globalPosition - track.startOffset;
-    if (positionInTrack <= Duration.zero) {
-      positionInTrack = offset;
+    if (positionInTrack < Duration.zero) {
+      positionInTrack = Duration.zero;
     }
     // 切换到目标音轨具体位置
     await _player.seek(positionInTrack, index: index);
@@ -264,6 +290,7 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       systemActions: {
         if (kIsWeb || !Platform.isAndroid) MediaAction.skipToPrevious,
         MediaAction.rewind,
+        MediaAction.seek,
         MediaAction.fastForward,
         MediaAction.stop,
         MediaAction.setSpeed,
@@ -280,7 +307,7 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
           AudioProcessingState.idle,
       playing: _player.playing,
       updatePosition: _player.position,
-      bufferedPosition: _player.bufferedPosition,
+      bufferedPosition: event.bufferedPosition,
       speed: _player.speed,
       queueIndex: event.currentIndex,
       captioningEnabled: false,

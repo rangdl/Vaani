@@ -134,6 +134,18 @@ class MessageLookup extends MessageLookupByLibrary {
       "No shelves to display",
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "chapterNotFound": MessageLookupByLibrary.simpleMessage("Chapters"),
+    "chapterSelect": MessageLookupByLibrary.simpleMessage("Select Chapter"),
+    "chapterSkip": MessageLookupByLibrary.simpleMessage(
+      "Skip chapter opening and ending",
+    ),
+    "chapterSkipEnd": MessageLookupByLibrary.simpleMessage(
+      "Skip chapter opening for ",
+    ),
+    "chapterSkipOpen": MessageLookupByLibrary.simpleMessage(
+      "Skip chapter opening for ",
+    ),
+    "chapters": MessageLookupByLibrary.simpleMessage("Chapters"),
     "copyToClipboard": MessageLookupByLibrary.simpleMessage(
       "Copy to Clipboard",
     ),

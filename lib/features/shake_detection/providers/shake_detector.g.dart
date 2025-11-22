@@ -6,7 +6,7 @@ part of 'shake_detector.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$shakeDetectorHash() => r'2a380bab1d4021d05d2ae40fec964a5f33d3730c';
+String _$shakeDetectorHash() => r'd5f34001dbf6ffb2a114c877f05809c195a58e63';
 
 /// See also [ShakeDetector].
 @ProviderFor(ShakeDetector)

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart'
-    show audiobookPlayerProvider;
-import 'package:vaani/features/player/providers/currently_playing_provider.dart'
-    show currentPlayingChapterProvider, currentlyPlayingBookProvider;
+import 'package:vaani/features/player/providers/session_provider.dart';
 import 'package:vaani/features/player/view/player_expanded.dart'
     show pendingPlayerModals;
 import 'package:vaani/features/player/view/widgets/playing_indicator_icon.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/shared/extensions/chapter.dart' show ChapterDuration;
 import 'package:vaani/shared/extensions/duration_format.dart'
@@ -22,14 +20,14 @@ class ChapterSelectionButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Tooltip(
-      message: 'Chapters',
+      message: S.of(context).chapters,
       child: IconButton(
         icon: const Icon(Icons.menu_book_rounded),
         onPressed: () async {
           pendingPlayerModals++;
           await showModalBottomSheet<bool>(
             context: context,
-            barrierLabel: 'Select Chapter',
+            barrierLabel: S.of(context).chapterSelect,
             constraints: BoxConstraints(
               // 40% of the screen height
               maxHeight: MediaQuery.of(context).size.height * 0.4,
@@ -55,9 +53,9 @@ class ChapterSelectionModal extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentChapter = ref.watch(currentPlayingChapterProvider);
-    final currentBook = ref.watch(currentlyPlayingBookProvider);
-    final notifier = ref.watch(audiobookPlayerProvider);
+    final session = ref.watch(sessionProvider);
+    final currentChapter = ref.watch(currentChapterProvider);
+
     final currentChapterIndex = currentChapter?.id;
     final chapterKey = GlobalKey();
     scrollToCurrentChapter() async {
@@ -77,7 +75,7 @@ class ChapterSelectionModal extends HookConsumerWidget {
       children: [
         ListTile(
           title: Text(
-            'Chapters${currentChapterIndex == null ? '' : ' (${currentChapterIndex + 1}/${currentBook?.chapters.length})'}',
+            '${S.of(context).chapters} ${currentChapterIndex == null ? '' : ' (${currentChapterIndex + 1}/${session?.chapters.length})'}',
           ),
         ),
         // scroll to current chapter after opening the dialog
@@ -85,10 +83,10 @@ class ChapterSelectionModal extends HookConsumerWidget {
           child: Scrollbar(
             child: SingleChildScrollView(
               primary: true,
-              child: currentBook?.chapters == null
-                  ? const Text('No chapters found')
+              child: session?.chapters == null
+                  ? Text(S.of(context).chapterNotFound)
                   : Column(
-                      children: currentBook!.chapters.map(
+                      children: session!.chapters.map(
                         (chapter) {
                           final isCurrent = currentChapterIndex == chapter.id;
                           final isPlayed = currentChapterIndex != null &&
@@ -117,9 +115,9 @@ class ChapterSelectionModal extends HookConsumerWidget {
                             key: isCurrent ? chapterKey : null,
                             onTap: () {
                               Navigator.of(context).pop();
-                              // notifier.seekInBook(chapter.start + 90.ms);
-                              notifier.skipToChapter(chapter.id);
-                              notifier.play();
+                              ref
+                                  .read(playerProvider)
+                                  .skipToChapter(chapter.id);
                             },
                           );
                         },

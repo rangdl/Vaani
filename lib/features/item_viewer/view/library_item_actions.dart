@@ -15,6 +15,7 @@ import 'package:vaani/features/downloads/providers/download_manager.dart'
         itemDownloadProgressProvider;
 import 'package:vaani/features/item_viewer/view/library_item_page.dart';
 import 'package:vaani/features/player/providers/player_form.dart';
+import 'package:vaani/features/player/providers/player_status_provider.dart';
 import 'package:vaani/features/player/providers/session_provider.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
@@ -299,7 +300,7 @@ class AlreadyItemDownloadedButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isBookPlaying = ref.watch(playStateProvider).playing;
+    final isBookPlaying = ref.watch(sessionProvider)?.libraryItemId == item.id;
 
     return IconButton(
       onPressed: () {
@@ -431,15 +432,14 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final session = ref.watch(sessionProvider);
     final book = item.media.asBookExpanded;
-    final session = ref.watch(sessionProvider.select((v) => v.session));
-    final sessionLoading =
-        ref.watch(sessionLoadingProvider(book.libraryItemId));
-    final playerState = ref.watch(playStateProvider);
-    // final player = ref.watch(audiobookPlayerProvider);
+    final playerStatusNotifier = ref.watch(playerStatusProvider);
+    final isLoading = playerStatusNotifier.isLoading(book.libraryItemId);
     final isCurrentBookSetInPlayer =
         session?.libraryItemId == book.libraryItemId;
-    final isPlayingThisBook = playerState.playing && isCurrentBookSetInPlayer;
+    final isPlayingThisBook =
+        playerStatusNotifier.isPlaying() && isCurrentBookSetInPlayer;
 
     final userMediaProgress = item.userMediaProgress;
     final isBookCompleted = userMediaProgress?.isFinished ?? false;
@@ -466,13 +466,15 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
     }
 
     return ElevatedButton.icon(
-      onPressed: () => session?.libraryItemId == book.libraryItemId
-          ? ref.read(sessionProvider).load(book.libraryItemId, null)
-          : ref.read(playerProvider).togglePlayPause(),
+      onPressed: () {
+        session?.libraryItemId == book.libraryItemId
+            ? ref.read(playerProvider).togglePlayPause()
+            : ref.read(sessionProvider.notifier).load(book.libraryItemId, null);
+      },
       icon: Hero(
         tag: HeroTagPrefixes.libraryItemPlayButton + book.libraryItemId,
         child: DynamicItemPlayIcon(
-          isLoading: sessionLoading,
+          isLoading: isLoading,
           isCurrentBookSetInPlayer: isCurrentBookSetInPlayer,
           isPlayingThisBook: isPlayingThisBook,
           isBookCompleted: isBookCompleted,

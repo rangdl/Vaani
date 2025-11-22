@@ -90,6 +90,13 @@
     "bookSeries": "Series",
     "bookDownloads": "Downloads",
 
+    "chapterSelect": "Select Chapter",
+    "chapters": "Chapters",
+    "chapterNotFound": "Chapters",
+    "chapterSkip": "Skip chapter opening and ending",
+    "chapterSkipOpen": "Skip chapter opening for ",
+    "chapterSkipEnd": "Skip chapter opening for ",
+
     "library": "Library",
     "libraryTooltip": "Browse your library",
     "librarySwitchTooltip": "Switch Library",

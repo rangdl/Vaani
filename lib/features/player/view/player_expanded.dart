@@ -7,7 +7,7 @@ import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/session_provider.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
 import 'package:vaani/features/player/view/widgets/player_progress_bar.dart';
-import 'package:vaani/features/skip_start_end/player_skip_chapter_start_end.dart';
+import 'package:vaani/features/player/view/widgets/player_skip_chapter_start_end.dart';
 import 'package:vaani/features/sleep_timer/view/sleep_timer_button.dart';
 import 'package:vaani/shared/widgets/not_implemented.dart';
 import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
@@ -26,7 +26,7 @@ class PlayerExpanded extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final session = ref.watch(sessionProvider).session;
+    final session = ref.watch(sessionProvider);
     if (session == null) {
       return SizedBox.shrink();
     }
@@ -148,16 +148,14 @@ class PlayerExpanded extends HookConsumerWidget {
             ),
           ),
 
-          Expanded(
-            child: SizedBox(
-              width: imageSize,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: AppElementSizes.paddingRegular,
-                  right: AppElementSizes.paddingRegular,
-                ),
-                child: const AudiobookProgressBar(),
+          SizedBox(
+            width: imageSize,
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: AppElementSizes.paddingRegular,
+                right: AppElementSizes.paddingRegular,
               ),
+              child: const AudiobookProgressBar(),
             ),
           ),
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/constants/sizes.dart';
@@ -16,7 +17,7 @@ class PlayerMinimized extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final session = ref.watch(sessionProvider).session;
+    final session = ref.watch(sessionProvider);
     if (session == null) {
       return SizedBox.shrink();
     }
@@ -57,14 +58,14 @@ class PlayerMinimized extends HookConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // AutoScrollText(
-                Text(
+                PlatformText(
                   '${session.displayTitle} - ${currentChapter?.title ?? ''}',
                   maxLines: 1, overflow: TextOverflow.ellipsis,
                   // velocity:
                   //     const Velocity(pixelsPerSecond: Offset(16, 0)),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                Text(
+                PlatformText(
                   session.displayAuthor,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -83,7 +84,7 @@ class PlayerMinimized extends HookConsumerWidget {
         // rewind button
         Padding(
           padding: const EdgeInsets.only(left: 8),
-          child: IconButton(
+          child: PlatformIconButton(
             icon: const Icon(
               Icons.replay_30,
               size: AppElementSizes.iconSizeSmall,
@@ -126,12 +127,10 @@ class PlayerMinimizedFramework extends HookConsumerWidget {
             SizedBox(
               height: AppElementSizes.barHeight,
               child: LinearProgressIndicator(
-                // value: (progress.data ?? Duration.zero).inSeconds /
-                //     player.book!.duration.inSeconds,
                 value: (progress.data ?? Duration.zero).inSeconds /
                     (player.chapterDuration?.inSeconds ?? 1),
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                // color: Theme.of(context).colorScheme.onPrimaryContainer,
+                // backgroundColor: Theme.of(context).colorScheme.primaryContainer,
               ),
             ),
           ],

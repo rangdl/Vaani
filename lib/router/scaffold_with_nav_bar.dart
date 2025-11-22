@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/library_provider.dart' show currentLibraryProvider;
 import 'package:vaani/features/explore/providers/search_controller.dart';
 import 'package:vaani/features/player/providers/player_form.dart';
+import 'package:vaani/features/player/providers/session_provider.dart';
 import 'package:vaani/features/player/view/player_minimized.dart';
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart';
 import 'package:vaani/generated/l10n.dart';
@@ -53,9 +54,10 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
   }
 
   Widget buildNavLeft(BuildContext context, WidgetRef ref) {
-    final isPlayerActive = ref.watch(isPlayerActiveProvider);
+    // final isPlayerActive = ref.watch(isPlayerActiveProvider);
+    final session = ref.watch(sessionProvider);
     return Padding(
-      padding: EdgeInsets.only(bottom: isPlayerActive ? playerMinHeight : 0),
+      padding: EdgeInsets.only(bottom: session != null ? playerMinHeight : 0),
       child: Row(
         children: [
           SafeArea(

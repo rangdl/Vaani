@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:vaani/features/downloads/providers/download_manager.dart';
-import 'package:vaani/features/playback_reporting/providers/playback_reporter_provider.dart';
 import 'package:vaani/features/player/core/audiobook_player_session.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/features/player/providers/session_provider.dart';
@@ -87,24 +86,26 @@ class _FrameworkState extends ConsumerState<Framework>
   Widget build(BuildContext context) {
     // Eagerly initialize providers by watching them.
     // By using "watch", the provider will stay alive and not be disposed.
-    final audioService = ref.watch(audioHandlerInitProvider);
     try {
+      final audioService = ref.watch(audioHandlerInitProvider);
+      ref.watch(playbackReporterProvider);
       // ref.watch(simpleAudiobookPlayerProvider);
-      // ref.watch(sleepTimerProvider);
+      ref.watch(sleepTimerProvider);
       // ref.watch(playbackReporterProvider);
-      // ref.watch(simpleDownloadManagerProvider);
-      // ref.watch(shakeDetectorProvider);
-      // ref.watch(skipStartEndProvider);
+      ref.watch(simpleDownloadManagerProvider);
+      if (Utils.isAndroid()) ref.watch(shakeDetectorProvider);
+      ref.watch(skipStartEndProvider);
+      return audioService.maybeWhen(
+        data: (_) {
+          return widget.child;
+        },
+        orElse: () => SizedBox.shrink(),
+      );
     } catch (e) {
       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
       appLogger.severe(e.toString());
+      return SizedBox.shrink();
     }
-    return audioService.maybeWhen(
-      data: (_) {
-        return widget.child;
-      },
-      orElse: () => SizedBox.shrink(),
-    );
   }
 
   @override

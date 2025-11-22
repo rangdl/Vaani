@@ -108,6 +108,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "bookShelveEmpty": MessageLookupByLibrary.simpleMessage("重试"),
     "bookShelveEmptyText": MessageLookupByLibrary.simpleMessage("未查询到书架"),
     "cancel": MessageLookupByLibrary.simpleMessage("取消"),
+    "chapterNotFound": MessageLookupByLibrary.simpleMessage("未找到章节"),
+    "chapterSelect": MessageLookupByLibrary.simpleMessage("选择章节"),
+    "chapterSkip": MessageLookupByLibrary.simpleMessage("跳过章节片头片尾"),
+    "chapterSkipEnd": MessageLookupByLibrary.simpleMessage("跳过章节片尾 "),
+    "chapterSkipOpen": MessageLookupByLibrary.simpleMessage("跳过章节片头 "),
+    "chapters": MessageLookupByLibrary.simpleMessage("章节列表"),
     "copyToClipboard": MessageLookupByLibrary.simpleMessage("复制到剪贴板"),
     "copyToClipboardDescription": MessageLookupByLibrary.simpleMessage(
       "将应用程序设置复制到剪贴板",
