@@ -169,13 +169,23 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Setup Flutter
+      - name: Set up Flutter SDK
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.32.0"
+          channel: stable
+          flutter-version-file: pubspec.yaml
           cache: true
 
-      - name: Restore Packages
+      - name: Cache Flutter dependencies
+        id: cache-pub-win
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.FLUTTER_HOME }}/.pub-cache
+          key: ${{ runner.os }}-flutter-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-pub-
+
+      - name: Get Flutter dependencies
         run: |
           flutter pub get
 
@@ -205,13 +215,23 @@ jobs:
         with:
           submodules: recursive
       
-      - name: Setup Flutter
+      - name: Set up Flutter SDK
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.32.0"
-          # cache: true
+          channel: stable
+          flutter-version-file: pubspec.yaml
+          cache: true
       
-      - name: Restore packages
+      - name: Cache Flutter dependencies
+        id: cache-pub-mac
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.FLUTTER_HOME }}/.pub-cache
+          key: ${{ runner.os }}-flutter-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-pub-
+
+      - name: Get Flutter dependencies
         run: |
           flutter pub get
 
