@@ -6,7 +6,7 @@ part of 'session_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$audioHandlerInitHash() => r'5677b2267f472b667ce7a63cc5c91c4320d630e8';
+String _$audioHandlerInitHash() => r'c54f17757807f8bc14daff5095c34eb88ff2037b';
 
 /// See also [audioHandlerInit].
 @ProviderFor(audioHandlerInit)
