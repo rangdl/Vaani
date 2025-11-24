@@ -127,36 +127,36 @@ jobs:
       - name: Build Linux AppImage and deb
         run: fastforge package --platform linux --targets deb,appimage
 
-      - name: Rename Linux Artifacts
-        run: |
-          # Find and rename .deb file
-          DEB_FILE=$(find dist/ -name "*.deb" -type f)
-          if [ -n "$DEB_FILE" ]; then
-            mv "$DEB_FILE" dist/vaani-linux-amd64.deb
-            echo "Renamed DEB: $DEB_FILE to dist/vaani-linux-amd64.deb"
-          else
-            echo "Error: .deb file not found in dist/"
-            exit 1
-          fi
+      # - name: Rename Linux Artifacts
+      #   run: |
+      #     # Find and rename .deb file
+      #     DEB_FILE=$(find dist/ -name "*.deb" -type f)
+      #     if [ -n "$DEB_FILE" ]; then
+      #       mv "$DEB_FILE" dist/vaani-linux-amd64.deb
+      #       echo "Renamed DEB: $DEB_FILE to dist/vaani-linux-amd64.deb"
+      #     else
+      #       echo "Error: .deb file not found in dist/"
+      #       exit 1
+      #     fi
 
-          # Find and rename .AppImage file
-          APPIMAGE_FILE=$(find dist/ -name "*.AppImage" -type f)
-          if [ -n "$APPIMAGE_FILE" ]; then
-            mv "$APPIMAGE_FILE" dist/vaani-linux-amd64.AppImage
-            echo "Renamed AppImage: $APPIMAGE_FILE to dist/vaani-linux-amd64.AppImage"
-          else
-            echo "Error: .AppImage file not found in dist/"
-            exit 1
-          fi
-        shell: bash
+      #     # Find and rename .AppImage file
+      #     APPIMAGE_FILE=$(find dist/ -name "*.AppImage" -type f)
+      #     if [ -n "$APPIMAGE_FILE" ]; then
+      #       mv "$APPIMAGE_FILE" dist/vaani-linux-amd64.AppImage
+      #       echo "Renamed AppImage: $APPIMAGE_FILE to dist/vaani-linux-amd64.AppImage"
+      #     else
+      #       echo "Error: .AppImage file not found in dist/"
+      #       exit 1
+      #     fi
+      #   shell: bash
 
       - name: Upload Linux Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: linux-release-artifacts
           path: |
-            dist/vaani-linux-amd64.deb
-            dist/vaani-linux-amd64.AppImage
+            dist/*/*.deb
+            dist/*/*.AppImage
 
   build_windows:
     needs: test
@@ -247,10 +247,13 @@ jobs:
 
       - name: Create IPA
         run: |
+          APP_NAME=$(grep '^name:' pubspec.yaml | sed 's/name: //')
+          APP_VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
+
           mkdir build/ios/iphoneos/Payload
           cp -R build/ios/iphoneos/Runner.app build/ios/iphoneos/Payload/Runner.app
           cd build/ios/iphoneos/
-          zip -q -r ios_no_sign.ipa Payload
+          zip -q -r "$APP_NAME-$APP_VERSION-ios-no-sign.ipa" Payload
           cd ../../..
 
       - name: Upload IPA to Artifacts
@@ -258,7 +261,7 @@ jobs:
         with:
           name: ios-release-artifacts
           path: |
-            build/ios/iphoneos/ios_no_sign.ipa
+            build/ios/iphoneos/*.ipa
 
       - name: Build MacOS
         run: |
