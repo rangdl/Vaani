@@ -2,7 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/api/api_provider.dart';
-import 'package:vaani/settings/api_settings_provider.dart';
+import 'package:vaani/features/settings/api_settings_provider.dart';
 
 part 'search_result_provider.g.dart';
 

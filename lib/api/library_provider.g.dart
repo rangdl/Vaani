@@ -173,6 +173,26 @@ final currentLibraryProvider = AutoDisposeFutureProvider<Library?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentLibraryRef = AutoDisposeFutureProviderRef<Library?>;
+String _$currentLibraryItemsHash() =>
+    r'2e2ce270c46bedf0b779399772df89a23803fe50';
+
+/// See also [currentLibraryItems].
+@ProviderFor(currentLibraryItems)
+final currentLibraryItemsProvider =
+    AutoDisposeFutureProvider<List<LibraryItemMinified>>.internal(
+  currentLibraryItems,
+  name: r'currentLibraryItemsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$currentLibraryItemsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef CurrentLibraryItemsRef
+    = AutoDisposeFutureProviderRef<List<LibraryItemMinified>>;
 String _$librariesHash() => r'95ebd4d1ac0cc2acf7617dc22895eff0ca30600f';
 
 /// See also [Libraries].

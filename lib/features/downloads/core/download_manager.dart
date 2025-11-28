@@ -5,8 +5,8 @@ import 'dart:io';
 
 import 'package:background_downloader/background_downloader.dart';
 import 'package:logging/logging.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/extensions/obfuscation.dart';
 
@@ -72,11 +72,10 @@ class AudiobookDownloadManager {
   ) async {
     _logger.info('queuing download for item: ${item.id}');
     // create a download task for each file in the item
-    final directory = await getApplicationSupportDirectory();
     for (final file in item.libraryFiles) {
       // check if the file is already downloaded
       if (isFileDownloaded(
-        constructFilePath(directory, item, file),
+        constructFilePath(item, file),
       )) {
         _logger.info('file already downloaded: ${file.metadata.filename}');
         continue;
@@ -102,11 +101,10 @@ class AudiobookDownloadManager {
   }
 
   String constructFilePath(
-    Directory directory,
     LibraryItemExpanded item,
     LibraryFile file,
   ) =>
-      '${directory.path}/${item.relPath}/${file.metadata.filename}';
+      '${appSupportDir.path}/${item.relPath}/${file.metadata.filename}';
 
   void dispose() {
     _updatesSubscription.cancel();
@@ -125,10 +123,9 @@ class AudiobookDownloadManager {
   Future<List<LibraryFile>> getDownloadedFilesMetadata(
     LibraryItemExpanded item,
   ) async {
-    final directory = await getApplicationSupportDirectory();
     final downloadedFiles = <LibraryFile>[];
     for (final file in item.libraryFiles) {
-      final filePath = constructFilePath(directory, item, file);
+      final filePath = constructFilePath(item, file);
       if (isFileDownloaded(filePath)) {
         downloadedFiles.add(file);
       }
@@ -146,9 +143,8 @@ class AudiobookDownloadManager {
   }
 
   Future<bool> isItemDownloaded(LibraryItemExpanded item) async {
-    final directory = await getApplicationSupportDirectory();
     for (final file in item.libraryFiles) {
-      if (!isFileDownloaded(constructFilePath(directory, item, file))) {
+      if (!isFileDownloaded(constructFilePath(item, file))) {
         _logger.info('file not downloaded: ${file.metadata.filename}');
         return false;
       }
@@ -159,9 +155,8 @@ class AudiobookDownloadManager {
 
   Future<void> deleteDownloadedItem(LibraryItemExpanded item) async {
     _logger.info('deleting downloaded item with id: ${item.id}');
-    final directory = await getApplicationSupportDirectory();
     for (final file in item.libraryFiles) {
-      final filePath = constructFilePath(directory, item, file);
+      final filePath = constructFilePath(item, file);
       if (isFileDownloaded(filePath)) {
         File(filePath).deleteSync();
       }
@@ -170,10 +165,9 @@ class AudiobookDownloadManager {
   }
 
   Future<List<Uri>> getDownloadedFilesUri(LibraryItemExpanded item) async {
-    final directory = await getApplicationSupportDirectory();
     final files = <Uri>[];
     for (final file in item.libraryFiles) {
-      final filePath = constructFilePath(directory, item, file);
+      final filePath = constructFilePath(item, file);
       if (isFileDownloaded(filePath)) {
         files.add(Uri.file(filePath));
       }

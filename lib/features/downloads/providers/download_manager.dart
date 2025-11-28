@@ -6,7 +6,7 @@ import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/features/downloads/core/download_manager.dart' as core;
-import 'package:vaani/settings/app_settings_provider.dart';
+import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/shared/extensions/item_files.dart';
 
 part 'download_manager.g.dart';

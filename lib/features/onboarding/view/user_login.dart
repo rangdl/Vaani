@@ -17,10 +17,11 @@ import 'package:vaani/features/onboarding/view/user_login_with_token.dart'
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/hacks/fix_autofill_losing_focus.dart'
     show InactiveFocusScopeObserver;
-import 'package:vaani/models/error_response.dart' show ErrorResponseHandler;
-import 'package:vaani/settings/api_settings_provider.dart'
+import 'package:vaani/shared/utils/error_response.dart'
+    show ErrorResponseHandler;
+import 'package:vaani/features/settings/api_settings_provider.dart'
     show apiSettingsProvider;
-import 'package:vaani/settings/models/models.dart' as model;
+import 'package:vaani/features/settings/models/models.dart' as model;
 
 class UserLoginWidget extends HookConsumerWidget {
   const UserLoginWidget({

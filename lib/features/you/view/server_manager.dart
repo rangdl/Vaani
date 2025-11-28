@@ -14,9 +14,9 @@ import 'package:vaani/features/player/view/mini_player_bottom_padding.dart'
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart' show Routes;
-import 'package:vaani/settings/api_settings_provider.dart'
+import 'package:vaani/features/settings/api_settings_provider.dart'
     show apiSettingsProvider;
-import 'package:vaani/settings/models/models.dart' as model;
+import 'package:vaani/features/settings/models/models.dart' as model;
 import 'package:vaani/shared/extensions/obfuscation.dart' show ObfuscateSet;
 import 'package:vaani/shared/widgets/add_new_server.dart' show AddNewServer;
 

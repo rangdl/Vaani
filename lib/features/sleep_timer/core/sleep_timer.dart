@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
-import 'package:vaani/features/player/core/audiobook_player.dart';
 
 /// this timer pauses the music player after a certain duration
 ///
@@ -33,7 +32,7 @@ class SleepTimer {
   }
 
   /// The player to be paused
-  final AudiobookPlayer player;
+  final AudioPlayer player;
 
   /// The timer that will pause the player
   Timer? timer;

@@ -3,9 +3,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaani/api/server_provider.dart'
     show audiobookShelfServerProvider;
 import 'package:vaani/db/storage.dart';
-import 'package:vaani/settings/api_settings_provider.dart';
-import 'package:vaani/settings/models/audiobookshelf_server.dart';
-import 'package:vaani/settings/models/authenticated_user.dart' as model;
+import 'package:vaani/features/settings/api_settings_provider.dart';
+import 'package:vaani/features/settings/models/audiobookshelf_server.dart';
+import 'package:vaani/features/settings/models/authenticated_user.dart'
+    as model;
 import 'package:vaani/shared/extensions/obfuscation.dart';
 
 part 'authenticated_users_provider.g.dart';

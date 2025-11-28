@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/features/onboarding/providers/oauth_provider.dart';
 import 'package:vaani/features/onboarding/view/user_login_with_password.dart';
-import 'package:vaani/models/error_response.dart';
+import 'package:vaani/shared/utils/error_response.dart';
 import 'package:vaani/router/router.dart';
 
 class CallbackPage extends HookConsumerWidget {

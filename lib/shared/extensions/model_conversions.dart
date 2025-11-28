@@ -79,3 +79,8 @@ extension ContentUrl on LibraryFile {
     );
   }
 }
+
+extension PlaybackSessionConversion on PlaybackSession {
+  PlaybackSessionExpanded get asExpanded =>
+      PlaybackSessionExpanded.fromJson(toJson());
+}

@@ -6,8 +6,8 @@ import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
-import 'package:vaani/settings/api_settings_provider.dart';
-import 'package:vaani/settings/app_settings_provider.dart'
+import 'package:vaani/features/settings/api_settings_provider.dart';
+import 'package:vaani/features/settings/app_settings_provider.dart'
     show appSettingsProvider;
 
 import '../shared/widgets/shelves/home_shelf.dart';

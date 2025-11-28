@@ -9,9 +9,9 @@ import 'package:vaani/api/authenticated_users_provider.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/hacks/fix_autofill_losing_focus.dart';
-import 'package:vaani/models/error_response.dart';
+import 'package:vaani/shared/utils/error_response.dart';
 import 'package:vaani/router/router.dart';
-import 'package:vaani/settings/models/models.dart' as model;
+import 'package:vaani/features/settings/models/models.dart' as model;
 import 'package:vaani/shared/utils.dart';
 
 class UserLoginWithPassword extends HookConsumerWidget {

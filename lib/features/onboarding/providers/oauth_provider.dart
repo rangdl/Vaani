@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaani/api/api_provider.dart';
-import 'package:vaani/models/error_response.dart';
+import 'package:vaani/shared/utils/error_response.dart';
 
 import '../models/flow.dart';
 

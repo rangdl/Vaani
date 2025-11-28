@@ -6,9 +6,9 @@ import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/authenticated_users_provider.dart';
 import 'package:vaani/generated/l10n.dart';
-import 'package:vaani/models/error_response.dart';
+import 'package:vaani/shared/utils/error_response.dart';
 import 'package:vaani/router/router.dart';
-import 'package:vaani/settings/models/models.dart' as model;
+import 'package:vaani/features/settings/models/models.dart' as model;
 
 class UserLoginWithToken extends HookConsumerWidget {
   UserLoginWithToken({

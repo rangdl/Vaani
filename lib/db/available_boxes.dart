@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:hive/hive.dart';
 import 'package:vaani/features/per_book_settings/models/book_settings.dart';
-import 'package:vaani/settings/models/models.dart';
+import 'package:vaani/features/settings/models/models.dart';
 
 @immutable
 class AvailableHiveBoxes {

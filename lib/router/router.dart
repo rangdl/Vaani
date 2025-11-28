@@ -8,18 +8,18 @@ import 'package:vaani/features/library_browser/view/library_browser_page.dart';
 import 'package:vaani/features/logging/view/logs_page.dart';
 import 'package:vaani/features/onboarding/view/callback_page.dart';
 import 'package:vaani/features/onboarding/view/onboarding_single_page.dart';
-import 'package:vaani/features/player/view/player_expanded.dart';
+import 'package:vaani/features/settings/view/app_settings_page.dart';
+import 'package:vaani/features/settings/view/auto_sleep_timer_settings_page.dart';
+import 'package:vaani/features/settings/view/home_page_settings_page.dart';
+import 'package:vaani/features/settings/view/notification_settings_page.dart';
+import 'package:vaani/features/settings/view/player_settings_page.dart';
+import 'package:vaani/features/settings/view/shake_detector_settings_page.dart';
+import 'package:vaani/features/settings/view/theme_settings_page.dart';
 import 'package:vaani/features/you/view/server_manager.dart';
 import 'package:vaani/features/you/view/you_page.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/pages/home_page.dart';
-import 'package:vaani/settings/view/app_settings_page.dart';
-import 'package:vaani/settings/view/auto_sleep_timer_settings_page.dart';
-import 'package:vaani/settings/view/home_page_settings_page.dart';
-import 'package:vaani/settings/view/notification_settings_page.dart';
-import 'package:vaani/settings/view/player_settings_page.dart';
-import 'package:vaani/settings/view/shake_detector_settings_page.dart';
-import 'package:vaani/settings/view/theme_settings_page.dart';
+import 'package:vaani/pages/player_page.dart';
 
 import 'scaffold_with_nav_bar.dart';
 import 'transitions/slide.dart';
@@ -235,11 +235,11 @@ class MyAppRouter {
             ],
           ),
 
-          // loggers page
+          // player full page
           GoRoute(
             path: Routes.player.localPath,
             name: Routes.player.name,
-            pageBuilder: defaultPageBuilder(const PlayerExpanded()),
+            pageBuilder: defaultPageBuilder(const PlayerPage()),
           ),
 
           // loggers page

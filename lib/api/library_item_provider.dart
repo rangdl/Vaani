@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' as shelfsdk;
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/db/cache/cache_key.dart';
 import 'package:vaani/db/cache_manager.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 
 part 'library_item_provider.g.dart';
@@ -26,8 +28,8 @@ class LibraryItem extends _$LibraryItem {
 
     // look for the item in the cache
     final key = CacheKey.libraryItem(id);
-    final cachedFile = await apiResponseCacheManager.getFileFromMemory(key) ??
-        await apiResponseCacheManager.getFileFromCache(key);
+    final cachedFile = await apiResponseCacheManager.getFileFromCache(key);
+
     if (cachedFile != null) {
       _logger.fine(
         'LibraryItemProvider reading from cache for $id from ${cachedFile.file}',
@@ -68,4 +70,40 @@ class LibraryItem extends _$LibraryItem {
       yield item.asExpanded;
     }
   }
+}
+
+@riverpod
+Future<shelfsdk.PlaybackSessionExpanded?> playBackSession(
+  Ref ref,
+  String libraryItemId,
+) async {
+  final api = ref.watch(authenticatedApiProvider);
+  final playBack = await api.items.play(
+    libraryItemId: libraryItemId,
+    parameters: shelfsdk.PlayItemReqParams(
+      deviceInfo: shelfsdk.DeviceInfoReqParams(
+        clientVersion: appVersion,
+        manufacturer: deviceManufacturer,
+        model: deviceModel,
+        sdkVersion: deviceSdkVersion,
+        clientName: appName,
+        deviceName: deviceName,
+      ),
+      forceDirectPlay: false,
+      forceTranscode: false,
+      supportedMimeTypes: [
+        "audio/flac",
+        "audio/mpeg",
+        "audio/mp4",
+        "audio/ogg",
+        "audio/aac",
+        "audio/webm",
+      ],
+    ),
+  );
+
+  if (playBack == null) {
+    return null;
+  }
+  return playBack.asExpanded;
 }

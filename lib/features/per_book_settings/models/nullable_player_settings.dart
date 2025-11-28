@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:vaani/settings/models/app_settings.dart';
+import 'package:vaani/features/settings/models/app_settings.dart';
 
 part 'nullable_player_settings.freezed.dart';
 part 'nullable_player_settings.g.dart';

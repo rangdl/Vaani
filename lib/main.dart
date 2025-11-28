@@ -9,13 +9,14 @@ import 'package:vaani/api/server_provider.dart';
 import 'package:vaani/db/storage.dart';
 import 'package:vaani/features/logging/core/logger.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/features/player/providers/session_provider.dart';
 import 'package:vaani/framework.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
+import 'package:vaani/shared/widgets/tray_manager.dart';
 import 'package:vaani/router/router.dart';
-import 'package:vaani/settings/api_settings_provider.dart';
-import 'package:vaani/settings/app_settings_provider.dart';
+import 'package:vaani/features/settings/api_settings_provider.dart';
+import 'package:vaani/features/settings/app_settings_provider.dart';
+import 'package:vaani/shared/utils/Helper.dart';
 import 'package:vaani/theme/providers/system_theme_provider.dart';
 import 'package:vaani/theme/providers/theme_from_cover_provider.dart';
 import 'package:vaani/theme/theme.dart';
@@ -43,10 +44,9 @@ void main() async {
   runApp(
     UncontrolledProviderScope(
       container: container,
-      child: const Framework(
-        // audioHandler: ,
-        child: AbsApp(),
-      ),
+      child: Helper.isDesktop()
+          ? Framework(TrayManager(AbsApp()))
+          : Framework(AbsApp()),
     ),
   );
 }
@@ -121,18 +121,18 @@ class AbsApp extends ConsumerWidget {
 
     if (themeSettings.useCurrentPlayerThemeThroughoutApp) {
       try {
-        final player = ref.watch(audiobookPlayerProvider);
-        if (player.book != null) {
+        final session = ref.watch(sessionProvider);
+        if (session != null) {
           final themeLight = ref.watch(
             themeOfLibraryItemProvider(
-              player.book!.libraryItemId,
+              session.libraryItemId,
               highContrast: shouldUseHighContrast,
               brightness: Brightness.light,
             ),
           );
           final themeDark = ref.watch(
             themeOfLibraryItemProvider(
-              player.book!.libraryItemId,
+              session.libraryItemId,
               highContrast: shouldUseHighContrast,
               brightness: Brightness.dark,
             ),

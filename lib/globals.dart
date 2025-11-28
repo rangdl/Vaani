@@ -29,11 +29,12 @@ Future<void> initialize() async {
   deviceSdkVersion = getDeviceSdkVersion(deviceData);
   deviceManufacturer = getDeviceManufacturer(deviceData);
   appLogger = Logger(appName);
-  final dir = await getApplicationDocumentsDirectory();
-  appStorageDir = Directory(
-    p.join(dir.path, appName),
+  final dirDocuments = await getApplicationDocumentsDirectory();
+  appDocumentsDir = Directory(
+    p.join(dirDocuments.path, appName),
   );
-  await appStorageDir.create(recursive: true);
+  await appDocumentsDir.create(recursive: true);
+  appSupportDir = await getApplicationSupportDirectory();
 }
 
 late Map<String, dynamic> deviceData;
@@ -44,7 +45,16 @@ late String deviceSdkVersion;
 late String deviceManufacturer;
 
 late Logger appLogger;
-late Directory appStorageDir;
+
+/// 文档目录 getApplicationDocumentsDirectory
+/// 存放用户生成的、不可重建的持久化数据。在iOS端，此目录可能会通过iCloud自动同步。
+late Directory appDocumentsDir;
+
+/// 应用支持目录 getApplicationSupportDirectory
+/// 存放应用程序的支持文件。在iOS上，此目录是持久性的，且会备份到iCloud。
+late Directory appSupportDir;
+
+const double playerMinHeight = 70;
 
 var routerConfig = const MyAppRouter().config;
 

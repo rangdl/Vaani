@@ -9,10 +9,11 @@ import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
+import 'package:vaani/db/cache/cache_key.dart';
 import 'package:vaani/db/cache_manager.dart';
-import 'package:vaani/models/error_response.dart';
-import 'package:vaani/settings/api_settings_provider.dart';
-import 'package:vaani/settings/models/authenticated_user.dart';
+import 'package:vaani/shared/utils/error_response.dart';
+import 'package:vaani/features/settings/api_settings_provider.dart';
+import 'package:vaani/features/settings/models/authenticated_user.dart';
 import 'package:vaani/shared/extensions/obfuscation.dart';
 
 part 'api_provider.g.dart';
@@ -154,15 +155,14 @@ class PersonalizedView extends _$PersonalizedView {
     }
     // try to find in cache
     // final cacheKey = 'personalizedView:${apiSettings.activeLibraryId}';
-    final key = 'personalizedView:${apiSettings.activeLibraryId! + user.id}';
-    final cachedRes = await apiResponseCacheManager.getFileFromMemory(
-          key,
-        ) ??
-        await apiResponseCacheManager.getFileFromCache(key);
-    if (cachedRes != null) {
-      _logger.fine('reading from cache: $cachedRes for key: $key');
+    // final key = 'personalizedView:${apiSettings.activeLibraryId! + user.id}';
+    final key = CacheKey.personalized(apiSettings.activeLibraryId! + user.id);
+    final cachedFile = await apiResponseCacheManager.getFileFromCache(key);
+    if (cachedFile != null) {
+      _logger.fine('reading from cache: $cachedFile for key: $key');
       try {
-        final resJson = jsonDecode(await cachedRes.file.readAsString()) as List;
+        final resJson =
+            jsonDecode(await cachedFile.file.readAsString()) as List;
         final res = [
           for (final item in resJson)
             Shelf.fromJson(item as Map<String, dynamic>),
@@ -170,7 +170,7 @@ class PersonalizedView extends _$PersonalizedView {
         _logger.fine('successfully read from cache key: $key');
         yield res;
       } catch (e) {
-        _logger.warning('error reading from cache: $e\n$cachedRes');
+        _logger.warning('error reading from cache: $e\n$cachedFile');
       }
     }
 

@@ -3,15 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/library_provider.dart' show currentLibraryProvider;
 import 'package:vaani/features/explore/providers/search_controller.dart';
-import 'package:vaani/features/player/providers/player_form.dart';
-import 'package:vaani/features/player/providers/session_provider.dart';
+import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/features/player/view/player_minimized.dart';
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/icons/abs_icons.dart' show AbsIcons;
-import 'package:vaani/shared/utils/utils.dart';
 
 // stack to track changes in navigationShell.currentIndex
 // home is always at index 0 and at the start and should be the last before popping
@@ -35,21 +33,18 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
+    // 竖屏
     final isVertical = size.height > size.width;
 
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          Utils.isMobile() || isVertical
-              ? navigationShell
-              : buildNavLeft(context, ref),
-          // const AudiobookPlayer(),
-          const PlayerMinimized(),
+          isVertical ? navigationShell : buildNavLeft(context, ref),
+          Hero(tag: 'player_hero', child: const PlayerMinimized()),
         ],
       ),
-      bottomNavigationBar:
-          Utils.isMobile() || isVertical ? buildNavBottom(context, ref) : null,
+      bottomNavigationBar: isVertical ? buildNavBottom(context, ref) : null,
     );
   }
 

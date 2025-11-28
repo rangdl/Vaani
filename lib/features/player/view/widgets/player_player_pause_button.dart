@@ -3,7 +3,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/features/player/core/player_status.dart';
 import 'package:vaani/features/player/providers/player_status_provider.dart';
-import 'package:vaani/features/player/providers/session_provider.dart';
+import 'package:vaani/features/player/providers/audiobook_player.dart';
 
 class AudiobookPlayerPlayPauseButton extends HookConsumerWidget {
   const AudiobookPlayerPlayPauseButton({

@@ -6,58 +6,51 @@ part of 'audiobook_player.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$isPlayerPlayingHash() => r'b81fa9cfb51c88c8d9e8f5c1f4f6a12d9e5a0cc1';
+String _$audioHandlerInitHash() => r'6e4662a45c1c6e84aa16436f71ffcfecc3d4bdab';
 
-/// See also [isPlayerPlaying].
-@ProviderFor(isPlayerPlaying)
-final isPlayerPlayingProvider = AutoDisposeProvider<bool>.internal(
-  isPlayerPlaying,
-  name: r'isPlayerPlayingProvider',
+/// See also [audioHandlerInit].
+@ProviderFor(audioHandlerInit)
+final audioHandlerInitProvider = FutureProvider<AbsAudioHandler>.internal(
+  audioHandlerInit,
+  name: r'audioHandlerInitProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$isPlayerPlayingHash,
+      : _$audioHandlerInitHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef IsPlayerPlayingRef = AutoDisposeProviderRef<bool>;
-String _$simpleAudiobookPlayerHash() =>
-    r'5e94bbff4314adceb5affa704fc4d079d4016afa';
+typedef AudioHandlerInitRef = FutureProviderRef<AbsAudioHandler>;
+String _$playerHash() => r'9599b094cdd9eca614c27ec5bdf2d5259d20ac5f';
 
-/// Simple because it doesn't rebuild when the player state changes
-/// it only rebuilds when the token changes
-///
-/// Copied from [SimpleAudiobookPlayer].
-@ProviderFor(SimpleAudiobookPlayer)
-final simpleAudiobookPlayerProvider =
-    NotifierProvider<SimpleAudiobookPlayer, core.AudiobookPlayer>.internal(
-  SimpleAudiobookPlayer.new,
-  name: r'simpleAudiobookPlayerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$simpleAudiobookPlayerHash,
+/// See also [Player].
+@ProviderFor(Player)
+final playerProvider = NotifierProvider<Player, AbsAudioHandler>.internal(
+  Player.new,
+  name: r'playerProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$playerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SimpleAudiobookPlayer = Notifier<core.AudiobookPlayer>;
-String _$audiobookPlayerHash() => r'04448247e79c5d60b9fd6f98eeeb865f1e8d0ff8';
+typedef _$Player = Notifier<AbsAudioHandler>;
+String _$sessionHash() => r'c171809249c3021dc445dc1ba90fe8626a3d3b54';
 
-/// See also [AudiobookPlayer].
-@ProviderFor(AudiobookPlayer)
-final audiobookPlayerProvider =
-    NotifierProvider<AudiobookPlayer, core.AudiobookPlayer>.internal(
-  AudiobookPlayer.new,
-  name: r'audiobookPlayerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$audiobookPlayerHash,
+/// See also [Session].
+@ProviderFor(Session)
+final sessionProvider =
+    NotifierProvider<Session, core.PlaybackSessionExpanded?>.internal(
+  Session.new,
+  name: r'sessionProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$sessionHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AudiobookPlayer = Notifier<core.AudiobookPlayer>;
+typedef _$Session = Notifier<core.PlaybackSessionExpanded?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
-import 'package:vaani/features/player/core/audiobook_player_session.dart';
+import 'package:vaani/features/player/core/audiobook_player.dart';
 import 'package:vaani/shared/extensions/obfuscation.dart';
 
 final _logger = Logger('PlaybackReporter');

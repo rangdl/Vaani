@@ -6,7 +6,7 @@ import 'package:vaani/shared/extensions/duration_format.dart';
 
 Future<String> getLoggingFilePath() async {
   // final Directory directory = await getApplicationDocumentsDirectory();
-  return '${appStorageDir.path}/$appName.log';
+  return '${appDocumentsDir.path}/$appName.log';
 }
 
 Future<void> initLogging() async {

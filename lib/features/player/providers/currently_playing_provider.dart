@@ -1,46 +1,40 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shelfsdk/audiobookshelf_api.dart';
+import 'package:shelfsdk/audiobookshelf_api.dart' as core;
 import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/shared/extensions/model_conversions.dart';
 
 part 'currently_playing_provider.g.dart';
 
-final _logger = Logger('CurrentlyPlayingProvider');
-
 @riverpod
-BookExpanded? currentlyPlayingBook(Ref ref) {
-  try {
-    final book = ref.watch(simpleAudiobookPlayerProvider.select((v) => v.book));
-    return book;
-  } catch (e) {
-    _logger.warning('Error getting currently playing book: $e');
-    return null;
+class CurrentChapter extends _$CurrentChapter {
+  @override
+  core.BookChapter? build() {
+    final player = ref.watch(playerProvider);
+    player.chapterStream.distinct().listen((chapter) {
+      update(chapter);
+    });
+    return player.currentChapter;
+  }
+
+  void update(core.BookChapter? chapter) {
+    if (state != chapter) {
+      state = chapter;
+    }
   }
 }
 
-/// provided the current chapter of the book being played
 @riverpod
-BookChapter? currentPlayingChapter(Ref ref) {
-  final player = ref.watch(audiobookPlayerProvider);
-  player.slowPositionStreamInBook.listen((_) {
-    ref.invalidateSelf();
-  });
-
-  return player.currentChapter;
+List<core.BookChapter> currentChapters(Ref ref) {
+  final session = ref.watch(sessionProvider);
+  if (session == null) {
+    return [];
+  }
+  final currentChapter = ref.watch(currentChapterProvider);
+  if (currentChapter == null) {
+    return [];
+  }
+  final index = session.chapters.indexOf(currentChapter);
+  final total = session.chapters.length;
+  return session.chapters
+      .sublist(index - 3, (total - 3) <= (index + 17) ? total : index + 17);
 }
-
-/// provides the book metadata of the currently playing book
-@riverpod
-BookMetadataExpanded? currentBookMetadata(Ref ref) {
-  final player = ref.watch(audiobookPlayerProvider);
-  if (player.book == null) return null;
-  return player.book!.metadata.asBookMetadataExpanded;
-}
-
-// /// volume of the player [0, 1]
-// @riverpod
-// double currentVolume(CurrentVolumeRef ref) {
-//   return 1;
-// }

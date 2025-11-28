@@ -5,7 +5,7 @@ import 'package:vaani/features/per_book_settings/providers/book_settings_provide
 import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/features/player/view/player_expanded.dart';
 import 'package:vaani/features/player/view/widgets/speed_selector.dart';
-import 'package:vaani/settings/app_settings_provider.dart';
+import 'package:vaani/features/settings/app_settings_provider.dart';
 
 final _logger = Logger('PlayerSpeedAdjustButton');
 
@@ -16,13 +16,12 @@ class PlayerSpeedAdjustButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final player = ref.watch(audiobookPlayerProvider);
-    final bookId = player.book?.libraryItemId ?? '_';
+    final player = ref.watch(playerProvider);
+    final bookId = player.session?.libraryItemId ?? '_';
     final bookSettings = ref.watch(bookSettingsProvider(bookId));
     final appSettings = ref.watch(appSettingsProvider);
-    final notifier = ref.watch(audiobookPlayerProvider.notifier);
     return TextButton(
-      child: Text('${player.speed}x'),
+      child: Text('${player.player.speed}x'),
       onPressed: () async {
         pendingPlayerModals++;
         _logger.fine('opening speed selector');
@@ -32,7 +31,7 @@ class PlayerSpeedAdjustButton extends HookConsumerWidget {
           builder: (context) {
             return SpeedSelector(
               onSpeedSelected: (speed) {
-                notifier.setSpeed(speed);
+                player.setSpeed(speed);
                 if (appSettings.playerSettings.configurePlayerForEveryBook) {
                   ref
                       .read(

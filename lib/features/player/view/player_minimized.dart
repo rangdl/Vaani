@@ -4,7 +4,8 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/constants/sizes.dart';
-import 'package:vaani/features/player/providers/session_provider.dart';
+import 'package:vaani/features/player/providers/audiobook_player.dart';
+import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
@@ -28,7 +29,7 @@ class PlayerMinimized extends HookConsumerWidget {
         // image
         Padding(
           padding: EdgeInsets.all(AppElementSizes.paddingSmall),
-          child: InkWell(
+          child: GestureDetector(
             onTap: () {
               // navigate to item page
               context.pushNamed(
@@ -114,7 +115,13 @@ class PlayerMinimizedFramework extends HookConsumerWidget {
     final progress =
         useStream(player.positionStreamInChapter, initialData: Duration.zero);
     return GestureDetector(
-      onTap: () => context.pushNamed(Routes.player.name),
+      onTap: () {
+        if (GoRouterState.of(context).topRoute?.name != Routes.player.name) {
+          context.pushNamed(Routes.player.name);
+        } else {
+          context.pop();
+        }
+      },
       child: Container(
         height: playerMinimizedHeight,
         color: Theme.of(context).colorScheme.surface,

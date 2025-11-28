@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:list_wheel_scroll_view_nls/list_wheel_scroll_view_nls.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/settings/app_settings_provider.dart';
+import 'package:vaani/features/settings/app_settings_provider.dart';
 
 const double itemExtent = 25;
 
@@ -22,7 +22,7 @@ class SpeedSelector extends HookConsumerWidget {
     final appSettings = ref.watch(appSettingsProvider);
     final playerSettings = appSettings.playerSettings;
     final speeds = playerSettings.speedOptions;
-    final currentSpeed = ref.watch(audiobookPlayerProvider).speed;
+    final currentSpeed = ref.watch(playerProvider).player.speed;
     final speedState = useState(currentSpeed);
 
     // hook the onSpeedSelected function to the state

@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shelfsdk/audiobookshelf_api.dart' as shelfsdk;
-import 'package:vaani/settings/models/api_settings.dart';
-import 'package:vaani/settings/models/audiobookshelf_server.dart';
-import 'package:vaani/settings/models/authenticated_user.dart';
+import 'package:vaani/features/settings/models/api_settings.dart';
+import 'package:vaani/features/settings/models/audiobookshelf_server.dart';
+import 'package:vaani/features/settings/models/authenticated_user.dart';
 
 // bool kReleaseMode = true;
 

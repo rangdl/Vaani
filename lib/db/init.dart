@@ -13,7 +13,7 @@ Future initStorage() async {
   // );
   // await storageDir.create(recursive: true);
 
-  Hive.defaultDirectory = appStorageDir.path;
+  Hive.defaultDirectory = appDocumentsDir.path;
   appLogger.config('Hive storage directory init: ${Hive.defaultDirectory}');
 
   await registerModels();

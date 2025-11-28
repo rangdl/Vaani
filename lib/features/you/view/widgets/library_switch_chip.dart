@@ -7,7 +7,7 @@ import 'package:shelfsdk/audiobookshelf_api.dart' show Library;
 import 'package:vaani/api/library_provider.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
-import 'package:vaani/settings/api_settings_provider.dart'
+import 'package:vaani/features/settings/api_settings_provider.dart'
     show apiSettingsProvider;
 import 'package:vaani/shared/icons/abs_icons.dart';
 

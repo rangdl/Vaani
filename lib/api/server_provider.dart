@@ -2,8 +2,9 @@ import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaani/api/authenticated_users_provider.dart';
 import 'package:vaani/db/storage.dart';
-import 'package:vaani/settings/api_settings_provider.dart';
-import 'package:vaani/settings/models/audiobookshelf_server.dart' as model;
+import 'package:vaani/features/settings/api_settings_provider.dart';
+import 'package:vaani/features/settings/models/audiobookshelf_server.dart'
+    as model;
 import 'package:vaani/shared/extensions/obfuscation.dart';
 
 part 'server_provider.g.dart';
