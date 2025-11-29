@@ -11,6 +11,7 @@ import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/features/player/core/player_status.dart' as core;
 import 'package:vaani/features/player/providers/player_status_provider.dart';
 import 'package:vaani/shared/extensions/chapter.dart';
+import 'package:vaani/shared/extensions/model_conversions.dart';
 
 // add a small offset so the display does not show the previous chapter for a split second
 final offset = Duration(milliseconds: 10);
@@ -66,21 +67,24 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       );
     }
 
-    playMediaItem(
-      MediaItem(
-        id: playbackSession.libraryItemId,
-        album: playbackSession.mediaMetadata.title,
-        title: playbackSession.displayTitle,
-        displaySubtitle: playbackSession.mediaType == MediaType.book
-            ? (playbackSession.mediaMetadata as BookMetadata).subtitle
-            : null,
-        duration: playbackSession.duration,
-        artUri: Uri.parse(
-          '$baseUrl/api/items/${playbackSession.libraryItemId}/cover?token=$token',
-        ),
+    final track = playbackSession.findTrackAtTime(playbackSession.currentTime);
+
+    final item = MediaItem(
+      id: playbackSession.libraryItemId,
+      album: playbackSession.mediaMetadata.title,
+      artist: playbackSession.displayAuthor,
+      title: playbackSession.displayTitle,
+      displayTitle: playbackSession.displayTitle,
+      displaySubtitle: playbackSession.mediaType == MediaType.book
+          ? playbackSession.mediaMetadata.asBookMetadata.subtitle
+          : null,
+      displayDescription: "测试描述",
+      duration: track.duration,
+      artUri: Uri.parse(
+        '$baseUrl/api/items/${playbackSession.libraryItemId}/cover?token=$token',
       ),
     );
-    final track = playbackSession.findTrackAtTime(playbackSession.currentTime);
+    await playMediaItem(item);
     final index = playbackSession.audioTracks.indexOf(track);
 
     await _player.setAudioSources(

@@ -33,6 +33,8 @@ Future<AbsAudioHandler> audioHandlerInit(Ref ref) async {
       androidStopForegroundOnPause: false,
       androidNotificationIcon: 'drawable/ic_stat_logo',
       preloadArtwork: true,
+      // fastForwardInterval: Duration(seconds: 20),
+      // rewindInterval: Duration(seconds: 20),
     ),
   );
   return audioService;
