@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/constants/sizes.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
 import 'package:vaani/features/player/view/widgets/player_progress_bar.dart';
 import 'package:vaani/features/skip_start_end/view/skip_start_end_button.dart';
 import 'package:vaani/features/sleep_timer/view/sleep_timer_button.dart';
+import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
 
 import 'widgets/audiobook_player_seek_button.dart';
@@ -25,8 +25,8 @@ class PlayerExpanded extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final session = ref.watch(sessionProvider);
-    if (session == null) {
+    final currentBook = ref.watch(currentBookProvider);
+    if (currentBook == null) {
       return SizedBox.shrink();
     }
 
@@ -77,8 +77,8 @@ class PlayerExpanded extends HookConsumerWidget {
             padding: EdgeInsets.only(bottom: AppElementSizes.paddingRegular),
             child: Text(
               [
-                session.displayTitle,
-                session.displayAuthor,
+                currentBook.metadata.title ?? '',
+                currentBook.metadata.asBookMetadataExpanded.authorName ?? '',
               ].join(' - '),
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: Theme.of(context)

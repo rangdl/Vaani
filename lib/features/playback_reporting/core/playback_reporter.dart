@@ -14,7 +14,7 @@ final _logger = Logger('PlaybackReporter');
 /// and also report when the player is paused/stopped/finished/playing
 class PlaybackReporter {
   /// The player to watch
-  final AudiobookPlayer player;
+  final AbsAudioHandler player;
 
   /// the api to report to
   final AudiobookshelfApi authenticatedApi;
@@ -75,7 +75,7 @@ class PlaybackReporter {
     this.markCompleteWhenTimeLeft = const Duration(seconds: 5),
   }) : _reportingInterval = reportingInterval {
     // initial conditions
-    if (player.playing) {
+    if (player.player.playing) {
       _stopwatch.start();
       _setReportTimerIfNotAlready();
       _logger.fine('starting stopwatch');

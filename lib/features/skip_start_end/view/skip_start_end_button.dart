@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
+import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/player/view/player_expanded.dart';
-import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/features/settings/view/notification_settings_page.dart';
+import 'package:vaani/generated/l10n.dart';
 
 class SkipChapterStartEndButton extends HookConsumerWidget {
   const SkipChapterStartEndButton({super.key});
@@ -46,9 +46,9 @@ class PlayerSkipChapterStartEnd extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final session = ref.watch(sessionProvider);
-    final bookId = session?.libraryItemId ?? '_';
-    final bookSettings = ref.watch(bookSettingsProvider(bookId));
+    final currentBook = ref.watch(currentBookProvider);
+    final bookId = currentBook?.libraryItemId ?? '_';
+    final bookSettings = ref.read(bookSettingsProvider(bookId));
     return Scaffold(
       body: Column(
         children: [

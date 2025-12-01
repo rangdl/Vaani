@@ -19,9 +19,9 @@ model.BookSettings readFromBoxOrCreate(String bookId) {
   } else {
     // create a new settings object
     final settings = model.BookSettings(
-      bookId: bookId,
-      playerSettings: const NullablePlayerSettings(),
-    );
+        bookId: bookId,
+        playerSettings: const NullablePlayerSettings(),
+        progress: model.BookProgress(lastUpdate: DateTime.now()));
     _logger.fine('created new book settings for $bookId: $settings');
     writeToBox(settings);
     return settings;
@@ -54,5 +54,20 @@ class BookSettings extends _$BookSettings {
   void update(model.BookSettings newSettings, {bool force = false}) {
     state = newSettings;
     updateState(newSettings, force: force);
+  }
+}
+
+@riverpod
+class BookProgressSettings extends _$BookProgressSettings {
+  @override
+  model.BookProgress build(String bookId) {
+    final progress =
+        ref.read(bookSettingsProvider(bookId).select((v) => v.progress));
+    if (progress == null) {
+      return model.BookProgress(
+        lastUpdate: DateTime.now(),
+      );
+    }
+    return progress;
   }
 }

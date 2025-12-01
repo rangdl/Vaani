@@ -21,13 +21,12 @@ class AudiobookPlayerSeekChapterButton extends HookConsumerWidget {
         size: AppElementSizes.iconSizeSmall,
       ),
       onPressed: () {
-        if (player.session == null) {
+        if (player.book == null) {
           return;
         }
         // if chapter does not exist, go to the start or end of the book
         if (player.currentChapter == null) {
-          player
-              .seekInBook(isForward ? player.session!.duration : Duration.zero);
+          player.seekInBook(isForward ? player.book!.duration : Duration.zero);
           return;
         }
         if (isForward) {

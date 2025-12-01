@@ -10,8 +10,20 @@ class BookSettings with _$BookSettings {
   const factory BookSettings({
     required String bookId,
     @Default(NullablePlayerSettings()) NullablePlayerSettings playerSettings,
+    BookProgress? progress,
   }) = _BookSettings;
 
   factory BookSettings.fromJson(Map<String, dynamic> json) =>
       _$BookSettingsFromJson(json);
+}
+
+@freezed
+class BookProgress with _$BookProgress {
+  const factory BookProgress({
+    required DateTime lastUpdate,
+    @Default(Duration.zero) Duration currentTime,
+  }) = _BookProgress;
+
+  factory BookProgress.fromJson(Map<String, dynamic> json) =>
+      _$BookProgressFromJson(json);
 }

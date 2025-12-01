@@ -54,7 +54,7 @@ class ChapterSelectionModal extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final session = ref.watch(sessionProvider);
+    final session = ref.watch(currentBookProvider);
     final currentChapter = ref.watch(currentChapterProvider);
 
     final currentChapterIndex = currentChapter?.id;

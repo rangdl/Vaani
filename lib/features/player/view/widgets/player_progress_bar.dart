@@ -38,7 +38,7 @@ class AudiobookChapterProgressBar extends HookConsumerWidget {
       progress:
           currentChapterProgress ?? position.data ?? const Duration(seconds: 0),
       total: currentChapter == null
-          ? player.session?.duration ?? const Duration(seconds: 0)
+          ? player.book?.duration ?? const Duration(seconds: 0)
           : currentChapter.end - currentChapter.start,
       // ! TODO add onSeek
       onSeek: (duration) {
@@ -74,7 +74,7 @@ class AudiobookProgressBar extends HookConsumerWidget {
       height: AppElementSizes.barHeightLarge,
       child: LinearProgressIndicator(
         value: (position.data ?? const Duration(seconds: 0)).inSeconds /
-            (player.session?.duration ?? const Duration(seconds: 0)).inSeconds,
+            (player.book?.duration ?? const Duration(seconds: 0)).inSeconds,
         borderRadius: BorderRadiusGeometry.all(Radius.circular(10)),
       ),
     );

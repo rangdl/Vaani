@@ -9,6 +9,7 @@ import 'package:vaani/api/server_provider.dart';
 import 'package:vaani/db/storage.dart';
 import 'package:vaani/features/logging/core/logger.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
+import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/framework.dart';
@@ -121,18 +122,18 @@ class AbsApp extends ConsumerWidget {
 
     if (themeSettings.useCurrentPlayerThemeThroughoutApp) {
       try {
-        final session = ref.watch(sessionProvider);
-        if (session != null) {
+        final currentBook = ref.watch(currentBookProvider);
+        if (currentBook != null) {
           final themeLight = ref.watch(
             themeOfLibraryItemProvider(
-              session.libraryItemId,
+              currentBook.libraryItemId,
               highContrast: shouldUseHighContrast,
               brightness: Brightness.light,
             ),
           );
           final themeDark = ref.watch(
             themeOfLibraryItemProvider(
-              session.libraryItemId,
+              currentBook.libraryItemId,
               highContrast: shouldUseHighContrast,
               brightness: Brightness.dark,
             ),

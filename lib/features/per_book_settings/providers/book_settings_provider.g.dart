@@ -172,5 +172,153 @@ class _BookSettingsProviderElement
   @override
   String get bookId => (origin as BookSettingsProvider).bookId;
 }
+
+String _$bookProgressSettingsHash() =>
+    r'be890f6b4f90565620a48c347cb86266fc232374';
+
+abstract class _$BookProgressSettings
+    extends BuildlessAutoDisposeNotifier<model.BookProgress> {
+  late final String bookId;
+
+  model.BookProgress build(
+    String bookId,
+  );
+}
+
+/// See also [BookProgressSettings].
+@ProviderFor(BookProgressSettings)
+const bookProgressSettingsProvider = BookProgressSettingsFamily();
+
+/// See also [BookProgressSettings].
+class BookProgressSettingsFamily extends Family<model.BookProgress> {
+  /// See also [BookProgressSettings].
+  const BookProgressSettingsFamily();
+
+  /// See also [BookProgressSettings].
+  BookProgressSettingsProvider call(
+    String bookId,
+  ) {
+    return BookProgressSettingsProvider(
+      bookId,
+    );
+  }
+
+  @override
+  BookProgressSettingsProvider getProviderOverride(
+    covariant BookProgressSettingsProvider provider,
+  ) {
+    return call(
+      provider.bookId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'bookProgressSettingsProvider';
+}
+
+/// See also [BookProgressSettings].
+class BookProgressSettingsProvider extends AutoDisposeNotifierProviderImpl<
+    BookProgressSettings, model.BookProgress> {
+  /// See also [BookProgressSettings].
+  BookProgressSettingsProvider(
+    String bookId,
+  ) : this._internal(
+          () => BookProgressSettings()..bookId = bookId,
+          from: bookProgressSettingsProvider,
+          name: r'bookProgressSettingsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$bookProgressSettingsHash,
+          dependencies: BookProgressSettingsFamily._dependencies,
+          allTransitiveDependencies:
+              BookProgressSettingsFamily._allTransitiveDependencies,
+          bookId: bookId,
+        );
+
+  BookProgressSettingsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.bookId,
+  }) : super.internal();
+
+  final String bookId;
+
+  @override
+  model.BookProgress runNotifierBuild(
+    covariant BookProgressSettings notifier,
+  ) {
+    return notifier.build(
+      bookId,
+    );
+  }
+
+  @override
+  Override overrideWith(BookProgressSettings Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: BookProgressSettingsProvider._internal(
+        () => create()..bookId = bookId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        bookId: bookId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<BookProgressSettings, model.BookProgress>
+      createElement() {
+    return _BookProgressSettingsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is BookProgressSettingsProvider && other.bookId == bookId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, bookId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin BookProgressSettingsRef
+    on AutoDisposeNotifierProviderRef<model.BookProgress> {
+  /// The parameter `bookId` of this provider.
+  String get bookId;
+}
+
+class _BookProgressSettingsProviderElement
+    extends AutoDisposeNotifierProviderElement<BookProgressSettings,
+        model.BookProgress> with BookProgressSettingsRef {
+  _BookProgressSettingsProviderElement(super.provider);
+
+  @override
+  String get bookId => (origin as BookProgressSettingsProvider).bookId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

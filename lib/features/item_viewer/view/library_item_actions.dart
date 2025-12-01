@@ -14,6 +14,7 @@ import 'package:vaani/features/downloads/providers/download_manager.dart'
         isItemDownloadingProvider,
         itemDownloadProgressProvider;
 import 'package:vaani/features/item_viewer/view/library_item_page.dart';
+import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/player/providers/player_status_provider.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/generated/l10n.dart';
@@ -299,7 +300,8 @@ class AlreadyItemDownloadedButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isBookPlaying = ref.watch(sessionProvider)?.libraryItemId == item.id;
+    final isBookPlaying =
+        ref.watch(currentBookProvider)?.libraryItemId == item.id;
 
     return IconButton(
       onPressed: () {
@@ -431,12 +433,12 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final session = ref.watch(sessionProvider);
+    final currentBook = ref.watch(currentBookProvider);
     final book = item.media.asBookExpanded;
     final playerStatusNotifier = ref.watch(playerStatusProvider);
     final isLoading = playerStatusNotifier.isLoading(book.libraryItemId);
     final isCurrentBookSetInPlayer =
-        session?.libraryItemId == book.libraryItemId;
+        currentBook?.libraryItemId == book.libraryItemId;
     final isPlayingThisBook =
         playerStatusNotifier.isPlaying() && isCurrentBookSetInPlayer;
 
@@ -466,9 +468,11 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
 
     return ElevatedButton.icon(
       onPressed: () {
-        session?.libraryItemId == book.libraryItemId
+        currentBook?.libraryItemId == book.libraryItemId
             ? ref.read(playerProvider).togglePlayPause()
-            : ref.read(sessionProvider.notifier).load(book.libraryItemId, null);
+            : ref
+                .read(currentBookProvider.notifier)
+                .update(book, userMediaProgress?.currentTime);
       },
       icon: Hero(
         tag: HeroTagPrefixes.libraryItemPlayButton + book.libraryItemId,

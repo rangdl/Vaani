@@ -27,8 +27,8 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final session = ref.watch(sessionProvider);
-    if (session == null) {
+    final book = ref.watch(currentBookProvider);
+    if (book == null) {
       return SizedBox.shrink();
     }
 
@@ -49,6 +49,7 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
           body: Padding(
             padding: EdgeInsets.only(
               top: AppElementSizes.paddingLarge,
+              right: AppElementSizes.paddingRegular,
               bottom: playerMinHeight + 40,
             ),
             child: Row(
@@ -108,7 +109,18 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                       Expanded(
-                        child: ChapterSelection(),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              right: BorderSide(
+                                color: Theme.of(context).focusColor,
+                                width: 1.0,
+                                style: BorderStyle.solid, // 可以设置为 dashed 虚线
+                              ),
+                            ),
+                          ),
+                          child: ChapterSelection(),
+                        ),
                       ),
                     ],
                   ),

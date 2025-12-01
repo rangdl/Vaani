@@ -11,6 +11,7 @@ import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/api/library_item_provider.dart' show libraryItemProvider;
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/features/item_viewer/view/library_item_actions.dart';
+import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/player/providers/player_status_provider.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/router/models/library_item_extras.dart';
@@ -214,10 +215,11 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final me = ref.watch(meProvider);
     // final player = ref.watch(audiobookPlayerProvider);
-    final session = ref.watch(sessionProvider);
+    final currentBook = ref.watch(currentBookProvider);
     final playerStatus = ref.watch(playerStatusProvider);
     final isLoading = playerStatus.isLoading(libraryItemId);
-    final isCurrentBookSetInPlayer = session?.libraryItemId == libraryItemId;
+    final isCurrentBookSetInPlayer =
+        currentBook?.libraryItemId == libraryItemId;
     final isPlayingThisBook =
         playerStatus.isPlaying() && isCurrentBookSetInPlayer;
 
@@ -289,11 +291,13 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
                       .withValues(alpha: 0.9),
                 ),
               ),
-              onPressed: () => session?.libraryItemId == libraryItemId
-                  ? ref.read(playerProvider).togglePlayPause()
-                  : ref
-                      .read(sessionProvider.notifier)
-                      .load(libraryItemId, null),
+              onPressed: () async {
+                final book =
+                    await ref.watch(libraryItemProvider(libraryItemId).future);
+
+                ref.read(currentBookProvider.notifier).update(
+                    book.media.asBookExpanded, userProgress?.currentTime);
+              },
               icon: Hero(
                 tag: HeroTagPrefixes.libraryItemPlayButton + libraryItemId,
                 child: DynamicItemPlayIcon(
@@ -344,12 +348,12 @@ class BookCoverWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final session = ref.watch(sessionProvider);
-    if (session == null) {
+    final currentBook = ref.watch(currentBookProvider);
+    if (currentBook == null) {
       return const BookCoverSkeleton();
     }
     final itemBeingPlayed =
-        ref.watch(libraryItemProvider(session.libraryItemId));
+        ref.watch(libraryItemProvider(currentBook.libraryItemId));
     final imageOfItemBeingPlayed = itemBeingPlayed.valueOrNull != null
         ? ref.watch(
             coverImageProvider(itemBeingPlayed.valueOrNull!.id),

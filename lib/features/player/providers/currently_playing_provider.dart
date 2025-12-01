@@ -1,9 +1,73 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' as core;
+import 'package:vaani/api/api_provider.dart';
+import 'package:vaani/api/library_item_provider.dart';
+import 'package:vaani/features/downloads/providers/download_manager.dart';
+import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
+import 'package:vaani/features/settings/app_settings_provider.dart';
+import 'package:vaani/globals.dart';
 
 part 'currently_playing_provider.g.dart';
+
+@riverpod
+class CurrentBook extends _$CurrentBook {
+  @override
+  core.BookExpanded? build() {
+    return null;
+  }
+
+  Future<void> update(core.BookExpanded book, Duration? currentTime) async {
+    final audioService = ref.read(playerProvider);
+    if (state == book) {
+      appLogger.info('Book was already set');
+      if (audioService.player.playing) {
+        appLogger.info('Pausing the book');
+        await audioService.pause();
+        return;
+      } else {
+        await audioService.play();
+      }
+    }
+    state = book;
+    final api = ref.read(authenticatedApiProvider);
+    final downloadManager = ref.read(simpleDownloadManagerProvider);
+    final libItem =
+        await ref.read(libraryItemProvider(state!.libraryItemId).future);
+    final downloadedUris = await downloadManager.getDownloadedFilesUri(libItem);
+
+    var bookPlayerSettings =
+        ref.read(bookSettingsProvider(state!.libraryItemId)).playerSettings;
+    var appPlayerSettings = ref.read(appSettingsProvider).playerSettings;
+
+    var configurePlayerForEveryBook =
+        appPlayerSettings.configurePlayerForEveryBook;
+    await Future.wait([
+      audioService.setSourceAudiobook(
+        state!,
+        baseUrl: api.baseUrl,
+        token: api.token!,
+        initialPosition: currentTime,
+        downloadedUris: downloadedUris,
+      ),
+      // set the volume
+      audioService.setVolume(
+        configurePlayerForEveryBook
+            ? bookPlayerSettings.preferredDefaultVolume ??
+                appPlayerSettings.preferredDefaultVolume
+            : appPlayerSettings.preferredDefaultVolume,
+      ),
+      // set the speed
+      audioService.setSpeed(
+        configurePlayerForEveryBook
+            ? bookPlayerSettings.preferredDefaultSpeed ??
+                appPlayerSettings.preferredDefaultSpeed
+            : appPlayerSettings.preferredDefaultSpeed,
+      ),
+    ]);
+  }
+}
 
 @riverpod
 class CurrentChapter extends _$CurrentChapter {
@@ -25,16 +89,16 @@ class CurrentChapter extends _$CurrentChapter {
 
 @riverpod
 List<core.BookChapter> currentChapters(Ref ref) {
-  final session = ref.watch(sessionProvider);
-  if (session == null) {
+  final book = ref.watch(currentBookProvider);
+  if (book == null) {
     return [];
   }
   final currentChapter = ref.watch(currentChapterProvider);
   if (currentChapter == null) {
     return [];
   }
-  final index = session.chapters.indexOf(currentChapter);
-  final total = session.chapters.length;
-  return session.chapters
+  final index = book.chapters.indexOf(currentChapter);
+  final total = book.chapters.length;
+  return book.chapters
       .sublist(index - 3, (total - 3) <= (index + 17) ? total : index + 17);
 }

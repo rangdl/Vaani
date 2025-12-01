@@ -45,7 +45,7 @@ class ShakeDetector extends _$ShakeDetector {
       }
     });
 
-    if (player.session == null) {
+    if (player.book == null) {
       _logger.config('No book is loaded, disabling shake detection');
       wasPlayerLoaded = false;
       return null;
@@ -87,7 +87,7 @@ class ShakeDetector extends _$ShakeDetector {
     required Ref ref,
   }) {
     final player = ref.read(playerProvider);
-    if (player.session == null && shakeAction.isPlaybackManagementEnabled) {
+    if (player.book == null && shakeAction.isPlaybackManagementEnabled) {
       _logger.warning('No book is loaded');
       return false;
     }

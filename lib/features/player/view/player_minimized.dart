@@ -8,6 +8,7 @@ import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
 import 'package:vaani/router/router.dart';
+import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
 
 /// The height of the player when it is minimized
@@ -18,8 +19,8 @@ class PlayerMinimized extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final session = ref.watch(sessionProvider);
-    if (session == null) {
+    final currentBook = ref.watch(currentBookProvider);
+    if (currentBook == null) {
       return SizedBox.shrink();
     }
     final currentChapter = ref.watch(currentChapterProvider);
@@ -35,7 +36,7 @@ class PlayerMinimized extends HookConsumerWidget {
               context.pushNamed(
                 Routes.libraryItem.name,
                 pathParameters: {
-                  Routes.libraryItem.pathParamName!: session.libraryItemId,
+                  Routes.libraryItem.pathParamName!: currentBook.libraryItemId,
                 },
               );
             },
@@ -60,14 +61,14 @@ class PlayerMinimized extends HookConsumerWidget {
               children: [
                 // AutoScrollText(
                 PlatformText(
-                  '${session.displayTitle} - ${currentChapter?.title ?? ''}',
+                  '${currentBook.metadata.title ?? ''} - ${currentChapter?.title ?? ''}',
                   maxLines: 1, overflow: TextOverflow.ellipsis,
                   // velocity:
                   //     const Velocity(pixelsPerSecond: Offset(16, 0)),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 PlatformText(
-                  session.displayAuthor,
+                  currentBook.metadata.asBookMetadataExpanded.authorName ?? '',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(

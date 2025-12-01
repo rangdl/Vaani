@@ -6,7 +6,7 @@ part of 'currently_playing_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentChaptersHash() => r'f2cc6ec31b5a3a9471775b1c96b2bfc3a91f1c90';
+String _$currentChaptersHash() => r'a25733d8085a2ce7dbc16fa2bf14f00ab8e2a623';
 
 /// See also [currentChapters].
 @ProviderFor(currentChapters)
@@ -24,6 +24,21 @@ final currentChaptersProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentChaptersRef = AutoDisposeProviderRef<List<core.BookChapter>>;
+String _$currentBookHash() => r'8dd534821b2b02a0259c6e6bde58012b880225c5';
+
+/// See also [CurrentBook].
+@ProviderFor(CurrentBook)
+final currentBookProvider =
+    AutoDisposeNotifierProvider<CurrentBook, core.BookExpanded?>.internal(
+  CurrentBook.new,
+  name: r'currentBookProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$currentBookHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CurrentBook = AutoDisposeNotifier<core.BookExpanded?>;
 String _$currentChapterHash() => r'f5f6d9e49cb7e455d032f7370f364d9ce30b8eb1';
 
 /// See also [CurrentChapter].

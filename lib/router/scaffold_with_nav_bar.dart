@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/library_provider.dart' show currentLibraryProvider;
 import 'package:vaani/features/explore/providers/search_controller.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
+import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/player/view/player_minimized.dart';
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart';
 import 'package:vaani/generated/l10n.dart';
@@ -50,9 +50,10 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
 
   Widget buildNavLeft(BuildContext context, WidgetRef ref) {
     // final isPlayerActive = ref.watch(isPlayerActiveProvider);
-    final session = ref.watch(sessionProvider);
+    final currentBook = ref.watch(currentBookProvider);
     return Padding(
-      padding: EdgeInsets.only(bottom: session != null ? playerMinHeight : 0),
+      padding:
+          EdgeInsets.only(bottom: currentBook != null ? playerMinHeight : 0),
       child: Row(
         children: [
           SafeArea(
