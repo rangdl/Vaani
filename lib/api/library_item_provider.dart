@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -46,64 +47,34 @@ class LibraryItem extends _$LibraryItem {
     // ! this is a mock delay
     // await Future.delayed(const Duration(seconds: 3));
 
-    final item = await api.items.get(
-      libraryItemId: id,
-      parameters: const shelfsdk.GetItemReqParams(
-        expanded: true,
-        include: [
-          shelfsdk.GetItemIncludeOption.progress,
-          shelfsdk.GetItemIncludeOption.rssFeed,
-          shelfsdk.GetItemIncludeOption.authors,
-          shelfsdk.GetItemIncludeOption.downloads,
-        ],
-      ),
-    );
-    if (item != null) {
-      // save to cache
-      final newFile = await apiResponseCacheManager.putFile(
-        key,
-        utf8.encode(jsonEncode(item.asExpanded.toJson())),
-        fileExtension: 'json',
-        key: key,
+    try {
+      final item = await api.items.get(
+        libraryItemId: id,
+        parameters: const shelfsdk.GetItemReqParams(
+          expanded: true,
+          include: [
+            shelfsdk.GetItemIncludeOption.progress,
+            shelfsdk.GetItemIncludeOption.rssFeed,
+            shelfsdk.GetItemIncludeOption.authors,
+            shelfsdk.GetItemIncludeOption.downloads,
+          ],
+        ),
       );
-      _logger.fine('writing to cache: $newFile');
-      yield item.asExpanded;
+      if (item != null) {
+        // save to cache
+        final newFile = await apiResponseCacheManager.putFile(
+          key,
+          utf8.encode(jsonEncode(item.asExpanded.toJson())),
+          fileExtension: 'json',
+          key: key,
+        );
+        _logger.fine('writing to cache: $newFile');
+        yield item.asExpanded;
+      }
+    } catch (e) {
+      debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
+      appLogger.severe('未查询到数据');
+      appLogger.severe(e.toString());
     }
   }
-}
-
-@riverpod
-Future<shelfsdk.PlaybackSessionExpanded?> playBackSession(
-  Ref ref,
-  String libraryItemId,
-) async {
-  final api = ref.watch(authenticatedApiProvider);
-  final playBack = await api.items.play(
-    libraryItemId: libraryItemId,
-    parameters: shelfsdk.PlayItemReqParams(
-      deviceInfo: shelfsdk.DeviceInfoReqParams(
-        clientVersion: appVersion,
-        manufacturer: deviceManufacturer,
-        model: deviceModel,
-        sdkVersion: deviceSdkVersion,
-        clientName: appName,
-        deviceName: deviceName,
-      ),
-      forceDirectPlay: false,
-      forceTranscode: false,
-      supportedMimeTypes: [
-        "audio/flac",
-        "audio/mpeg",
-        "audio/mp4",
-        "audio/ogg",
-        "audio/aac",
-        "audio/webm",
-      ],
-    ),
-  );
-
-  if (playBack == null) {
-    return null;
-  }
-  return playBack.asExpanded;
 }

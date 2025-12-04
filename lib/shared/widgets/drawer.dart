@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vaani/features/you/view/server_manager.dart';
 import 'package:vaani/router/router.dart';
@@ -26,7 +27,8 @@ class MyDrawer extends StatelessWidget {
             title: const Text('server Settings'),
             onTap: () {
               Navigator.of(context).push(
-                MaterialPageRoute(
+                platformPageRoute(
+                  context: context,
                   builder: (context) => const ServerManagerPage(),
                 ),
               );

@@ -8,7 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:shelfsdk/audiobookshelf_api.dart';
+import 'package:shelfsdk/audiobookshelf_api.dart' hide NotificationSettings;
 import 'package:vaani/features/player/core/player_status.dart' as core;
 import 'package:vaani/features/player/providers/player_status_provider.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
@@ -23,18 +23,20 @@ final _logger = Logger('AudiobookPlayer');
 
 class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   final AudioPlayer _player = AudioPlayer();
-  // final List<AudioSource> _playlist = [];
   final Ref ref;
 
   BookExpanded? _book;
   BookExpanded? get book => _book;
 
+  late NotificationSettings notificationSettings;
+
   final _currentChapterObject = BehaviorSubject<BookChapter?>.seeded(null);
   AbsAudioHandler(this.ref) {
-    _setupAudioPlayer();
-  }
-
-  void _setupAudioPlayer() {
+    ref.listen(appSettingsProvider, (a, b) {
+      if (a?.notificationSettings != b.notificationSettings) {
+        notificationSettings = b.notificationSettings;
+      }
+    });
     final statusNotifier = ref.read(playerStatusProvider.notifier);
 
     // 转发播放状态
@@ -49,6 +51,14 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     _player.positionStream.distinct().listen((position) {
       final chapter = _book?.findChapterAtTime(positionInBook);
       if (chapter != currentChapter) {
+        if (mediaItem.hasValue && chapter != null) {
+          updateMediaItem(
+            mediaItem.value!.copyWith(
+              duration: chapter.duration,
+              displayTitle: chapter.title,
+            ),
+          );
+        }
         _currentChapterObject.sink.add(chapter);
       }
     });
@@ -75,6 +85,18 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     }
     _book = book;
 
+    final trackToPlay = book.findTrackAtTime(initialPosition ?? Duration.zero);
+    final trackToChapter =
+        book.findChapterAtTime(initialPosition ?? Duration.zero);
+    final initialIndex = book.tracks.indexOf(trackToPlay);
+    final initialPositionInTrack = initialPosition != null
+        ? initialPosition - trackToPlay.startOffset
+        : null;
+    final title = appSettings.notificationSettings.primaryTitle
+        .formatNotificationTitle(book);
+    final album = appSettings.notificationSettings.secondaryTitle
+        .formatNotificationTitle(book);
+
     // 添加所有音轨
     List<AudioSource> audioSources = book.tracks
         .map(
@@ -84,28 +106,18 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
         )
         .toList();
 
-    final title = appSettings.notificationSettings.primaryTitle
-        .formatNotificationTitle(book);
-    final album = appSettings.notificationSettings.secondaryTitle
-        .formatNotificationTitle(book);
-    playMediaItem(
-      MediaItem(
-        id: book.libraryItemId,
-        title: title,
-        album: album,
-        displayTitle: title,
-        displaySubtitle: album,
-        duration: book.duration,
-        artUri: Uri.parse(
-          '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token',
-        ),
+    final item = MediaItem(
+      id: book.libraryItemId,
+      title: title,
+      album: album,
+      displayTitle: title,
+      displaySubtitle: album,
+      duration: trackToChapter.duration,
+      artUri: Uri.parse(
+        '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token',
       ),
     );
-    final trackToPlay = book.findTrackAtTime(initialPosition ?? Duration.zero);
-    final initialIndex = book.tracks.indexOf(trackToPlay);
-    final initialPositionInTrack = initialPosition != null
-        ? initialPosition - trackToPlay.startOffset
-        : null;
+    addQueueItem(item);
     await _player
         .setAudioSources(
       audioSources,
@@ -311,21 +323,35 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   PlaybackState _transformEvent(PlaybackEvent event) {
     return PlaybackState(
       controls: [
-        if (kIsWeb || !Platform.isAndroid) MediaControl.skipToPrevious,
-        MediaControl.rewind,
+        if ((kIsWeb || !Platform.isAndroid) &&
+            notificationSettings.mediaControls
+                .contains(NotificationMediaControl.skipToPreviousChapter))
+          MediaControl.skipToPrevious,
+        if (notificationSettings.mediaControls
+            .contains(NotificationMediaControl.rewind))
+          MediaControl.rewind,
         if (_player.playing) MediaControl.pause else MediaControl.play,
-        MediaControl.stop,
-        MediaControl.fastForward,
-        if (kIsWeb || !Platform.isAndroid) MediaControl.skipToNext,
+        if (notificationSettings.mediaControls
+            .contains(NotificationMediaControl.fastForward))
+          MediaControl.fastForward,
+        if ((kIsWeb || !Platform.isAndroid) &&
+            notificationSettings.mediaControls
+                .contains(NotificationMediaControl.skipToNextChapter))
+          MediaControl.skipToNext,
+        if (notificationSettings.mediaControls
+            .contains(NotificationMediaControl.stop))
+          MediaControl.stop,
       ],
       systemActions: {
-        if (kIsWeb || !Platform.isAndroid) MediaAction.skipToPrevious,
-        MediaAction.rewind,
+        // if (kIsWeb || !Platform.isAndroid) MediaAction.skipToPrevious,
+        // MediaAction.rewind,
         MediaAction.seek,
-        MediaAction.fastForward,
-        MediaAction.stop,
-        MediaAction.setSpeed,
-        if (kIsWeb || !Platform.isAndroid) MediaAction.skipToNext,
+        MediaAction.seekForward,
+        MediaAction.seekBackward,
+        // MediaAction.fastForward,
+        // MediaAction.stop,
+        // MediaAction.setSpeed,
+        // if (kIsWeb || !Platform.isAndroid) MediaAction.skipToNext,
       },
       androidCompactActionIndices: const [1, 2, 3],
       processingState: const {
@@ -337,8 +363,8 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
           }[_player.processingState] ??
           AudioProcessingState.idle,
       playing: _player.playing,
-      updatePosition: _player.position,
-      bufferedPosition: event.bufferedPosition,
+      updatePosition: positionInChapter,
+      bufferedPosition: _player.bufferedPosition,
       speed: _player.speed,
       queueIndex: event.currentIndex,
       captioningEnabled: false,

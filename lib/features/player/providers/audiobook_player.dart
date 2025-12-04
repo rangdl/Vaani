@@ -1,20 +1,22 @@
 import 'package:audio_service/audio_service.dart';
+import 'package:audio_session/audio_session.dart';
 import 'package:just_audio_media_kit/just_audio_media_kit.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaani/features/player/core/audiobook_player.dart';
-import 'package:vaani/shared/utils/helper.dart';
 
 part 'audiobook_player.g.dart';
 
 @Riverpod(keepAlive: true)
 Future<AbsAudioHandler> audioHandlerInit(Ref ref) async {
-  if (Helper.isWindows() || Helper.isLinux()) {
-    // JustAudioMediaKit.ensureInitialized(windows: false);
-    JustAudioMediaKit.ensureInitialized();
-  }
+  // for playing audio on windows, linux
+  JustAudioMediaKit.ensureInitialized();
 
-  final audioService = await AudioService.init(
+  // for configuring how this app will interact with other audio apps
+  final session = await AudioSession.instance;
+  await session.configure(const AudioSessionConfiguration.speech());
+
+  final audioService = AudioService.init(
     builder: () => AbsAudioHandler(ref),
     config: const AudioServiceConfig(
       androidNotificationChannelId: 'dr.blank.vaani.channel.audio',

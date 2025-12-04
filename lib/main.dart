@@ -16,8 +16,6 @@ import 'package:vaani/framework.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
-import 'package:vaani/shared/utils/helper.dart';
-import 'package:vaani/shared/widgets/tray_manager.dart';
 import 'package:vaani/theme/providers/system_theme_provider.dart';
 import 'package:vaani/theme/providers/theme_from_cover_provider.dart';
 import 'package:vaani/theme/theme.dart';
@@ -45,9 +43,7 @@ void main() async {
   runApp(
     UncontrolledProviderScope(
       container: container,
-      child: Helper.isDesktop()
-          ? Framework(TrayManager(AbsApp()))
-          : Framework(AbsApp()),
+      child: Framework(AbsApp()),
     ),
   );
 }
