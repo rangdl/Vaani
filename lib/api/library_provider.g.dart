@@ -174,12 +174,12 @@ final currentLibraryProvider = AutoDisposeFutureProvider<Library?>.internal(
 // ignore: unused_element
 typedef CurrentLibraryRef = AutoDisposeFutureProviderRef<Library?>;
 String _$currentLibraryItemsHash() =>
-    r'2e2ce270c46bedf0b779399772df89a23803fe50';
+    r'b0d0dcca86e760ee08f327c06b5ad5deaf7852e1';
 
 /// See also [currentLibraryItems].
 @ProviderFor(currentLibraryItems)
 final currentLibraryItemsProvider =
-    AutoDisposeFutureProvider<List<LibraryItemMinified>>.internal(
+    AutoDisposeFutureProvider<List<LibraryItem>>.internal(
   currentLibraryItems,
   name: r'currentLibraryItemsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -192,7 +192,7 @@ final currentLibraryItemsProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentLibraryItemsRef
-    = AutoDisposeFutureProviderRef<List<LibraryItemMinified>>;
+    = AutoDisposeFutureProviderRef<List<LibraryItem>>;
 String _$librariesHash() => r'95ebd4d1ac0cc2acf7617dc22895eff0ca30600f';
 
 /// See also [Libraries].
@@ -208,5 +208,22 @@ final librariesProvider =
 );
 
 typedef _$Libraries = AutoDisposeAsyncNotifier<List<Library>>;
+String _$libraryItemsParamsHash() =>
+    r'9e7f11ab185eb99e926ae87e06466fc12aee7f72';
+
+/// See also [LibraryItemsParams].
+@ProviderFor(LibraryItemsParams)
+final libraryItemsParamsProvider = AutoDisposeNotifierProvider<
+    LibraryItemsParams, GetLibrarysItemsReqParams>.internal(
+  LibraryItemsParams.new,
+  name: r'libraryItemsParamsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$libraryItemsParamsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$LibraryItemsParams = AutoDisposeNotifier<GetLibrarysItemsReqParams>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -32,6 +32,7 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   final _currentChapterObject = BehaviorSubject<BookChapter?>.seeded(null);
   AbsAudioHandler(this.ref) {
+    notificationSettings = ref.read(appSettingsProvider).notificationSettings;
     ref.listen(appSettingsProvider, (a, b) {
       if (a?.notificationSettings != b.notificationSettings) {
         notificationSettings = b.notificationSettings;
@@ -52,12 +53,12 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       final chapter = _book?.findChapterAtTime(positionInBook);
       if (chapter != currentChapter) {
         if (mediaItem.hasValue && chapter != null) {
-          updateMediaItem(
-            mediaItem.value!.copyWith(
-              duration: chapter.duration,
-              displayTitle: chapter.title,
-            ),
-          );
+          // updateMediaItem(
+          //   mediaItem.value!.copyWith(
+          //     duration: chapter.duration,
+          //     displayTitle: chapter.title,
+          //   ),
+          // );
         }
         _currentChapterObject.sink.add(chapter);
       }

@@ -160,7 +160,6 @@ class AbsApp extends ConsumerWidget {
     );
     try {
       return MaterialApp.router(
-        // debugShowCheckedModeBanner: false,
         locale: Locale(appSettings.language),
         localizationsDelegates: [
           // 以下是其他代理
@@ -175,6 +174,7 @@ class AbsApp extends ConsumerWidget {
         themeMode: themeSettings.themeMode,
         routerConfig: routerConfig,
         themeAnimationCurve: Curves.easeInOut,
+        debugShowCheckedModeBanner: false,
       );
     } catch (e) {
       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());

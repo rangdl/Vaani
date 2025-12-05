@@ -99,6 +99,7 @@ List<core.BookChapter> currentChapters(Ref ref) {
   }
   final index = book.chapters.indexOf(currentChapter);
   final total = book.chapters.length;
-  return book.chapters
-      .sublist(index - 3, (total - 3) <= (index + 17) ? total : index + 17);
+  final start = index - 3 >= 0 ? index - 3 : 0;
+  final end = start + 20 <= total ? start + 20 : total;
+  return book.chapters.sublist(start, end);
 }

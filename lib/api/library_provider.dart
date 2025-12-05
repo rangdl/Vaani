@@ -2,7 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart' show Ref;
 import 'package:logging/logging.dart' show Logger;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart'
-    show GetLibrarysItemsReqParams, Library, LibraryItemMinified;
+    show GetLibrarysItemsReqParams, Library, LibraryItemMinified, LibraryItem;
 import 'package:vaani/api/api_provider.dart' show authenticatedApiProvider;
 import 'package:vaani/features/settings/api_settings_provider.dart'
     show apiSettingsProvider;
@@ -59,9 +59,21 @@ class Libraries extends _$Libraries {
   }
 }
 
+@riverpod
+class LibraryItemsParams extends _$LibraryItemsParams {
+  @override
+  GetLibrarysItemsReqParams build() {
+    return const GetLibrarysItemsReqParams(
+      limit: 18,
+      page: 0,
+      minified: true,
+    );
+  }
+}
+
 // 查询库下所有项目
 @riverpod
-Future<List<LibraryItemMinified>> currentLibraryItems(Ref ref) async {
+Future<List<LibraryItem>> currentLibraryItems(Ref ref) async {
   final api = ref.watch(authenticatedApiProvider);
   final libraryId =
       ref.watch(apiSettingsProvider.select((s) => s.activeLibraryId));
@@ -73,12 +85,12 @@ Future<List<LibraryItemMinified>> currentLibraryItems(Ref ref) async {
     libraryId: libraryId,
     parameters: const GetLibrarysItemsReqParams(
       limit: 18,
-      page: 1,
+      page: 0,
       minified: true,
     ),
   );
   if (items == null) {
     return [];
   }
-  return items.results.map((v) => v.asMinified).toList();
+  return items.results;
 }

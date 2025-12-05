@@ -13,7 +13,7 @@ class Routes {
   );
   static const library = _SimpleRoute(
     pathName: 'library',
-    pathParamName: 'libraryId',
+    // pathParamName: 'libraryId',
     name: 'library',
   );
   static const libraryItem = _SimpleRoute(

@@ -6,7 +6,7 @@ part of 'currently_playing_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentChaptersHash() => r'a25733d8085a2ce7dbc16fa2bf14f00ab8e2a623';
+String _$currentChaptersHash() => r'6574b3f4ee0af8006f233aaf76cc507d188c6305';
 
 /// See also [currentChapters].
 @ProviderFor(currentChapters)

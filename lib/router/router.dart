@@ -19,6 +19,7 @@ import 'package:vaani/features/you/view/server_manager.dart';
 import 'package:vaani/features/you/view/you_page.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/pages/home_page.dart';
+import 'package:vaani/pages/library_page.dart';
 import 'package:vaani/pages/player_page.dart';
 
 import 'scaffold_with_nav_bar.dart';
@@ -118,10 +119,15 @@ class MyAppRouter {
               // Library page
               StatefulShellBranch(
                 routes: <RouteBase>[
+                  // GoRoute(
+                  //   path: Routes.libraryBrowser.localPath,
+                  //   name: Routes.libraryBrowser.name,
+                  //   pageBuilder: defaultPageBuilder(const LibraryBrowserPage()),
+                  // ),
                   GoRoute(
-                    path: Routes.libraryBrowser.localPath,
-                    name: Routes.libraryBrowser.name,
-                    pageBuilder: defaultPageBuilder(const LibraryBrowserPage()),
+                    path: Routes.library.localPath,
+                    name: Routes.library.name,
+                    pageBuilder: defaultPageBuilder(const LibraryPage()),
                   ),
                 ],
               ),

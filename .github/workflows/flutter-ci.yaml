@@ -87,7 +87,11 @@ jobs:
         run: flutter build apk --release
 
       - name: Rename Universal APK
-        run: mv build/app/outputs/flutter-apk/{app-release,app-universal-release}.apk
+        run: |
+          APP_NAME=$(grep '^name:' pubspec.yaml | sed 's/name: //')
+          APP_VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
+
+          mv build/app/outputs/flutter-apk/{app-release,$APP_NAME-$APP_VERSION-app-universal}.apk
 
       - name: Build App Bundle
         run: flutter build appbundle --release

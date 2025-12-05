@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/features/player/providers/currently_playing_provider.dart';
@@ -137,22 +139,45 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
 
 class ChapterSelection extends HookConsumerWidget {
   const ChapterSelection({super.key});
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentChapter = ref.watch(currentChapterProvider);
     if (currentChapter == null) {
       return SizedBox.shrink();
     }
+    final chapters = useState(<BookChapter>[]);
+    final scrollController = useScrollController();
+    useEffect(
+      () {
+        int page = 0;
+        void load(page) {
+          chapters.value.addAll(ref.watch(currentChaptersProvider));
+        }
 
-    final currentChapters = ref.watch(currentChaptersProvider);
-    final currentChapterIndex = currentChapters.indexOf(currentChapter);
+        load(page);
+        void listener() {
+          if (scrollController.position.pixels /
+                  scrollController.position.maxScrollExtent >
+              0.8) {
+            print('滚动到底部');
+          }
+        }
+
+        scrollController.addListener(listener);
+        return () => scrollController.removeListener(listener);
+      },
+      [scrollController],
+    );
+
+    final currentChapterIndex = chapters.value.indexOf(currentChapter);
     final theme = Theme.of(context);
     return Scrollbar(
+      controller: scrollController,
       child: ListView.builder(
-        itemCount: currentChapters.length,
+        controller: scrollController,
+        itemCount: chapters.value.length,
         itemBuilder: (context, index) {
-          final chapter = currentChapters[index];
+          final chapter = chapters.value[index];
           final isCurrent = currentChapterIndex == index;
           final isPlayed = index < currentChapterIndex;
           return ListTile(
