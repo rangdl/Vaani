@@ -24,7 +24,7 @@ final currentChaptersProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentChaptersRef = AutoDisposeProviderRef<List<core.BookChapter>>;
-String _$currentBookHash() => r'8dd534821b2b02a0259c6e6bde58012b880225c5';
+String _$currentBookHash() => r'5143d08375c2c58918e82f8d368998bb38d7b790';
 
 /// See also [CurrentBook].
 @ProviderFor(CurrentBook)

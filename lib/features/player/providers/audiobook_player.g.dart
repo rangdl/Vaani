@@ -6,7 +6,7 @@ part of 'audiobook_player.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$audioHandlerInitHash() => r'13b9d56c8dfde3a40736432ea069c899ef35ae75';
+String _$audioHandlerInitHash() => r'f4907b614d5698c1c8fe8e999edd5fde46bc29f2';
 
 /// See also [audioHandlerInit].
 @ProviderFor(audioHandlerInit)

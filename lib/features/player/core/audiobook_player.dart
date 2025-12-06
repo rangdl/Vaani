@@ -73,6 +73,8 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     required String token,
     Duration? initialPosition,
     List<Uri>? downloadedUris,
+    required double volume,
+    required double speed,
   }) async {
     final appSettings = loadOrCreateAppSettings();
     // if (book == null) {
@@ -118,7 +120,7 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
         '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token',
       ),
     );
-    addQueueItem(item);
+    mediaItem.add(item);
     await _player
         .setAudioSources(
       audioSources,
@@ -130,8 +132,12 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       _logger.shout('Error in setting audio source: $error');
       return null;
     });
+    await player.seek(initialPositionInTrack, index: initialIndex);
     // _player.seek(initialPositionInTrack, index: initialIndex);
+    setVolume(volume);
+    setSpeed(speed);
     await play();
+
     // 恢复上次播放位置（如果有）
     // if (initialPosition != null) {
     //   await seekInBook(initialPosition);

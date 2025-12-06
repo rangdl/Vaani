@@ -296,7 +296,9 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
                     await ref.watch(libraryItemProvider(libraryItemId).future);
 
                 ref.read(currentBookProvider.notifier).update(
-                    book.media.asBookExpanded, userProgress?.currentTime);
+                      book.media.asBookExpanded,
+                      userProgress?.currentTime,
+                    );
               },
               icon: Hero(
                 tag: HeroTagPrefixes.libraryItemPlayButton + libraryItemId,

@@ -43,29 +43,21 @@ class CurrentBook extends _$CurrentBook {
 
     var configurePlayerForEveryBook =
         appPlayerSettings.configurePlayerForEveryBook;
-    await Future.wait([
-      audioService.setSourceAudiobook(
-        state!,
-        baseUrl: api.baseUrl,
-        token: api.token!,
-        initialPosition: currentTime,
-        downloadedUris: downloadedUris,
-      ),
-      // set the volume
-      audioService.setVolume(
-        configurePlayerForEveryBook
-            ? bookPlayerSettings.preferredDefaultVolume ??
-                appPlayerSettings.preferredDefaultVolume
-            : appPlayerSettings.preferredDefaultVolume,
-      ),
-      // set the speed
-      audioService.setSpeed(
-        configurePlayerForEveryBook
-            ? bookPlayerSettings.preferredDefaultSpeed ??
-                appPlayerSettings.preferredDefaultSpeed
-            : appPlayerSettings.preferredDefaultSpeed,
-      ),
-    ]);
+    audioService.setSourceAudiobook(
+      state!,
+      baseUrl: api.baseUrl,
+      token: api.token!,
+      initialPosition: currentTime,
+      downloadedUris: downloadedUris,
+      volume: configurePlayerForEveryBook
+          ? bookPlayerSettings.preferredDefaultVolume ??
+              appPlayerSettings.preferredDefaultVolume
+          : appPlayerSettings.preferredDefaultVolume,
+      speed: configurePlayerForEveryBook
+          ? bookPlayerSettings.preferredDefaultSpeed ??
+              appPlayerSettings.preferredDefaultSpeed
+          : appPlayerSettings.preferredDefaultSpeed,
+    );
   }
 }
 
