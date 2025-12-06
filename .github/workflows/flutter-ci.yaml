@@ -92,16 +92,26 @@ jobs:
           APP_VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
 
           mv build/app/outputs/flutter-apk/{app-release,$APP_NAME-$APP_VERSION-app-universal}.apk
+          mv build/app/outputs/flutter-apk/{app-arm64-v8a-release,$APP_NAME-$APP_VERSION-app-universal}.apk
+          mv build/app/outputs/flutter-apk/{app-armeabi-v7a-release,$APP_NAME-$APP_VERSION-app-universal}.apk
+          mv build/app/outputs/flutter-apk/{app-x86_64-release,$APP_NAME-$APP_VERSION-app-universal}.apk
 
       - name: Build App Bundle
         run: flutter build appbundle --release
+      
+      - name: Rename AAB
+        run: |
+          APP_NAME=$(grep '^name:' pubspec.yaml | sed 's/name: //')
+          APP_VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
+
+          mv build/app/outputs/flutter-apk/{app-release,$APP_NAME-$APP_VERSION-app-universal}.aab
 
       - name: Upload Android APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: android-release-artifacts
           path: |
-            build/app/outputs/flutter-apk/*-release*.apk
+            build/app/outputs/flutter-apk/*.apk
             build/app/outputs/bundle/release/*.aab
 
   build_linux:
