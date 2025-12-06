@@ -1,30 +1,36 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
+import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:just_audio_media_kit/just_audio_media_kit.dart';
 import 'package:logging/logging.dart';
+import 'package:media_kit/media_kit.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shelfsdk/audiobookshelf_api.dart';
+import 'package:shelfsdk/audiobookshelf_api.dart' as api;
+import 'package:vaani/api/api_provider.dart';
+import 'package:vaani/api/library_item_provider.dart';
+import 'package:vaani/features/downloads/providers/download_manager.dart';
+import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
 import 'package:vaani/features/player/core/abs_audio_handler.dart' as core;
 import 'package:vaani/features/player/core/abs_audio_player.dart' as core;
+import 'package:vaani/features/player/core/audiobook_player.dart';
+import 'package:vaani/features/settings/app_settings_provider.dart';
+import 'package:vaani/globals.dart';
+import 'package:vaani/shared/extensions/chapter.dart';
 
 part 'abs_provider.g.dart';
 
 final _logger = Logger('AbsPlayerProvider');
 
 @Riverpod(keepAlive: true)
-Future<core.AbsAudioHandler> absAudioHandler(Ref ref) async {
+Future<core.AbsAudioHandler> absAudioHandlerInit(Ref ref) async {
   // for playing audio on windows, linux
-  JustAudioMediaKit.ensureInitialized();
-
+  MediaKit.ensureInitialized();
   // for configuring how this app will interact with other audio apps
   final session = await AudioSession.instance;
   await session.configure(const AudioSessionConfiguration.speech());
 
-  final player = ref.read(absAudioPlayerProvider);
-
   final audioService = await AudioService.init(
-    builder: () => core.AbsAudioHandler(player),
+    builder: () => core.AbsAudioHandler(),
     config: const AudioServiceConfig(
       androidNotificationChannelId: 'dr.blank.vaani.channel.audio',
       androidNotificationChannelName: 'ABSPlayback',
@@ -39,18 +45,130 @@ Future<core.AbsAudioHandler> absAudioHandler(Ref ref) async {
     ),
   );
 
+  _logger.finer('created simple player');
   return audioService;
 }
 
 @Riverpod(keepAlive: true)
-class AbsAudioPlayer extends _$AbsAudioPlayer {
+class AbsPlayer extends _$AbsPlayer {
   @override
-  core.AbsAudioPlayer build() {
-    final player = core.AbsAudioPlayer();
+  core.AbsAudioHandler build() {
+    return ref.read(absAudioHandlerInitProvider).valueOrNull!;
+  }
+}
 
-    ref.onDispose(player.dispose);
-    _logger.finer('created simple player');
+@Riverpod(keepAlive: true)
+class AbsState extends _$AbsState {
+  @override
+  core.AbsPlayerState build() {
+    return core.AbsPlayerState();
+  }
 
-    return player;
+  // 加载书籍
+  Future<void> load(api.BookExpanded book, Duration? currentTime) async {
+    final player = ref.read(absPlayerProvider);
+    if (state.book == book || state.book?.libraryItemId == book.libraryItemId) {
+      appLogger.info('Book was already set');
+      player.playOrPause();
+      return;
+    }
+
+    final appSettings = ref.read(appSettingsProvider);
+    final api = ref.read(authenticatedApiProvider);
+    final downloadManager = ref.read(simpleDownloadManagerProvider);
+    final libItem =
+        await ref.read(libraryItemProvider(book.libraryItemId).future);
+    final downloadedUris = await downloadManager.getDownloadedFilesUri(libItem);
+
+    var bookPlayerSettings =
+        ref.read(bookSettingsProvider(book.libraryItemId)).playerSettings;
+    var appPlayerSettings = ref.read(appSettingsProvider).playerSettings;
+
+    var configurePlayerForEveryBook =
+        appPlayerSettings.configurePlayerForEveryBook;
+    final trackToPlay = book.findTrackAtTime(currentTime ?? Duration.zero);
+    final chapterToPlay = book.findChapterAtTime(currentTime ?? Duration.zero);
+    final initialIndex = book.tracks.indexOf(trackToPlay);
+    final initialPositionInTrack =
+        currentTime != null ? currentTime - trackToPlay.startOffset : null;
+    final title = appSettings.notificationSettings.primaryTitle
+        .formatNotificationTitle(book);
+    final album = appSettings.notificationSettings.secondaryTitle
+        .formatNotificationTitle(book);
+
+    final id = _getUri(trackToPlay, downloadedUris,
+            baseUrl: api.baseUrl, token: api.token!)
+        .toString();
+    final item = MediaItem(
+      id: id,
+      title: title,
+      album: album,
+      displayTitle: title,
+      displaySubtitle: album,
+      duration: chapterToPlay.duration,
+      artUri: Uri.parse(
+        '${api.baseUrl}/api/items/${book.libraryItemId}/cover?token=${api.token!}',
+      ),
+    );
+
+    state = state.copyWith(
+      book: book,
+      currentChapter: chapterToPlay,
+      currentIndex: initialIndex,
+    );
+    player.playMediaItem(item);
+    await Future.wait([
+      player.setMediaItem(item),
+      // player.setVolume(
+      //   configurePlayerForEveryBook
+      //       ? bookPlayerSettings.preferredDefaultVolume ??
+      //           appPlayerSettings.preferredDefaultVolume
+      //       : appPlayerSettings.preferredDefaultVolume,
+      // ),
+      player.setSpeed(
+        configurePlayerForEveryBook
+            ? bookPlayerSettings.preferredDefaultSpeed ??
+                appPlayerSettings.preferredDefaultSpeed
+            : appPlayerSettings.preferredDefaultSpeed,
+      ),
+      player.play(),
+    ]);
+
+    // player.setSourceAudiobook(
+    //   book,
+    //   baseUrl: api.baseUrl,
+    //   token: api.token!,
+    //   initialPosition: currentTime,
+    //   downloadedUris: downloadedUris,
+    //   volume: configurePlayerForEveryBook
+    //       ? bookPlayerSettings.preferredDefaultVolume ??
+    //           appPlayerSettings.preferredDefaultVolume
+    //       : appPlayerSettings.preferredDefaultVolume,
+    //   speed: configurePlayerForEveryBook
+    //       ? bookPlayerSettings.preferredDefaultSpeed ??
+    //           appPlayerSettings.preferredDefaultSpeed
+    //       : appPlayerSettings.preferredDefaultSpeed,
+    // );
+  }
+
+  Future<void> next() async {}
+
+  Future<void> previous() async {}
+
+  Uri _getUri(
+    api.AudioTrack track,
+    List<Uri>? downloadedUris, {
+    required Uri baseUrl,
+    required String token,
+  }) {
+    // check if the track is in the downloadedUris
+    final uri = downloadedUris?.firstWhereOrNull(
+      (element) {
+        return element.pathSegments.last == track.metadata?.filename;
+      },
+    );
+
+    return uri ??
+        Uri.parse('${baseUrl.toString()}${track.contentUrl}?token=$token');
   }
 }

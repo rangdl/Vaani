@@ -1,6 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
-import 'package:just_audio_media_kit/just_audio_media_kit.dart';
+// import 'package:just_audio_media_kit/just_audio_media_kit.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaani/features/player/core/audiobook_player.dart';
@@ -10,7 +10,7 @@ part 'audiobook_player.g.dart';
 @Riverpod(keepAlive: true)
 Future<AbsAudioHandler> audioHandlerInit(Ref ref) async {
   // for playing audio on windows, linux
-  JustAudioMediaKit.ensureInitialized();
+  // JustAudioMediaKit.ensureInitialized();
 
   // for configuring how this app will interact with other audio apps
   final session = await AudioSession.instance;

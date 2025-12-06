@@ -11,6 +11,7 @@ import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/api/library_item_provider.dart' show libraryItemProvider;
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/features/item_viewer/view/library_item_actions.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/player/providers/player_status_provider.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
@@ -295,7 +296,11 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
                 final book =
                     await ref.watch(libraryItemProvider(libraryItemId).future);
 
-                ref.read(currentBookProvider.notifier).update(
+                // ref.read(currentBookProvider.notifier).update(
+                //       book.media.asBookExpanded,
+                //       userProgress?.currentTime,
+                //     );
+                ref.read(absStateProvider.notifier).load(
                       book.media.asBookExpanded,
                       userProgress?.currentTime,
                     );
