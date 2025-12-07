@@ -1,18 +1,45 @@
 import 'package:audio_service/audio_service.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:media_kit/media_kit.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 
 class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   final Player player = Player();
 
-  AbsAudioHandler() {
+  AbsAudioHandler(Ref ref) {
+    playbackState.add(
+      playbackState.value.copyWith(
+        controls: [
+          MediaControl.skipToPrevious,
+          if (player.state.playing) MediaControl.pause else MediaControl.play,
+          // MediaControl.rewind,
+          // MediaControl.fastForward,
+          MediaControl.skipToNext,
+          MediaControl.stop,
+        ],
+        systemActions: {
+          MediaAction.play,
+          MediaAction.pause,
+          MediaAction.seek,
+          MediaAction.seekForward,
+          MediaAction.seekBackward,
+        },
+      ),
+    );
+
+    final absState = ref.read(absStateProvider.notifier);
     // 1. 转发播放/暂停状态
     player.stream.playing.listen((bool playing) {
       playbackState.add(playbackState.value.copyWith(
         playing: playing,
         // 根据 playing 和实际情况更新 processingState
-        processingState:
-            playing ? AudioProcessingState.ready : AudioProcessingState.idle,
+        processingState: player.state.completed
+            ? AudioProcessingState.completed
+            : player.state.buffering
+                ? AudioProcessingState.buffering
+                : AudioProcessingState.ready,
       ));
+      absState.updataPlaying(playing);
     });
     // 2. 转发播放位置
     player.stream.position.listen((Duration position) {
@@ -76,6 +103,10 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   }
 
   Future<void> setVolume(double volume) async {
+    final state = player.state;
     await player.setVolume(volume);
   }
+
+  PlayerStream get stream => player.stream;
+  PlayerState get state => player.state;
 }

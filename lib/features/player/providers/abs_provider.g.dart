@@ -7,7 +7,7 @@ part of 'abs_provider.dart';
 // **************************************************************************
 
 String _$absAudioHandlerInitHash() =>
-    r'8815383b114e5e3da826afdea58bf0a884b1e3f2';
+    r'bb46f715e9d51bb6269d0d77e314665601a6bdb0';
 
 /// See also [absAudioHandlerInit].
 @ProviderFor(absAudioHandlerInit)
@@ -25,6 +25,23 @@ final absAudioHandlerInitProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AbsAudioHandlerInitRef = FutureProviderRef<core.AbsAudioHandler>;
+String _$positionChapterHash() => r'b1d19345bceb2e54399e15fbb16a534f4be5ba43';
+
+/// See also [positionChapter].
+@ProviderFor(positionChapter)
+final positionChapterProvider = AutoDisposeStreamProvider<Duration>.internal(
+  positionChapter,
+  name: r'positionChapterProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$positionChapterHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef PositionChapterRef = AutoDisposeStreamProviderRef<Duration>;
 String _$absPlayerHash() => r'c313a2456bb221b83f3cd2142ae63d6463ef304b';
 
 /// See also [AbsPlayer].
@@ -40,7 +57,7 @@ final absPlayerProvider =
 );
 
 typedef _$AbsPlayer = Notifier<core.AbsAudioHandler>;
-String _$absStateHash() => r'fb11d9d970e0de2dfd722c1f0de2a3b9b10f2859';
+String _$absStateHash() => r'6b4ca07c7998304a1522a07b23955c3e54a441e3';
 
 /// See also [AbsState].
 @ProviderFor(AbsState)

@@ -4,10 +4,12 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/constants/sizes.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
 import 'package:vaani/router/router.dart';
+import 'package:vaani/shared/extensions/chapter.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
 
@@ -19,11 +21,12 @@ class PlayerMinimized extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentBook = ref.watch(currentBookProvider);
+    final currentBook = ref.watch(absStateProvider.select((v) => v.book));
     if (currentBook == null) {
       return SizedBox.shrink();
     }
-    final currentChapter = ref.watch(currentChapterProvider);
+    final currentChapter =
+        ref.watch(absStateProvider.select((v) => v.currentChapter));
 
     return PlayerMinimizedFramework(
       children: [
@@ -112,9 +115,14 @@ class PlayerMinimizedFramework extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final player = ref.watch(playerProvider);
+    // final player = ref.watch(playerProvider);
+    final currentChapter =
+        ref.watch(absStateProvider.select((v) => v.currentChapter));
+
     final progress =
-        useStream(player.positionStreamInChapter, initialData: Duration.zero);
+        // useStream(player.positionStreamInChapter, initialData: Duration.zero);
+        useStream(ref.read(absStateProvider.notifier).positionStreamInChapter,
+            initialData: Duration.zero);
     return GestureDetector(
       onTap: () {
         if (GoRouterState.of(context).topRoute?.name != Routes.player.name) {
@@ -136,7 +144,7 @@ class PlayerMinimizedFramework extends HookConsumerWidget {
               height: AppElementSizes.barHeight,
               child: LinearProgressIndicator(
                 value: (progress.data ?? Duration.zero).inSeconds /
-                    (player.chapterDuration?.inSeconds ?? 1),
+                    (currentChapter?.duration.inSeconds ?? 1),
                 // color: Theme.of(context).colorScheme.onPrimaryContainer,
                 // backgroundColor: Theme.of(context).colorScheme.primaryContainer,
               ),

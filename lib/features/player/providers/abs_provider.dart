@@ -30,7 +30,7 @@ Future<core.AbsAudioHandler> absAudioHandlerInit(Ref ref) async {
   await session.configure(const AudioSessionConfiguration.speech());
 
   final audioService = await AudioService.init(
-    builder: () => core.AbsAudioHandler(),
+    builder: () => core.AbsAudioHandler(ref),
     config: const AudioServiceConfig(
       androidNotificationChannelId: 'dr.blank.vaani.channel.audio',
       androidNotificationChannelName: 'ABSPlayback',
@@ -91,9 +91,9 @@ class AbsState extends _$AbsState {
     final initialIndex = book.tracks.indexOf(trackToPlay);
     final initialPositionInTrack =
         currentTime != null ? currentTime - trackToPlay.startOffset : null;
-    final title = appSettings.notificationSettings.primaryTitle
+    final album = appSettings.notificationSettings.primaryTitle
         .formatNotificationTitle(book);
-    final album = appSettings.notificationSettings.secondaryTitle
+    final artlist = appSettings.notificationSettings.secondaryTitle
         .formatNotificationTitle(book);
 
     final id = _getUri(trackToPlay, downloadedUris,
@@ -101,10 +101,9 @@ class AbsState extends _$AbsState {
         .toString();
     final item = MediaItem(
       id: id,
-      title: title,
+      title: chapterToPlay.title,
       album: album,
-      displayTitle: title,
-      displaySubtitle: album,
+      artist: artlist,
       duration: chapterToPlay.duration,
       artUri: Uri.parse(
         '${api.baseUrl}/api/items/${book.libraryItemId}/cover?token=${api.token!}',
@@ -154,6 +153,20 @@ class AbsState extends _$AbsState {
   Future<void> next() async {}
 
   Future<void> previous() async {}
+  void updataPlaying(bool playing) {
+    state = state.copyWith(playing: playing);
+  }
+
+  Stream<Duration> get positionStreamInChapter {
+    final player = ref.read(absPlayerProvider);
+
+    return player.stream.position.distinct().map((position) {
+      return position +
+          (state.book?.tracks[state.currentIndex].startOffset ??
+              Duration.zero) -
+          (state.currentChapter?.start ?? Duration.zero);
+    });
+  }
 
   Uri _getUri(
     api.AudioTrack track,
@@ -171,4 +184,9 @@ class AbsState extends _$AbsState {
     return uri ??
         Uri.parse('${baseUrl.toString()}${track.contentUrl}?token=$token');
   }
+}
+
+@riverpod
+Stream<Duration> positionChapter(Ref ref) {
+  return ref.watch(absStateProvider.notifier).positionStreamInChapter;
 }

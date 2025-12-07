@@ -8,22 +8,26 @@ class AbsPlayerState {
   final api.BookChapter? currentChapter;
   // 当前音轨序号
   final int currentIndex;
+  final bool playing;
 
   AbsPlayerState({
     this.book,
     this.currentChapter,
     this.currentIndex = 0,
+    this.playing = false,
   });
 
   AbsPlayerState copyWith({
     api.BookExpanded? book,
     api.BookChapter? currentChapter,
     int? currentIndex,
+    bool? playing,
   }) {
     return AbsPlayerState(
       book: book ?? this.book,
       currentChapter: currentChapter ?? this.currentChapter,
       currentIndex: currentIndex ?? this.currentIndex,
+      playing: playing ?? this.playing,
     );
   }
 }

@@ -216,13 +216,13 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final me = ref.watch(meProvider);
     // final player = ref.watch(audiobookPlayerProvider);
-    final currentBook = ref.watch(currentBookProvider);
-    final playerStatus = ref.watch(playerStatusProvider);
-    final isLoading = playerStatus.isLoading(libraryItemId);
+    final currentBook = ref.watch(absStateProvider.select((v) => v.book));
+    final playing = ref.watch(absStateProvider.select((v) => v.playing));
+    // final playerStatus = ref.watch(playerStatusProvider);
+    // final isLoading = playerStatus.isLoading(libraryItemId);
     final isCurrentBookSetInPlayer =
         currentBook?.libraryItemId == libraryItemId;
-    final isPlayingThisBook =
-        playerStatus.isPlaying() && isCurrentBookSetInPlayer;
+    final isPlayingThisBook = playing && isCurrentBookSetInPlayer;
 
     final userProgress = me.valueOrNull?.mediaProgress
         ?.firstWhereOrNull((element) => element.libraryItemId == libraryItemId);
@@ -308,7 +308,7 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
               icon: Hero(
                 tag: HeroTagPrefixes.libraryItemPlayButton + libraryItemId,
                 child: DynamicItemPlayIcon(
-                  isLoading: isLoading,
+                  // isLoading: isLoading,
                   isBookCompleted: isBookCompleted,
                   isPlayingThisBook: isPlayingThisBook,
                   isCurrentBookSetInPlayer: isCurrentBookSetInPlayer,
@@ -355,7 +355,7 @@ class BookCoverWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentBook = ref.watch(currentBookProvider);
+    final currentBook = ref.watch(absStateProvider.select((v) => v.book));
     if (currentBook == null) {
       return const BookCoverSkeleton();
     }
