@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
-import 'package:vaani/features/player/core/audiobook_player.dart';
+import 'package:vaani/shared/audio_player.dart';
 import 'package:vaani/shared/extensions/obfuscation.dart';
 
 final _logger = Logger('PlaybackReporter');
@@ -14,7 +14,7 @@ final _logger = Logger('PlaybackReporter');
 /// and also report when the player is paused/stopped/finished/playing
 class PlaybackReporter {
   /// The player to watch
-  final AbsAudioHandler player;
+  final AbsAudioPlayer player;
 
   /// the api to report to
   final AudiobookshelfApi authenticatedApi;
@@ -75,7 +75,7 @@ class PlaybackReporter {
     this.markCompleteWhenTimeLeft = const Duration(seconds: 5),
   }) : _reportingInterval = reportingInterval {
     // initial conditions
-    if (player.player.playing) {
+    if (player.playing) {
       _stopwatch.start();
       _setReportTimerIfNotAlready();
       _logger.fine('starting stopwatch');

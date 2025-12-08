@@ -1,5 +1,4 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' as api;
 import 'package:vaani/api/api_provider.dart';
@@ -8,7 +7,7 @@ import 'package:vaani/shared/audio_player_mpv.dart';
 
 part 'abs_provider.g.dart';
 
-final _logger = Logger('AbsPlayerProvider');
+// final _logger = Logger('AbsPlayerProvider');
 
 @Riverpod(keepAlive: true)
 class AbsAudioPlayer extends _$AbsAudioPlayer {
@@ -40,7 +39,7 @@ class AbsAudioPlayer extends _$AbsAudioPlayer {
 @riverpod
 class PlayerState extends _$PlayerState {
   @override
-  core.PlayerState build() {
+  core.AbsPlayerState build() {
     final player = ref.read(absAudioPlayerProvider);
     player.playerStateStream.listen((playerState) {
       if (playerState != state) {
@@ -48,6 +47,17 @@ class PlayerState extends _$PlayerState {
       }
     });
     return player.playerState;
+  }
+
+  bool isLoading(String itemId) {
+    final player = ref.read(absAudioPlayerProvider);
+    return player.book?.libraryItemId == itemId &&
+        !state.playing &&
+        state.processingState == core.AbsProcessingState.loading;
+  }
+
+  bool isPlaying() {
+    return state.playing;
   }
 }
 

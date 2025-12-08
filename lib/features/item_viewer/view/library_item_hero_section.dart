@@ -7,9 +7,9 @@ import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/features/item_viewer/view/library_item_page.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/router/models/library_item_extras.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
+import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/shared/extensions/duration_format.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
@@ -139,7 +139,7 @@ class _LibraryItemProgressIndicator extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final player = ref.watch(playerProvider);
+    final player = ref.watch(absAudioPlayerProvider);
     final libraryItem = ref.watch(libraryItemProvider(id)).valueOrNull;
     if (libraryItem == null) {
       return const SizedBox.shrink();

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/features/player/view/player_expanded.dart'
     show pendingPlayerModals;
 import 'package:vaani/features/player/view/widgets/playing_indicator_icon.dart';
@@ -117,8 +116,8 @@ class ChapterSelectionModal extends HookConsumerWidget {
                             onTap: () {
                               Navigator.of(context).pop();
                               ref
-                                  .read(playerProvider)
-                                  .skipToChapter(chapter.id);
+                                  .read(absAudioPlayerProvider)
+                                  .switchChapter(chapter.id);
                             },
                           );
                         },

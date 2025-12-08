@@ -21,12 +21,12 @@ class AudiobookPlayerPlayPauseButton extends HookConsumerWidget {
     );
   }
 
-  Widget _getIcon(PlayerState playerState, BuildContext context) {
+  Widget _getIcon(AbsPlayerState playerState, BuildContext context) {
     if (playerState.playing) {
       return Icon(size: iconSize, Icons.pause);
     } else {
       switch (playerState.processingState) {
-        case ProcessingState.loading || ProcessingState.buffering:
+        case AbsProcessingState.loading || AbsProcessingState.buffering:
           return CircularProgressIndicator();
         default:
           return Icon(size: iconSize, Icons.play_arrow);
@@ -34,13 +34,13 @@ class AudiobookPlayerPlayPauseButton extends HookConsumerWidget {
     }
   }
 
-  void _actionButtonPressed(PlayerState playerState, WidgetRef ref) async {
+  void _actionButtonPressed(AbsPlayerState playerState, WidgetRef ref) async {
     final player = ref.read(absAudioPlayerProvider);
     if (playerState.playing) {
       await player.pause();
     } else {
       switch (playerState.processingState) {
-        case ProcessingState.completed:
+        case AbsProcessingState.completed:
           await player.seekInBook(const Duration(seconds: 0));
           await player.play();
         default:

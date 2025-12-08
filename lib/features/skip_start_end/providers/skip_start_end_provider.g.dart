@@ -6,7 +6,7 @@ part of 'skip_start_end_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$skipStartEndHash() => r'ba92dd22fc76f04cb5aaa220d025eb69c9d2ba46';
+String _$skipStartEndHash() => r'b55dff90ed4ba467e9320d6bc081721336975bdb';
 
 /// See also [SkipStartEnd].
 @ProviderFor(SkipStartEnd)

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
+import 'package:vaani/shared/audio_player.dart';
 
 /// this timer pauses the music player after a certain duration
 ///
@@ -32,7 +32,7 @@ class SleepTimer {
   }
 
   /// The player to be paused
-  final AudioPlayer player;
+  final AbsAudioPlayer player;
 
   /// The timer that will pause the player
   Timer? timer;
@@ -49,9 +49,9 @@ class SleepTimer {
 
   SleepTimer({required duration, required this.player}) : _duration = duration {
     _subscriptions.add(
-      player.playbackEventStream.listen((event) {
-        if (event.processingState == ProcessingState.completed ||
-            event.processingState == ProcessingState.idle) {
+      player.playerStateStream.listen((event) {
+        if (event.processingState == AbsProcessingState.completed ||
+            event.processingState == AbsProcessingState.idle) {
           clearCountDownTimer();
         }
       }),

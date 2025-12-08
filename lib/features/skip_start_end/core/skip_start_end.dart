@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:vaani/features/player/core/audiobook_player.dart';
+import 'package:vaani/shared/audio_player.dart';
 import 'package:vaani/shared/extensions/chapter.dart';
 import 'package:vaani/shared/utils/throttler.dart';
 
 class SkipStartEnd {
   final Duration start;
   final Duration end;
-  final AbsAudioHandler player;
+  final AbsAudioPlayer player;
 
   final List<StreamSubscription> _subscriptions = [];
   final throttlerStart = Throttler(delay: Duration(seconds: 3));
@@ -33,12 +33,12 @@ class SkipStartEnd {
     }
     if (end > Duration.zero) {
       _subscriptions.add(
-        player.positionStreamInChapter.listen((positionChapter) {
+        player.positionInChapterStream.listen((positionChapter) {
           if (end >
               (player.currentChapter?.duration ?? Duration.zero) -
                   positionChapter) {
             Future.microtask(
-              () => throttlerEnd.call(() => player.skipToNext()),
+              () => throttlerEnd.call(() => player.next()),
             );
           }
         }),

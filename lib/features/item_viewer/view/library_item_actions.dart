@@ -15,8 +15,6 @@ import 'package:vaani/features/downloads/providers/download_manager.dart'
         itemDownloadProgressProvider;
 import 'package:vaani/features/item_viewer/view/library_item_page.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/features/player/providers/player_status_provider.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
@@ -435,12 +433,12 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentBook = ref.watch(currentBookProvider);
     final book = item.media.asBookExpanded;
-    final playerStatusNotifier = ref.watch(playerStatusProvider);
-    final isLoading = playerStatusNotifier.isLoading(book.libraryItemId);
+    final playerStateNotifier = ref.watch(playerStateProvider.notifier);
+    final isLoading = playerStateNotifier.isLoading(book.libraryItemId);
     final isCurrentBookSetInPlayer =
         currentBook?.libraryItemId == book.libraryItemId;
     final isPlayingThisBook =
-        playerStatusNotifier.isPlaying() && isCurrentBookSetInPlayer;
+        playerStateNotifier.isPlaying() && isCurrentBookSetInPlayer;
 
     final userMediaProgress = item.userMediaProgress;
     final isBookCompleted = userMediaProgress?.isFinished ?? false;
@@ -469,7 +467,7 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
     return ElevatedButton.icon(
       onPressed: () {
         currentBook?.libraryItemId == book.libraryItemId
-            ? ref.read(playerProvider).togglePlayPause()
+            ? ref.read(absAudioPlayerProvider).playOrPause()
             : ref.read(absAudioPlayerProvider.notifier).load(
                   book,
                   initialPosition: userMediaProgress?.currentTime,

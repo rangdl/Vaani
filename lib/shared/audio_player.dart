@@ -20,15 +20,15 @@ final _logger = Logger('AbsAudioPlayer');
 abstract class AbsAudioPlayer {
   final _mediaItemController = BehaviorSubject<MediaItem?>.seeded(null);
   final playerStateSubject =
-      BehaviorSubject.seeded(PlayerState(false, ProcessingState.idle));
+      BehaviorSubject.seeded(AbsPlayerState(false, AbsProcessingState.idle));
   final _bookStreamController = BehaviorSubject<BookExpanded?>.seeded(null);
   final _chapterStreamController = BehaviorSubject<BookChapter?>.seeded(null);
 
   BookExpanded? get book => _bookStreamController.nvalue;
   BookChapter? get currentChapter => _chapterStreamController.nvalue;
-  PlayerState get playerState => playerStateSubject.value;
+  AbsPlayerState get playerState => playerStateSubject.value;
   Stream<MediaItem?> get mediaItemStream => _mediaItemController.stream;
-  Stream<PlayerState> get playerStateStream => playerStateSubject.stream;
+  Stream<AbsPlayerState> get playerStateStream => playerStateSubject.stream;
 
   Future<void> load(
     BookExpanded book, {
@@ -71,7 +71,7 @@ abstract class AbsAudioPlayer {
               baseUrl: baseUrl, token: token),
         )
         .toList();
-    setPlayList(playlist, index: indexTrack, position: positionInTrack);
+    await setPlayList(playlist, index: indexTrack, position: positionInTrack);
   }
 
   Future<void> setPlayList(
@@ -138,6 +138,7 @@ abstract class AbsAudioPlayer {
     await seekInBook(chapter.start + offset);
   }
 
+  bool get playing => playerState.playing;
   Stream<bool> get playingStream;
   Stream<BookExpanded?> get bookStream => _bookStreamController.stream;
   Stream<BookChapter?> get chapterStream => _chapterStreamController.stream;
@@ -185,7 +186,7 @@ abstract class AbsAudioPlayer {
 }
 
 /// Enumerates the different processing states of a player.
-enum ProcessingState {
+enum AbsProcessingState {
   /// The player has not loaded an [AudioSource].
   idle,
 
@@ -206,15 +207,15 @@ enum ProcessingState {
 /// orthogonally, and so if [processingState] is [ProcessingState.buffering],
 /// you can check [playing] to determine whether the buffering occurred while
 /// the player was playing or while the player was paused.
-class PlayerState {
+class AbsPlayerState {
   /// Whether the player will play when [processingState] is
   /// [ProcessingState.ready].
   final bool playing;
 
   /// The current processing state of the player.
-  final ProcessingState processingState;
+  final AbsProcessingState processingState;
 
-  PlayerState(this.playing, this.processingState);
+  AbsPlayerState(this.playing, this.processingState);
 
   @override
   String toString() => 'playing=$playing,processingState=$processingState';
@@ -229,11 +230,11 @@ class PlayerState {
       other.playing == playing &&
       other.processingState == processingState;
 
-  PlayerState copyWith({
+  AbsPlayerState copyWith({
     bool? playing,
-    ProcessingState? processingState,
+    AbsProcessingState? processingState,
   }) {
-    return PlayerState(
+    return AbsPlayerState(
       playing ?? this.playing,
       processingState ?? this.processingState,
     );

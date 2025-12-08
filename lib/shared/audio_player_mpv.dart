@@ -12,20 +12,23 @@ class AbsMpvAudioPlayer extends AbsAudioPlayer {
         state.copyWith(
           playing: playing,
           processingState: playing
-              ? state.processingState == ProcessingState.idle
-                  ? ProcessingState.ready
+              ? state.processingState == AbsProcessingState.idle
+                  ? AbsProcessingState.ready
                   : state.processingState
               : player.state.buffering
-                  ? ProcessingState.buffering
+                  ? AbsProcessingState.buffering
                   : player.state.completed
-                      ? ProcessingState.completed
-                      : ProcessingState.ready,
+                      ? AbsProcessingState.completed
+                      : AbsProcessingState.ready,
         ),
       );
     });
   }
   @override
-  Stream<Duration> get bufferedPositionInBookStream => player.stream.buffer;
+  Duration get bufferedPosition => player.state.buffer;
+
+  @override
+  Stream<Duration> get bufferedPositionStream => player.stream.buffer;
 
   @override
   int get currentIndex => player.state.playlist.index;
@@ -44,6 +47,9 @@ class AbsMpvAudioPlayer extends AbsAudioPlayer {
   Future<void> playOrPause() async {
     await player.playOrPause();
   }
+
+  @override
+  Stream<bool> get playingStream => player.stream.playing;
 
   @override
   Duration get position => player.state.position;
@@ -91,17 +97,5 @@ class AbsMpvAudioPlayer extends AbsAudioPlayer {
   }
 
   @override
-  Stream<bool> get playingStream => player.stream.playing;
-
-  @override
-  // TODO: implement speed
   double get speed => player.state.rate;
-
-  @override
-  // TODO: implement bufferedPosition
-  Duration get bufferedPosition => player.state.buffer;
-
-  @override
-  // TODO: implement bufferedPositionStream
-  Stream<Duration> get bufferedPositionStream => player.stream.buffer;
 }

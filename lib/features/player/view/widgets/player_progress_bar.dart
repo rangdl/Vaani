@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
 
 class AudiobookChapterProgressBar extends HookConsumerWidget {
   const AudiobookChapterProgressBar({

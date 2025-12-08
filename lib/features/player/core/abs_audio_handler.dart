@@ -1,8 +1,4 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:media_kit/media_kit.dart';
-import 'package:vaani/features/player/providers/abs_provider.dart'
-    hide AbsAudioPlayer;
 import 'package:vaani/shared/audio_player.dart';
 
 class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
@@ -39,11 +35,11 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
           playing: playerState.playing,
           // 根据 playing 和实际情况更新 processingState
           processingState: const {
-                ProcessingState.idle: AudioProcessingState.idle,
-                ProcessingState.loading: AudioProcessingState.loading,
-                ProcessingState.buffering: AudioProcessingState.buffering,
-                ProcessingState.ready: AudioProcessingState.ready,
-                ProcessingState.completed: AudioProcessingState.completed,
+                AbsProcessingState.idle: AudioProcessingState.idle,
+                AbsProcessingState.loading: AudioProcessingState.loading,
+                AbsProcessingState.buffering: AudioProcessingState.buffering,
+                AbsProcessingState.ready: AudioProcessingState.ready,
+                AbsProcessingState.completed: AudioProcessingState.completed,
               }[playerState.processingState] ??
               AudioProcessingState.idle,
         ),

@@ -2,12 +2,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart'
-    show sleepTimerProvider;
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart'
     show appSettingsProvider;
 import 'package:vaani/features/settings/models/app_settings.dart';
+import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart'
+    show sleepTimerProvider;
+import 'package:vaani/shared/audio_player.dart';
 import 'package:vibration/vibration.dart';
 
 import 'shake_detector.dart' as core;
@@ -31,14 +32,15 @@ class ShakeDetector extends _$ShakeDetector {
     }
 
     // if no book is loaded, shake detection should not be enabled
-    final player = ref.watch(playerProvider);
+    final player = ref.watch(absAudioPlayerProvider);
     player.playerStateStream.listen((event) {
-      if (event.processingState == ProcessingState.idle && wasPlayerLoaded) {
+      if (event.processingState == AbsProcessingState.idle && wasPlayerLoaded) {
         _logger.config('Player is now not loaded, invalidating');
         wasPlayerLoaded = false;
         ref.invalidateSelf();
       }
-      if (event.processingState != ProcessingState.idle && !wasPlayerLoaded) {
+      if (event.processingState != AbsProcessingState.idle &&
+          !wasPlayerLoaded) {
         _logger.config('Player is now loaded, invalidating');
         wasPlayerLoaded = true;
         ref.invalidateSelf();
@@ -86,7 +88,7 @@ class ShakeDetector extends _$ShakeDetector {
     ShakeAction shakeAction, {
     required Ref ref,
   }) {
-    final player = ref.read(playerProvider);
+    final player = ref.read(absAudioPlayerProvider);
     if (player.book == null && shakeAction.isPlaybackManagementEnabled) {
       _logger.warning('No book is loaded');
       return false;
@@ -103,23 +105,23 @@ class ShakeDetector extends _$ShakeDetector {
         return true;
       case ShakeAction.fastForward:
         _logger.fine('Fast forwarding');
-        if (!player.player.playerState.playing) {
+        if (!player.playing) {
           _logger.warning('Player is not playing');
           return false;
         }
-        player.seek(player.player.position + const Duration(seconds: 30));
+        player.seek(player.position + const Duration(seconds: 30));
         return true;
       case ShakeAction.rewind:
         _logger.fine('Rewinding');
-        if (!player.player.playerState.playing) {
+        if (!player.playing) {
           _logger.warning('Player is not playing');
           return false;
         }
-        player.seek(player.player.position - const Duration(seconds: 30));
+        player.seek(player.position - const Duration(seconds: 30));
         return true;
       case ShakeAction.playPause:
         _logger.fine('Toggling play/pause');
-        player.togglePlayPause();
+        player.playOrPause();
         return true;
       default:
         return false;

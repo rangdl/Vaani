@@ -6,7 +6,7 @@ part of 'playback_reporter_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$playbackReporterHash() => r'23b9770d279d921a5766fc2dda20f76dd3e181ed';
+String _$playbackReporterHash() => r'13936a7d616e9055388d23fa361519b749c524a3';
 
 /// See also [PlaybackReporter].
 @ProviderFor(PlaybackReporter)

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/sleep_timer/core/sleep_timer.dart' as core;
 import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/shared/extensions/time_of_day.dart';
@@ -26,7 +26,7 @@ class SleepTimer extends _$SleepTimer {
 
     var sleepTimer = core.SleepTimer(
       duration: sleepTimerSettings.defaultDuration,
-      player: ref.watch(playerProvider).player,
+      player: ref.watch(absAudioPlayerProvider),
     );
     ref.onDispose(sleepTimer.dispose);
     return sleepTimer;
@@ -45,7 +45,7 @@ class SleepTimer extends _$SleepTimer {
     } else {
       final timer = core.SleepTimer(
         duration: resultingDuration,
-        player: ref.watch(playerProvider).player,
+        player: ref.watch(absAudioPlayerProvider),
       );
       ref.onDispose(timer.dispose);
       state = timer;

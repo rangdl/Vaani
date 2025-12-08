@@ -74,12 +74,12 @@ final absAudioPlayerProvider =
 );
 
 typedef _$AbsAudioPlayer = Notifier<core.AbsAudioPlayer>;
-String _$playerStateHash() => r'ed07c487fdad5fd0e21dfd32a274eecc470e83a4';
+String _$playerStateHash() => r'6635671077b077f48dad173c4393462921de56f8';
 
 /// See also [PlayerState].
 @ProviderFor(PlayerState)
 final playerStateProvider =
-    AutoDisposeNotifierProvider<PlayerState, core.PlayerState>.internal(
+    AutoDisposeNotifierProvider<PlayerState, core.AbsPlayerState>.internal(
   PlayerState.new,
   name: r'playerStateProvider',
   debugGetCreateSourceHash:
@@ -88,7 +88,7 @@ final playerStateProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$PlayerState = AutoDisposeNotifier<core.PlayerState>;
+typedef _$PlayerState = AutoDisposeNotifier<core.AbsPlayerState>;
 String _$currentBookHash() => r'40c24ad45aab37afc32e8e8383d6abbe19b714bc';
 
 /// See also [CurrentBook].

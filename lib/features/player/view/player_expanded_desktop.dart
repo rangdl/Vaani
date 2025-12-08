@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
 import 'package:vaani/features/player/view/player_expanded.dart'
     show PlayerExpandedImage;
 import 'package:vaani/features/player/view/player_minimized.dart';
@@ -201,7 +200,7 @@ class ChapterSelection extends HookConsumerWidget {
             selected: isCurrent,
             // key: isCurrent ? chapterKey : null,
             onTap: () {
-              ref.read(playerProvider).skipToChapter(chapter.id);
+              ref.read(absAudioPlayerProvider).switchChapter(chapter.id);
             },
           );
         },
