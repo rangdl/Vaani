@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:vaani/features/player/providers/currently_playing_provider.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/view/player_expanded.dart';
 import 'package:vaani/features/player/view/player_expanded_desktop.dart';
 import 'package:vaani/shared/widgets/not_implemented.dart';
@@ -19,15 +18,15 @@ class PlayerPage extends HookConsumerWidget {
     final size = MediaQuery.of(context).size;
     // 竖屏
     final isVertical = size.height > size.width;
-    return PlatformScaffold(
-      appBar: PlatformAppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: Text(currentBook.metadata.title ?? ''),
         leading: IconButton(
           iconSize: 30,
           icon: const Icon(Icons.keyboard_arrow_down),
           onPressed: () => context.pop(),
         ),
-        trailingActions: [
+        actions: [
           IconButton(
             icon: const Icon(Icons.cast),
             onPressed: () {
@@ -36,7 +35,8 @@ class PlayerPage extends HookConsumerWidget {
           ),
         ],
       ),
-      body: isVertical ? PlayerExpanded() : PlayerExpandedDesktop(),
+      // body: isVertical ? PlayerExpanded() : PlayerExpandedDesktop(),
+      body: PlayerExpanded(),
     );
   }
 }

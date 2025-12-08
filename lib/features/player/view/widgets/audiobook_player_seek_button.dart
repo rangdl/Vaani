@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/constants/sizes.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 
 class AudiobookPlayerSeekButton extends HookConsumerWidget {
   const AudiobookPlayerSeekButton({
@@ -14,7 +14,7 @@ class AudiobookPlayerSeekButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final player = ref.watch(playerProvider);
+    final player = ref.read(absAudioPlayerProvider);
     return IconButton(
       icon: Icon(
         isForward ? Icons.forward_30 : Icons.replay_30,

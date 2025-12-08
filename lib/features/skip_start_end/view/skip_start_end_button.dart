@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
-import 'package:vaani/features/player/providers/currently_playing_provider.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/view/player_expanded.dart';
 import 'package:vaani/features/settings/view/notification_settings_page.dart';
 import 'package:vaani/generated/l10n.dart';

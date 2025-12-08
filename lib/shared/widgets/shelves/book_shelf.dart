@@ -12,12 +12,9 @@ import 'package:vaani/api/library_item_provider.dart' show libraryItemProvider;
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/features/item_viewer/view/library_item_actions.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
-import 'package:vaani/features/player/providers/currently_playing_provider.dart';
-import 'package:vaani/features/player/providers/player_status_provider.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
+import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/router/router.dart';
-import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/widgets/shelves/home_shelf.dart';
 import 'package:vaani/theme/providers/theme_from_cover_provider.dart';
@@ -215,11 +212,8 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final me = ref.watch(meProvider);
-    // final player = ref.watch(audiobookPlayerProvider);
-    final currentBook = ref.watch(absStateProvider.select((v) => v.book));
-    final playing = ref.watch(absStateProvider.select((v) => v.playing));
-    // final playerStatus = ref.watch(playerStatusProvider);
-    // final isLoading = playerStatus.isLoading(libraryItemId);
+    final currentBook = ref.watch(currentBookProvider);
+    final playing = ref.watch(playerStateProvider.select((v) => v.playing));
     final isCurrentBookSetInPlayer =
         currentBook?.libraryItemId == libraryItemId;
     final isPlayingThisBook = playing && isCurrentBookSetInPlayer;
@@ -300,9 +294,9 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
                 //       book.media.asBookExpanded,
                 //       userProgress?.currentTime,
                 //     );
-                ref.read(absStateProvider.notifier).load(
+                ref.read(absAudioPlayerProvider.notifier).load(
                       book.media.asBookExpanded,
-                      userProgress?.currentTime,
+                      initialPosition: userProgress?.currentTime,
                     );
               },
               icon: Hero(
@@ -355,7 +349,7 @@ class BookCoverWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentBook = ref.watch(absStateProvider.select((v) => v.book));
+    final currentBook = ref.watch(currentBookProvider);
     if (currentBook == null) {
       return const BookCoverSkeleton();
     }

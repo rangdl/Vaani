@@ -5,8 +5,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/constants/sizes.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/player/view/player_expanded.dart'
     show PlayerExpandedImage;
 import 'package:vaani/features/player/view/player_minimized.dart';
@@ -74,9 +74,9 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
                           // buttonSkipBackwards
                           const AudiobookPlayerSeekButton(isForward: false),
                           AudiobookPlayerPlayPauseButton(),
-                          // buttonSkipForwards
+                          // // buttonSkipForwards
                           const AudiobookPlayerSeekButton(isForward: true),
-                          // next chapter
+                          // // next chapter
                           const AudiobookPlayerSeekChapterButton(
                               isForward: true),
                         ],

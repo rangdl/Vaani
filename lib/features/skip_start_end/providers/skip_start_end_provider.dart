@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/skip_start_end/core/skip_start_end.dart' as core;
 
 part 'skip_start_end_provider.g.dart';

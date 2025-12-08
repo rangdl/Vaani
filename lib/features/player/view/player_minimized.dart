@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/chapter.dart';
@@ -21,12 +18,11 @@ class PlayerMinimized extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentBook = ref.watch(absStateProvider.select((v) => v.book));
+    final currentBook = ref.watch(currentBookProvider);
     if (currentBook == null) {
       return SizedBox.shrink();
     }
-    final currentChapter =
-        ref.watch(absStateProvider.select((v) => v.currentChapter));
+    final currentChapter = ref.watch(currentChapterProvider);
 
     return PlayerMinimizedFramework(
       children: [
@@ -63,14 +59,14 @@ class PlayerMinimized extends HookConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // AutoScrollText(
-                PlatformText(
+                Text(
                   '${currentBook.metadata.title ?? ''} - ${currentChapter?.title ?? ''}',
                   maxLines: 1, overflow: TextOverflow.ellipsis,
                   // velocity:
                   //     const Velocity(pixelsPerSecond: Offset(16, 0)),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                PlatformText(
+                Text(
                   currentBook.metadata.asBookMetadataExpanded.authorName ?? '',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -89,7 +85,7 @@ class PlayerMinimized extends HookConsumerWidget {
         // rewind button
         Padding(
           padding: const EdgeInsets.only(left: 8),
-          child: PlatformIconButton(
+          child: IconButton(
             icon: const Icon(
               Icons.replay_30,
               size: AppElementSizes.iconSizeSmall,
@@ -116,13 +112,14 @@ class PlayerMinimizedFramework extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final player = ref.watch(playerProvider);
-    final currentChapter =
-        ref.watch(absStateProvider.select((v) => v.currentChapter));
+    final currentChapter = ref.watch(currentChapterProvider);
 
     final progress =
         // useStream(player.positionStreamInChapter, initialData: Duration.zero);
-        useStream(ref.read(absStateProvider.notifier).positionStreamInChapter,
-            initialData: Duration.zero);
+        useStream(
+      ref.read(absAudioPlayerProvider).positionInChapterStream,
+      initialData: Duration.zero,
+    );
     return GestureDetector(
       onTap: () {
         if (GoRouterState.of(context).topRoute?.name != Routes.player.name) {

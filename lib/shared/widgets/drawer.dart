@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vaani/features/you/view/server_manager.dart';
 import 'package:vaani/router/router.dart';
@@ -26,12 +25,12 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             title: const Text('server Settings'),
             onTap: () {
-              Navigator.of(context).push(
-                platformPageRoute(
-                  context: context,
-                  builder: (context) => const ServerManagerPage(),
-                ),
-              );
+              // Navigator.of(context).push(
+              //   PageRoute(
+              //     context: context,
+              //     builder: (context) => const ServerManagerPage(),
+              //   ),
+              // );
             },
           ),
           ListTile(

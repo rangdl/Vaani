@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/constants/sizes.dart';
-import 'package:vaani/features/player/providers/currently_playing_provider.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
 import 'package:vaani/features/player/view/widgets/player_progress_bar.dart';
 import 'package:vaani/features/skip_start_end/view/skip_start_end_button.dart';

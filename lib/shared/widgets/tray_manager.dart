@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tray_manager/tray_manager.dart';
-import 'package:vaani/features/player/providers/audiobook_player.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/shared/utils/helper.dart';
 import 'package:window_manager/window_manager.dart';
@@ -46,17 +46,17 @@ class _TrayManagerState extends ConsumerState<TrayManager>
         MenuItem(
           key: 'play_pause',
           label: '播放/暂停',
-          onClick: (menuItem) => ref.read(playerProvider).togglePlayPause(),
+          onClick: (menuItem) => ref.read(absAudioPlayerProvider).playOrPause(),
         ),
         MenuItem(
           key: 'previous',
           label: '上一个',
-          onClick: (menuItem) => ref.read(playerProvider).skipToPrevious(),
+          onClick: (menuItem) => ref.read(absAudioPlayerProvider).previous(),
         ),
         MenuItem(
           key: 'next',
           label: '下一个',
-          onClick: (menuItem) => ref.read(playerProvider).skipToNext(),
+          onClick: (menuItem) => ref.read(absAudioPlayerProvider).next(),
         ),
         MenuItem.separator(),
         MenuItem(

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/constants/sizes.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
-import 'package:vaani/features/player/providers/currently_playing_provider.dart';
 
 class AudiobookChapterProgressBar extends HookConsumerWidget {
   const AudiobookChapterProgressBar({
@@ -13,14 +13,14 @@ class AudiobookChapterProgressBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final player = ref.watch(playerProvider);
+    final player = ref.watch(absAudioPlayerProvider);
     final currentChapter = ref.watch(currentChapterProvider);
     final position = useStream(
-      player.positionStreamInBook,
+      player.positionInBookStream,
       initialData: const Duration(seconds: 0),
     );
     final buffered = useStream(
-      player.bufferedPositionStreamInBook,
+      player.bufferedPositionInBookStream,
       initialData: const Duration(seconds: 0),
     );
 
@@ -64,9 +64,9 @@ class AudiobookProgressBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final player = ref.watch(playerProvider);
+    final player = ref.read(absAudioPlayerProvider);
     final position = useStream(
-      player.slowPositionStreamInBook,
+      player.positionInBookStream,
       initialData: const Duration(seconds: 0),
     );
 
