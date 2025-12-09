@@ -1,11 +1,14 @@
 import 'dart:async';
 
 import 'package:media_kit/media_kit.dart' hide PlayerState;
-import 'package:vaani/shared/audio_player.dart';
+import 'package:vaani/features/player/core/abs_audio_player.dart';
 
+/// 音频播放器 mpv全平台 (media_kit)
 class AbsMpvAudioPlayer extends AbsAudioPlayer {
-  final player = Player();
+  late Player player;
   AbsMpvAudioPlayer() {
+    MediaKit.ensureInitialized();
+    player = Player();
     player.stream.playing.listen((playing) {
       final state = playerState;
       playerStateSubject.add(
@@ -60,7 +63,9 @@ class AbsMpvAudioPlayer extends AbsAudioPlayer {
   @override
   Future<void> seek(Duration position, {int? index}) async {
     if (index != null) {
+      final playing = this.playing;
       await player.jump(index);
+      if (!playing) await player.pause();
     }
     await player.seek(position);
   }
@@ -93,7 +98,7 @@ class AbsMpvAudioPlayer extends AbsAudioPlayer {
 
   @override
   Future<void> setVolume(double volume) async {
-    await player.setVolume(volume);
+    await player.setVolume(volume * 100);
   }
 
   @override

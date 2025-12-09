@@ -2,18 +2,19 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' as api;
 import 'package:vaani/api/api_provider.dart';
-import 'package:vaani/shared/audio_player.dart' as core;
-import 'package:vaani/shared/audio_player_mpv.dart';
+import 'package:vaani/features/player/core/abs_audio_player.dart' as core;
+import 'package:vaani/features/player/core/abs_audio_player_platform.dart';
 
 part 'abs_provider.g.dart';
 
 // final _logger = Logger('AbsPlayerProvider');
-
+/// 音频播放器 riverpod状态
 @Riverpod(keepAlive: true)
-class AbsAudioPlayer extends _$AbsAudioPlayer {
+class AudioPlayer extends _$AudioPlayer {
   @override
   core.AbsAudioPlayer build() {
-    final player = AbsMpvAudioPlayer();
+    // final player = AbsMpvAudioPlayer();
+    final player = AbsPlatformAudioPlayer();
     return player;
   }
 
@@ -40,7 +41,7 @@ class AbsAudioPlayer extends _$AbsAudioPlayer {
 class PlayerState extends _$PlayerState {
   @override
   core.AbsPlayerState build() {
-    final player = ref.read(absAudioPlayerProvider);
+    final player = ref.read(audioPlayerProvider);
     player.playerStateStream.listen((playerState) {
       if (playerState != state) {
         state = playerState;
@@ -50,7 +51,7 @@ class PlayerState extends _$PlayerState {
   }
 
   bool isLoading(String itemId) {
-    final player = ref.read(absAudioPlayerProvider);
+    final player = ref.read(audioPlayerProvider);
     return player.book?.libraryItemId == itemId &&
         !state.playing &&
         state.processingState == core.AbsProcessingState.loading;
@@ -65,7 +66,7 @@ class PlayerState extends _$PlayerState {
 class CurrentBook extends _$CurrentBook {
   @override
   api.BookExpanded? build() {
-    final player = ref.read(absAudioPlayerProvider);
+    final player = ref.read(audioPlayerProvider);
     player.bookStream.listen((book) {
       if (book != state) {
         state = book;
@@ -77,7 +78,7 @@ class CurrentBook extends _$CurrentBook {
 
 @riverpod
 bool isPlayerActive(Ref ref) {
-  final player = ref.read(absAudioPlayerProvider);
+  final player = ref.read(audioPlayerProvider);
   player.bookStream.listen((book) {
     ref.invalidateSelf();
   });
@@ -88,7 +89,7 @@ bool isPlayerActive(Ref ref) {
 class CurrentChapter extends _$CurrentChapter {
   @override
   api.BookChapter? build() {
-    final player = ref.read(absAudioPlayerProvider);
+    final player = ref.read(audioPlayerProvider);
     player.chapterStream.listen((chapter) {
       if (chapter != state) {
         state = chapter;
@@ -100,7 +101,7 @@ class CurrentChapter extends _$CurrentChapter {
 
 @riverpod
 Stream<Duration> positionChapter(Ref ref) {
-  return ref.read(absAudioPlayerProvider).positionInChapterStream;
+  return ref.read(audioPlayerProvider).positionInChapterStream;
 }
 
 @riverpod

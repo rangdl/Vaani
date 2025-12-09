@@ -12,6 +12,7 @@ import 'package:vaani/features/player/view/player_minimized.dart';
 import 'package:vaani/features/player/view/widgets/audiobook_player_seek_button.dart';
 import 'package:vaani/features/player/view/widgets/audiobook_player_seek_chapter_button.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
+import 'package:vaani/features/player/view/widgets/player_progress_bar.dart';
 import 'package:vaani/features/player/view/widgets/player_speed_adjust_button.dart';
 import 'package:vaani/features/skip_start_end/view/skip_start_end_button.dart';
 import 'package:vaani/features/sleep_timer/view/sleep_timer_button.dart';
@@ -64,35 +65,18 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
                         // add a shadow to the image elevation hovering effect
                         child: PlayerExpandedImage(imageSize),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // previous chapter
-                          const AudiobookPlayerSeekChapterButton(
-                              isForward: false),
-                          // buttonSkipBackwards
-                          const AudiobookPlayerSeekButton(isForward: false),
-                          AudiobookPlayerPlayPauseButton(),
-                          // // buttonSkipForwards
-                          const AudiobookPlayerSeekButton(isForward: true),
-                          // // next chapter
-                          const AudiobookPlayerSeekChapterButton(
-                              isForward: true),
-                        ],
+                      _buildControls(imageSize),
+                      SizedBox(
+                        width: imageSize,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: AppElementSizes.paddingRegular,
+                            right: AppElementSizes.paddingRegular,
+                          ),
+                          child: const AudiobookChapterProgressBar(),
+                        ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          // speed control
-                          const PlayerSpeedAdjustButton(),
-                          const Spacer(),
-                          // sleep timer
-                          const SleepTimerButton(),
-                          const Spacer(),
-                          // 跳过片头片尾
-                          SkipChapterStartEndButton(),
-                        ],
-                      ),
+                      _buildSettings(imageSize),
                     ],
                   ),
                 ),
@@ -130,8 +114,47 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
             ),
           ),
         ),
-        Hero(tag: 'player_hero', child: const PlayerMinimized()),
+        Hero(tag: 'player_hero', child: const PlayerMinimizedControls()),
       ],
+    );
+  }
+
+  Widget _buildControls(double width) {
+    return SizedBox(
+      width: width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // previous chapter
+          const AudiobookPlayerSeekChapterButton(isForward: false),
+          // buttonSkipBackwards
+          const AudiobookPlayerSeekButton(isForward: false),
+          AudiobookPlayerPlayPauseButton(),
+          // // buttonSkipForwards
+          const AudiobookPlayerSeekButton(isForward: true),
+          // // next chapter
+          const AudiobookPlayerSeekChapterButton(isForward: true),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSettings(double width) {
+    return SizedBox(
+      width: width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          // speed control
+          const PlayerSpeedAdjustButton(),
+          const Spacer(),
+          // sleep timer
+          const SleepTimerButton(),
+          const Spacer(),
+          // 跳过片头片尾
+          SkipChapterStartEndButton(),
+        ],
+      ),
     );
   }
 }
@@ -200,7 +223,7 @@ class ChapterSelection extends HookConsumerWidget {
             selected: isCurrent,
             // key: isCurrent ? chapterKey : null,
             onTap: () {
-              ref.read(absAudioPlayerProvider).switchChapter(chapter.id);
+              ref.read(audioPlayerProvider).switchChapter(chapter.id);
             },
           );
         },

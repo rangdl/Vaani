@@ -13,7 +13,7 @@ class PlaybackReporter extends _$PlaybackReporter {
   @override
   Future<core.PlaybackReporter> build() async {
     final playerSettings = ref.watch(appSettingsProvider).playerSettings;
-    final player = ref.watch(absAudioPlayerProvider);
+    final player = ref.watch(audioPlayerProvider);
     final api = ref.watch(authenticatedApiProvider);
 
     final reporter = core.PlaybackReporter(

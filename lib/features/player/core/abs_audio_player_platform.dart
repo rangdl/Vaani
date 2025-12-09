@@ -1,12 +1,16 @@
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_media_kit/just_audio_media_kit.dart';
 import 'package:logging/logging.dart';
-import 'package:vaani/shared/audio_player.dart';
+import 'package:vaani/features/player/core/abs_audio_player.dart';
 
 final _logger = Logger('AbsPlatformAudioPlayer');
 
+/// 音频播放器 平台ios,macos,android (just_audio)
 class AbsPlatformAudioPlayer extends AbsAudioPlayer {
-  final AudioPlayer player = AudioPlayer();
+  late final AudioPlayer player;
   AbsPlatformAudioPlayer() {
+    JustAudioMediaKit.ensureInitialized();
+    player = AudioPlayer();
     player.playerStateStream.listen((state) {
       playerStateSubject.add(
         playerState.copyWith(
@@ -20,6 +24,12 @@ class AbsPlatformAudioPlayer extends AbsAudioPlayer {
           }[state.processingState],
         ),
       );
+    });
+    player.positionStream.distinct().listen((position) {
+      final chapter = book?.findChapterAtTime(positionInBook);
+      if (chapter != currentChapter) {
+        chapterStreamController.add(chapter);
+      }
     });
   }
   @override

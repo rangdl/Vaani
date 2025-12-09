@@ -38,7 +38,8 @@ void main() async {
 
   // initialize audio player
   // await configurePlayer();
-  await configurePlayer(container);
+  final player = container.read(audioPlayerProvider);
+  await configurePlayer(player);
   // run the app
   runApp(
     UncontrolledProviderScope(

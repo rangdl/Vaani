@@ -4,7 +4,6 @@ import 'package:vaani/features/downloads/view/downloads_page.dart';
 import 'package:vaani/features/explore/view/explore_page.dart';
 import 'package:vaani/features/explore/view/search_result_page.dart';
 import 'package:vaani/features/item_viewer/view/library_item_page.dart';
-import 'package:vaani/features/library_browser/view/library_browser_page.dart';
 import 'package:vaani/features/logging/view/logs_page.dart';
 import 'package:vaani/features/onboarding/view/callback_page.dart';
 import 'package:vaani/features/onboarding/view/onboarding_single_page.dart';

@@ -35,8 +35,7 @@ class PlayerPage extends HookConsumerWidget {
           ),
         ],
       ),
-      // body: isVertical ? PlayerExpanded() : PlayerExpandedDesktop(),
-      body: PlayerExpanded(),
+      body: isVertical ? PlayerExpanded() : PlayerExpandedDesktop(),
     );
   }
 }

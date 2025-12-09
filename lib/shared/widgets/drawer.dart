@@ -25,12 +25,11 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             title: const Text('server Settings'),
             onTap: () {
-              // Navigator.of(context).push(
-              //   PageRoute(
-              //     context: context,
-              //     builder: (context) => const ServerManagerPage(),
-              //   ),
-              // );
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ServerManagerPage(),
+                ),
+              );
             },
           ),
           ListTile(

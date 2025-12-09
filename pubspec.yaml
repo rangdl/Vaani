@@ -31,25 +31,26 @@ isar_version: &isar_version ^4.0.0-dev.14 # define the version to be used
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  collection: ^1.18.0
+  flutter:
+    sdk: flutter
+    
   animated_list_plus: ^0.5.2
   animated_theme_switcher: ^2.0.10
   archive: ^4.0.5
   audio_video_progress_bar: ^2.0.2
-  auto_scroll_text: ^0.0.7
+  # auto_scroll_text: ^0.0.7
   background_downloader: ^9.2.0
   cached_network_image: ^3.3.1
-  coast: ^2.0.2
-  collection: ^1.18.0
-  cupertino_icons: ^1.0.6
+  # coast: ^2.0.2
+  # cupertino_icons: ^1.0.6
   # flutter_platform_widgets: ^9.0.0
   flutter_staggered_grid_view: ^0.7.0
-  device_info_plus: ^11.3.3
   duration_picker: ^1.2.0
   dynamic_color: ^1.7.0
-  easy_stepper: ^0.8.4
-  file_picker: ^10.0.0
-  flutter:
-    sdk: flutter
+  # easy_stepper: ^0.8.4
+  # file_picker: ^10.0.0
+
   flutter_animate: ^4.5.0
   flutter_cache_manager: ^3.3.2
   flutter_hooks: ^0.21.2
@@ -62,6 +63,8 @@ dependencies:
   isar: ^4.0.0-dev.14
   isar_flutter_libs: ^4.0.0-dev.14
   json_annotation: ^4.9.0
+  audio_service: ^0.18.15
+  audio_session: ^0.1.23
   just_audio: ^0.10.5
   # just_audio_background: 
   #   # TODO Remove git dep when https://github.com/ryanheise/just_audio/issues/912 is closed
@@ -70,13 +73,11 @@ dependencies:
   #     ref: media-notification-config
   #     path: just_audio_background
   # just_audio_windows: ^0.2.2
-  # just_audio_media_kit: ^2.0.4
-  # media_kit_libs_linux: any
-  # media_kit_libs_windows_audio: any
-  audio_service: ^0.18.15
-  # audio_session: ^0.1.23
-  media_kit: ^1.2.3 # Primary package.
-  media_kit_libs_audio: any # Native audio dependencies.
+  just_audio_media_kit: ^2.0.4
+  media_kit_libs_linux: any
+  media_kit_libs_windows_audio: any
+  # media_kit: ^1.2.3 # Primary package.
+  # media_kit_libs_audio: any # Native audio dependencies.
   
   list_wheel_scroll_view_nls: ^0.0.3
   logging: ^1.2.0
@@ -88,7 +89,8 @@ dependencies:
   #   git:
   #     url: https://github.com/Dr-Blank/miniplayer.git
   #     ref: feat-notifier-for-percent-dismissed
-  numberpicker: ^2.1.2
+  # numberpicker: ^2.1.2
+  device_info_plus: ^11.3.3
   package_info_plus: ^8.0.0
   path: ^1.9.0
   path_provider: ^2.1.0

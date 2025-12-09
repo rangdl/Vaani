@@ -9,7 +9,7 @@ class MiniPlayerBottomPadding extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return AnimatedSize(
       duration: const Duration(milliseconds: 200),
-      child: ref.watch(absAudioPlayerProvider).playing
+      child: ref.watch(audioPlayerProvider).playing
           ? const SizedBox(height: playerMinHeight + 8)
           : const SizedBox.shrink(),
     );

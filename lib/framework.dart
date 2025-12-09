@@ -18,11 +18,11 @@ class Framework extends ConsumerWidget {
     // Eagerly initialize providers by watching them.
     // By using "watch", the provider will stay alive and not be disposed.
     try {
-      // ref.watch(simpleDownloadManagerProvider);
-      // if (Helper.isAndroid()) ref.watch(shakeDetectorProvider);
-      // ref.watch(sleepTimerProvider);
+      ref.watch(simpleDownloadManagerProvider);
+      if (Helper.isAndroid()) ref.watch(shakeDetectorProvider);
+      ref.watch(sleepTimerProvider);
       // ref.watch(skipStartEndProvider);
-      // ref.watch(playbackReporterProvider);
+      ref.watch(playbackReporterProvider);
     } catch (e) {
       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
       appLogger.severe(e.toString());

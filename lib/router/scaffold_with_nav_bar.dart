@@ -41,7 +41,7 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
         alignment: Alignment.bottomCenter,
         children: [
           isVertical ? navigationShell : buildNavLeft(context, ref),
-          Hero(tag: 'player_hero', child: const PlayerMinimized()),
+          const PlayerMinimized(),
         ],
       ),
       bottomNavigationBar: isVertical ? buildNavBottom(context, ref) : null,

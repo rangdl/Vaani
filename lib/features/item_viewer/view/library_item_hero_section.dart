@@ -139,7 +139,7 @@ class _LibraryItemProgressIndicator extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final player = ref.watch(absAudioPlayerProvider);
+    final player = ref.watch(audioPlayerProvider);
     final libraryItem = ref.watch(libraryItemProvider(id)).valueOrNull;
     if (libraryItem == null) {
       return const SizedBox.shrink();

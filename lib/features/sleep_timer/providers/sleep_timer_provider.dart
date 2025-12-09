@@ -26,7 +26,7 @@ class SleepTimer extends _$SleepTimer {
 
     var sleepTimer = core.SleepTimer(
       duration: sleepTimerSettings.defaultDuration,
-      player: ref.watch(absAudioPlayerProvider),
+      player: ref.watch(audioPlayerProvider),
     );
     ref.onDispose(sleepTimer.dispose);
     return sleepTimer;
@@ -45,7 +45,7 @@ class SleepTimer extends _$SleepTimer {
     } else {
       final timer = core.SleepTimer(
         duration: resultingDuration,
-        player: ref.watch(absAudioPlayerProvider),
+        player: ref.watch(audioPlayerProvider),
       );
       ref.onDispose(timer.dispose);
       state = timer;

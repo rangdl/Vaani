@@ -12,7 +12,7 @@ class AudiobookChapterProgressBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final player = ref.watch(absAudioPlayerProvider);
+    final player = ref.watch(audioPlayerProvider);
     final currentChapter = ref.watch(currentChapterProvider);
     final position = useStream(
       player.positionInBookStream,
@@ -63,7 +63,7 @@ class AudiobookProgressBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final player = ref.read(absAudioPlayerProvider);
+    final player = ref.read(audioPlayerProvider);
     final position = useStream(
       player.positionInBookStream,
       initialData: const Duration(seconds: 0),

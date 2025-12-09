@@ -1,6 +1,7 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:vaani/shared/audio_player.dart';
+import 'package:vaani/features/player/core/abs_audio_player.dart';
 
+// 对接audio_service
 class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   final AbsAudioPlayer player;
 

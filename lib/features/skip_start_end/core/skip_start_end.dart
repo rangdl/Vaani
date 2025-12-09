@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:vaani/shared/audio_player.dart';
+import 'package:vaani/features/player/core/abs_audio_player.dart';
 import 'package:vaani/shared/extensions/chapter.dart';
 import 'package:vaani/shared/utils/throttler.dart';
 

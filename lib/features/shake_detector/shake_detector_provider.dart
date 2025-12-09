@@ -2,13 +2,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vaani/features/player/providers/abs_provider.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart'
+    hide AudioPlayer;
 import 'package:vaani/features/settings/app_settings_provider.dart'
     show appSettingsProvider;
 import 'package:vaani/features/settings/models/app_settings.dart';
 import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart'
     show sleepTimerProvider;
-import 'package:vaani/shared/audio_player.dart';
+import 'package:vaani/features/player/core/abs_audio_player.dart';
 import 'package:vibration/vibration.dart';
 
 import 'shake_detector.dart' as core;
@@ -32,7 +33,7 @@ class ShakeDetector extends _$ShakeDetector {
     }
 
     // if no book is loaded, shake detection should not be enabled
-    final player = ref.watch(absAudioPlayerProvider);
+    final player = ref.watch(audioPlayerProvider);
     player.playerStateStream.listen((event) {
       if (event.processingState == AbsProcessingState.idle && wasPlayerLoaded) {
         _logger.config('Player is now not loaded, invalidating');
@@ -88,7 +89,7 @@ class ShakeDetector extends _$ShakeDetector {
     ShakeAction shakeAction, {
     required Ref ref,
   }) {
-    final player = ref.read(absAudioPlayerProvider);
+    final player = ref.read(audioPlayerProvider);
     if (player.book == null && shakeAction.isPlaybackManagementEnabled) {
       _logger.warning('No book is loaded');
       return false;

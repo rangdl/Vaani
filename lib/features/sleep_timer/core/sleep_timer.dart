@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:logging/logging.dart';
-import 'package:vaani/shared/audio_player.dart';
+import 'package:vaani/features/player/core/abs_audio_player.dart';
 
 /// this timer pauses the music player after a certain duration
 ///

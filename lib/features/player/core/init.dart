@@ -1,20 +1,19 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:media_kit/media_kit.dart';
 import 'package:vaani/features/player/core/abs_audio_handler.dart' as core;
-import 'package:vaani/features/player/providers/abs_provider.dart';
+import 'package:vaani/features/player/core/abs_audio_player.dart';
 import 'package:vaani/globals.dart';
 
-Future<void> configurePlayer(ProviderContainer container) async {
+/// 音频播放器 配置
+Future<void> configurePlayer(AbsAudioPlayer player) async {
   // for playing audio on windows, linux
-  MediaKit.ensureInitialized();
+
   // for configuring how this app will interact with other audio apps
   final session = await AudioSession.instance;
   await session.configure(const AudioSessionConfiguration.speech());
 
   await AudioService.init(
-    builder: () => core.AbsAudioHandler(container.read(absAudioPlayerProvider)),
+    builder: () => core.AbsAudioHandler(player),
     config: const AudioServiceConfig(
       androidNotificationChannelId: 'dr.blank.vaani.channel.audio',
       androidNotificationChannelName: 'ABSPlayback',

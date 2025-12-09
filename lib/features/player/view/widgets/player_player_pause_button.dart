@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart'
     hide PlayerState;
-import 'package:vaani/shared/audio_player.dart';
+import 'package:vaani/features/player/core/abs_audio_player.dart';
 
 class AudiobookPlayerPlayPauseButton extends HookConsumerWidget {
   const AudiobookPlayerPlayPauseButton({
@@ -35,7 +35,7 @@ class AudiobookPlayerPlayPauseButton extends HookConsumerWidget {
   }
 
   void _actionButtonPressed(AbsPlayerState playerState, WidgetRef ref) async {
-    final player = ref.read(absAudioPlayerProvider);
+    final player = ref.read(audioPlayerProvider);
     if (playerState.playing) {
       await player.pause();
     } else {

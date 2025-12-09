@@ -46,17 +46,17 @@ class _TrayManagerState extends ConsumerState<TrayManager>
         MenuItem(
           key: 'play_pause',
           label: '播放/暂停',
-          onClick: (menuItem) => ref.read(absAudioPlayerProvider).playOrPause(),
+          onClick: (menuItem) => ref.read(audioPlayerProvider).playOrPause(),
         ),
         MenuItem(
           key: 'previous',
           label: '上一个',
-          onClick: (menuItem) => ref.read(absAudioPlayerProvider).previous(),
+          onClick: (menuItem) => ref.read(audioPlayerProvider).previous(),
         ),
         MenuItem(
           key: 'next',
           label: '下一个',
-          onClick: (menuItem) => ref.read(absAudioPlayerProvider).next(),
+          onClick: (menuItem) => ref.read(audioPlayerProvider).next(),
         ),
         MenuItem.separator(),
         MenuItem(

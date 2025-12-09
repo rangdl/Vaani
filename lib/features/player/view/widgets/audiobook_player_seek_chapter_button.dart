@@ -20,7 +20,7 @@ class AudiobookPlayerSeekChapterButton extends HookConsumerWidget {
         size: AppElementSizes.iconSizeSmall,
       ),
       onPressed: () {
-        final player = ref.read(absAudioPlayerProvider);
+        final player = ref.read(audioPlayerProvider);
         final book = ref.read(currentBookProvider);
         if (book == null) {
           return;

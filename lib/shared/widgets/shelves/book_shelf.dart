@@ -294,7 +294,7 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
                 //       book.media.asBookExpanded,
                 //       userProgress?.currentTime,
                 //     );
-                ref.read(absAudioPlayerProvider.notifier).load(
+                ref.read(audioPlayerProvider.notifier).load(
                       book.media.asBookExpanded,
                       initialPosition: userProgress?.currentTime,
                     );

@@ -15,7 +15,7 @@ class SkipStartEnd extends _$SkipStartEnd {
       return null;
     }
 
-    final player = ref.read(absAudioPlayerProvider);
+    final player = ref.read(audioPlayerProvider);
     final bookSettings = ref.watch(bookSettingsProvider(bookId));
     final start = bookSettings.playerSettings.skipChapterStart;
     final end = bookSettings.playerSettings.skipChapterEnd;
