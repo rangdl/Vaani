@@ -26,9 +26,13 @@ class AbsPlatformAudioPlayer extends AbsAudioPlayer {
       );
     });
     player.positionStream.distinct().listen((position) {
-      final chapter = book?.findChapterAtTime(positionInBook);
-      if (chapter != currentChapter) {
-        chapterStreamController.add(chapter);
+      final chapter = currentChapter;
+      if (positionInBook <= (chapter?.start ?? Duration.zero) ||
+          positionInBook <= (chapter?.end ?? Duration.zero)) {
+        final chapter = book?.findChapterAtTime(positionInBook);
+        if (chapter != currentChapter) {
+          chapterStreamController.add(chapter);
+        }
       }
     });
   }
@@ -103,4 +107,10 @@ class AbsPlatformAudioPlayer extends AbsAudioPlayer {
 
   @override
   double get speed => player.speed;
+
+  @override
+  void dispose() {
+    super.dispose();
+    player.dispose();
+  }
 }

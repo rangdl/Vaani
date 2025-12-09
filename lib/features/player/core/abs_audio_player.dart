@@ -26,6 +26,7 @@ abstract class AbsAudioPlayer {
   final chapterStreamController = BehaviorSubject<BookChapter?>.seeded(null);
 
   BookExpanded? get book => _bookStreamController.nvalue;
+  AudioTrack? get currentTrack => book?.tracks[currentIndex];
   BookChapter? get currentChapter => chapterStreamController.nvalue;
   AbsPlayerState get playerState => playerStateSubject.value;
   Stream<MediaItem?> get mediaItemStream => _mediaItemController.stream;
@@ -68,8 +69,8 @@ abstract class AbsAudioPlayer {
     _mediaItemController.sink.add(item);
     final playlist = book.tracks
         .map(
-          (track) => _getUri(currentTrack, downloadedUris,
-              baseUrl: baseUrl, token: token),
+          (track) =>
+              _getUri(track, downloadedUris, baseUrl: baseUrl, token: token),
         )
         .toList();
     await setPlayList(playlist, index: indexTrack, position: positionInTrack);

@@ -23,10 +23,13 @@ class SkipStartEnd {
         player.chapterStream.listen((chapter) {
           if (chapter != null &&
               player.positionInChapter < Duration(seconds: 1)) {
-            Future.microtask(
-              () => throttlerStart
-                  .call(() => player.seekInBook(chapter.start + start)),
-            );
+            // player.pause();
+            player.seekInBook(chapter.start + start);
+            // player.play();
+            // Future.microtask(
+            //   () => throttlerStart
+            //       .call(() => player.seekInBook(chapter.start + start)),
+            // );
           }
         }),
       );

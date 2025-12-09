@@ -21,7 +21,7 @@ class Framework extends ConsumerWidget {
       ref.watch(simpleDownloadManagerProvider);
       if (Helper.isAndroid()) ref.watch(shakeDetectorProvider);
       ref.watch(sleepTimerProvider);
-      // ref.watch(skipStartEndProvider);
+      ref.watch(skipStartEndProvider);
       ref.watch(playbackReporterProvider);
     } catch (e) {
       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());

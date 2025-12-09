@@ -8,7 +8,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/server_provider.dart';
 import 'package:vaani/db/storage.dart';
 import 'package:vaani/features/logging/core/logger.dart';
-import 'package:vaani/features/player/core/init.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
@@ -38,8 +37,7 @@ void main() async {
 
   // initialize audio player
   // await configurePlayer();
-  final player = container.read(audioPlayerProvider);
-  await configurePlayer(player);
+  await container.read(configurePlayerProvider.future);
   // run the app
   runApp(
     UncontrolledProviderScope(
