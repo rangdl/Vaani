@@ -20,16 +20,10 @@ class SkipStartEnd {
   }) {
     if (start > Duration.zero) {
       _subscriptions.add(
-        player.chapterStream.listen((chapter) {
+        player.chapterStream.listen((chapter) async {
           if (chapter != null &&
               player.positionInChapter < Duration(seconds: 1)) {
-            // player.pause();
             player.seekInBook(chapter.start + start);
-            // player.play();
-            // Future.microtask(
-            //   () => throttlerStart
-            //       .call(() => player.seekInBook(chapter.start + start)),
-            // );
           }
         }),
       );

@@ -48,9 +48,11 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     });
     // 2. 转发播放位置
     player.positionStream.listen((Duration position) {
-      playbackState.add(playbackState.value.copyWith(
-        updatePosition: position,
-      ));
+      playbackState.add(
+        playbackState.value.copyWith(
+          updatePosition: position,
+        ),
+      );
     });
     // 3. 转发媒体总时长
     // player.stream.duration.listen((Duration? duration) {
