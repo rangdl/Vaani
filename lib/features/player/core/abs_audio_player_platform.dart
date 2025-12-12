@@ -8,8 +8,9 @@ final _logger = Logger('AbsPlatformAudioPlayer');
 
 /// 音频播放器 平台ios,macos,android (just_audio)
 class AbsPlatformAudioPlayer extends AbsAudioPlayer {
-  late final AudioPlayer player;
-  AbsPlatformAudioPlayer() {
+  late final AudioPlayer _player;
+  AbsPlatformAudioPlayer(AudioPlayer player) {
+    _player = player;
     // 跳转到播放列表指定条目指定位置
     // prefetch-playlist=yes
     JustAudioMediaKit.prefetchPlaylist = true;
@@ -48,41 +49,41 @@ class AbsPlatformAudioPlayer extends AbsAudioPlayer {
     });
   }
   @override
-  Duration get bufferedPosition => player.bufferedPosition;
+  Duration get bufferedPosition => _player.bufferedPosition;
 
   @override
-  Stream<Duration> get bufferedPositionStream => player.bufferedPositionStream;
+  Stream<Duration> get bufferedPositionStream => _player.bufferedPositionStream;
 
   @override
-  int get currentIndex => player.currentIndex ?? 0;
+  int get currentIndex => _player.currentIndex ?? 0;
 
   @override
   Future<void> pause() async {
-    await player.pause();
+    await _player.pause();
   }
 
   @override
   Future<void> play() async {
-    await player.play();
+    await _player.play();
   }
 
   @override
   Future<void> playOrPause() async {
-    player.playing ? await player.pause() : await player.play();
+    _player.playing ? await _player.pause() : await _player.play();
   }
 
   @override
-  Stream<bool> get playingStream => player.playingStream;
+  Stream<bool> get playingStream => _player.playingStream;
 
   @override
-  Duration get position => player.position;
+  Duration get position => _player.position;
 
   @override
-  Stream<Duration> get positionStream => player.positionStream;
+  Stream<Duration> get positionStream => _player.positionStream;
 
   @override
   Future<void> seek(Duration position, {int? index}) async {
-    await player.seek(position, index: index);
+    await _player.seek(position, index: index);
   }
 
   @override
@@ -93,7 +94,7 @@ class AbsPlatformAudioPlayer extends AbsAudioPlayer {
   }) async {
     List<AudioSource> audioSources =
         playlist.map((uri) => AudioSource.uri(uri)).toList();
-    await player
+    await _player
         .setAudioSources(
       audioSources,
       preload: true,
@@ -108,20 +109,20 @@ class AbsPlatformAudioPlayer extends AbsAudioPlayer {
 
   @override
   Future<void> setSpeed(double speed) async {
-    await player.setSpeed(speed);
+    await _player.setSpeed(speed);
   }
 
   @override
   Future<void> setVolume(double volume) async {
-    await player.setVolume(volume);
+    await _player.setVolume(volume);
   }
 
   @override
-  double get speed => player.speed;
+  double get speed => _player.speed;
 
   @override
   void dispose() {
     super.dispose();
-    player.dispose();
+    _player.dispose();
   }
 }

@@ -35,7 +35,7 @@ class AudiobookPlayerPlayPauseButton extends HookConsumerWidget {
   }
 
   void _actionButtonPressed(AbsPlayerState playerState, WidgetRef ref) async {
-    final player = ref.read(audioPlayerProvider);
+    final player = ref.read(absPlayerProvider);
     if (playerState.playing) {
       await player.pause();
     } else {

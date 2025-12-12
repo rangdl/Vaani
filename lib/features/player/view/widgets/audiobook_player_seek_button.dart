@@ -14,7 +14,7 @@ class AudiobookPlayerSeekButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final player = ref.read(audioPlayerProvider);
+    final player = ref.read(absPlayerProvider);
     return IconButton(
       icon: Icon(
         isForward ? Icons.forward_30 : Icons.replay_30,

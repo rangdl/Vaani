@@ -116,7 +116,7 @@ class ChapterSelectionModal extends HookConsumerWidget {
                             onTap: () {
                               Navigator.of(context).pop();
                               ref
-                                  .read(audioPlayerProvider)
+                                  .read(absPlayerProvider)
                                   .switchChapter(chapter.id);
                             },
                           );

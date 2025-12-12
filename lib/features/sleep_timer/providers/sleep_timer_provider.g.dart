@@ -6,7 +6,7 @@ part of 'sleep_timer_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sleepTimerHash() => r'89ff64cd768deea9ed4ab103ddde918b3f96d705';
+String _$sleepTimerHash() => r'417759e07a45e69af93bd9a1c78ac859d9abcf4b';
 
 /// See also [SleepTimer].
 @ProviderFor(SleepTimer)

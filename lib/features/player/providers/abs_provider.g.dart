@@ -6,7 +6,7 @@ part of 'abs_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$configurePlayerHash() => r'7e7003c815e7d240a67cd581931839cc60346707';
+String _$configurePlayerHash() => r'7ac63b6c3a34c56f42be55bc7a4856dabaae1583';
 
 /// 音频播放器 配置
 ///
@@ -25,7 +25,23 @@ final configurePlayerProvider = FutureProvider<AudioHandler>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ConfigurePlayerRef = FutureProviderRef<AudioHandler>;
-String _$isPlayerActiveHash() => r'71a24418ecf6c1a2d8160b0d0c8fc523d5679e76';
+String _$audioPlayerHash() => r'd9d6cea83d03e36fac43367b6a24fd9d3a53b2fa';
+
+/// See also [audioPlayer].
+@ProviderFor(audioPlayer)
+final audioPlayerProvider = Provider<AudioPlayer>.internal(
+  audioPlayer,
+  name: r'audioPlayerProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$audioPlayerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef AudioPlayerRef = ProviderRef<AudioPlayer>;
+String _$isPlayerActiveHash() => r'4fca4af53a17dbcd7c8a98ce115bc11fa39b4cf9';
 
 /// See also [isPlayerActive].
 @ProviderFor(isPlayerActive)
@@ -42,7 +58,7 @@ final isPlayerActiveProvider = AutoDisposeProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef IsPlayerActiveRef = AutoDisposeProviderRef<bool>;
-String _$positionChapterHash() => r'750b8e2f2c7217b59c3d77ed66dd20798f8787fa';
+String _$positionChapterHash() => r'ac6148e92363fad849713c07045503653dcaa7e8';
 
 /// See also [positionChapter].
 @ProviderFor(positionChapter)
@@ -77,24 +93,24 @@ final currentChaptersProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentChaptersRef = AutoDisposeProviderRef<List<api.BookChapter>>;
-String _$audioPlayerHash() => r'e0efa20f340adf3312a76e5ca9e0c8ab0273a22a';
+String _$absPlayerHash() => r'2ec8952e1ec764b02239ff7c26144040e460976a';
 
 /// 音频播放器 riverpod状态
 ///
-/// Copied from [AudioPlayer].
-@ProviderFor(AudioPlayer)
-final audioPlayerProvider =
-    NotifierProvider<AudioPlayer, core.AbsAudioPlayer>.internal(
-  AudioPlayer.new,
-  name: r'audioPlayerProvider',
+/// Copied from [AbsPlayer].
+@ProviderFor(AbsPlayer)
+final absPlayerProvider =
+    NotifierProvider<AbsPlayer, core.AbsAudioPlayer>.internal(
+  AbsPlayer.new,
+  name: r'absPlayerProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$audioPlayerHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$absPlayerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AudioPlayer = Notifier<core.AbsAudioPlayer>;
-String _$playerStateHash() => r'7e238aea9306cdfb952b546c76d1e894888c586f';
+typedef _$AbsPlayer = Notifier<core.AbsAudioPlayer>;
+String _$playerStateHash() => r'f195d2d13bcee0f91b862e669ab3549667d8dd2d';
 
 /// See also [PlayerState].
 @ProviderFor(PlayerState)
@@ -109,7 +125,7 @@ final playerStateProvider =
 );
 
 typedef _$PlayerState = AutoDisposeNotifier<core.AbsPlayerState>;
-String _$currentBookHash() => r'3684426dfde84e49dc2021e8444a2a3026082942';
+String _$currentBookHash() => r'f511c6f16c17696e41c6384c5195646a419deae3';
 
 /// See also [CurrentBook].
 @ProviderFor(CurrentBook)
@@ -124,7 +140,7 @@ final currentBookProvider =
 );
 
 typedef _$CurrentBook = AutoDisposeNotifier<api.BookExpanded?>;
-String _$currentChapterHash() => r'28ac34fa83cbd6acf745e06b91b9ce36733fdbe5';
+String _$currentChapterHash() => r'aff83aed7d098099805ec7d72ea84fff3a298522';
 
 /// See also [CurrentChapter].
 @ProviderFor(CurrentChapter)

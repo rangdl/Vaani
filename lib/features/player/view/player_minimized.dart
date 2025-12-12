@@ -148,7 +148,7 @@ class PlayerMinimizedProgress extends HookConsumerWidget {
     final currentChapter = ref.watch(currentChapterProvider);
 
     final progress = useStream(
-      ref.read(audioPlayerProvider).positionInChapterStream,
+      ref.read(absPlayerProvider).positionInChapterStream,
       initialData: Duration.zero,
     );
     return SizedBox(

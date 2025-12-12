@@ -223,7 +223,7 @@ class ChapterSelection extends HookConsumerWidget {
             selected: isCurrent,
             // key: isCurrent ? chapterKey : null,
             onTap: () {
-              ref.read(audioPlayerProvider).switchChapter(chapter.id);
+              ref.read(absPlayerProvider).switchChapter(chapter.id);
             },
           );
         },
