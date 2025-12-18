@@ -72,13 +72,15 @@ class AbsMpvAudioPlayer extends AbsAudioPlayer {
 
   @override
   Future<void> setPlayList(
-    List<Uri> playlist, {
+    List<(Uri, Duration)> playlist, {
     int? index,
     Duration? position,
+    Duration? start,
+    Duration? end,
   }) async {
     await player.open(
       Playlist(
-        playlist.map((uri) => Media(uri.toString())).toList(),
+        playlist.map((uri) => Media(uri.$1.toString())).toList(),
         index: index ?? 0,
       ),
       play: false,

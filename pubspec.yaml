@@ -74,6 +74,8 @@ dependencies:
   #     path: just_audio_background
   # just_audio_windows: ^0.2.2
   just_audio_media_kit: ^2.0.4
+  # just_audio_media_kit: 
+  #   path: ./just_audio_media_kit 
   media_kit_libs_linux: any
   media_kit_libs_windows_audio: any
   # media_kit: ^1.2.3 # Primary package.

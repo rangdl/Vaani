@@ -1,15 +1,17 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_media_kit/just_audio_media_kit.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' as api;
 import 'package:vaani/api/api_provider.dart';
+import 'package:vaani/api/library_item_provider.dart';
+import 'package:vaani/features/downloads/providers/download_manager.dart';
+import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
 import 'package:vaani/features/player/core/abs_audio_handler.dart';
 import 'package:vaani/features/player/core/abs_audio_player.dart' as core;
 import 'package:vaani/features/player/core/abs_audio_player_platform.dart';
+import 'package:vaani/features/settings/app_settings_provider.dart';
 
 part 'abs_provider.g.dart';
 
@@ -46,27 +48,27 @@ Future<AudioHandler> configurePlayer(Ref ref) async {
 }
 
 // just_audio 播放器
-@Riverpod(keepAlive: true)
-AudioPlayer audioPlayer(Ref ref) {
-  // 跳转到播放列表指定条目指定位置
-  // prefetch-playlist=yes
-  JustAudioMediaKit.prefetchPlaylist = true;
-  // merge-files=yes
-  // cache=yes
-  // cache-pause-wait=60
+// @Riverpod(keepAlive: true)
+// AudioPlayer audioPlayer(Ref ref) {
+//   // 跳转到播放列表指定条目指定位置
+//   // prefetch-playlist=yes
+//   JustAudioMediaKit.prefetchPlaylist = true;
+//   // merge-files=yes
+//   // cache=yes
+//   // cache-pause-wait=60
 
-  JustAudioMediaKit.ensureInitialized();
-  return AudioPlayer();
-}
+//   JustAudioMediaKit.ensureInitialized();
+//   return AudioPlayer();
+// }
 
 /// 音频播放器 riverpod状态
 @Riverpod(keepAlive: true)
 class AbsPlayer extends _$AbsPlayer {
   @override
   core.AbsAudioPlayer build() {
-    final audioPlayer = ref.watch(audioPlayerProvider);
+    // final audioPlayer = ref.watch(audioPlayerProvider);
     // final player = AbsMpvAudioPlayer();
-    final player = AbsPlatformAudioPlayer(audioPlayer);
+    final player = AbsPlatformAudioPlayer();
     ref.onDispose(player.dispose);
     return player;
   }
@@ -75,16 +77,47 @@ class AbsPlayer extends _$AbsPlayer {
     api.BookExpanded book, {
     Duration? initialPosition,
   }) async {
-    if (state.book == book) {
+    if (state.book == book || state.book?.libraryItemId == book.libraryItemId) {
       state.playOrPause();
       return;
     }
     final api = ref.read(authenticatedApiProvider);
+
+    final downloadManager = ref.read(simpleDownloadManagerProvider);
+    final libItem =
+        await ref.read(libraryItemProvider(book.libraryItemId).future);
+    final downloadedUris = await downloadManager.getDownloadedFilesUri(libItem);
+
+    var bookPlayerSettings =
+        ref.read(bookSettingsProvider(book.libraryItemId)).playerSettings;
+    var appPlayerSettings = ref.read(appSettingsProvider).playerSettings;
+
+    var configurePlayerForEveryBook =
+        appPlayerSettings.configurePlayerForEveryBook;
+
+    final bookSettings = ref.watch(bookSettingsProvider(book.libraryItemId));
     await state.load(
       book,
       baseUrl: api.baseUrl,
       token: api.token!,
       initialPosition: initialPosition,
+      downloadedUris: downloadedUris,
+      start: bookSettings.playerSettings.skipChapterStart,
+      end: bookSettings.playerSettings.skipChapterEnd,
+    );
+    // set the volume
+    await state.setVolume(
+      configurePlayerForEveryBook
+          ? bookPlayerSettings.preferredDefaultVolume ??
+              appPlayerSettings.preferredDefaultVolume
+          : appPlayerSettings.preferredDefaultVolume,
+    );
+    // set the speed
+    await state.setSpeed(
+      configurePlayerForEveryBook
+          ? bookPlayerSettings.preferredDefaultSpeed ??
+              appPlayerSettings.preferredDefaultSpeed
+          : appPlayerSettings.preferredDefaultSpeed,
     );
     await state.play();
   }

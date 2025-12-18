@@ -38,6 +38,8 @@ abstract class AbsAudioPlayer {
     required String token,
     Duration? initialPosition,
     List<Uri>? downloadedUris,
+    Duration? start,
+    Duration? end,
   }) async {
     if (_bookStreamController.nvalue == book) {
       _logger.info('Book is the same, doing nothing');
@@ -69,17 +71,27 @@ abstract class AbsAudioPlayer {
     _mediaItemController.sink.add(item);
     final playlist = book.tracks
         .map(
-          (track) =>
-              _getUri(track, downloadedUris, baseUrl: baseUrl, token: token),
+          (track) => (
+            _getUri(track, downloadedUris, baseUrl: baseUrl, token: token),
+            track.duration
+          ),
         )
         .toList();
-    await setPlayList(playlist, index: indexTrack, position: positionInTrack);
+    await setPlayList(
+      playlist,
+      index: indexTrack,
+      position: positionInTrack,
+      start: start,
+      end: end,
+    );
   }
 
   Future<void> setPlayList(
-    List<Uri> playlist, {
+    List<(Uri, Duration)> playlist, {
     int? index,
     Duration? position,
+    Duration? start,
+    Duration? end,
   });
   Future<void> play();
   Future<void> pause();
@@ -151,18 +163,20 @@ abstract class AbsAudioPlayer {
   Duration get position;
   Stream<Duration> get positionStream;
 
-  Duration get positionInChapter {
-    final globalPosition = positionInBook;
+  Duration get positionInChapter => getPositionInChapter(position);
+  Duration getPositionInChapter(position) {
+    final globalPosition = getPositionInBook(position);
     return globalPosition -
         (book?.findChapterAtTime(globalPosition).start ?? Duration.zero);
   }
 
-  Duration get positionInBook =>
+  Duration get positionInBook => getPositionInBook(position);
+  Duration getPositionInBook(position) =>
       position + (book?.tracks[currentIndex].startOffset ?? Duration.zero);
 
   Stream<Duration> get positionInChapterStream =>
       positionStream.map((position) {
-        return positionInChapter;
+        return getPositionInChapter(position);
       });
 
   Stream<Duration> get positionInBookStream => positionStream.map((position) {
@@ -335,4 +349,18 @@ extension BookExpandedExtension on BookExpanded {
   Duration getTrackStartOffset(int index) {
     return tracks[index].startOffset;
   }
+}
+
+class AudioMetadata {
+  final String album;
+  final String title;
+  final String artist;
+  final String artwork;
+
+  AudioMetadata({
+    required this.album,
+    required this.title,
+    required this.artist,
+    required this.artwork,
+  });
 }

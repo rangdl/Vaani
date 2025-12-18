@@ -25,22 +25,6 @@ final configurePlayerProvider = FutureProvider<AudioHandler>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ConfigurePlayerRef = FutureProviderRef<AudioHandler>;
-String _$audioPlayerHash() => r'd9d6cea83d03e36fac43367b6a24fd9d3a53b2fa';
-
-/// See also [audioPlayer].
-@ProviderFor(audioPlayer)
-final audioPlayerProvider = Provider<AudioPlayer>.internal(
-  audioPlayer,
-  name: r'audioPlayerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$audioPlayerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef AudioPlayerRef = ProviderRef<AudioPlayer>;
 String _$isPlayerActiveHash() => r'4fca4af53a17dbcd7c8a98ce115bc11fa39b4cf9';
 
 /// See also [isPlayerActive].
@@ -93,7 +77,7 @@ final currentChaptersProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentChaptersRef = AutoDisposeProviderRef<List<api.BookChapter>>;
-String _$absPlayerHash() => r'2ec8952e1ec764b02239ff7c26144040e460976a';
+String _$absPlayerHash() => r'dfb4a8e9778d44143ec7589a99c6295c32c64c4a';
 
 /// 音频播放器 riverpod状态
 ///
