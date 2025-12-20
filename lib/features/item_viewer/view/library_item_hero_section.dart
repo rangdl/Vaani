@@ -12,7 +12,7 @@ import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/shared/extensions/duration_format.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
-import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
+import 'package:vaani/shared/widgets/skeletons.dart';
 
 class LibraryItemHeroSection extends HookConsumerWidget {
   const LibraryItemHeroSection({

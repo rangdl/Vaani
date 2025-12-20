@@ -126,7 +126,7 @@ class MyAppRouter {
                   GoRoute(
                     path: Routes.library.localPath,
                     name: Routes.library.name,
-                    pageBuilder: defaultPageBuilder(const LibraryPage()),
+                    pageBuilder: defaultPageBuilder(LibraryPage()),
                   ),
                 ],
               ),

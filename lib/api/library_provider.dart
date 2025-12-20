@@ -1,12 +1,12 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:hooks_riverpod/hooks_riverpod.dart' show Ref;
 import 'package:logging/logging.dart' show Logger;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart'
-    show GetLibrarysItemsReqParams, Library, LibraryItemMinified, LibraryItem;
+    show GetLibrarysItemsReqParams, Library, LibraryItem;
 import 'package:vaani/api/api_provider.dart' show authenticatedApiProvider;
 import 'package:vaani/features/settings/api_settings_provider.dart'
     show apiSettingsProvider;
-import 'package:vaani/shared/extensions/model_conversions.dart';
 
 part 'library_provider.g.dart';
 
@@ -59,38 +59,177 @@ class Libraries extends _$Libraries {
   }
 }
 
-@riverpod
-class LibraryItemsParams extends _$LibraryItemsParams {
-  @override
-  GetLibrarysItemsReqParams build() {
-    return const GetLibrarysItemsReqParams(
-      limit: 18,
-      page: 0,
-      minified: true,
+class LibraryItemsState {
+  final List<LibraryItem> items;
+  final int limit;
+  final int page;
+  final String? sort;
+  final bool? desc;
+  final bool isLoading;
+  final bool isRefreshing;
+  final bool hasMore;
+  final bool hasError;
+  final String? errorMessage;
+
+  const LibraryItemsState({
+    this.items = const [],
+    this.limit = 18,
+    this.page = 0,
+    this.sort,
+    this.desc,
+    this.isLoading = false,
+    this.isRefreshing = false,
+    this.hasMore = false,
+    this.hasError = false,
+    this.errorMessage,
+  });
+
+  LibraryItemsState copyWith({
+    List<LibraryItem>? items,
+    int? limit,
+    int? page,
+    String? sort,
+    bool? desc,
+    bool? isLoading,
+    bool? isRefreshing,
+    bool? hasMore,
+    bool? hasError,
+    String? errorMessage,
+  }) {
+    return LibraryItemsState(
+      items: items ?? this.items,
+      limit: limit ?? this.limit,
+      page: page ?? this.page,
+      sort: sort ?? this.sort,
+      desc: desc ?? this.desc,
+      isLoading: isLoading ?? this.isLoading,
+      isRefreshing: isRefreshing ?? this.isRefreshing,
+      hasMore: hasMore ?? this.hasMore,
+      hasError: hasError ?? this.hasError,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
+  }
+
+  factory LibraryItemsState.initial() => const LibraryItemsState();
+}
+
+@riverpod
+class LibraryItems extends _$LibraryItems {
+  @override
+  LibraryItemsState build() {
+    // 初始加载数据
+    Future.microtask(_loadInitialData);
+    return LibraryItemsState.initial();
+  }
+
+  // 下拉刷新
+  Future<void> refresh() async {
+    if (state.isRefreshing) return;
+
+    // 开始刷新
+    state = state.copyWith(
+      page: 0,
+      isRefreshing: true,
+      hasError: false,
+      errorMessage: null,
+    );
+    try {
+      final items = await _load();
+      state = state.copyWith(
+        items: [...items],
+        page: state.page + 1,
+        isRefreshing: false,
+        hasMore: items.length == state.limit,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isRefreshing: false,
+        hasError: true,
+        errorMessage: e.toString(),
+      );
+    }
+  }
+
+  // 初始加载数据
+  Future<void> _loadInitialData() async {
+    // await _loadMore(skip: true);
+    await _loadMore();
+  }
+
+  // 上拉加载更多
+  Future<void> loadMore() async {
+    if (state.isLoading || !state.hasMore) return;
+    await _loadMore();
+  }
+
+  // 内部加载方法
+  Future<void> _loadMore({bool skip = false}) async {
+    if (!skip) {
+      state = state.copyWith(
+        isLoading: true,
+        hasError: false,
+        errorMessage: null,
+      );
+    }
+    try {
+      final items = await _load();
+      state = state.copyWith(
+        items: [...state.items, ...items],
+        page: state.page + 1,
+        isLoading: false,
+        hasMore: items.length == state.limit,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        hasError: true,
+        errorMessage: e.toString(),
+      );
+    }
+  }
+
+  // 加载方法
+  Future<List<LibraryItem>> _load() async {
+    final api = ref.read(authenticatedApiProvider);
+    final libraryId =
+        ref.watch(apiSettingsProvider.select((s) => s.activeLibraryId));
+    if (libraryId != null) {
+      final newItems = await api.libraries.getItems(
+        libraryId: libraryId,
+        parameters: GetLibrarysItemsReqParams(
+          limit: state.limit,
+          page: state.page,
+          sort: state.sort,
+          desc: state.desc,
+          minified: true,
+        ),
+      );
+      return newItems?.results ?? [];
+    }
+    return [];
   }
 }
 
 // 查询库下所有项目
-@riverpod
-Future<List<LibraryItem>> currentLibraryItems(Ref ref) async {
-  final api = ref.watch(authenticatedApiProvider);
-  final libraryId =
-      ref.watch(apiSettingsProvider.select((s) => s.activeLibraryId));
-  if (libraryId == null) {
-    _logger.warning('No active library id found');
-    return [];
-  }
-  final items = await api.libraries.getItems(
-    libraryId: libraryId,
-    parameters: const GetLibrarysItemsReqParams(
-      limit: 18,
-      page: 0,
-      minified: true,
-    ),
-  );
-  if (items == null) {
-    return [];
-  }
-  return items.results;
-}
+// @riverpod
+// Future<List<LibraryItem>> currentLibraryItems(Ref ref) async {
+//   final api = ref.watch(authenticatedApiProvider);
+//   final libraryId =
+//       ref.watch(apiSettingsProvider.select((s) => s.activeLibraryId));
+//   if (libraryId == null) {
+//     _logger.warning('No active library id found');
+//     return [];
+//   }
+//   final items = await api.libraries.getItems(
+//     libraryId: libraryId,
+//     parameters: const GetLibrarysItemsReqParams(
+//       limit: 18,
+//       page: 0,
+//       minified: true,
+//     ),
+//   );
+//   if (items == null) {
+//     return [];
+//   }
+//   return items.results;
+// }

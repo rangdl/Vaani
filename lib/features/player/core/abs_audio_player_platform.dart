@@ -2,7 +2,6 @@ import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_media_kit/just_audio_media_kit.dart';
 import 'package:logging/logging.dart';
 import 'package:vaani/features/player/core/abs_audio_player.dart';
-import 'package:vaani/shared/extensions/chapter.dart';
 
 final _logger = Logger('AbsPlatformAudioPlayer');
 
@@ -39,9 +38,9 @@ class AbsPlatformAudioPlayer extends AbsAudioPlayer {
           positionInBook >= (chapter?.end ?? Duration.zero)) {
         final chapter = book?.findChapterAtTime(positionInBook);
         if (chapter != currentChapter) {
-          print('当前章节时长: ${currentChapter?.duration}');
-          print('切换章节时长: ${chapter?.duration}');
-          print('当前播放音轨时长: ${_player.duration}');
+          // print('当前章节时长: ${currentChapter?.duration}');
+          // print('切换章节时长: ${chapter?.duration}');
+          // print('当前播放音轨时长: ${_player.duration}');
           chapterStreamController.add(chapter);
         }
       }

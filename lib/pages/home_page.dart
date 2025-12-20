@@ -9,6 +9,7 @@ import 'package:vaani/router/router.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart'
     show appSettingsProvider;
+import 'package:vaani/shared/widgets/skeletons.dart';
 
 import '../shared/widgets/shelves/home_shelf.dart';
 
@@ -112,7 +113,7 @@ class HomePage extends HookConsumerWidget {
               ),
             );
           },
-          loading: () => const HomePageSkeleton(),
+          loading: () => const PageSkeleton(),
           error: (error, stack) {
             if (apiSettings.activeUser == null ||
                 apiSettings.activeServer == null) {
@@ -134,19 +135,6 @@ class HomePage extends HookConsumerWidget {
             return Text('Error: $error');
           },
         ),
-      ),
-    );
-  }
-}
-
-class HomePageSkeleton extends StatelessWidget {
-  const HomePageSkeleton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
       ),
     );
   }

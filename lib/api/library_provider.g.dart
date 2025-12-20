@@ -173,26 +173,6 @@ final currentLibraryProvider = AutoDisposeFutureProvider<Library?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentLibraryRef = AutoDisposeFutureProviderRef<Library?>;
-String _$currentLibraryItemsHash() =>
-    r'b0d0dcca86e760ee08f327c06b5ad5deaf7852e1';
-
-/// See also [currentLibraryItems].
-@ProviderFor(currentLibraryItems)
-final currentLibraryItemsProvider =
-    AutoDisposeFutureProvider<List<LibraryItem>>.internal(
-  currentLibraryItems,
-  name: r'currentLibraryItemsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$currentLibraryItemsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef CurrentLibraryItemsRef
-    = AutoDisposeFutureProviderRef<List<LibraryItem>>;
 String _$librariesHash() => r'95ebd4d1ac0cc2acf7617dc22895eff0ca30600f';
 
 /// See also [Libraries].
@@ -208,22 +188,20 @@ final librariesProvider =
 );
 
 typedef _$Libraries = AutoDisposeAsyncNotifier<List<Library>>;
-String _$libraryItemsParamsHash() =>
-    r'9e7f11ab185eb99e926ae87e06466fc12aee7f72';
+String _$libraryItemsHash() => r'847ff8f5c325a786f257c2b98986098a9664cbb5';
 
-/// See also [LibraryItemsParams].
-@ProviderFor(LibraryItemsParams)
-final libraryItemsParamsProvider = AutoDisposeNotifierProvider<
-    LibraryItemsParams, GetLibrarysItemsReqParams>.internal(
-  LibraryItemsParams.new,
-  name: r'libraryItemsParamsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$libraryItemsParamsHash,
+/// See also [LibraryItems].
+@ProviderFor(LibraryItems)
+final libraryItemsProvider =
+    AutoDisposeNotifierProvider<LibraryItems, LibraryItemsState>.internal(
+  LibraryItems.new,
+  name: r'libraryItemsProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$libraryItemsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$LibraryItemsParams = AutoDisposeNotifier<GetLibrarysItemsReqParams>;
+typedef _$LibraryItems = AutoDisposeNotifier<LibraryItemsState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

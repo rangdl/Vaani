@@ -31,21 +31,24 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
     // transitionDuration: 1250.ms,
     // reverseTransitionDuration: 1250.ms,
     child: child,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-        FadeTransition(
-      opacity: animation,
-      child: SlideTransition(
-        position: animation.drive(
-          Tween(
-            begin: const Offset(0, 1.50),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      // 将 CurvedAnimation 提取出来，避免重复创建
+      final curvedAnimation = animation.drive(
+        CurveTween(curve: Curves.easeOut),
+      );
+      return FadeTransition(
+        opacity: animation,
+        child: SlideTransition(
+          position: Tween(
+            begin: const Offset(0, 0.3),
             end: Offset.zero,
-          ).chain(
-            CurveTween(curve: Curves.easeOut),
+          ).animate(
+            curvedAnimation,
           ),
+          child: child,
         ),
-        child: child,
-      ),
-    ),
+      );
+    },
   );
 }
 

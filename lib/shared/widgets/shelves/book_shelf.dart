@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
-import 'package:shimmer/shimmer.dart' show Shimmer;
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/api/library_item_provider.dart' show libraryItemProvider;
@@ -17,6 +16,7 @@ import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/widgets/shelves/home_shelf.dart';
+import 'package:vaani/shared/widgets/skeletons.dart';
 import 'package:vaani/theme/providers/theme_from_cover_provider.dart';
 
 /// A shelf that displays books on the home page
@@ -310,32 +310,6 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-// a skeleton for the book cover
-class BookCoverSkeleton extends StatelessWidget {
-  const BookCoverSkeleton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: SizedBox(
-        width: 150,
-        child: Shimmer.fromColors(
-          baseColor:
-              Theme.of(context).colorScheme.surface.withValues(alpha: 0.3),
-          highlightColor:
-              Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
-          child: Container(
-            color: Theme.of(context).colorScheme.surface,
-          ),
         ),
       ),
     );

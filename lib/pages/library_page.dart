@@ -11,14 +11,15 @@ import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/api/library_provider.dart';
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart';
 import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/icons/abs_icons.dart';
-import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
+import 'package:vaani/shared/widgets/skeletons.dart';
 
 // TODO: implement the library page
 class LibraryPage extends HookConsumerWidget {
-  const LibraryPage({this.libraryId, super.key});
+  LibraryPage({this.libraryId, super.key});
 
   final String? libraryId;
   @override
@@ -38,7 +39,10 @@ class LibraryPage extends HookConsumerWidget {
     //       );
     // }
 
-    final views = ref.watch(currentLibraryItemsProvider);
+    // final views = ref.watch(currentLibraryItemsProvider);
+    final pageData = ref.watch(libraryItemsProvider);
+    final items = pageData.items;
+
     final scrollController = useScrollController();
 
     return Scaffold(
@@ -68,9 +72,7 @@ class LibraryPage extends HookConsumerWidget {
           IconButton(
             icon: Icon(Icons.refresh),
             tooltip: '刷新', // Helpful tooltip for users
-            onPressed: () {
-              return ref.refresh(currentLibraryItemsProvider);
-            },
+            onPressed: () => ref.read(libraryItemsProvider.notifier).refresh(),
           ),
           IconButton(
             icon: Icon(Icons.download),
@@ -83,35 +85,25 @@ class LibraryPage extends HookConsumerWidget {
       ),
       // drawer: const MyDrawer(),
       body: RefreshIndicator(
-        onRefresh: () async {
-          return ref.refresh(currentLibraryItemsProvider);
-        },
-        child: views.when(
-          data: (data) {
-            return LayoutBuilder(
-              builder: (context, constraints) {
-                final height = getDefaultHeight(context);
-                // final height = min(constraints.maxHeight, 500.0);
-                final width = height * 0.75;
-                return AlignedGridView.count(
-                  crossAxisCount: constraints.maxWidth ~/ width,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
-                  padding: EdgeInsets.only(top: 0, left: 8, right: 8),
-                  itemCount: data.length,
-                  controller: scrollController,
-                  itemBuilder: (context, index) {
-                    return LibraryPageItem(
-                      item: data[index],
-                    );
-                  },
+        onRefresh: () => ref.read(libraryItemsProvider.notifier).refresh(),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final height = getDefaultHeight(context);
+            // final height = min(constraints.maxHeight, 500.0);
+            final width = height * 0.75;
+            return AlignedGridView.count(
+              crossAxisCount: constraints.maxWidth ~/ width,
+              mainAxisSpacing: 12,
+              crossAxisSpacing: 12,
+              padding: EdgeInsets.only(top: 0, left: 8, right: 8),
+              itemCount: items.length,
+              controller: scrollController,
+              itemBuilder: (context, index) {
+                return LibraryPageItem(
+                  item: items[index],
                 );
               },
             );
-          },
-          loading: () => const LibraryPageSkeleton(),
-          error: (error, stack) {
-            return Text('Error: $error');
           },
         ),
       ),
@@ -137,20 +129,6 @@ class LibraryPage extends HookConsumerWidget {
   }
 }
 
-// 加载
-class LibraryPageSkeleton extends StatelessWidget {
-  const LibraryPageSkeleton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-  }
-}
-
 class LibraryPageItem extends HookConsumerWidget {
   const LibraryPageItem({
     super.key,
@@ -161,25 +139,37 @@ class LibraryPageItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final book = item.media.asBookMinified;
     final metadata = book.metadata.asBookMetadataMinified;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        BookCoverWidget(itemId: item.id),
-        const SizedBox(height: 3),
-        Text(
-          metadata.title ?? '',
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.bodyLarge,
+    return InkWell(
+      onTap: () => context.pushNamed(
+        Routes.libraryItem.name,
+        pathParameters: {
+          Routes.libraryItem.pathParamName!: item.id,
+        },
+        extra: LibraryItemExtras(
+          book: book,
         ),
-        const SizedBox(height: 3),
-        Text(
-          metadata.authorName ?? '',
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-      ],
+      ),
+      borderRadius: BorderRadius.circular(10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          BookCoverWidget(itemId: item.id),
+          const SizedBox(height: 3),
+          Text(
+            metadata.title ?? '',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          const SizedBox(height: 2),
+          Text(
+            metadata.authorName ?? '',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -196,26 +186,28 @@ class BookCoverWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final coverImage = ref.watch(coverImageProvider(itemId));
 
-    return coverImage.when(
-      data: (image) {
-        // return const BookCoverSkeleton();
-        if (image.isEmpty) {
-          return const Icon(Icons.error);
-        }
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: coverImage.when(
+        data: (image) {
+          if (image.isEmpty) {
+            return const Icon(Icons.error);
+          }
 
-        return Image.memory(
-          image,
-          fit: BoxFit.cover,
-        );
-      },
-      loading: () {
-        return const Center(
-          child: BookCoverSkeleton(),
-        );
-      },
-      error: (error, stack) {
-        return const Center(child: Icon(Icons.error));
-      },
+          return Image.memory(
+            image,
+            fit: BoxFit.cover,
+          );
+        },
+        loading: () {
+          return const Center(
+            child: BookCoverSkeleton(),
+          );
+        },
+        error: (error, stack) {
+          return const Center(child: Icon(Icons.error));
+        },
+      ),
     );
   }
 }

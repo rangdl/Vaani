@@ -11,12 +11,12 @@ import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/features/explore/providers/search_controller.dart';
 import 'package:vaani/features/explore/view/search_result_page.dart';
-import 'package:vaani/generated/l10n.dart';
-import 'package:vaani/router/router.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
+import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
-import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
+import 'package:vaani/shared/widgets/skeletons.dart';
 
 const Duration debounceDuration = Duration(milliseconds: 500);
 
