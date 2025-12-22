@@ -1,6 +1,4 @@
-import 'package:isar/isar.dart';
-
-part 'image.g.dart';
+// part 'image.g.dart';
 
 /// Represents a cover image for a library item
 ///
@@ -11,10 +9,10 @@ part 'image.g.dart';
 /// also index the id
 /// This is because the image is a part of the library item and the library item
 /// is the parent of the image
-@Collection(ignore: {'path'})
-@Name('CacheImage')
+// @Collection(ignore: {'path'})
+// @Name('CacheImage')
 class Image {
-  @Id()
+  // @Id()
   int id;
 
   String? thumbnailPath;

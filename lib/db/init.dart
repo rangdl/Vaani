@@ -1,4 +1,5 @@
-import 'package:hive/hive.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:vaani/db/available_boxes.dart';
 import 'package:vaani/globals.dart';
 
 import 'register_models.dart';
@@ -13,8 +14,10 @@ Future initStorage() async {
   // );
   // await storageDir.create(recursive: true);
 
-  Hive.defaultDirectory = appDocumentsDir.path;
-  appLogger.config('Hive storage directory init: ${Hive.defaultDirectory}');
+  Hive.initFlutter(appName);
+  // Hive.defaultDirectory = appDocumentsDir.path;
+  // appLogger.config('Hive storage directory init: ${Hive.defaultDirectory}');
 
   await registerModels();
+  await AvailableHiveBoxes.init();
 }

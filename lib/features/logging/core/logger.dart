@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:logging_appenders/logging_appenders.dart';
 import 'package:vaani/globals.dart';
-import 'package:vaani/shared/extensions/duration_format.dart';
+// import 'package:vaani/shared/extensions/duration_format.dart';
 
 Future<String> getLoggingFilePath() async {
   // final Directory directory = await getApplicationDocumentsDirectory();
@@ -24,11 +24,11 @@ Future<void> initLogging() async {
       baseFilePath: await getLoggingFilePath(),
       formatter: formatter,
     ).attachToLogger(Logger.root);
-    Logger.root.onRecord.listen((record) {
-      // Print log records to the console
-      debugPrint(
-        '${record.loggerName}: ${record.level.name}: ${record.time.time}: ${record.message}',
-      );
-    });
+    // Logger.root.onRecord.listen((record) {
+    //   // Print log records to the console
+    //   debugPrint(
+    //     '${record.loggerName}: ${record.level.name}: ${record.time.time}: ${record.message}',
+    //   );
+    // });
   }
 }

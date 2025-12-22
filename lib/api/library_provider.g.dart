@@ -188,7 +188,7 @@ final librariesProvider =
 );
 
 typedef _$Libraries = AutoDisposeAsyncNotifier<List<Library>>;
-String _$libraryItemsHash() => r'847ff8f5c325a786f257c2b98986098a9664cbb5';
+String _$libraryItemsHash() => r'2927603eca709f7444a5d2ab5595dedc8596de78';
 
 /// See also [LibraryItems].
 @ProviderFor(LibraryItems)

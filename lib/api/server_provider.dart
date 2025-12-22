@@ -29,7 +29,7 @@ class ServerAlreadyExistsException implements Exception {
 class AudiobookShelfServer extends _$AudiobookShelfServer {
   @override
   Set<model.AudiobookShelfServer> build() {
-    ref.listenSelf((_, __) {
+    listenSelf((_, __) {
       writeStateToBox();
     });
     // get the app settings
@@ -48,7 +48,7 @@ class AudiobookShelfServer extends _$AudiobookShelfServer {
 
   Set<model.AudiobookShelfServer> readFromBoxOrCreate() {
     if (_box.isNotEmpty) {
-      final foundServers = _box.getRange(0, _box.length);
+      final foundServers = _box.values.toList();
       _logger.info('found servers in box: ${foundServers.obfuscate()}');
       return foundServers.nonNulls.toSet();
     } else {

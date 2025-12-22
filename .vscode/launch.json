@@ -8,7 +8,8 @@
       "name": "vaani",
       "request": "launch",
       "program": "lib/main.dart",
-      "type": "dart"
+      "type": "dart",
+      "console": "terminal"
     },
     {
       "name": "vaani (profile mode)",

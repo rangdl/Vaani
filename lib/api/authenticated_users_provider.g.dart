@@ -7,7 +7,7 @@ part of 'authenticated_users_provider.dart';
 // **************************************************************************
 
 String _$authenticatedUsersHash() =>
-    r'5fdd472f62fc3b73ff8417cdce9f02e86c33d00f';
+    r'4b839cd69be08044e17e540290143c2a3b870b97';
 
 /// provides with a set of authenticated users
 ///

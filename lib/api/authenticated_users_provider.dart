@@ -20,7 +20,7 @@ final _logger = Logger('authenticated_users_provider');
 class AuthenticatedUsers extends _$AuthenticatedUsers {
   @override
   Set<model.AuthenticatedUser> build() {
-    ref.listenSelf((_, __) {
+    listenSelf((_, __) {
       writeStateToBox();
     });
     // get the app settings
@@ -35,7 +35,7 @@ class AuthenticatedUsers extends _$AuthenticatedUsers {
 
   Set<model.AuthenticatedUser> readFromBoxOrCreate() {
     if (_box.isNotEmpty) {
-      final foundData = _box.getRange(0, _box.length);
+      final foundData = _box.values.toList();
       _logger.fine(
         'found users in box: ${foundData.obfuscate()}',
       );

@@ -34,7 +34,7 @@ class AppSettings extends _$AppSettings {
   @override
   model.AppSettings build() {
     state = loadOrCreateAppSettings();
-    ref.listenSelf((_, __) {
+    listenSelf((_, __) {
       writeToBox();
     });
     return state;

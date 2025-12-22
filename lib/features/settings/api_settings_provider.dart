@@ -30,12 +30,12 @@ class ApiSettings extends _$ApiSettings {
       var foundSettings = _box.getAt(0);
       // foundSettings.activeServer ??= foundSettings.activeUser?.server;
       // foundSettings =foundSettings.copyWith(activeServer: foundSettings.activeUser?.server);
-      if (foundSettings.activeServer == null) {
-        foundSettings = foundSettings.copyWith(
+      if (foundSettings?.activeServer == null) {
+        foundSettings = foundSettings!.copyWith(
           activeServer: foundSettings.activeUser?.server,
         );
       }
-      _logger.fine('found api settings in box: ${foundSettings.obfuscate()}');
+      _logger.fine('found api settings in box: ${foundSettings!.obfuscate()}');
       return foundSettings;
     } else {
       // create a new settings object
