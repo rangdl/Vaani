@@ -6,7 +6,7 @@ part of 'api_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$audiobookshelfApiHash() => r'f23a06c404e11867a7f796877eaca99b8ff25458';
+String _$audiobookshelfApiHash() => r'd7fbddf9ce2b463468c8d4db5a1bc4a53b7b7278';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -170,7 +170,7 @@ class _AudiobookshelfApiProviderElement
   Uri? get baseUrl => (origin as AudiobookshelfApiProvider).baseUrl;
 }
 
-String _$authenticatedApiHash() => r'284be2c39823c20fb70035a136c430862c28fa27';
+String _$authenticatedApiHash() => r'13bba42fa712f173d3b72761ae9d544854df26d0';
 
 /// get the api instance for the authenticated user
 ///
@@ -191,7 +191,7 @@ final authenticatedApiProvider = Provider<AudiobookshelfApi>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AuthenticatedApiRef = ProviderRef<AudiobookshelfApi>;
-String _$isServerAliveHash() => r'bb3a53cae1eb64b8760a56864feed47b7a3f1c29';
+String _$isServerAliveHash() => r'3afd608ced03a23fa7300d4a59368d170406ecc8';
 
 /// ping the server to check if it is reachable
 ///
@@ -355,7 +355,7 @@ class ServerStatusFamily extends Family<AsyncValue<ServerStatusResponse?>> {
   /// Copied from [serverStatus].
   ServerStatusProvider call(
     Uri baseUrl, [
-    void Function(Response, [Object?])? responseErrorHandler,
+    void Function(ApiResponse, [Object?])? responseErrorHandler,
   ]) {
     return ServerStatusProvider(
       baseUrl,
@@ -398,7 +398,7 @@ class ServerStatusProvider
   /// Copied from [serverStatus].
   ServerStatusProvider(
     Uri baseUrl, [
-    void Function(Response, [Object?])? responseErrorHandler,
+    void Function(ApiResponse, [Object?])? responseErrorHandler,
   ]) : this._internal(
           (ref) => serverStatus(
             ref as ServerStatusRef,
@@ -430,7 +430,7 @@ class ServerStatusProvider
   }) : super.internal();
 
   final Uri baseUrl;
-  final void Function(Response, [Object?])? responseErrorHandler;
+  final void Function(ApiResponse, [Object?])? responseErrorHandler;
 
   @override
   Override overrideWith(
@@ -480,7 +480,7 @@ mixin ServerStatusRef on AutoDisposeFutureProviderRef<ServerStatusResponse?> {
   Uri get baseUrl;
 
   /// The parameter `responseErrorHandler` of this provider.
-  void Function(Response, [Object?])? get responseErrorHandler;
+  void Function(ApiResponse, [Object?])? get responseErrorHandler;
 }
 
 class _ServerStatusProviderElement
@@ -491,7 +491,7 @@ class _ServerStatusProviderElement
   @override
   Uri get baseUrl => (origin as ServerStatusProvider).baseUrl;
   @override
-  void Function(Response, [Object?])? get responseErrorHandler =>
+  void Function(ApiResponse, [Object?])? get responseErrorHandler =>
       (origin as ServerStatusProvider).responseErrorHandler;
 }
 

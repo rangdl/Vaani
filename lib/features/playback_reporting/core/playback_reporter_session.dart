@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/features/player/core/abs_audio_player.dart';
@@ -211,7 +210,7 @@ class PlaybackReporter {
     _logger.fine('cancelled timer');
   }
 
-  void _responseErrorHandler(http.Response response, [error]) {
+  void _responseErrorHandler<T>(ApiResponse response, [error]) {
     if (response.statusCode != 200) {
       _logger.severe('Error with api: ${response.obfuscate()}, $error');
       throw PlaybackSyncError(

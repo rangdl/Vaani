@@ -3,26 +3,26 @@
 import 'dart:convert';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart';
+// import 'package:http_cache_client/http_cache_client.dart';
 // import 'package:http_cache_core/http_cache_core.dart';
-// import 'package:http_cache_isar_store/http_cache_isar_store.dart';
+// import 'package:http_cache_hive_store/http_cache_hive_store.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/db/cache/cache_key.dart';
 import 'package:vaani/db/cache_manager.dart';
-import 'package:vaani/shared/utils/error_response.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
 import 'package:vaani/features/settings/models/authenticated_user.dart';
 import 'package:vaani/shared/extensions/obfuscation.dart';
+import 'package:vaani/shared/utils/error_response.dart';
 
 part 'api_provider.g.dart';
 
-// TODO: workaround for https://github.com/rrousselGit/riverpod/issues/3718
-typedef ResponseErrorHandler = void Function(
-  Response response, [
-  Object? error,
-]);
+// // TODO: workaround for https://github.com/rrousselGit/riverpod/issues/3718
+// typedef ResponseErrorHandler<T> = void Function(
+//   T response, [
+//   Object? error,
+// ]);
 
 final _logger = Logger('api_provider');
 
@@ -39,15 +39,17 @@ Uri makeBaseUrl(String address) {
 // Global options
 // final options = CacheOptions(
 //   // A default store is required for the client.
-//   store: IsarCacheStore("", name: "http_cache"),
+//   store: HiveCacheStore(appDocumentsDir.path, hiveBoxName: "http_cache"),
 
 //   // All subsequent fields are optional to get a standard behaviour.
 
 //   // Default.
 //   policy: CachePolicy.request,
+//   // 对于给定的状态代码，返回之前缓存的错误响应。
 //   // Returns a previous cached response on error for given status codes.
 //   // Defaults to `[]`.
 //   hitCacheOnErrorCodes: const [500],
+//   // 允许在网络错误（例如脱机使用）时返回缓存响应。
 //   // Allows to return a cached response on network errors (e.g. offline usage).
 //   // Defaults to `false`.
 //   hitCacheOnNetworkFailure: true,
@@ -72,9 +74,8 @@ AudiobookshelfApi audiobookshelfApi(Ref ref, Uri? baseUrl) {
   // try to get the base url from app settings
   final apiSettings = ref.watch(apiSettingsProvider);
   baseUrl ??= apiSettings.activeServer?.serverUrl;
-  return AudiobookshelfApi(
+  return DioAudiobookshelfApi(
     baseUrl: makeBaseUrl(baseUrl.toString()),
-    // client:
   );
 }
 
@@ -88,9 +89,10 @@ AudiobookshelfApi authenticatedApi(Ref ref) {
     _logger.severe('No active user can not provide authenticated api');
     throw StateError('No active user');
   }
-  return AudiobookshelfApi(
+  return DioAudiobookshelfApi(
     baseUrl: makeBaseUrl(user.server.serverUrl.toString()),
     token: user.authToken,
+    // client: CacheClient(Client(), options: options),
   );
 }
 
@@ -102,7 +104,7 @@ FutureOr<bool> isServerAlive(Ref ref, String address) async {
   }
 
   try {
-    return await AudiobookshelfApi(baseUrl: makeBaseUrl(address))
+    return await DioAudiobookshelfApi(baseUrl: makeBaseUrl(address))
             .server
             .ping() ??
         false;

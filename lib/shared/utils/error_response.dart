@@ -1,26 +1,26 @@
-import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
+import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/shared/extensions/obfuscation.dart';
 
 final _logger = Logger('ErrorResponse');
 
 class ErrorResponseHandler {
   String? name;
-  http.Response _response;
+  ApiResponse _response;
   bool logRawResponse;
 
   ErrorResponseHandler({
     this.name,
-    http.Response? response,
+    dynamic response,
     this.logRawResponse = false,
-  }) : _response = response ?? http.Response('', 418);
+  }) : _response = response ?? BaseResponse(418, '');
 
-  void storeError(http.Response response, [Object? error]) {
+  void storeError(ApiResponse response, [Object? error]) {
     if (logRawResponse) {
-      _logger.fine('for $name got response: ${response.obfuscate()}');
+      _logger.severe('for $name got response: ${response.obfuscate()}');
     }
     _response = response;
   }
 
-  http.Response get response => _response;
+  ApiResponse get response => _response;
 }

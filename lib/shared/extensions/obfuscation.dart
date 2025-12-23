@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 import 'package:shelfsdk/audiobookshelf_api.dart' as shelfsdk;
 import 'package:vaani/features/settings/models/api_settings.dart';
 import 'package:vaani/features/settings/models/audiobookshelf_server.dart';
@@ -98,32 +97,80 @@ extension ObfuscateApiSettings on ApiSettings {
   }
 }
 
-extension ObfuscateRequest on http.BaseRequest {
-  http.BaseRequest obfuscate() {
+// extension ObfuscateRequest on http.BaseRequest {
+//   http.BaseRequest obfuscate() {
+//     if (!kReleaseMode) {
+//       return this;
+//     }
+//     return http.Request(
+//       method,
+//       url.obfuscate(),
+//     );
+//   }
+// }
+
+// extension ObfuscateResponse on http.Response {
+//   http.Response obfuscate() {
+//     if (!kReleaseMode) {
+//       return this;
+//     }
+//     return http.Response(
+//       obfuscateBody(),
+//       statusCode,
+//       headers: headers,
+//       request: request?.obfuscate(),
+//     );
+//   }
+
+//   String obfuscateBody() {
+//     if (!kReleaseMode) {
+//       return body;
+//     }
+//     // replace any email addresses with emailObfuscated
+//     // replace any phone numbers with phoneObfuscated
+//     // replace any urls with urlObfuscated
+//     // replace any tokens with tokenObfuscated
+//     // token regex is `"token": "..."`
+//     return body
+//         .replaceAll(
+//           RegExp(r'(\b\w+@\w+\.\w+\b)|'
+//               r'(\b\d{3}-\d{3}-\d{4}\b)|'
+//               r'(\bhttps?://\S+\b)'),
+//           'obfuscated',
+//         )
+//         .replaceAll(
+//           RegExp(r'"?token"?:?\s*"[^"]+"'),
+//           '"token": "tokenObfuscated"',
+//         );
+//   }
+// }
+
+extension ObfuscateRequest on shelfsdk.ApiRequest {
+  shelfsdk.ApiRequest obfuscate() {
     if (!kReleaseMode) {
       return this;
     }
-    return http.Request(
-      method,
-      url.obfuscate(),
+    return shelfsdk.ApiRequest(
+      method: method,
+      url: url,
     );
   }
 }
 
-extension ObfuscateResponse on http.Response {
-  http.Response obfuscate() {
+extension ObfuscateResponse on shelfsdk.ApiResponse {
+  shelfsdk.ApiResponse obfuscate() {
     if (!kReleaseMode) {
       return this;
     }
-    return http.Response(
-      obfuscateBody(),
+    return shelfsdk.BaseResponse(
       statusCode,
+      obfuscateBody(),
       headers: headers,
-      request: request?.obfuscate(),
+      request: request.obfuscate(),
     );
   }
 
-  String obfuscateBody() {
+  dynamic obfuscateBody() {
     if (!kReleaseMode) {
       return body;
     }
