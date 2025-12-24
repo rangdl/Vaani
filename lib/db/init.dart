@@ -14,7 +14,7 @@ Future initStorage() async {
   // );
   // await storageDir.create(recursive: true);
 
-  Hive.initFlutter(appName);
+  await Hive.initFlutter(appName);
   // Hive.defaultDirectory = appDocumentsDir.path;
   // appLogger.config('Hive storage directory init: ${Hive.defaultDirectory}');
 

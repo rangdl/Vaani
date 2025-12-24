@@ -74,7 +74,7 @@ AudiobookshelfApi audiobookshelfApi(Ref ref, Uri? baseUrl) {
   // try to get the base url from app settings
   final apiSettings = ref.watch(apiSettingsProvider);
   baseUrl ??= apiSettings.activeServer?.serverUrl;
-  return DioAudiobookshelfApi(
+  return HttpAudiobookshelfApi(
     baseUrl: makeBaseUrl(baseUrl.toString()),
   );
 }
@@ -89,7 +89,7 @@ AudiobookshelfApi authenticatedApi(Ref ref) {
     _logger.severe('No active user can not provide authenticated api');
     throw StateError('No active user');
   }
-  return DioAudiobookshelfApi(
+  return HttpAudiobookshelfApi(
     baseUrl: makeBaseUrl(user.server.serverUrl.toString()),
     token: user.authToken,
     // client: CacheClient(Client(), options: options),
@@ -104,7 +104,7 @@ FutureOr<bool> isServerAlive(Ref ref, String address) async {
   }
 
   try {
-    return await DioAudiobookshelfApi(baseUrl: makeBaseUrl(address))
+    return await HttpAudiobookshelfApi(baseUrl: makeBaseUrl(address))
             .server
             .ping() ??
         false;
