@@ -466,12 +466,7 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
 
     return ElevatedButton.icon(
       onPressed: () {
-        currentBook?.libraryItemId == book.libraryItemId
-            ? ref.read(absPlayerProvider).playOrPause()
-            : ref.read(absPlayerProvider.notifier).load(
-                  book,
-                  initialPosition: userMediaProgress?.currentTime,
-                );
+        ref.read(currentBookProvider.notifier).update(book.libraryItemId);
       },
       icon: Hero(
         tag: HeroTagPrefixes.libraryItemPlayButton + book.libraryItemId,

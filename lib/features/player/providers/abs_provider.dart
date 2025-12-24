@@ -1,17 +1,22 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
+import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' as api;
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/library_item_provider.dart';
+import 'package:vaani/db/available_boxes.dart';
+import 'package:vaani/db/cache/cache_key.dart';
 import 'package:vaani/features/downloads/providers/download_manager.dart';
 import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
 import 'package:vaani/features/player/core/abs_audio_handler.dart';
 import 'package:vaani/features/player/core/abs_audio_player.dart' as core;
 import 'package:vaani/features/player/core/abs_audio_player_platform.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
+import 'package:vaani/shared/extensions/box.dart';
+import 'package:vaani/shared/extensions/model_conversions.dart';
 
 part 'abs_provider.g.dart';
 
@@ -48,34 +53,33 @@ Future<AudioHandler> configurePlayer(Ref ref) async {
 }
 
 // just_audio 播放器
-// @Riverpod(keepAlive: true)
-// AudioPlayer audioPlayer(Ref ref) {
-//   // 跳转到播放列表指定条目指定位置
-//   // prefetch-playlist=yes
-//   JustAudioMediaKit.prefetchPlaylist = true;
-//   // merge-files=yes
-//   // cache=yes
-//   // cache-pause-wait=60
+@Riverpod(keepAlive: true)
+core.AbsAudioPlayer audioPlayer(Ref ref) {
+  final player = AbsPlatformAudioPlayer();
+  // final player = AbsMpvAudioPlayer();
+  ref.onDispose(player.dispose);
+  return player;
+}
 
-//   JustAudioMediaKit.ensureInitialized();
-//   return AudioPlayer();
-// }
+// 播放器激活状态
+@riverpod
+bool playerActive(Ref ref) {
+  return false;
+}
 
 /// 音频播放器 riverpod状态
 @Riverpod(keepAlive: true)
 class AbsPlayer extends _$AbsPlayer {
   @override
   core.AbsAudioPlayer build() {
-    // final audioPlayer = ref.watch(audioPlayerProvider);
-    // final player = AbsMpvAudioPlayer();
-    final player = AbsPlatformAudioPlayer();
-    ref.onDispose(player.dispose);
-    return player;
+    final audioPlayer = ref.watch(audioPlayerProvider);
+    return audioPlayer;
   }
 
   Future<void> load(
     api.BookExpanded book, {
     Duration? initialPosition,
+    bool play = true,
   }) async {
     if (state.book == book || state.book?.libraryItemId == book.libraryItemId) {
       state.playOrPause();
@@ -88,14 +92,13 @@ class AbsPlayer extends _$AbsPlayer {
         await ref.read(libraryItemProvider(book.libraryItemId).future);
     final downloadedUris = await downloadManager.getDownloadedFilesUri(libItem);
 
-    var bookPlayerSettings =
-        ref.read(bookSettingsProvider(book.libraryItemId)).playerSettings;
+    final bookSettings = ref.read(bookSettingsProvider(book.libraryItemId));
+    var bookPlayerSettings = bookSettings.playerSettings;
     var appPlayerSettings = ref.read(appSettingsProvider).playerSettings;
 
     var configurePlayerForEveryBook =
         appPlayerSettings.configurePlayerForEveryBook;
 
-    final bookSettings = ref.watch(bookSettingsProvider(book.libraryItemId));
     await state.load(
       book,
       baseUrl: api.baseUrl,
@@ -119,7 +122,7 @@ class AbsPlayer extends _$AbsPlayer {
               appPlayerSettings.preferredDefaultSpeed
           : appPlayerSettings.preferredDefaultSpeed,
     );
-    await state.play();
+    if (play) await state.play();
   }
 }
 
@@ -149,26 +152,57 @@ class PlayerState extends _$PlayerState {
 }
 
 @riverpod
-class CurrentBook extends _$CurrentBook {
-  @override
-  api.BookExpanded? build() {
-    final player = ref.read(absPlayerProvider);
-    player.bookStream.listen((book) {
-      if (book != state) {
-        state = book;
-      }
-    });
-    return player.book;
-  }
+Duration? currentTime(Ref ref, String libraryItemId) {
+  final me = ref.watch(meProvider);
+  final userProgress = me.valueOrNull?.mediaProgress
+      ?.firstWhereOrNull((element) => element.libraryItemId == libraryItemId);
+  return userProgress?.currentTime;
 }
 
 @riverpod
-bool isPlayerActive(Ref ref) {
-  final player = ref.read(absPlayerProvider);
-  player.bookStream.listen((book) {
-    ref.invalidateSelf();
-  });
-  return player.book != null;
+class CurrentBook extends _$CurrentBook {
+  @override
+  api.BookExpanded? build() {
+    listenSelf((previous, next) {
+      if (previous == null) {
+        final activeLibraryItemId = AvailableHiveBoxes.basicBox
+            .getAs<String>(CacheKey.activeLibraryItemId);
+        if (activeLibraryItemId != null) {
+          update(activeLibraryItemId, play: false);
+        }
+      }
+    });
+    return null;
+  }
+  // @override
+  // api.BookExpanded? build() {
+  //   final player = ref.read(absPlayerProvider);
+  //   player.bookStream.listen((book) {
+  //     if (book != state) {
+  //       state = book;
+  //     }
+  //   });
+  //   return player.book;
+  // }
+
+  Future<void> update(String libraryItemId, {bool play = true}) async {
+    if (state?.libraryItemId == libraryItemId) {
+      ref.read(audioPlayerProvider).playOrPause();
+      return;
+    }
+    final book = await ref.read(libraryItemProvider(libraryItemId).future);
+    state = book.media.asBookExpanded;
+    final currentTime = ref.read(currentTimeProvider(libraryItemId));
+    await ref
+        .read(absPlayerProvider.notifier)
+        .load(state!, initialPosition: currentTime, play: play);
+    if (play) {
+      AvailableHiveBoxes.basicBox.put(
+        CacheKey.activeLibraryItemId,
+        libraryItemId,
+      );
+    }
+  }
 }
 
 @riverpod

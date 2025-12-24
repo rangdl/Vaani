@@ -81,9 +81,10 @@ class AbsApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final servers = ref.watch(audiobookShelfServerProvider);
-    final apiSettings = ref.watch(apiSettingsProvider);
+    final activeUser =
+        ref.watch(apiSettingsProvider.select((v) => v.activeUser));
 
-    final needOnboarding = apiSettings.activeUser == null || servers.isEmpty;
+    final needOnboarding = activeUser == null || servers.isEmpty;
 
     if (needOnboarding) {
       routerConfig.goNamed(Routes.onboarding.name);

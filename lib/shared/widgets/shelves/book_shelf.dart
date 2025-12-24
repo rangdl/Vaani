@@ -287,17 +287,13 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
                 ),
               ),
               onPressed: () async {
-                final book =
-                    await ref.watch(libraryItemProvider(libraryItemId).future);
-
-                // ref.read(currentBookProvider.notifier).update(
+                ref.read(currentBookProvider.notifier).update(libraryItemId);
+                // final book =
+                //     await ref.watch(libraryItemProvider(libraryItemId).future);
+                // ref.read(absPlayerProvider.notifier).load(
                 //       book.media.asBookExpanded,
-                //       userProgress?.currentTime,
+                //       initialPosition: userProgress?.currentTime,
                 //     );
-                ref.read(absPlayerProvider.notifier).load(
-                      book.media.asBookExpanded,
-                      initialPosition: userProgress?.currentTime,
-                    );
               },
               icon: Hero(
                 tag: HeroTagPrefixes.libraryItemPlayButton + libraryItemId,

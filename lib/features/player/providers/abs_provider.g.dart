@@ -25,23 +25,189 @@ final configurePlayerProvider = FutureProvider<AudioHandler>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ConfigurePlayerRef = FutureProviderRef<AudioHandler>;
-String _$isPlayerActiveHash() => r'4fca4af53a17dbcd7c8a98ce115bc11fa39b4cf9';
+String _$audioPlayerHash() => r'156f85effafdcd287db88e455e8f4f4d33c41a0e';
 
-/// See also [isPlayerActive].
-@ProviderFor(isPlayerActive)
-final isPlayerActiveProvider = AutoDisposeProvider<bool>.internal(
-  isPlayerActive,
-  name: r'isPlayerActiveProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$isPlayerActiveHash,
+/// See also [audioPlayer].
+@ProviderFor(audioPlayer)
+final audioPlayerProvider = Provider<core.AbsAudioPlayer>.internal(
+  audioPlayer,
+  name: r'audioPlayerProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$audioPlayerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef IsPlayerActiveRef = AutoDisposeProviderRef<bool>;
+typedef AudioPlayerRef = ProviderRef<core.AbsAudioPlayer>;
+String _$playerActiveHash() => r'86831758035aa69d74f42ebde0a19bf7ef830910';
+
+/// See also [playerActive].
+@ProviderFor(playerActive)
+final playerActiveProvider = AutoDisposeProvider<bool>.internal(
+  playerActive,
+  name: r'playerActiveProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$playerActiveHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef PlayerActiveRef = AutoDisposeProviderRef<bool>;
+String _$currentTimeHash() => r'079945f118884b57d2e038117c7a7a5b873bc7d1';
+
+/// Copied from Dart SDK
+class _SystemHash {
+  _SystemHash._();
+
+  static int combine(int hash, int value) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + value);
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
+    return hash ^ (hash >> 6);
+  }
+
+  static int finish(int hash) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
+    // ignore: parameter_assignments
+    hash = hash ^ (hash >> 11);
+    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+  }
+}
+
+/// See also [currentTime].
+@ProviderFor(currentTime)
+const currentTimeProvider = CurrentTimeFamily();
+
+/// See also [currentTime].
+class CurrentTimeFamily extends Family<Duration?> {
+  /// See also [currentTime].
+  const CurrentTimeFamily();
+
+  /// See also [currentTime].
+  CurrentTimeProvider call(
+    String libraryItemId,
+  ) {
+    return CurrentTimeProvider(
+      libraryItemId,
+    );
+  }
+
+  @override
+  CurrentTimeProvider getProviderOverride(
+    covariant CurrentTimeProvider provider,
+  ) {
+    return call(
+      provider.libraryItemId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'currentTimeProvider';
+}
+
+/// See also [currentTime].
+class CurrentTimeProvider extends AutoDisposeProvider<Duration?> {
+  /// See also [currentTime].
+  CurrentTimeProvider(
+    String libraryItemId,
+  ) : this._internal(
+          (ref) => currentTime(
+            ref as CurrentTimeRef,
+            libraryItemId,
+          ),
+          from: currentTimeProvider,
+          name: r'currentTimeProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$currentTimeHash,
+          dependencies: CurrentTimeFamily._dependencies,
+          allTransitiveDependencies:
+              CurrentTimeFamily._allTransitiveDependencies,
+          libraryItemId: libraryItemId,
+        );
+
+  CurrentTimeProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.libraryItemId,
+  }) : super.internal();
+
+  final String libraryItemId;
+
+  @override
+  Override overrideWith(
+    Duration? Function(CurrentTimeRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: CurrentTimeProvider._internal(
+        (ref) => create(ref as CurrentTimeRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        libraryItemId: libraryItemId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeProviderElement<Duration?> createElement() {
+    return _CurrentTimeProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CurrentTimeProvider && other.libraryItemId == libraryItemId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, libraryItemId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin CurrentTimeRef on AutoDisposeProviderRef<Duration?> {
+  /// The parameter `libraryItemId` of this provider.
+  String get libraryItemId;
+}
+
+class _CurrentTimeProviderElement extends AutoDisposeProviderElement<Duration?>
+    with CurrentTimeRef {
+  _CurrentTimeProviderElement(super.provider);
+
+  @override
+  String get libraryItemId => (origin as CurrentTimeProvider).libraryItemId;
+}
+
 String _$positionChapterHash() => r'ac6148e92363fad849713c07045503653dcaa7e8';
 
 /// See also [positionChapter].
@@ -77,7 +243,7 @@ final currentChaptersProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentChaptersRef = AutoDisposeProviderRef<List<api.BookChapter>>;
-String _$absPlayerHash() => r'dfb4a8e9778d44143ec7589a99c6295c32c64c4a';
+String _$absPlayerHash() => r'74a59dbf0f9396fef6bb60363fb186f5e4619a63';
 
 /// 音频播放器 riverpod状态
 ///
@@ -109,7 +275,7 @@ final playerStateProvider =
 );
 
 typedef _$PlayerState = AutoDisposeNotifier<core.AbsPlayerState>;
-String _$currentBookHash() => r'f511c6f16c17696e41c6384c5195646a419deae3';
+String _$currentBookHash() => r'eed66894cb003d9d8ebd7b128d6ebb4efd5cda1b';
 
 /// See also [CurrentBook].
 @ProviderFor(CurrentBook)

@@ -8,6 +8,8 @@ class AvailableHiveBoxes {
   const AvailableHiveBoxes._();
 
   static Future<void> init() async {
+    await Hive.openBox('basicTypes');
+
     /// Box for storing user preferences as [AppSettings]
     await Hive.openBox<AppSettings>('userPrefs');
 
@@ -26,6 +28,8 @@ class AvailableHiveBoxes {
 
     await Hive.openBox<BookSettings>('bookSettings');
   }
+
+  static final basicBox = Hive.box('basicTypes');
 
   /// Box for storing user preferences as [AppSettings]
   static final userPrefsBox = Hive.box<AppSettings>('userPrefs');

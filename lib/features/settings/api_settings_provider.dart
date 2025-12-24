@@ -17,7 +17,7 @@ class ApiSettings extends _$ApiSettings {
   @override
   model.ApiSettings build() {
     state = readFromBoxOrCreate();
-    ref.listenSelf((_, __) {
+    listenSelf((_, __) {
       writeToBox();
     });
 

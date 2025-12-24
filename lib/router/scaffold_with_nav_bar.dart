@@ -49,7 +49,6 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
   }
 
   Widget buildNavLeft(BuildContext context, WidgetRef ref) {
-    // final isPlayerActive = ref.watch(isPlayerActiveProvider);
     final currentBook = ref.watch(currentBookProvider);
     return Padding(
       padding:
