@@ -6,7 +6,7 @@ part of 'api_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$audiobookshelfApiHash() => r'd7fbddf9ce2b463468c8d4db5a1bc4a53b7b7278';
+String _$audiobookshelfApiHash() => r'ba34f6a16394cdc849b1bd63cd1f3f2472f04f69';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -170,7 +170,7 @@ class _AudiobookshelfApiProviderElement
   Uri? get baseUrl => (origin as AudiobookshelfApiProvider).baseUrl;
 }
 
-String _$authenticatedApiHash() => r'13bba42fa712f173d3b72761ae9d544854df26d0';
+String _$authenticatedApiHash() => r'd672c261b2da7b5091d64e2f7efb0da356ca32a5';
 
 /// get the api instance for the authenticated user
 ///
@@ -191,7 +191,7 @@ final authenticatedApiProvider = Provider<AudiobookshelfApi>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AuthenticatedApiRef = ProviderRef<AudiobookshelfApi>;
-String _$isServerAliveHash() => r'3afd608ced03a23fa7300d4a59368d170406ecc8';
+String _$isServerAliveHash() => r'71f272f2102f43c1d2be212eff85faf2aadf916d';
 
 /// ping the server to check if it is reachable
 ///

@@ -213,10 +213,12 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final me = ref.watch(meProvider);
     final currentBook = ref.watch(currentBookProvider);
-    final playing = ref.watch(playerStateProvider.select((v) => v.playing));
+    final playerStateNotifier = ref.watch(playerStateProvider.notifier);
+    final isLoading = playerStateNotifier.isLoading(libraryItemId);
     final isCurrentBookSetInPlayer =
         currentBook?.libraryItemId == libraryItemId;
-    final isPlayingThisBook = playing && isCurrentBookSetInPlayer;
+    final isPlayingThisBook =
+        playerStateNotifier.isPlaying() && isCurrentBookSetInPlayer;
 
     final userProgress = me.valueOrNull?.mediaProgress
         ?.firstWhereOrNull((element) => element.libraryItemId == libraryItemId);
@@ -298,7 +300,7 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
               icon: Hero(
                 tag: HeroTagPrefixes.libraryItemPlayButton + libraryItemId,
                 child: DynamicItemPlayIcon(
-                  // isLoading: isLoading,
+                  isLoading: isLoading,
                   isBookCompleted: isBookCompleted,
                   isPlayingThisBook: isPlayingThisBook,
                   isCurrentBookSetInPlayer: isCurrentBookSetInPlayer,

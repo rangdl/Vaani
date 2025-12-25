@@ -14,6 +14,7 @@ import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
+import 'package:vaani/shared/extensions/style.dart';
 import 'package:vaani/shared/icons/abs_icons.dart';
 import 'package:vaani/shared/widgets/skeletons.dart';
 
@@ -101,6 +102,7 @@ class LibraryPage extends HookConsumerWidget {
               itemBuilder: (context, index) {
                 return LibraryPageItem(
                   item: items[index],
+                  width: width,
                 );
               },
             );
@@ -133,12 +135,20 @@ class LibraryPageItem extends HookConsumerWidget {
   const LibraryPageItem({
     super.key,
     required this.item,
+    required this.width,
   });
   final LibraryItem item;
+  final double width;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final book = item.media.asBookMinified;
     final metadata = book.metadata.asBookMetadataMinified;
+    final bodyLarge = Theme.of(context).textTheme.bodyLarge;
+    final bodySmall = Theme.of(context).textTheme.bodySmall;
+    final height = width +
+        15 +
+        (bodyLarge?.calculateHeight ?? 0) +
+        (bodySmall?.calculateHeight ?? 0);
     return InkWell(
       onTap: () => context.pushNamed(
         Routes.libraryItem.name,
@@ -150,25 +160,28 @@ class LibraryPageItem extends HookConsumerWidget {
         ),
       ),
       borderRadius: BorderRadius.circular(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BookCoverWidget(itemId: item.id),
-          const SizedBox(height: 3),
-          Text(
-            metadata.title ?? '',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          const SizedBox(height: 2),
-          Text(
-            metadata.authorName ?? '',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-        ],
+      child: SizedBox(
+        height: height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(child: BookCoverWidget(itemId: item.id)),
+            const SizedBox(height: 3),
+            Text(
+              metadata.title ?? '',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: bodyLarge,
+            ),
+            const SizedBox(height: 2),
+            Text(
+              metadata.authorName ?? '',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: bodySmall,
+            ),
+          ],
+        ),
       ),
     );
   }

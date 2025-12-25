@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' as shelfsdk;
 import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/constants/hero_tag_conventions.dart';
+import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/downloads/providers/download_manager.dart'
     show
         downloadHistoryProvider,
@@ -93,6 +94,7 @@ class LibraryItemActions extends HookConsumerWidget {
                         },
                         icon: const Icon(Icons.share_rounded),
                       ),
+                      LibItemDownButton(item.id),
                       // download button
                       LibItemDownloadButton(item: item),
 
@@ -198,6 +200,139 @@ class LibraryItemActions extends HookConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class LibItemDownButton extends HookConsumerWidget {
+  const LibItemDownButton(this.libraryItemId, {super.key});
+  final String libraryItemId;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return IconButton(
+      onPressed: () {
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          builder: (context) {
+            return FractionallySizedBox(
+              heightFactor: 0.8,
+              child: LibItemDownSheet(libraryItemId),
+            );
+          },
+        );
+      },
+      icon: const Icon(
+        Icons.download_sharp,
+      ),
+    );
+  }
+}
+
+class LibItemDownSheet extends HookConsumerWidget {
+  const LibItemDownSheet(this.libraryItemId, {super.key});
+  final String libraryItemId;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // final downloadHistory =
+    //     ref.watch(downloadHistoryProvider(group: libraryItemId));
+    final libraryItem = ref.watch(libraryItemProvider(libraryItemId));
+    return libraryItem.when(
+      data: (item) {
+        final book = item.media.asBookExpanded;
+        final tracks = book.tracks;
+        return Padding(
+          padding: const EdgeInsets.all(AppElementSizes.paddingRegular),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Text('下载管理'),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.delete_outlined),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.download_outlined),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: tracks.length,
+                  itemBuilder: (context, index) {
+                    final track = tracks[index];
+                    return ListTile(
+                      title: Text(track.title),
+                      subtitle: Text(
+                        // '${record.task.directory}/${record.task.baseDirectory}',
+                        // track.metadata?.relPath ?? '',
+                        item.relPath,
+                      ),
+                      trailing: const Icon(
+                        Icons.open_in_new_rounded,
+                      ),
+                      onLongPress: () {
+                        // show the delete dialog
+                        // _showDialog(context, record.task);
+                      },
+                      onTap: () async {
+                        // open the file location
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      loading: () => const Center(
+        child: CircularProgressIndicator(),
+      ),
+      error: (error, stackTrace) => Center(
+        child: Text('Error: $error'),
+      ),
+    );
+  }
+
+  void _showDialog(context, task) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Delete'),
+          content: Text(
+            'Are you sure you want to delete ${task.filename}?',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // delete the file
+                FileDownloader().database.deleteRecordWithId(
+                      task.taskId,
+                    );
+                Navigator.pop(context);
+              },
+              child: const Text('Yes'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('No'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
