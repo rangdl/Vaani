@@ -1,14 +1,20 @@
+import 'dart:io';
+
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter/foundation.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:vaani/features/player/core/abs_audio_player.dart';
 
 // 对接audio_service
 class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
-  final AbsAudioPlayer player;
+  final AbsAudioPlayer _player;
 
-  AbsAudioHandler(this.player) {
+  AbsAudioHandler(AbsAudioPlayer player) : _player = player {
     player.mediaItemStream.listen((item) {
       mediaItem.add(item);
     });
+    // _player.playbackEventStream.map(_transformEvent).pipe(playbackState);
+
     playbackState.add(
       playbackState.value.copyWith(
         controls: [
@@ -70,35 +76,72 @@ class AbsAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   // 播放控制方法重写
   @override
   Future<void> play() async {
-    await player.play();
+    await _player.play();
   }
 
   @override
   Future<void> pause() async {
-    await player.pause();
+    await _player.pause();
   }
 
   @override
   Future<void> skipToNext() async {
-    await player.next();
+    await _player.next();
   }
 
   @override
   Future<void> skipToPrevious() async {
-    await player.previous();
+    await _player.previous();
   }
 
   @override
   Future<void> seek(Duration position) async {
-    await player.seek(position);
+    await _player.seek(position);
   }
 
   @override
   Future<void> setSpeed(double speed) async {
-    await player.setSpeed(speed);
+    await _player.setSpeed(speed);
   }
 
   Future<void> setVolume(double volume) async {
-    await player.setVolume(volume);
+    await _player.setVolume(volume);
   }
+
+  // PlaybackState _transformEvent(PlaybackEvent event) {
+  //   return PlaybackState(
+  //     controls: [
+  //       if (kIsWeb || !Platform.isAndroid) MediaControl.skipToPrevious,
+  //       MediaControl.rewind,
+  //       if (_player.playing) MediaControl.pause else MediaControl.play,
+  //       MediaControl.stop,
+  //       MediaControl.fastForward,
+  //       if (kIsWeb || !Platform.isAndroid) MediaControl.skipToNext
+  //     ],
+  //     systemActions: {
+  //       if (kIsWeb || !Platform.isAndroid) MediaAction.skipToPrevious,
+  //       MediaAction.rewind,
+  //       if (!(_settingsProvider?['lockSeekingNotification'] ?? false))
+  //         MediaAction.seek,
+  //       MediaAction.fastForward,
+  //       MediaAction.stop,
+  //       MediaAction.setSpeed,
+  //       if (kIsWeb || !Platform.isAndroid) MediaAction.skipToNext
+  //     },
+  //     androidCompactActionIndices: const [1, 2, 3],
+  //     processingState: const {
+  //       ProcessingState.idle: AudioProcessingState.idle,
+  //       ProcessingState.loading: AudioProcessingState.loading,
+  //       ProcessingState.buffering: AudioProcessingState.buffering,
+  //       ProcessingState.ready: AudioProcessingState.ready,
+  //       ProcessingState.completed: AudioProcessingState.completed,
+  //     }[_player.processingState]!,
+  //     playing: _player.playing,
+  //     updatePosition: position,
+  //     bufferedPosition: _player.bufferedPosition,
+  //     speed: _player.speed,
+  //     queueIndex: event.currentIndex,
+  //     captioningEnabled: false,
+  //   );
+  // }
 }
