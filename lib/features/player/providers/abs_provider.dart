@@ -152,9 +152,9 @@ class PlayerState extends _$PlayerState {
 }
 
 @riverpod
-Duration? currentTime(Ref ref, String libraryItemId) {
-  final me = ref.watch(meProvider);
-  final userProgress = me.valueOrNull?.mediaProgress
+Future<Duration?> currentTime(Ref ref, String libraryItemId) async {
+  final me = await ref.watch(meProvider.future);
+  final userProgress = me.mediaProgress
       ?.firstWhereOrNull((element) => element.libraryItemId == libraryItemId);
   return userProgress?.currentTime;
 }
@@ -192,7 +192,8 @@ class CurrentBook extends _$CurrentBook {
     }
     final book = await ref.read(libraryItemProvider(libraryItemId).future);
     state = book.media.asBookExpanded;
-    final currentTime = ref.read(currentTimeProvider(libraryItemId));
+    final currentTime =
+        await ref.read(currentTimeProvider(libraryItemId).future);
     await ref
         .read(absPlayerProvider.notifier)
         .load(state!, initialPosition: currentTime, play: play);

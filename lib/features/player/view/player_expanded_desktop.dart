@@ -1,9 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/view/player_expanded.dart'
@@ -11,14 +9,13 @@ import 'package:vaani/features/player/view/player_expanded.dart'
 import 'package:vaani/features/player/view/player_minimized.dart';
 import 'package:vaani/features/player/view/widgets/audiobook_player_seek_button.dart';
 import 'package:vaani/features/player/view/widgets/audiobook_player_seek_chapter_button.dart';
+import 'package:vaani/features/player/view/widgets/chapter_selection_button.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
 import 'package:vaani/features/player/view/widgets/player_progress_bar.dart';
 import 'package:vaani/features/player/view/widgets/player_speed_adjust_button.dart';
 import 'package:vaani/features/skip_start_end/view/skip_start_end_button.dart';
 import 'package:vaani/features/sleep_timer/view/sleep_timer_button.dart';
 import 'package:vaani/globals.dart';
-import 'package:vaani/shared/extensions/chapter.dart';
-import 'package:vaani/shared/extensions/duration_format.dart';
 
 var pendingPlayerModals = 0;
 
@@ -104,7 +101,7 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
                               ),
                             ),
                           ),
-                          child: ChapterSelection(),
+                          child: ChapterSelectionModal(),
                         ),
                       ),
                     ],
@@ -154,79 +151,6 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
           // 跳过片头片尾
           SkipChapterStartEndButton(),
         ],
-      ),
-    );
-  }
-}
-
-class ChapterSelection extends HookConsumerWidget {
-  const ChapterSelection({super.key});
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final currentChapter = ref.watch(currentChapterProvider);
-    if (currentChapter == null) {
-      return SizedBox.shrink();
-    }
-    final chapters = useState(<BookChapter>[]);
-    final scrollController = useScrollController();
-    useEffect(
-      () {
-        int page = 0;
-        void load(page) {
-          chapters.value.addAll(ref.watch(currentChaptersProvider));
-        }
-
-        load(page);
-        void listener() {
-          if (scrollController.position.pixels /
-                  scrollController.position.maxScrollExtent >
-              0.8) {
-            print('滚动到底部');
-          }
-        }
-
-        scrollController.addListener(listener);
-        return () => scrollController.removeListener(listener);
-      },
-      [scrollController],
-    );
-
-    final currentChapterIndex = chapters.value.indexOf(currentChapter);
-    final theme = Theme.of(context);
-    return Scrollbar(
-      controller: scrollController,
-      child: ListView.builder(
-        controller: scrollController,
-        itemCount: chapters.value.length,
-        itemBuilder: (context, index) {
-          final chapter = chapters.value[index];
-          final isCurrent = currentChapterIndex == index;
-          final isPlayed = index < currentChapterIndex;
-          return ListTile(
-            autofocus: isCurrent,
-            iconColor: isPlayed && !isCurrent ? theme.disabledColor : null,
-            title: Text(
-              chapter.title,
-              style: isPlayed && !isCurrent
-                  ? TextStyle(color: theme.disabledColor)
-                  : null,
-            ),
-            subtitle: Text(
-              '(${chapter.duration.smartBinaryFormat})',
-              style: isPlayed && !isCurrent
-                  ? TextStyle(color: theme.disabledColor)
-                  : null,
-            ),
-            // trailing: isCurrent
-            //     ? const PlayingIndicatorIcon()
-            //     : const Icon(Icons.play_arrow),
-            selected: isCurrent,
-            // key: isCurrent ? chapterKey : null,
-            onTap: () {
-              ref.read(absPlayerProvider).switchChapter(chapter.id);
-            },
-          );
-        },
       ),
     );
   }

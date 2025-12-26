@@ -57,7 +57,7 @@ final playerActiveProvider = AutoDisposeProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef PlayerActiveRef = AutoDisposeProviderRef<bool>;
-String _$currentTimeHash() => r'079945f118884b57d2e038117c7a7a5b873bc7d1';
+String _$currentTimeHash() => r'3e7f99dbf48242a5fa0a4239a0f696535d0b4ac9';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -85,7 +85,7 @@ class _SystemHash {
 const currentTimeProvider = CurrentTimeFamily();
 
 /// See also [currentTime].
-class CurrentTimeFamily extends Family<Duration?> {
+class CurrentTimeFamily extends Family<AsyncValue<Duration?>> {
   /// See also [currentTime].
   const CurrentTimeFamily();
 
@@ -123,7 +123,7 @@ class CurrentTimeFamily extends Family<Duration?> {
 }
 
 /// See also [currentTime].
-class CurrentTimeProvider extends AutoDisposeProvider<Duration?> {
+class CurrentTimeProvider extends AutoDisposeFutureProvider<Duration?> {
   /// See also [currentTime].
   CurrentTimeProvider(
     String libraryItemId,
@@ -158,7 +158,7 @@ class CurrentTimeProvider extends AutoDisposeProvider<Duration?> {
 
   @override
   Override overrideWith(
-    Duration? Function(CurrentTimeRef provider) create,
+    FutureOr<Duration?> Function(CurrentTimeRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -175,7 +175,7 @@ class CurrentTimeProvider extends AutoDisposeProvider<Duration?> {
   }
 
   @override
-  AutoDisposeProviderElement<Duration?> createElement() {
+  AutoDisposeFutureProviderElement<Duration?> createElement() {
     return _CurrentTimeProviderElement(this);
   }
 
@@ -195,13 +195,13 @@ class CurrentTimeProvider extends AutoDisposeProvider<Duration?> {
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin CurrentTimeRef on AutoDisposeProviderRef<Duration?> {
+mixin CurrentTimeRef on AutoDisposeFutureProviderRef<Duration?> {
   /// The parameter `libraryItemId` of this provider.
   String get libraryItemId;
 }
 
-class _CurrentTimeProviderElement extends AutoDisposeProviderElement<Duration?>
-    with CurrentTimeRef {
+class _CurrentTimeProviderElement
+    extends AutoDisposeFutureProviderElement<Duration?> with CurrentTimeRef {
   _CurrentTimeProviderElement(super.provider);
 
   @override
@@ -275,7 +275,7 @@ final playerStateProvider =
 );
 
 typedef _$PlayerState = AutoDisposeNotifier<core.AbsPlayerState>;
-String _$currentBookHash() => r'eed66894cb003d9d8ebd7b128d6ebb4efd5cda1b';
+String _$currentBookHash() => r'b4f6b6ccc772631db3dfd9070be3d7487333544d';
 
 /// See also [CurrentBook].
 @ProviderFor(CurrentBook)

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/view/player_expanded.dart'
     show pendingPlayerModals;
 import 'package:vaani/features/player/view/widgets/playing_indicator_icon.dart';
 import 'package:vaani/generated/l10n.dart';
-import 'package:vaani/globals.dart';
 import 'package:vaani/shared/extensions/chapter.dart' show ChapterDuration;
 import 'package:vaani/shared/extensions/duration_format.dart'
     show DurationFormat;
-import 'package:vaani/shared/hooks.dart' show useTimer;
+import 'package:vaani/shared/hooks.dart' show useLayoutEffect;
 
 class ChapterSelectionButton extends HookConsumerWidget {
   const ChapterSelectionButton({
@@ -53,77 +53,66 @@ class ChapterSelectionModal extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final session = ref.watch(currentBookProvider);
+    final book = ref.watch(currentBookProvider);
     final currentChapter = ref.watch(currentChapterProvider);
-
-    final currentChapterIndex = currentChapter?.id;
-    final chapterKey = GlobalKey();
-    scrollToCurrentChapter() async {
-      appLogger.fine('scrolling to chapter');
-      await Scrollable.ensureVisible(
-        chapterKey.currentContext!,
-        duration: 200.ms,
-        alignment: 0.5,
-        curve: Curves.easeInOut,
-      );
+    if (currentChapter == null || book == null) {
+      return SizedBox.shrink();
     }
+    final initialIndex = book.chapters.indexOf(currentChapter);
+    final scrollController = useScrollController();
+    final listController = ListController();
 
-    useTimer(scrollToCurrentChapter, 100.ms);
-    // useInterval(scrollToCurrentChapter, 500.ms);
+    // 首次布局完成之后跳转到指定位置
+    useLayoutEffect(() {
+      listController.jumpToItem(
+        index: initialIndex,
+        scrollController: scrollController,
+        alignment: 0.5,
+      );
+    });
     final theme = Theme.of(context);
     return Column(
       children: [
         ListTile(
           title: Text(
-            '${S.of(context).chapters} ${currentChapterIndex == null ? '' : ' (${currentChapterIndex + 1}/${session?.chapters.length})'}',
+            '${S.of(context).chapters} (${initialIndex + 1}/${book.chapters.length})',
           ),
         ),
         // scroll to current chapter after opening the dialog
         Expanded(
-          child: Scrollbar(
-            child: SingleChildScrollView(
-              primary: true,
-              child: session?.chapters == null
-                  ? Text(S.of(context).chapterNotFound)
-                  : Column(
-                      children: session!.chapters.map(
-                        (chapter) {
-                          final isCurrent = currentChapterIndex == chapter.id;
-                          final isPlayed = currentChapterIndex != null &&
-                              chapter.id < currentChapterIndex;
-                          return ListTile(
-                            autofocus: isCurrent,
-                            iconColor: isPlayed && !isCurrent
-                                ? theme.disabledColor
-                                : null,
-                            title: Text(
-                              chapter.title,
-                              style: isPlayed && !isCurrent
-                                  ? TextStyle(color: theme.disabledColor)
-                                  : null,
-                            ),
-                            subtitle: Text(
-                              '(${chapter.duration.smartBinaryFormat})',
-                              style: isPlayed && !isCurrent
-                                  ? TextStyle(color: theme.disabledColor)
-                                  : null,
-                            ),
-                            trailing: isCurrent
-                                ? const PlayingIndicatorIcon()
-                                : const Icon(Icons.play_arrow),
-                            selected: isCurrent,
-                            key: isCurrent ? chapterKey : null,
-                            onTap: () {
-                              Navigator.of(context).pop();
-                              ref
-                                  .read(absPlayerProvider)
-                                  .switchChapter(chapter.id);
-                            },
-                          );
-                        },
-                      ).toList(),
-                    ),
-            ),
+          child: SuperListView.builder(
+            listController: listController,
+            controller: scrollController,
+            itemCount: book.chapters.length,
+            itemBuilder: (BuildContext context, int index) {
+              final chapter = book.chapters[index];
+              final isCurrent = currentChapter.id == chapter.id;
+              final isPlayed = index < initialIndex;
+              return ListTile(
+                autofocus: isCurrent,
+                iconColor: isPlayed && !isCurrent ? theme.disabledColor : null,
+                title: Text(
+                  chapter.title,
+                  style: isPlayed && !isCurrent
+                      ? TextStyle(color: theme.disabledColor)
+                      : null,
+                ),
+                subtitle: Text(
+                  '(${chapter.duration.smartBinaryFormat})',
+                  style: isPlayed && !isCurrent
+                      ? TextStyle(color: theme.disabledColor)
+                      : null,
+                ),
+                trailing: isCurrent
+                    ? const PlayingIndicatorIcon()
+                    : const Icon(Icons.play_arrow),
+                selected: isCurrent,
+                onTap: () {
+                  Navigator.of(context).pop();
+                  ref.read(absPlayerProvider).switchChapter(chapter.id);
+                },
+              );
+            },
           ),
         ),
       ],
