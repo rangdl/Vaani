@@ -164,7 +164,7 @@ class CurrentBook extends _$CurrentBook {
   @override
   api.BookExpanded? build() {
     listenSelf((previous, next) {
-      if (previous == null) {
+      if (next == null) {
         final activeLibraryItemId = AvailableHiveBoxes.basicBox
             .getAs<String>(CacheKey.activeLibraryItemId);
         if (activeLibraryItemId != null) {

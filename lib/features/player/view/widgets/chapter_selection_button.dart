@@ -30,7 +30,7 @@ class ChapterSelectionButton extends HookConsumerWidget {
             barrierLabel: S.of(context).chapterSelect,
             constraints: BoxConstraints(
               // 40% of the screen height
-              maxHeight: MediaQuery.of(context).size.height * 0.4,
+              maxHeight: MediaQuery.of(context).size.height * 0.7,
             ),
             builder: (context) {
               return const Padding(
