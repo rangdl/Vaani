@@ -39,7 +39,7 @@ class AppSettingsPage extends HookConsumerWidget {
           tiles: [
             SettingsTile(
               title: Text(S.of(context).language),
-              leading: const Icon(Icons.play_arrow),
+              leading: const Icon(Icons.language),
               trailing: DropdownButton(
                 value: appSettings.language,
                 items: S.delegate.supportedLocales.map((locale) {
@@ -64,6 +64,14 @@ class AppSettingsPage extends HookConsumerWidget {
               description: Text(S.of(context).playerSettingsDescription),
               onPressed: (context) {
                 context.pushNamed(Routes.playerSettings.name);
+              },
+            ),
+            SettingsTile(
+              title: Text('下载设置'),
+              leading: const Icon(Icons.download),
+              description: Text('自定义下载设置'),
+              onPressed: (context) {
+                context.pushNamed(Routes.downloadSettings.name);
               },
             ),
             NavigationWithSwitchTile(

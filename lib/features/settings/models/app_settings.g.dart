@@ -239,6 +239,7 @@ _$DownloadSettingsImpl _$$DownloadSettingsImplFromJson(
       maxConcurrentByHost: (json['maxConcurrentByHost'] as num?)?.toInt() ?? 3,
       maxConcurrentByGroup:
           (json['maxConcurrentByGroup'] as num?)?.toInt() ?? 3,
+      path: json['path'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$DownloadSettingsImplToJson(
@@ -250,6 +251,7 @@ Map<String, dynamic> _$$DownloadSettingsImplToJson(
       'maxConcurrent': instance.maxConcurrent,
       'maxConcurrentByHost': instance.maxConcurrentByHost,
       'maxConcurrentByGroup': instance.maxConcurrentByGroup,
+      'path': instance.path,
     };
 
 _$NotificationSettingsImpl _$$NotificationSettingsImplFromJson(

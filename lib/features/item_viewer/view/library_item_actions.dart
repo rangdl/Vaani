@@ -94,7 +94,7 @@ class LibraryItemActions extends HookConsumerWidget {
                         },
                         icon: const Icon(Icons.share_rounded),
                       ),
-                      LibItemDownButton(item.id),
+                      LibItemDownButton(item: item),
                       // download button
                       LibItemDownloadButton(item: item),
 
@@ -205,8 +205,8 @@ class LibraryItemActions extends HookConsumerWidget {
 }
 
 class LibItemDownButton extends HookConsumerWidget {
-  const LibItemDownButton(this.libraryItemId, {super.key});
-  final String libraryItemId;
+  const LibItemDownButton({required this.item, super.key});
+  final shelfsdk.LibraryItemExpanded item;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
@@ -217,7 +217,7 @@ class LibItemDownButton extends HookConsumerWidget {
           builder: (context) {
             return FractionallySizedBox(
               heightFactor: 0.8,
-              child: LibItemDownSheet(libraryItemId),
+              child: LibItemDownSheet(item.id),
             );
           },
         );
@@ -253,13 +253,17 @@ class LibItemDownSheet extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            appLogger.fine('Pressed delete download button');
+                            ref
+                                .read(downloadManagerProvider.notifier)
+                                .deleteDownloadedItem(
+                                  item,
+                                );
+                          },
                           icon: Icon(Icons.delete_outlined),
                         ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.download_outlined),
-                        ),
+                        LibItemDownloadButton(item: item),
                       ],
                     ),
                   ),

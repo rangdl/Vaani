@@ -101,7 +101,9 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
                               ),
                             ),
                           ),
-                          child: ChapterSelectionModal(),
+                          child: ChapterSelectionModal(
+                            back: false,
+                          ),
                         ),
                       ),
                     ],

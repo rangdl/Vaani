@@ -275,7 +275,7 @@ final playerStateProvider =
 );
 
 typedef _$PlayerState = AutoDisposeNotifier<core.AbsPlayerState>;
-String _$currentBookHash() => r'b4f6b6ccc772631db3dfd9070be3d7487333544d';
+String _$currentBookHash() => r'790af1f9502b12879fc22c900ed5e3572381ab1e';
 
 /// See also [CurrentBook].
 @ProviderFor(CurrentBook)

@@ -49,7 +49,9 @@ class ChapterSelectionButton extends HookConsumerWidget {
 class ChapterSelectionModal extends HookConsumerWidget {
   const ChapterSelectionModal({
     super.key,
+    this.back = true,
   });
+  final bool back;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -108,8 +110,11 @@ class ChapterSelectionModal extends HookConsumerWidget {
                     : const Icon(Icons.play_arrow),
                 selected: isCurrent,
                 onTap: () {
-                  Navigator.of(context).pop();
-                  ref.read(absPlayerProvider).switchChapter(chapter.id);
+                  if (back) {
+                    Navigator.of(context).pop();
+                  } else {
+                    ref.read(absPlayerProvider).switchChapter(chapter.id);
+                  }
                 },
               );
             },

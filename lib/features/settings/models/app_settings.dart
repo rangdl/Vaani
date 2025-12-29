@@ -143,6 +143,7 @@ class DownloadSettings with _$DownloadSettings {
     @Default(3) int maxConcurrent,
     @Default(3) int maxConcurrentByHost,
     @Default(3) int maxConcurrentByGroup,
+    @Default('') String path,
   }) = _DownloadSettings;
 
   factory DownloadSettings.fromJson(Map<String, dynamic> json) =>

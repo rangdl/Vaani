@@ -160,7 +160,7 @@ class _DownloadHistoryProviderElement
 }
 
 String _$simpleDownloadManagerHash() =>
-    r'8ab13f06ec5f2f73b73064bd285813dc890b7f36';
+    r'da5798e4becce751db80c41b93a48217418e4648';
 
 /// See also [SimpleDownloadManager].
 @ProviderFor(SimpleDownloadManager)
@@ -176,7 +176,7 @@ final simpleDownloadManagerProvider = NotifierProvider<SimpleDownloadManager,
 );
 
 typedef _$SimpleDownloadManager = Notifier<core.AudiobookDownloadManager>;
-String _$downloadManagerHash() => r'852012e32e613f86445afc7f7e4e85bec808e982';
+String _$downloadManagerHash() => r'92afe484d6735d5de53473011ea9ecbad107fc1c';
 
 /// See also [DownloadManager].
 @ProviderFor(DownloadManager)

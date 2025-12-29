@@ -9,6 +9,7 @@ import 'package:vaani/features/onboarding/view/callback_page.dart';
 import 'package:vaani/features/onboarding/view/onboarding_single_page.dart';
 import 'package:vaani/features/settings/view/app_settings_page.dart';
 import 'package:vaani/features/settings/view/auto_sleep_timer_settings_page.dart';
+import 'package:vaani/features/settings/view/download_settings_page.dart';
 import 'package:vaani/features/settings/view/home_page_settings_page.dart';
 import 'package:vaani/features/settings/view/notification_settings_page.dart';
 import 'package:vaani/features/settings/view/player_settings_page.dart';
@@ -212,6 +213,12 @@ class MyAppRouter {
                         name: Routes.playerSettings.name,
                         pageBuilder:
                             defaultPageBuilder(const PlayerSettingsPage()),
+                      ),
+                      GoRoute(
+                        path: Routes.downloadSettings.pathName,
+                        name: Routes.downloadSettings.name,
+                        pageBuilder:
+                            defaultPageBuilder(const DownloadSettingsPage()),
                       ),
                       GoRoute(
                         path: Routes.shakeDetectorSettings.pathName,

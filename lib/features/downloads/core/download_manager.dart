@@ -22,6 +22,7 @@ class AudiobookDownloadManager {
     this.requiresWiFi = true,
     this.retries = 0,
     this.allowPause = false,
+    this.path = '',
 
     // /// The maximum number of concurrent tasks to run at any given time.
     // int maxConcurrent = 3,
@@ -60,6 +61,9 @@ class AudiobookDownloadManager {
   // whether to allow pausing of downloads
   final bool allowPause;
 
+  // 下载目录
+  final String path;
+
   final StreamController<TaskUpdate> _taskStatusController =
       StreamController.broadcast();
 
@@ -68,11 +72,16 @@ class AudiobookDownloadManager {
   late StreamSubscription<TaskUpdate> _updatesSubscription;
 
   Future<void> queueAudioBookDownload(
-    LibraryItemExpanded item,
-  ) async {
+    LibraryItemExpanded item, {
+    String prePath = '',
+  }) async {
     _logger.info('queuing download for item: ${item.id}');
     // create a download task for each file in the item
     for (final file in item.libraryFiles) {
+      // 仅下载音频和视频
+      if (![FileType.audio, FileType.video].contains(file.fileType)) {
+        continue;
+      }
       // check if the file is already downloaded
       if (isFileDownloaded(
         constructFilePath(item, file),
@@ -84,7 +93,7 @@ class AudiobookDownloadManager {
       final task = DownloadTask(
         taskId: file.ino,
         url: file.url(baseUrl, item.id, token).toString(),
-        directory: item.relPath,
+        directory: prePath + item.relPath,
         filename: file.metadata.filename,
         requiresWiFi: requiresWiFi,
         retries: retries,

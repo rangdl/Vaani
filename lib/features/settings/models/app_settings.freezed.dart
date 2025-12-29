@@ -1970,6 +1970,7 @@ mixin _$DownloadSettings {
   int get maxConcurrent => throw _privateConstructorUsedError;
   int get maxConcurrentByHost => throw _privateConstructorUsedError;
   int get maxConcurrentByGroup => throw _privateConstructorUsedError;
+  String get path => throw _privateConstructorUsedError;
 
   /// Serializes this DownloadSettings to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1993,7 +1994,8 @@ abstract class $DownloadSettingsCopyWith<$Res> {
       bool allowPause,
       int maxConcurrent,
       int maxConcurrentByHost,
-      int maxConcurrentByGroup});
+      int maxConcurrentByGroup,
+      String path});
 }
 
 /// @nodoc
@@ -2017,6 +2019,7 @@ class _$DownloadSettingsCopyWithImpl<$Res, $Val extends DownloadSettings>
     Object? maxConcurrent = null,
     Object? maxConcurrentByHost = null,
     Object? maxConcurrentByGroup = null,
+    Object? path = null,
   }) {
     return _then(_value.copyWith(
       requiresWiFi: null == requiresWiFi
@@ -2043,6 +2046,10 @@ class _$DownloadSettingsCopyWithImpl<$Res, $Val extends DownloadSettings>
           ? _value.maxConcurrentByGroup
           : maxConcurrentByGroup // ignore: cast_nullable_to_non_nullable
               as int,
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -2061,7 +2068,8 @@ abstract class _$$DownloadSettingsImplCopyWith<$Res>
       bool allowPause,
       int maxConcurrent,
       int maxConcurrentByHost,
-      int maxConcurrentByGroup});
+      int maxConcurrentByGroup,
+      String path});
 }
 
 /// @nodoc
@@ -2083,6 +2091,7 @@ class __$$DownloadSettingsImplCopyWithImpl<$Res>
     Object? maxConcurrent = null,
     Object? maxConcurrentByHost = null,
     Object? maxConcurrentByGroup = null,
+    Object? path = null,
   }) {
     return _then(_$DownloadSettingsImpl(
       requiresWiFi: null == requiresWiFi
@@ -2109,6 +2118,10 @@ class __$$DownloadSettingsImplCopyWithImpl<$Res>
           ? _value.maxConcurrentByGroup
           : maxConcurrentByGroup // ignore: cast_nullable_to_non_nullable
               as int,
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -2122,7 +2135,8 @@ class _$DownloadSettingsImpl implements _DownloadSettings {
       this.allowPause = true,
       this.maxConcurrent = 3,
       this.maxConcurrentByHost = 3,
-      this.maxConcurrentByGroup = 3});
+      this.maxConcurrentByGroup = 3,
+      this.path = ''});
 
   factory _$DownloadSettingsImpl.fromJson(Map<String, dynamic> json) =>
       _$$DownloadSettingsImplFromJson(json);
@@ -2145,10 +2159,13 @@ class _$DownloadSettingsImpl implements _DownloadSettings {
   @override
   @JsonKey()
   final int maxConcurrentByGroup;
+  @override
+  @JsonKey()
+  final String path;
 
   @override
   String toString() {
-    return 'DownloadSettings(requiresWiFi: $requiresWiFi, retries: $retries, allowPause: $allowPause, maxConcurrent: $maxConcurrent, maxConcurrentByHost: $maxConcurrentByHost, maxConcurrentByGroup: $maxConcurrentByGroup)';
+    return 'DownloadSettings(requiresWiFi: $requiresWiFi, retries: $retries, allowPause: $allowPause, maxConcurrent: $maxConcurrent, maxConcurrentByHost: $maxConcurrentByHost, maxConcurrentByGroup: $maxConcurrentByGroup, path: $path)';
   }
 
   @override
@@ -2166,13 +2183,21 @@ class _$DownloadSettingsImpl implements _DownloadSettings {
             (identical(other.maxConcurrentByHost, maxConcurrentByHost) ||
                 other.maxConcurrentByHost == maxConcurrentByHost) &&
             (identical(other.maxConcurrentByGroup, maxConcurrentByGroup) ||
-                other.maxConcurrentByGroup == maxConcurrentByGroup));
+                other.maxConcurrentByGroup == maxConcurrentByGroup) &&
+            (identical(other.path, path) || other.path == path));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, requiresWiFi, retries,
-      allowPause, maxConcurrent, maxConcurrentByHost, maxConcurrentByGroup);
+  int get hashCode => Object.hash(
+      runtimeType,
+      requiresWiFi,
+      retries,
+      allowPause,
+      maxConcurrent,
+      maxConcurrentByHost,
+      maxConcurrentByGroup,
+      path);
 
   /// Create a copy of DownloadSettings
   /// with the given fields replaced by the non-null parameter values.
@@ -2198,7 +2223,8 @@ abstract class _DownloadSettings implements DownloadSettings {
       final bool allowPause,
       final int maxConcurrent,
       final int maxConcurrentByHost,
-      final int maxConcurrentByGroup}) = _$DownloadSettingsImpl;
+      final int maxConcurrentByGroup,
+      final String path}) = _$DownloadSettingsImpl;
 
   factory _DownloadSettings.fromJson(Map<String, dynamic> json) =
       _$DownloadSettingsImpl.fromJson;
@@ -2215,6 +2241,8 @@ abstract class _DownloadSettings implements DownloadSettings {
   int get maxConcurrentByHost;
   @override
   int get maxConcurrentByGroup;
+  @override
+  String get path;
 
   /// Create a copy of DownloadSettings
   /// with the given fields replaced by the non-null parameter values.

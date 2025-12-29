@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:background_downloader/background_downloader.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
@@ -26,6 +28,7 @@ class SimpleDownloadManager extends _$SimpleDownloadManager {
       requiresWiFi: downloadSettings.requiresWiFi,
       retries: downloadSettings.retries,
       allowPause: downloadSettings.allowPause,
+      path: downloadSettings.path,
     );
     core.tq.maxConcurrent = downloadSettings.maxConcurrent;
     core.tq.maxConcurrentByHost = downloadSettings.maxConcurrentByHost;
@@ -56,6 +59,8 @@ class DownloadManager extends _$DownloadManager {
     LibraryItemExpanded item,
   ) async {
     _logger.fine('queueing download for ${item.id}');
+    // final appSettings = ref.read(appSettingsProvider);
+
     await state.queueAudioBookDownload(
       item,
     );
@@ -65,6 +70,24 @@ class DownloadManager extends _$DownloadManager {
     _logger.fine('deleting downloaded item ${item.id}');
     await state.deleteDownloadedItem(item);
     ref.notifyListeners();
+  }
+
+  String _getDirectory(String path) {
+    if (Platform.isWindows) {
+      return path;
+    }
+    return path;
+  }
+
+  BaseDirectory _getBaseDirectory() {
+    if (Platform.isIOS) {
+      return BaseDirectory.applicationDocuments;
+    } else if (Platform.isAndroid) {
+      return BaseDirectory.temporary;
+    } else if (Platform.isWindows) {
+      return BaseDirectory.root;
+    }
+    return BaseDirectory.applicationSupport;
   }
 }
 

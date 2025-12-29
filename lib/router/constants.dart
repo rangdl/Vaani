@@ -47,6 +47,11 @@ class Routes {
     name: 'playerSettings',
     parentRoute: settings,
   );
+  static const downloadSettings = _SimpleRoute(
+    pathName: 'downloadSettings',
+    name: 'downloadSettings',
+    parentRoute: settings,
+  );
   static const shakeDetectorSettings = _SimpleRoute(
     pathName: 'shakeDetector',
     name: 'shakeDetectorSettings',
