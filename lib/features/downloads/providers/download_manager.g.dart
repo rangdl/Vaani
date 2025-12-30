@@ -176,7 +176,7 @@ final simpleDownloadManagerProvider = NotifierProvider<SimpleDownloadManager,
 );
 
 typedef _$SimpleDownloadManager = Notifier<core.AudiobookDownloadManager>;
-String _$downloadManagerHash() => r'92afe484d6735d5de53473011ea9ecbad107fc1c';
+String _$downloadManagerHash() => r'852012e32e613f86445afc7f7e4e85bec808e982';
 
 /// See also [DownloadManager].
 @ProviderFor(DownloadManager)

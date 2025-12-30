@@ -163,6 +163,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteDialog": m2,
         "deleted": m3,
+        "erArmedText": MessageLookupByLibrary.simpleMessage("Release ready"),
+        "erDragText": MessageLookupByLibrary.simpleMessage("Pull to refresh"),
+        "erDragTextUp": MessageLookupByLibrary.simpleMessage("Pull to refresh"),
+        "erFailedText": MessageLookupByLibrary.simpleMessage("Failed"),
+        "erMessageText":
+            MessageLookupByLibrary.simpleMessage("Last updated at %T"),
+        "erNoMoreText": MessageLookupByLibrary.simpleMessage("No more"),
+        "erProcessedText": MessageLookupByLibrary.simpleMessage("Succeeded"),
+        "erProcessingText":
+            MessageLookupByLibrary.simpleMessage("Refreshing..."),
+        "erReadyText": MessageLookupByLibrary.simpleMessage("Refreshing..."),
         "explore": MessageLookupByLibrary.simpleMessage("explore"),
         "exploreHint": MessageLookupByLibrary.simpleMessage(
           "Seek and you shall discover...",

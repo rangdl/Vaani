@@ -213,12 +213,12 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final me = ref.watch(meProvider);
     final currentBook = ref.watch(currentBookProvider);
-    final playerStateNotifier = ref.watch(playerStateProvider.notifier);
+    final playing = ref.watch(playerStateProvider.select((v) => v.playing));
+    final playerStateNotifier = ref.read(playerStateProvider.notifier);
     final isLoading = playerStateNotifier.isLoading(libraryItemId);
     final isCurrentBookSetInPlayer =
         currentBook?.libraryItemId == libraryItemId;
-    final isPlayingThisBook =
-        playerStateNotifier.isPlaying() && isCurrentBookSetInPlayer;
+    final isPlayingThisBook = playing && isCurrentBookSetInPlayer;
 
     final userProgress = me.valueOrNull?.mediaProgress
         ?.firstWhereOrNull((element) => element.libraryItemId == libraryItemId);

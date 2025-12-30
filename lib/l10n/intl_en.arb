@@ -272,6 +272,16 @@
     "resetAppSettingsDescription": "Reset the app settings to the default values",
     "resetAppSettingsDialog": "Are you sure you want to reset the app settings?",
 
+    "erDragText": "Pull to refresh",
+    "erDragTextUp": "Pull to refresh",
+    "erArmedText": "Release ready",
+    "erReadyText": "Refreshing...",
+    "erProcessingText": "Refreshing...",
+    "erProcessedText": "Succeeded",
+    "erNoMoreText": "No more",
+    "erFailedText": "Failed",
+    "erMessageText": "Last updated at %T",
+
     "logs": "Logs",
     "notImplemented": "Not implemented"
 }

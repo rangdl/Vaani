@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -16,6 +17,7 @@ import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/extensions/style.dart';
 import 'package:vaani/shared/icons/abs_icons.dart';
+import 'package:vaani/shared/utils/components.dart';
 import 'package:vaani/shared/widgets/skeletons.dart';
 
 // TODO: implement the library page
@@ -71,6 +73,11 @@ class LibraryPage extends HookConsumerWidget {
         ),
         actions: [
           IconButton(
+            icon: Icon(Icons.next_plan),
+            tooltip: '加载下一页', // Helpful tooltip for users
+            onPressed: () => ref.read(libraryItemsProvider.notifier).loadMore(),
+          ),
+          IconButton(
             icon: Icon(Icons.refresh),
             tooltip: '刷新', // Helpful tooltip for users
             onPressed: () => ref.read(libraryItemsProvider.notifier).refresh(),
@@ -85,8 +92,12 @@ class LibraryPage extends HookConsumerWidget {
         ],
       ),
       // drawer: const MyDrawer(),
-      body: RefreshIndicator(
+
+      body: EasyRefresh(
+        header: Components.easyRefreshHeader(context),
+        footer: Components.easyRefreshFooter(context),
         onRefresh: () => ref.read(libraryItemsProvider.notifier).refresh(),
+        onLoad: () => ref.read(libraryItemsProvider.notifier).loadMore(),
         child: LayoutBuilder(
           builder: (context, constraints) {
             final height = getDefaultHeight(context);

@@ -243,7 +243,7 @@ final currentChaptersProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentChaptersRef = AutoDisposeProviderRef<List<api.BookChapter>>;
-String _$absPlayerHash() => r'74a59dbf0f9396fef6bb60363fb186f5e4619a63';
+String _$absPlayerHash() => r'e682fea03793a0370cb143602980d5c1e37396c7';
 
 /// 音频播放器 riverpod状态
 ///

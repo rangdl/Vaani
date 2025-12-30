@@ -90,32 +90,41 @@ class ChapterSelectionModal extends HookConsumerWidget {
               final chapter = book.chapters[index];
               final isCurrent = currentChapter.id == chapter.id;
               final isPlayed = index < initialIndex;
-              return ListTile(
-                autofocus: isCurrent,
-                iconColor: isPlayed && !isCurrent ? theme.disabledColor : null,
-                title: Text(
-                  chapter.title,
-                  style: isPlayed && !isCurrent
-                      ? TextStyle(color: theme.disabledColor)
-                      : null,
+              return Container(
+                // 自定义autofocus,防止autofocus出现在其他组件底层
+                decoration: isCurrent
+                    ? BoxDecoration(
+                        color: Theme.of(context).focusColor, // 背景色
+                      )
+                    : null,
+                child: ListTile(
+                  // autofocus: isCurrent,
+                  iconColor:
+                      isPlayed && !isCurrent ? theme.disabledColor : null,
+                  title: Text(
+                    chapter.title,
+                    style: isPlayed && !isCurrent
+                        ? TextStyle(color: theme.disabledColor)
+                        : null,
+                  ),
+                  subtitle: Text(
+                    '(${chapter.duration.smartBinaryFormat})',
+                    style: isPlayed && !isCurrent
+                        ? TextStyle(color: theme.disabledColor)
+                        : null,
+                  ),
+                  trailing: isCurrent
+                      ? const PlayingIndicatorIcon()
+                      : const Icon(Icons.play_arrow),
+                  selected: isCurrent,
+                  onTap: () {
+                    if (back) {
+                      Navigator.of(context).pop();
+                    } else {
+                      ref.read(absPlayerProvider).switchChapter(chapter.id);
+                    }
+                  },
                 ),
-                subtitle: Text(
-                  '(${chapter.duration.smartBinaryFormat})',
-                  style: isPlayed && !isCurrent
-                      ? TextStyle(color: theme.disabledColor)
-                      : null,
-                ),
-                trailing: isCurrent
-                    ? const PlayingIndicatorIcon()
-                    : const Icon(Icons.play_arrow),
-                selected: isCurrent,
-                onTap: () {
-                  if (back) {
-                    Navigator.of(context).pop();
-                  } else {
-                    ref.read(absPlayerProvider).switchChapter(chapter.id);
-                  }
-                },
               );
             },
           ),

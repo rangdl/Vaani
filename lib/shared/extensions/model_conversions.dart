@@ -52,6 +52,20 @@ extension UserConversion on User {
   User get asUser => User.fromJson(toJson());
 }
 
+extension ContentUrlExtension on AudioFile {
+  Uri url(String baseUrl, String itemId, String token) {
+    // /api/items/{itemId}/file/{ino}?{token}
+    // return Uri.parse('$baseUrl/api/items/$itemId/file/$ino?token=$token');
+    var baseUri = Uri.parse(baseUrl);
+    return Uri(
+      scheme: baseUri.scheme,
+      host: baseUri.host,
+      path: '/api/items/$itemId/file/$ino',
+      queryParameters: {'token': token},
+    );
+  }
+}
+
 extension ContentUrl on LibraryFile {
   Uri url(String baseUrl, String itemId, String token) {
     // /api/items/{itemId}/file/{ino}?{token}

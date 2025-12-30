@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:background_downloader/background_downloader.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
@@ -70,24 +68,6 @@ class DownloadManager extends _$DownloadManager {
     _logger.fine('deleting downloaded item ${item.id}');
     await state.deleteDownloadedItem(item);
     ref.notifyListeners();
-  }
-
-  String _getDirectory(String path) {
-    if (Platform.isWindows) {
-      return path;
-    }
-    return path;
-  }
-
-  BaseDirectory _getBaseDirectory() {
-    if (Platform.isIOS) {
-      return BaseDirectory.applicationDocuments;
-    } else if (Platform.isAndroid) {
-      return BaseDirectory.temporary;
-    } else if (Platform.isWindows) {
-      return BaseDirectory.root;
-    }
-    return BaseDirectory.applicationSupport;
   }
 }
 

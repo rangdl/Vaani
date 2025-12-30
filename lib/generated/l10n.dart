@@ -1894,6 +1894,86 @@ class S {
     );
   }
 
+  /// `Pull to refresh`
+  String get erDragText {
+    return Intl.message(
+      'Pull to refresh',
+      name: 'erDragText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pull to refresh`
+  String get erDragTextUp {
+    return Intl.message(
+      'Pull to refresh',
+      name: 'erDragTextUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Release ready`
+  String get erArmedText {
+    return Intl.message(
+      'Release ready',
+      name: 'erArmedText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refreshing...`
+  String get erReadyText {
+    return Intl.message(
+      'Refreshing...',
+      name: 'erReadyText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refreshing...`
+  String get erProcessingText {
+    return Intl.message(
+      'Refreshing...',
+      name: 'erProcessingText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Succeeded`
+  String get erProcessedText {
+    return Intl.message(
+      'Succeeded',
+      name: 'erProcessedText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No more`
+  String get erNoMoreText {
+    return Intl.message('No more', name: 'erNoMoreText', desc: '', args: []);
+  }
+
+  /// `Failed`
+  String get erFailedText {
+    return Intl.message('Failed', name: 'erFailedText', desc: '', args: []);
+  }
+
+  /// `Last updated at %T`
+  String get erMessageText {
+    return Intl.message(
+      'Last updated at %T',
+      name: 'erMessageText',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Logs`
   String get logs {
     return Intl.message('Logs', name: 'logs', desc: '', args: []);

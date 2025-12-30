@@ -22,6 +22,7 @@ import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/utils.dart';
+import 'package:vaani/shared/utils/custom_dialog.dart';
 
 class LibraryItemActions extends HookConsumerWidget {
   const LibraryItemActions({
@@ -236,6 +237,8 @@ class LibItemDownSheet extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final downloadHistory =
     //     ref.watch(downloadHistoryProvider(group: libraryItemId));
+    // final downloadManager = ref.watch(downloadManagerProvider);
+    // downloadManager.
     final libraryItem = ref.watch(libraryItemProvider(libraryItemId));
     return libraryItem.when(
       data: (item) {
@@ -247,19 +250,24 @@ class LibItemDownSheet extends HookConsumerWidget {
             children: [
               Row(
                 children: [
-                  Text('下载管理'),
+                  Text(S.of(context).bookDownloads),
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IconButton(
                           onPressed: () {
-                            appLogger.fine('Pressed delete download button');
-                            ref
-                                .read(downloadManagerProvider.notifier)
-                                .deleteDownloadedItem(
-                                  item,
-                                );
+                            DialogUtils.deleteDialog(
+                              context,
+                              name: item.media.metadata.title,
+                              onPressed: () {
+                                ref
+                                    .read(downloadManagerProvider.notifier)
+                                    .deleteDownloadedItem(
+                                      item,
+                                    );
+                              },
+                            );
                           },
                           icon: Icon(Icons.delete_outlined),
                         ),
@@ -305,38 +313,6 @@ class LibItemDownSheet extends HookConsumerWidget {
       error: (error, stackTrace) => Center(
         child: Text('Error: $error'),
       ),
-    );
-  }
-
-  void _showDialog(context, task) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Delete'),
-          content: Text(
-            'Are you sure you want to delete ${task.filename}?',
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                // delete the file
-                FileDownloader().database.deleteRecordWithId(
-                      task.taskId,
-                    );
-                Navigator.pop(context);
-              },
-              child: const Text('Yes'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('No'),
-            ),
-          ],
-        );
-      },
     );
   }
 }
@@ -572,12 +548,12 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentBook = ref.watch(currentBookProvider);
     final book = item.media.asBookExpanded;
-    final playerStateNotifier = ref.watch(playerStateProvider.notifier);
+    final playing = ref.watch(playerStateProvider.select((v) => v.playing));
+    final playerStateNotifier = ref.read(playerStateProvider.notifier);
     final isLoading = playerStateNotifier.isLoading(book.libraryItemId);
     final isCurrentBookSetInPlayer =
         currentBook?.libraryItemId == book.libraryItemId;
-    final isPlayingThisBook =
-        playerStateNotifier.isPlaying() && isCurrentBookSetInPlayer;
+    final isPlayingThisBook = playing && isCurrentBookSetInPlayer;
 
     final userMediaProgress = item.userMediaProgress;
     final isBookCompleted = userMediaProgress?.isFinished ?? false;

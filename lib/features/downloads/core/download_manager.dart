@@ -12,7 +12,7 @@ import 'package:vaani/shared/extensions/obfuscation.dart';
 
 final _logger = Logger('AudiobookDownloadManager');
 final tq = MemoryTaskQueue();
-const downloadDirectory = BaseDirectory.applicationSupport;
+// const downloadDirectory = BaseDirectory.applicationSupport;
 
 class AudiobookDownloadManager {
   // takes in the baseUrl and the token
@@ -72,16 +72,12 @@ class AudiobookDownloadManager {
   late StreamSubscription<TaskUpdate> _updatesSubscription;
 
   Future<void> queueAudioBookDownload(
-    LibraryItemExpanded item, {
-    String prePath = '',
-  }) async {
+    LibraryItemExpanded item,
+  ) async {
     _logger.info('queuing download for item: ${item.id}');
     // create a download task for each file in the item
-    for (final file in item.libraryFiles) {
-      // 仅下载音频和视频
-      if (![FileType.audio, FileType.video].contains(file.fileType)) {
-        continue;
-      }
+    // for (final file in item.libraryFiles) {
+    for (final file in item.media.asBookExpanded.audioFiles) {
       // check if the file is already downloaded
       if (isFileDownloaded(
         constructFilePath(item, file),
@@ -93,13 +89,13 @@ class AudiobookDownloadManager {
       final task = DownloadTask(
         taskId: file.ino,
         url: file.url(baseUrl, item.id, token).toString(),
-        directory: prePath + item.relPath,
+        directory: getPath(item.relPath),
         filename: file.metadata.filename,
         requiresWiFi: requiresWiFi,
         retries: retries,
         allowPause: allowPause,
         group: item.id,
-        baseDirectory: downloadDirectory,
+        baseDirectory: baseDirectory,
         updates: Updates.statusAndProgress,
         // metaData: token
       );
@@ -111,9 +107,9 @@ class AudiobookDownloadManager {
 
   String constructFilePath(
     LibraryItemExpanded item,
-    LibraryFile file,
+    AudioFile file,
   ) =>
-      '${appSupportDir.path}/${item.relPath}/${file.metadata.filename}';
+      '$basePath/${item.relPath}/${file.metadata.filename}';
 
   void dispose() {
     _updatesSubscription.cancel();
@@ -129,11 +125,12 @@ class AudiobookDownloadManager {
     return File(filePath).existsSync();
   }
 
-  Future<List<LibraryFile>> getDownloadedFilesMetadata(
+  Future<List<AudioFile>> getDownloadedFilesMetadata(
     LibraryItemExpanded item,
   ) async {
-    final downloadedFiles = <LibraryFile>[];
-    for (final file in item.libraryFiles) {
+    final downloadedFiles = <AudioFile>[];
+    // for (final file in item.libraryFiles) {
+    for (final file in item.media.asBookExpanded.audioFiles) {
       final filePath = constructFilePath(item, file);
       if (isFileDownloaded(filePath)) {
         downloadedFiles.add(file);
@@ -152,7 +149,8 @@ class AudiobookDownloadManager {
   }
 
   Future<bool> isItemDownloaded(LibraryItemExpanded item) async {
-    for (final file in item.libraryFiles) {
+    // for (final file in item.libraryFiles) {
+    for (final file in item.media.asBookExpanded.audioFiles) {
       if (!isFileDownloaded(constructFilePath(item, file))) {
         _logger.info('file not downloaded: ${file.metadata.filename}');
         return false;
@@ -164,7 +162,8 @@ class AudiobookDownloadManager {
 
   Future<void> deleteDownloadedItem(LibraryItemExpanded item) async {
     _logger.info('deleting downloaded item with id: ${item.id}');
-    for (final file in item.libraryFiles) {
+    // for (final file in item.libraryFiles) {
+    for (final file in item.media.asBookExpanded.audioFiles) {
       final filePath = constructFilePath(item, file);
       if (isFileDownloaded(filePath)) {
         File(filePath).deleteSync();
@@ -175,7 +174,8 @@ class AudiobookDownloadManager {
 
   Future<List<Uri>> getDownloadedFilesUri(LibraryItemExpanded item) async {
     final files = <Uri>[];
-    for (final file in item.libraryFiles) {
+    // for (final file in item.libraryFiles) {
+    for (final file in item.media.asBookExpanded.audioFiles) {
       final filePath = constructFilePath(item, file);
       if (isFileDownloaded(filePath)) {
         files.add(Uri.file(filePath));
@@ -207,5 +207,30 @@ class AudiobookDownloadManager {
     } catch (e) {
       _logger.warning('Error when listening to download manager updates: $e');
     }
+  }
+
+  String getPath(String relPath) {
+    if (path.isNotEmpty) {
+      return '$path/$relPath';
+    }
+    return relPath;
+  }
+
+  String get basePath => switch (baseDirectory) {
+        BaseDirectory.applicationSupport => appSupportDir.path,
+        BaseDirectory.applicationDocuments => appDocumentsDir.path,
+        _ => path,
+      };
+
+  BaseDirectory get baseDirectory {
+    if (path.isNotEmpty) {
+      return BaseDirectory.root;
+    } else if (Platform.isIOS || Platform.isMacOS) {
+      return BaseDirectory.applicationDocuments;
+    }
+    // else if (Platform.isAndroid) {
+    //   return BaseDirectory.temporary;
+    // }
+    return BaseDirectory.applicationSupport;
   }
 }

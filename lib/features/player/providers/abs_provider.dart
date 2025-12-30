@@ -88,6 +88,8 @@ class AbsPlayer extends _$AbsPlayer {
     final api = ref.read(authenticatedApiProvider);
 
     final downloadManager = ref.read(simpleDownloadManagerProvider);
+    print(downloadManager.basePath);
+
     final libItem =
         await ref.read(libraryItemProvider(book.libraryItemId).future);
     final downloadedUris = await downloadManager.getDownloadedFilesUri(libItem);

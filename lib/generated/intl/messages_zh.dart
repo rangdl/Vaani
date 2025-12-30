@@ -24,7 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(user) => "用户数: ${user}";
 
-  static String m2(item) => "确定要删除 ${item} 吗？";
+  static String m2(item) => "是否要删除 ${item} ？";
 
   static String m3(item) => "已删除 ${item}";
 
@@ -129,6 +129,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("删除"),
         "deleteDialog": m2,
         "deleted": m3,
+        "erArmedText": MessageLookupByLibrary.simpleMessage("准备就绪"),
+        "erDragText": MessageLookupByLibrary.simpleMessage("下拉刷新"),
+        "erDragTextUp": MessageLookupByLibrary.simpleMessage("上拉加载"),
+        "erFailedText": MessageLookupByLibrary.simpleMessage("失败"),
+        "erMessageText": MessageLookupByLibrary.simpleMessage("最后更新于 %T"),
+        "erNoMoreText": MessageLookupByLibrary.simpleMessage("没有更多"),
+        "erProcessedText": MessageLookupByLibrary.simpleMessage("成功"),
+        "erProcessingText": MessageLookupByLibrary.simpleMessage("刷新..."),
+        "erReadyText": MessageLookupByLibrary.simpleMessage("刷新..."),
         "explore": MessageLookupByLibrary.simpleMessage("探索"),
         "exploreHint": MessageLookupByLibrary.simpleMessage("搜索与探索..."),
         "exploreTooltip": MessageLookupByLibrary.simpleMessage("搜索和探索"),
