@@ -271,6 +271,9 @@
     "resetAppSettings": "Reset App Settings",
     "resetAppSettingsDescription": "Reset the app settings to the default values",
     "resetAppSettingsDialog": "Are you sure you want to reset the app settings?",
+    
+    "downloadSettings": "Download Settings",
+    "downloadSettingsDescription": "Customize download settings",
 
     "erDragText": "Pull to refresh",
     "erDragTextUp": "Pull to refresh",

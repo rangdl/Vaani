@@ -1894,6 +1894,26 @@ class S {
     );
   }
 
+  /// `Download Settings`
+  String get downloadSettings {
+    return Intl.message(
+      'Download Settings',
+      name: 'downloadSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customize download settings`
+  String get downloadSettingsDescription {
+    return Intl.message(
+      'Customize download settings',
+      name: 'downloadSettingsDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Pull to refresh`
   String get erDragText {
     return Intl.message(

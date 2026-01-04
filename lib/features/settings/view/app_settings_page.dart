@@ -6,13 +6,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:vaani/generated/l10n.dart';
-import 'package:vaani/router/router.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/features/settings/models/app_settings.dart' as model;
 import 'package:vaani/features/settings/view/buttons.dart';
 import 'package:vaani/features/settings/view/simple_settings_page.dart';
 import 'package:vaani/features/settings/view/widgets/navigation_with_switch_tile.dart';
+import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/router/router.dart';
+import 'package:vaani/shared/widgets/custom_dropdown.dart';
 
 class AppSettingsPage extends HookConsumerWidget {
   const AppSettingsPage({
@@ -40,22 +41,35 @@ class AppSettingsPage extends HookConsumerWidget {
             SettingsTile(
               title: Text(S.of(context).language),
               leading: const Icon(Icons.language),
-              trailing: DropdownButton(
-                value: appSettings.language,
-                items: S.delegate.supportedLocales.map((locale) {
-                  return DropdownMenuItem(
-                    value: locale.languageCode,
-                    child: Text(locales[locale.languageCode] ?? 'unknown'),
-                  );
+              trailing: CustomDropdown<String>(
+                selected: appSettings.language,
+                items: (f, cs) => S.delegate.supportedLocales.map((locale) {
+                  return locale.languageCode;
                 }).toList(),
-                onChanged: (value) {
-                  ref.read(appSettingsProvider.notifier).update(
-                        appSettings.copyWith(
-                          language: value!,
+                itemAsString: (item) => locales[item] ?? 'unknown',
+                onChanged: (value) async =>
+                    ref.read(appSettingsProvider.notifier).update(
+                          appSettings.copyWith(
+                            language: value!,
+                          ),
                         ),
-                      );
-                },
               ),
+              // trailing: DropdownButton(
+              //   value: appSettings.language,
+              //   items: S.delegate.supportedLocales.map((locale) {
+              //     return DropdownMenuItem(
+              //       value: locale.languageCode,
+              //       child: Text(locales[locale.languageCode] ?? 'unknown'),
+              //     );
+              //   }).toList(),
+              //   onChanged: (value) {
+              //     ref.read(appSettingsProvider.notifier).update(
+              //           appSettings.copyWith(
+              //             language: value!,
+              //           ),
+              //         );
+              //   },
+              // ),
               description: Text(S.of(context).languageDescription),
             ),
             SettingsTile(
@@ -67,9 +81,9 @@ class AppSettingsPage extends HookConsumerWidget {
               },
             ),
             SettingsTile(
-              title: Text('下载设置'),
+              title: Text(S.of(context).downloadSettings),
               leading: const Icon(Icons.download),
-              description: Text('自定义下载设置'),
+              description: Text(S.of(context).downloadSettingsDescription),
               onPressed: (context) {
                 context.pushNamed(Routes.downloadSettings.name);
               },

@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/features/settings/view/buttons.dart';
 import 'package:vaani/features/settings/view/simple_settings_page.dart';
 import 'package:vaani/shared/extensions/duration_format.dart';
+import 'package:vaani/shared/widgets/custom_dropdown.dart';
 
 class PlayerSettingsPage extends HookConsumerWidget {
   const PlayerSettingsPage({
@@ -25,8 +27,8 @@ class PlayerSettingsPage extends HookConsumerWidget {
       sections: [
         SettingsSection(
           margin: const EdgeInsetsDirectional.symmetric(
-            horizontal: 16.0,
-            vertical: 8.0,
+            horizontal: AppElementSizes.paddingLarge,
+            vertical: AppElementSizes.paddingRegular,
           ),
           tiles: [
             // preferred settings for every book
@@ -49,27 +51,26 @@ class PlayerSettingsPage extends HookConsumerWidget {
             // preferred default speed
             SettingsTile(
               title: Text(S.of(context).playerSettingsSpeedDefault),
-              trailing: Text(
-                '${playerSettings.preferredDefaultSpeed}x',
-                style:
-                    TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
+              // trailing: Text(
+              //   '${playerSettings.preferredDefaultSpeed}x',
+              //   style:
+              //       TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
+              // ),
+              trailing: CustomDropdown<double>(
+                selected: playerSettings.preferredDefaultSpeed,
+                items: (f, cs) => playerSettings.speedOptions,
+                itemAsString: (item) => '${item}x',
+                onChanged: (value) {
+                  if (value != null) {
+                    ref.read(appSettingsProvider.notifier).update(
+                          appSettings.copyWith.playerSettings(
+                            preferredDefaultSpeed: value,
+                          ),
+                        );
+                  }
+                },
               ),
               leading: const Icon(Icons.speed),
-              onPressed: (context) async {
-                final newSpeed = await showDialog(
-                  context: context,
-                  builder: (context) => SpeedPicker(
-                    initialValue: playerSettings.preferredDefaultSpeed,
-                  ),
-                );
-                if (newSpeed != null) {
-                  ref.read(appSettingsProvider.notifier).update(
-                        appSettings.copyWith.playerSettings(
-                          preferredDefaultSpeed: newSpeed,
-                        ),
-                      );
-                }
-              },
             ),
             // preferred speed options
             SettingsTile(

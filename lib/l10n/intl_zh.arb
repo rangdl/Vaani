@@ -272,6 +272,9 @@
     "resetAppSettingsDescription": "将应用程序设置重置为默认值",
     "resetAppSettingsDialog": "您确定要重置应用程序设置吗？",
 
+    "downloadSettings": "下载设置",
+    "downloadSettingsDescription": "自定义下载设置",
+
     "erDragText": "下拉刷新",
     "erDragTextUp": "上拉加载",
     "erArmedText": "准备就绪",

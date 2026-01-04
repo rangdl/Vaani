@@ -2,6 +2,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' as api;
@@ -65,6 +66,123 @@ core.AbsAudioPlayer audioPlayer(Ref ref) {
 @riverpod
 bool playerActive(Ref ref) {
   return false;
+}
+
+@Riverpod(keepAlive: true)
+AudioPlayer simpleAudioPlayer(Ref ref) {
+  final player = AudioPlayer();
+  ref.onDispose(player.dispose);
+  return player;
+}
+
+@Riverpod(keepAlive: true)
+class AbsAudioPlayer extends _$AbsAudioPlayer {
+  @override
+  AudioPlayer build() {
+    final audioPlayer = ref.watch(simpleAudioPlayerProvider);
+    return audioPlayer;
+  }
+
+  Future<void> load(
+    api.BookExpanded book, {
+    Duration? initialPosition,
+    bool play = true,
+  }) async {
+    final currentTrack = book.findTrackAtTime(initialPosition ?? Duration.zero);
+    final indexTrack = book.tracks.indexOf(currentTrack);
+    final positionInTrack = initialPosition != null
+        ? initialPosition - currentTrack.startOffset
+        : null;
+    final api = ref.read(authenticatedApiProvider);
+
+    final downloadManager = ref.read(simpleDownloadManagerProvider);
+    print(downloadManager.basePath);
+
+    final libItem =
+        await ref.read(libraryItemProvider(book.libraryItemId).future);
+    final downloadedUris = await downloadManager.getDownloadedFilesUri(libItem);
+
+    final bookSettings = ref.read(bookSettingsProvider(book.libraryItemId));
+    var bookPlayerSettings = bookSettings.playerSettings;
+    final start = bookSettings.playerSettings.skipChapterStart;
+    final end = bookSettings.playerSettings.skipChapterEnd;
+    final appPlayerSettings = ref.read(appSettingsProvider).playerSettings;
+    final configurePlayerForEveryBook =
+        appPlayerSettings.configurePlayerForEveryBook;
+    List<AudioSource> audioSources =
+        start > Duration.zero || end > Duration.zero
+            ? book.tracks
+                .map(
+                  (track) => ClippingAudioSource(
+                    child: AudioSource.uri(
+                      _getUri(
+                        track,
+                        downloadedUris,
+                        baseUrl: api.baseUrl,
+                        token: api.token!,
+                      ),
+                    ),
+                    start: start,
+                    end: end > Duration.zero ? null : track.duration - end,
+                  ),
+                )
+                .toList()
+            : book.tracks
+                .map(
+                  (track) => AudioSource.uri(
+                    _getUri(
+                      track,
+                      downloadedUris,
+                      baseUrl: api.baseUrl,
+                      token: api.token!,
+                    ),
+                  ),
+                )
+                .toList();
+    await state
+        .setAudioSources(
+      audioSources,
+      preload: true,
+      initialIndex: indexTrack,
+      initialPosition: positionInTrack,
+    )
+        .catchError((error) {
+      _logger.shout('Error in setting audio source: $error');
+      return null;
+    });
+    // set the volume
+    await state.setVolume(
+      configurePlayerForEveryBook
+          ? bookPlayerSettings.preferredDefaultVolume ??
+              appPlayerSettings.preferredDefaultVolume
+          : appPlayerSettings.preferredDefaultVolume,
+    );
+    // set the speed
+    await state.setSpeed(
+      configurePlayerForEveryBook
+          ? bookPlayerSettings.preferredDefaultSpeed ??
+              appPlayerSettings.preferredDefaultSpeed
+          : appPlayerSettings.preferredDefaultSpeed,
+    );
+    if (play) await state.play();
+  }
+
+  Uri _getUri(
+    api.AudioTrack track,
+    List<Uri>? downloadedUris, {
+    required Uri baseUrl,
+    required String token,
+  }) {
+    // check if the track is in the downloadedUris
+    final uri = downloadedUris?.firstWhereOrNull(
+      (element) {
+        return element.pathSegments.last == track.metadata?.filename;
+      },
+    );
+
+    return uri ??
+        Uri.parse('${baseUrl.toString()}${track.contentUrl}?token=$token');
+  }
 }
 
 /// 音频播放器 riverpod状态
@@ -166,7 +284,7 @@ class CurrentBook extends _$CurrentBook {
   @override
   api.BookExpanded? build() {
     listenSelf((previous, next) {
-      if (next == null) {
+      if (previous == null && next == null) {
         final activeLibraryItemId = AvailableHiveBoxes.basicBox
             .getAs<String>(CacheKey.activeLibraryItemId);
         if (activeLibraryItemId != null) {
@@ -225,21 +343,4 @@ class CurrentChapter extends _$CurrentChapter {
 @riverpod
 Stream<Duration> positionChapter(Ref ref) {
   return ref.read(absPlayerProvider).positionInChapterStream;
-}
-
-@riverpod
-List<api.BookChapter> currentChapters(Ref ref) {
-  final book = ref.watch(currentBookProvider);
-  if (book == null) {
-    return [];
-  }
-  final currentChapter = ref.watch(currentChapterProvider);
-  if (currentChapter == null) {
-    return [];
-  }
-  final index = book.chapters.indexOf(currentChapter);
-  final total = book.chapters.length;
-  final start = index - 3 >= 0 ? index - 3 : 0;
-  final end = start + 20 <= total ? start + 20 : total;
-  return book.chapters.sublist(start, end);
 }

@@ -57,6 +57,23 @@ final playerActiveProvider = AutoDisposeProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef PlayerActiveRef = AutoDisposeProviderRef<bool>;
+String _$simpleAudioPlayerHash() => r'4da667e3b7047003edd594f8a76700afb963aceb';
+
+/// See also [simpleAudioPlayer].
+@ProviderFor(simpleAudioPlayer)
+final simpleAudioPlayerProvider = Provider<AudioPlayer>.internal(
+  simpleAudioPlayer,
+  name: r'simpleAudioPlayerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$simpleAudioPlayerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef SimpleAudioPlayerRef = ProviderRef<AudioPlayer>;
 String _$currentTimeHash() => r'3e7f99dbf48242a5fa0a4239a0f696535d0b4ac9';
 
 /// Copied from Dart SDK
@@ -225,24 +242,22 @@ final positionChapterProvider = AutoDisposeStreamProvider<Duration>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef PositionChapterRef = AutoDisposeStreamProviderRef<Duration>;
-String _$currentChaptersHash() => r'2d694aaa17f7eed8f97859d83e5b61f22966c35a';
+String _$absAudioPlayerHash() => r'f595b5033eed9f4a4aa07c297c4a176955e6aab1';
 
-/// See also [currentChapters].
-@ProviderFor(currentChapters)
-final currentChaptersProvider =
-    AutoDisposeProvider<List<api.BookChapter>>.internal(
-  currentChapters,
-  name: r'currentChaptersProvider',
+/// See also [AbsAudioPlayer].
+@ProviderFor(AbsAudioPlayer)
+final absAudioPlayerProvider =
+    NotifierProvider<AbsAudioPlayer, AudioPlayer>.internal(
+  AbsAudioPlayer.new,
+  name: r'absAudioPlayerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$currentChaptersHash,
+      : _$absAudioPlayerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef CurrentChaptersRef = AutoDisposeProviderRef<List<api.BookChapter>>;
+typedef _$AbsAudioPlayer = Notifier<AudioPlayer>;
 String _$absPlayerHash() => r'e682fea03793a0370cb143602980d5c1e37396c7';
 
 /// 音频播放器 riverpod状态
@@ -275,7 +290,7 @@ final playerStateProvider =
 );
 
 typedef _$PlayerState = AutoDisposeNotifier<core.AbsPlayerState>;
-String _$currentBookHash() => r'790af1f9502b12879fc22c900ed5e3572381ab1e';
+String _$currentBookHash() => r'714d7701508b6186598e13bc38c57c3fe644ae90';
 
 /// See also [CurrentBook].
 @ProviderFor(CurrentBook)
