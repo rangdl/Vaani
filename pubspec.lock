@@ -770,6 +770,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.5"
+  just_audio_background:
+    dependency: "direct main"
+    description:
+      path: just_audio_background
+      ref: media-notification-config
+      resolved-ref: fce45f334f0838cb6f630548efb65fec40ff17b4
+      url: "https://github.com/Dr-Blank/just_audio"
+    source: git
+    version: "0.0.1-beta.15"
   just_audio_media_kit:
     dependency: "direct main"
     description:

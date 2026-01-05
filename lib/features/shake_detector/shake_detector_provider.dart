@@ -9,7 +9,6 @@ import 'package:vaani/features/settings/app_settings_provider.dart'
 import 'package:vaani/features/settings/models/app_settings.dart';
 import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart'
     show sleepTimerProvider;
-import 'package:vaani/features/player/core/abs_audio_player.dart';
 import 'package:vibration/vibration.dart';
 
 import 'shake_detector.dart' as core;
@@ -33,22 +32,22 @@ class ShakeDetector extends _$ShakeDetector {
     }
 
     // if no book is loaded, shake detection should not be enabled
+    final book = ref.watch(currentBookProvider);
     final player = ref.watch(absPlayerProvider);
     player.playerStateStream.listen((event) {
-      if (event.processingState == AbsProcessingState.idle && wasPlayerLoaded) {
+      if (event.processingState == ProcessingState.idle && wasPlayerLoaded) {
         _logger.config('Player is now not loaded, invalidating');
         wasPlayerLoaded = false;
         ref.invalidateSelf();
       }
-      if (event.processingState != AbsProcessingState.idle &&
-          !wasPlayerLoaded) {
+      if (event.processingState != ProcessingState.idle && !wasPlayerLoaded) {
         _logger.config('Player is now loaded, invalidating');
         wasPlayerLoaded = true;
         ref.invalidateSelf();
       }
     });
 
-    if (player.book == null) {
+    if (book == null) {
       _logger.config('No book is loaded, disabling shake detection');
       wasPlayerLoaded = false;
       return null;
@@ -89,8 +88,10 @@ class ShakeDetector extends _$ShakeDetector {
     ShakeAction shakeAction, {
     required Ref ref,
   }) {
+    final book = ref.read(currentBookProvider);
+
     final player = ref.read(absPlayerProvider);
-    if (player.book == null && shakeAction.isPlaybackManagementEnabled) {
+    if (book == null && shakeAction.isPlaybackManagementEnabled) {
       _logger.warning('No book is loaded');
       return false;
     }
@@ -122,7 +123,7 @@ class ShakeDetector extends _$ShakeDetector {
         return true;
       case ShakeAction.playPause:
         _logger.fine('Toggling play/pause');
-        player.playOrPause();
+        player.playing ? player.pause() : player.play();
         return true;
       default:
         return false;

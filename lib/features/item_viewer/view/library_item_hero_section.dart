@@ -139,6 +139,7 @@ class _LibraryItemProgressIndicator extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final book = ref.watch(currentBookProvider);
     final player = ref.watch(absPlayerProvider);
     final libraryItem = ref.watch(libraryItemProvider(id)).valueOrNull;
     if (libraryItem == null) {
@@ -146,13 +147,13 @@ class _LibraryItemProgressIndicator extends HookConsumerWidget {
     }
 
     final mediaProgress = libraryItem.userMediaProgress;
-    if (mediaProgress == null && player.book?.libraryItemId != libraryItem.id) {
+    if (mediaProgress == null && book?.libraryItemId != libraryItem.id) {
       return const SizedBox.shrink();
     }
 
     double progress;
     Duration remainingTime;
-    if (player.book?.libraryItemId == libraryItem.id) {
+    if (book?.libraryItemId == libraryItem.id) {
       // final positionStream = useStream(player.slowPositionStream);
       progress = (player.positionInBook).inSeconds /
           libraryItem.media.asBookExpanded.duration.inSeconds;

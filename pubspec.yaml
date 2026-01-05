@@ -87,14 +87,15 @@ dependencies:
 
   # 音频播放
   audio_service: ^0.18.15
+  # audio_service_win: ^0.0.2
   audio_session: ^0.1.23
   just_audio: ^0.10.5
-  # just_audio_background: 
-  #   # TODO Remove git dep when https://github.com/ryanheise/just_audio/issues/912 is closed
-  #   git:
-  #     url: https://github.com/Dr-Blank/just_audio
-  #     ref: media-notification-config
-  #     path: just_audio_background
+  just_audio_background: 
+    # TODO Remove git dep when https://github.com/ryanheise/just_audio/issues/912 is closed
+    git:
+      url: https://github.com/Dr-Blank/just_audio
+      ref: media-notification-config
+      path: just_audio_background
   # just_audio_windows: ^0.2.2
   just_audio_media_kit: ^2.0.4
   media_kit_libs_linux: any

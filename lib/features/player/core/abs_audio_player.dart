@@ -1,8 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
-import 'package:audio_service/audio_service.dart';
 import 'package:collection/collection.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:logging/logging.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
@@ -16,20 +17,32 @@ final offset = Duration(milliseconds: 10);
 
 final _logger = Logger('AbsAudioPlayer');
 
-/// 音频播放器抽象类
-abstract class AbsAudioPlayer {
-  final _mediaItemController = BehaviorSubject<MediaItem?>.seeded(null);
-  final playerStateSubject =
-      BehaviorSubject.seeded(AbsPlayerState(false, AbsProcessingState.idle));
+class AbsAudioPlayer {
+  late final AudioPlayer _player;
+  AbsAudioPlayer(AudioPlayer player) : _player = player {
+    _player.positionStream.listen((position) {
+      final chapter = currentChapter;
+      if (positionInBook <= (chapter?.start ?? Duration.zero) ||
+          positionInBook >= (chapter?.end ?? Duration.zero)) {
+        final chapter = book?.findChapterAtTime(positionInBook);
+        if (chapter != currentChapter) {
+          // print('当前章节时长: ${currentChapter?.duration}');
+          // print('切换章节时长: ${chapter?.duration}');
+          // print('当前播放音轨时长: ${_player.duration}');
+          chapterStreamController.add(chapter);
+        }
+      }
+    });
+  }
+
   final _bookStreamController = BehaviorSubject<BookExpanded?>.seeded(null);
   final chapterStreamController = BehaviorSubject<BookChapter?>.seeded(null);
 
   BookExpanded? get book => _bookStreamController.nvalue;
   AudioTrack? get currentTrack => book?.tracks[currentIndex];
   BookChapter? get currentChapter => chapterStreamController.nvalue;
-  AbsPlayerState get playerState => playerStateSubject.value;
-  Stream<MediaItem?> get mediaItemStream => _mediaItemController.stream;
-  Stream<AbsPlayerState> get playerStateStream => playerStateSubject.stream;
+  PlayerState get playerState => _player.playerState;
+  Stream<PlayerState> get playerStateStream => _player.playerStateStream;
 
   // 加载整本书
   Future<void> load(
@@ -59,43 +72,77 @@ abstract class AbsAudioPlayer {
         .formatNotificationTitle(book);
     chapterStreamController
         .add(book.findChapterAtTime(initialPosition ?? Duration.zero));
-    final item = MediaItem(
-      id: book.libraryItemId,
-      title: title,
-      artist: artist,
-      duration: currentChapter?.duration ?? book.duration,
-      artUri: Uri.parse(
-        '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token',
-      ),
-    );
-    _mediaItemController.sink.add(item);
-    final playlist = book.tracks
-        .map(
-          (track) => (
-            _getUri(track, downloadedUris, baseUrl: baseUrl, token: token),
-            track.duration
+    // final item = MediaItem(
+    //   id: book.libraryItemId,
+    //   title: title,
+    //   artist: artist,
+    //   duration: currentChapter?.duration ?? book.duration,
+    //   artUri: Uri.parse(
+    //     '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token',
+    //   ),
+    // );
+
+    mediaItem(track) => MediaItem(
+          id: book.libraryItemId + track.index.toString(),
+          title: title,
+          artist: artist,
+          duration: currentChapter?.duration ?? book.duration,
+          artUri: Uri.parse(
+            '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token',
           ),
-        )
-        .toList();
-    await setPlayList(
-      playlist,
-      index: indexTrack,
-      position: positionInTrack,
-      start: start,
-      end: end,
-    );
+        );
+    List<AudioSource> audioSources = start != null && start > Duration.zero ||
+            end != null && end > Duration.zero
+        ? book.tracks
+            .map(
+              (track) => ClippingAudioSource(
+                child: AudioSource.uri(
+                  _getUri(
+                    track,
+                    downloadedUris,
+                    baseUrl: baseUrl,
+                    token: token,
+                  ),
+                ),
+                start: start,
+                end: end == null ? null : track.duration - end,
+                tag: mediaItem(track),
+              ),
+            )
+            .toList()
+        : book.tracks
+            .map(
+              (track) => AudioSource.uri(
+                _getUri(track, downloadedUris, baseUrl: baseUrl, token: token),
+                tag: mediaItem(track),
+              ),
+            )
+            .toList();
+
+    await _player
+        .setAudioSources(
+      audioSources,
+      preload: true,
+      initialIndex: indexTrack,
+      initialPosition: positionInTrack,
+    )
+        .catchError((error) {
+      _logger.shout('Error in setting audio source: $error');
+      return null;
+    });
   }
 
-  Future<void> setPlayList(
-    List<(Uri, Duration)> playlist, {
-    int? index,
-    Duration? position,
-    Duration? start,
-    Duration? end,
-  });
-  Future<void> play();
-  Future<void> pause();
-  Future<void> playOrPause();
+  Future<void> play() async {
+    await _player.play();
+  }
+
+  Future<void> pause() async {
+    await _player.pause();
+  }
+
+  Future<void> playOrPause() async {
+    _player.playing ? await _player.pause() : await _player.play();
+  }
 
   // 跳到下一章
   Future<void> next() async {
@@ -126,7 +173,19 @@ abstract class AbsAudioPlayer {
     }
   }
 
-  Future<void> seek(Duration position, {int? index});
+  Future<void> seek(Duration position, {int? index}) async {
+    await _player.seek(_addClippingStart(_player.position, add: false),
+        index: index);
+  }
+
+  Future<void> setSpeed(double speed) async {
+    await _player.setSpeed(speed);
+  }
+
+  Future<void> setVolume(double volume) async {
+    await _player.setVolume(volume);
+  }
+
   Future<void> seekInBook(Duration position) async {
     if (book == null) return;
     // 找到目标位置所在音轨和音轨内的位置
@@ -140,8 +199,6 @@ abstract class AbsAudioPlayer {
     await seek(positionInTrack, index: index);
   }
 
-  Future<void> setSpeed(double speed);
-  Future<void> setVolume(double volume);
   Future<void> switchChapter(int chapterId) async {
     if (book == null) return;
 
@@ -153,15 +210,18 @@ abstract class AbsAudioPlayer {
   }
 
   bool get playing => playerState.playing;
-  Stream<bool> get playingStream;
+  Stream<bool> get playingStream => _player.playingStream;
   Stream<BookExpanded?> get bookStream => _bookStreamController.stream;
   Stream<BookChapter?> get chapterStream => chapterStreamController.stream;
 
-  int get currentIndex;
-  double get speed;
+  int get currentIndex => _player.currentIndex ?? 0;
+  double get speed => _player.speed;
 
-  Duration get position;
-  Stream<Duration> get positionStream;
+  Duration get position => _addClippingStart(_player.position);
+  Stream<Duration> get positionStream =>
+      _player.positionStream.where((_) => _player.playing).map((position) {
+        return _addClippingStart(position);
+      });
 
   Duration get positionInChapter => getPositionInChapter(position);
   Duration getPositionInChapter(position) {
@@ -183,8 +243,8 @@ abstract class AbsAudioPlayer {
         return positionInBook;
       });
 
-  Duration get bufferedPosition;
-  Stream<Duration> get bufferedPositionStream;
+  Duration get bufferedPosition => _player.bufferedPosition;
+  Stream<Duration> get bufferedPositionStream => _player.bufferedPositionStream;
   Duration get bufferedPositionInBook =>
       bufferedPosition +
       (book?.tracks[currentIndex].startOffset ?? Duration.zero);
@@ -193,67 +253,23 @@ abstract class AbsAudioPlayer {
         return bufferedPositionInBook;
       });
 
+  Duration _addClippingStart(Duration position, {bool add = true}) {
+    if (_player.sequenceState.currentSource != null &&
+        _player.sequenceState.currentSource is ClippingAudioSource) {
+      final currentSource =
+          _player.sequenceState.currentSource as ClippingAudioSource;
+      if (currentSource.start != null) {
+        return add
+            ? position + currentSource.start!
+            : position - currentSource.start!;
+      }
+    }
+    return position;
+  }
+
   dispose() {
-    _mediaItemController.close();
-    playerStateSubject.close();
     _bookStreamController.close();
     chapterStreamController.close();
-  }
-}
-
-/// Enumerates the different processing states of a player.
-enum AbsProcessingState {
-  /// The player has not loaded an [AudioSource].
-  idle,
-
-  /// The player is loading an [AudioSource].
-  loading,
-
-  /// The player is buffering audio and unable to play.
-  buffering,
-
-  /// The player is has enough audio buffered and is able to play.
-  ready,
-
-  /// The player has reached the end of the audio.
-  completed,
-}
-
-/// Encapsulates the playing and processing states. These two states vary
-/// orthogonally, and so if [processingState] is [ProcessingState.buffering],
-/// you can check [playing] to determine whether the buffering occurred while
-/// the player was playing or while the player was paused.
-class AbsPlayerState {
-  /// Whether the player will play when [processingState] is
-  /// [ProcessingState.ready].
-  final bool playing;
-
-  /// The current processing state of the player.
-  final AbsProcessingState processingState;
-
-  AbsPlayerState(this.playing, this.processingState);
-
-  @override
-  String toString() => 'playing=$playing,processingState=$processingState';
-
-  @override
-  int get hashCode => Object.hash(playing, processingState);
-
-  @override
-  bool operator ==(Object other) =>
-      other.runtimeType == runtimeType &&
-      other is PlayerState &&
-      other.playing == playing &&
-      other.processingState == processingState;
-
-  AbsPlayerState copyWith({
-    bool? playing,
-    AbsProcessingState? processingState,
-  }) {
-    return AbsPlayerState(
-      playing ?? this.playing,
-      processingState ?? this.processingState,
-    );
   }
 }
 
@@ -278,6 +294,38 @@ Uri _getUri(
 extension _ValueStreamExtension<T> on ValueStream<T> {
   /// Backwards compatible version of valueOrNull.
   T? get nvalue => hasValue ? value : null;
+}
+
+extension BookExpandedExtension on BookExpanded {
+  BookChapter findChapterAtTime(Duration position) {
+    return chapters.firstWhere(
+      (element) {
+        return element.start <= position && element.end >= position + offset;
+      },
+      orElse: () => chapters.first,
+    );
+  }
+
+  AudioTrack findTrackAtTime(Duration position) {
+    return tracks.firstWhere(
+      (element) {
+        return element.startOffset <= position &&
+            element.startOffset + element.duration >= position + offset;
+      },
+      orElse: () => tracks.first,
+    );
+  }
+
+  int findTrackIndexAtTime(Duration position) {
+    return tracks.indexWhere((element) {
+      return element.startOffset <= position &&
+          element.startOffset + element.duration >= position + offset;
+    });
+  }
+
+  Duration getTrackStartOffset(int index) {
+    return tracks[index].startOffset;
+  }
 }
 
 extension FormatNotificationTitle on String {
@@ -317,50 +365,4 @@ extension NotificationTitleUtils on NotificationTitleType {
         return bookMetadataExpanded.publishedYear;
     }
   }
-}
-
-extension BookExpandedExtension on BookExpanded {
-  BookChapter findChapterAtTime(Duration position) {
-    return chapters.firstWhere(
-      (element) {
-        return element.start <= position && element.end >= position + offset;
-      },
-      orElse: () => chapters.first,
-    );
-  }
-
-  AudioTrack findTrackAtTime(Duration position) {
-    return tracks.firstWhere(
-      (element) {
-        return element.startOffset <= position &&
-            element.startOffset + element.duration >= position + offset;
-      },
-      orElse: () => tracks.first,
-    );
-  }
-
-  int findTrackIndexAtTime(Duration position) {
-    return tracks.indexWhere((element) {
-      return element.startOffset <= position &&
-          element.startOffset + element.duration >= position + offset;
-    });
-  }
-
-  Duration getTrackStartOffset(int index) {
-    return tracks[index].startOffset;
-  }
-}
-
-class AudioMetadata {
-  final String album;
-  final String title;
-  final String artist;
-  final String artwork;
-
-  AudioMetadata({
-    required this.album,
-    required this.title,
-    required this.artist,
-    required this.artwork,
-  });
 }

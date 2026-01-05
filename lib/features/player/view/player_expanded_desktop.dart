@@ -62,17 +62,17 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
                         // add a shadow to the image elevation hovering effect
                         child: PlayerExpandedImage(imageSize),
                       ),
-                      _buildControls(imageSize),
-                      SizedBox(
-                        width: imageSize,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: AppElementSizes.paddingRegular,
-                            right: AppElementSizes.paddingRegular,
-                          ),
-                          child: const AudiobookChapterProgressBar(),
-                        ),
-                      ),
+                      // _buildControls(imageSize),
+                      // SizedBox(
+                      //   width: imageSize,
+                      //   child: Padding(
+                      //     padding: EdgeInsets.only(
+                      //       left: AppElementSizes.paddingRegular,
+                      //       right: AppElementSizes.paddingRegular,
+                      //     ),
+                      //     child: const AudiobookChapterProgressBar(),
+                      //   ),
+                      // ),
                       _buildSettings(imageSize),
                     ],
                   ),
@@ -113,7 +113,37 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
             ),
           ),
         ),
-        Hero(tag: 'player_hero', child: const PlayerMinimizedControls()),
+        SizedBox(
+          height: playerMinimizedHeight,
+          child: _buildBottom(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBottom() {
+    return Row(
+      children: [
+        SizedBox(
+          width: 180,
+          child: Row(
+            children: [
+              const AudiobookPlayerSeekChapterButton(isForward: false),
+              // play/pause button
+              const AudiobookPlayerPlayPauseButton(),
+              const AudiobookPlayerSeekChapterButton(isForward: true),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: AppElementSizes.paddingRegular,
+              right: AppElementSizes.paddingRegular,
+            ),
+            child: const AudiobookChapterProgressBar(),
+          ),
+        ),
       ],
     );
   }
@@ -128,7 +158,7 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
           const AudiobookPlayerSeekChapterButton(isForward: false),
           // buttonSkipBackwards
           const AudiobookPlayerSeekButton(isForward: false),
-          AudiobookPlayerPlayPauseButton(),
+          const AudiobookPlayerPlayPauseButton(),
           // // buttonSkipForwards
           const AudiobookPlayerSeekButton(isForward: true),
           // // next chapter
@@ -144,6 +174,8 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          const AudiobookPlayerSeekButton(isForward: false),
+          const AudiobookPlayerSeekButton(isForward: true),
           // speed control
           const PlayerSpeedAdjustButton(),
           const Spacer(),

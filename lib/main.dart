@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/server_provider.dart';
 import 'package:vaani/db/storage.dart';
 import 'package:vaani/features/logging/core/logger.dart';
+import 'package:vaani/features/player/core/init.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
@@ -36,8 +37,8 @@ void main() async {
   await initStorage();
 
   // initialize audio player
-  // await configurePlayer();
-  await container.read(configurePlayerProvider.future);
+  await configurePlayer();
+  // await container.read(configurePlayerProvider.future);
   // run the app
   runApp(
     UncontrolledProviderScope(
@@ -148,10 +149,12 @@ class AbsApp extends ConsumerWidget {
     final appThemeLight = ThemeData(
       useMaterial3: true,
       colorScheme: lightColorScheme.harmonized(),
+      fontFamily: fontFamilyPlatform,
     );
     final appThemeDark = ThemeData(
       useMaterial3: true,
       colorScheme: darkColorScheme.harmonized(),
+      fontFamily: fontFamilyPlatform,
       brightness: Brightness.dark,
       // TODO bottom sheet theme is not working
       bottomSheetTheme: BottomSheetThemeData(

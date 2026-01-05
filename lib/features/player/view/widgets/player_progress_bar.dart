@@ -12,6 +12,7 @@ class AudiobookChapterProgressBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final book = ref.watch(currentBookProvider);
     final player = ref.watch(absPlayerProvider);
     final currentChapter = ref.watch(currentChapterProvider);
     final position = useStream(
@@ -36,7 +37,7 @@ class AudiobookChapterProgressBar extends HookConsumerWidget {
     final progress =
         currentChapterProgress ?? position.data ?? const Duration(seconds: 0);
     final total = currentChapter == null
-        ? player.book?.duration ?? const Duration(seconds: 0)
+        ? book?.duration ?? const Duration(seconds: 0)
         : currentChapter.end - currentChapter.start;
     return ProgressBar(
       progress: progress,
@@ -65,6 +66,7 @@ class AudiobookProgressBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final book = ref.watch(currentBookProvider);
     final player = ref.read(absPlayerProvider);
     final position = useStream(
       player.positionInBookStream,
@@ -75,7 +77,7 @@ class AudiobookProgressBar extends HookConsumerWidget {
       height: AppElementSizes.barHeightLarge,
       child: LinearProgressIndicator(
         value: (position.data ?? const Duration(seconds: 0)).inSeconds /
-            (player.book?.duration ?? const Duration(seconds: 0)).inSeconds,
+            (book?.duration ?? const Duration(seconds: 0)).inSeconds,
         borderRadius: BorderRadiusGeometry.all(Radius.circular(10)),
       ),
     );

@@ -20,6 +20,11 @@ class PlayerPage extends HookConsumerWidget {
     final isVertical = size.height > size.width;
     return Scaffold(
       appBar: AppBar(
+        // 以下两项确保在滚动后背景色不变
+        // elevation: 0 是保持 AppBar 不变的关键
+        elevation: 0,
+        // 设置 forceMaterialTransparency 防止滚动时的透明度变化
+        forceMaterialTransparency: true,
         title: Text(currentBook.metadata.title ?? ''),
         leading: IconButton(
           iconSize: 30,

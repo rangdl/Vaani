@@ -4,7 +4,6 @@ import 'package:logging/logging.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/features/player/core/abs_audio_player.dart';
 import 'package:vaani/shared/extensions/obfuscation.dart';
-import 'package:vaani/shared/utils/error_response.dart';
 
 final _logger = Logger('PlaybackReporter');
 
