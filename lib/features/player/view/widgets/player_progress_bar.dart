@@ -5,9 +5,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 
+// 章节进度
 class AudiobookChapterProgressBar extends HookConsumerWidget {
+  final TimeLabelLocation timeLabelLocation;
   const AudiobookChapterProgressBar({
     super.key,
+    this.timeLabelLocation = TimeLabelLocation.below,
   });
 
   @override
@@ -54,11 +57,12 @@ class AudiobookChapterProgressBar extends HookConsumerWidget {
           currentChapterBuffered ?? buffered.data ?? const Duration(seconds: 0),
       bufferedBarColor: Theme.of(context).colorScheme.secondary,
       timeLabelType: TimeLabelType.remainingTime,
-      timeLabelLocation: TimeLabelLocation.below,
+      timeLabelLocation: timeLabelLocation,
     );
   }
 }
 
+// 书籍进度 简化版
 class AudiobookProgressBar extends HookConsumerWidget {
   const AudiobookProgressBar({
     super.key,

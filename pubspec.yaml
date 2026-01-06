@@ -106,6 +106,7 @@ dependencies:
   
   # 设置UI
   flutter_settings_ui: ^3.0.1
+  # settings_ui: ^2.0.2
 
   # 权限申请
   permission_handler: ^11.3.1

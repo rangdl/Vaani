@@ -6,13 +6,11 @@ import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/view/widgets/audiobook_player_seek_chapter_button.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/chapter.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
-
-/// The height of the player when it is minimized
-const double playerMinimizedHeight = 70;
 
 class PlayerMinimized extends HookConsumerWidget {
   const PlayerMinimized({super.key});
@@ -26,19 +24,17 @@ class PlayerMinimized extends HookConsumerWidget {
     final size = MediaQuery.of(context).size;
     // 竖屏
     final isVertical = size.height > size.width;
-    return GestureDetector(
-      child: Container(
-        height: playerMinimizedHeight,
-        color: Theme.of(context).colorScheme.surface,
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            isVertical
-                ? const PlayerMinimizedControls()
-                : const PlayerMinimizedControlsDesktop(),
-            const PlayerMinimizedProgress(),
-          ],
-        ),
+    return Container(
+      height: playerMinHeight,
+      color: Theme.of(context).colorScheme.surface,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          isVertical
+              ? const PlayerMinimizedControls()
+              : const PlayerMinimizedControlsDesktop(),
+          const PlayerMinimizedProgress(),
+        ],
       ),
     );
   }
@@ -81,7 +77,7 @@ class PlayerMinimizedControls extends HookConsumerWidget {
               },
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxWidth: playerMinimizedHeight,
+                  maxWidth: playerMinHeight,
                 ),
                 child: BookCoverWidget(),
               ),
@@ -174,89 +170,91 @@ class PlayerMinimizedControlsDesktop extends HookConsumerWidget {
     final currentBook = ref.watch(currentBookProvider);
     final currentChapter = ref.watch(currentChapterProvider);
 
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () {
-        if (GoRouterState.of(context).topRoute?.name != Routes.player.name) {
-          context.pushNamed(Routes.player.name);
-        } else {
-          context.pop();
-        }
-      },
-      child: Row(
-        children: [
-          SizedBox(
-            width: 180,
-            child: Row(
-              children: [
-                const AudiobookPlayerSeekChapterButton(isForward: false),
-                // play/pause button
-                const AudiobookPlayerPlayPauseButton(),
-                const AudiobookPlayerSeekChapterButton(isForward: true),
-              ],
-            ),
-          ),
-
-          // image
-          Padding(
-            padding: EdgeInsets.all(AppElementSizes.paddingSmall),
-            child: GestureDetector(
-              onTap: () {
-                // navigate to item page
-                if (currentBook != null) {
-                  context.pushNamed(
-                    Routes.libraryItem.name,
-                    pathParameters: {
-                      Routes.libraryItem.pathParamName!:
-                          currentBook.libraryItemId,
-                    },
-                  );
-                }
-              },
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: playerMinimizedHeight,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click, // 桌面端显示手型光标
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          if (GoRouterState.of(context).topRoute?.name != Routes.player.name) {
+            context.pushNamed(Routes.player.name);
+          } else {
+            context.pop();
+          }
+        },
+        child: Row(
+          children: [
+            // image
+            Padding(
+              padding: EdgeInsets.all(AppElementSizes.paddingSmall),
+              child: GestureDetector(
+                onTap: () {
+                  // navigate to item page
+                  if (currentBook != null) {
+                    context.pushNamed(
+                      Routes.libraryItem.name,
+                      pathParameters: {
+                        Routes.libraryItem.pathParamName!:
+                            currentBook.libraryItemId,
+                      },
+                    );
+                  }
+                },
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: playerMinHeight,
+                  ),
+                  child: BookCoverWidget(),
                 ),
-                child: BookCoverWidget(),
               ),
             ),
-          ),
-          // author and title of the book
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: AppElementSizes.paddingRegular,
+            // author and title of the book
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: AppElementSizes.paddingRegular,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // AutoScrollText(
+                    Text(
+                      '${currentBook?.metadata.title ?? ''} - ${currentChapter?.title ?? ''}',
+                      maxLines: 1, overflow: TextOverflow.ellipsis,
+                      // velocity:
+                      //     const Velocity(pixelsPerSecond: Offset(16, 0)),
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    Text(
+                      currentBook?.metadata.asBookMetadataExpanded.authorName ??
+                          '',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.7),
+                          ),
+                    ),
+                  ],
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
+            ),
+            SizedBox(
+              width: 180,
+              child: Row(
                 children: [
-                  // AutoScrollText(
-                  Text(
-                    '${currentBook?.metadata.title ?? ''} - ${currentChapter?.title ?? ''}',
-                    maxLines: 1, overflow: TextOverflow.ellipsis,
-                    // velocity:
-                    //     const Velocity(pixelsPerSecond: Offset(16, 0)),
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  Text(
-                    currentBook?.metadata.asBookMetadataExpanded.authorName ??
-                        '',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withValues(alpha: 0.7),
-                        ),
-                  ),
+                  const AudiobookPlayerSeekChapterButton(isForward: false),
+                  // play/pause button
+                  const AudiobookPlayerPlayPauseButton(),
+                  const AudiobookPlayerSeekChapterButton(isForward: true),
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

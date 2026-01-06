@@ -174,8 +174,7 @@ class AbsAudioPlayer {
   }
 
   Future<void> seek(Duration position, {int? index}) async {
-    await _player.seek(_addClippingStart(_player.position, add: false),
-        index: index);
+    await _player.seek(_addClippingStart(position, add: false), index: index);
   }
 
   Future<void> setSpeed(double speed) async {

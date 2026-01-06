@@ -106,17 +106,17 @@ class _BookDetails extends HookConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   // authors info if available
-                  _BookAuthors(
+                  BookAuthors(
                     itemBookMetadata: itemBookMetadata,
                     bookDetailsCached: extraMap?.book,
                   ),
                   // narrators info if available
-                  _BookNarrators(
+                  BookNarrators(
                     itemBookMetadata: itemBookMetadata,
                     bookDetailsCached: extraMap?.book,
                   ),
                   // series info if available
-                  _BookSeries(
+                  BookSeries(
                     itemBookMetadata: itemBookMetadata,
                     bookDetailsCached: extraMap?.book,
                   ),
@@ -247,8 +247,8 @@ class _HeroSectionSubLabelWithIcon extends HookConsumerWidget {
   }
 }
 
-class _BookSeries extends StatelessWidget {
-  const _BookSeries({
+class BookSeries extends StatelessWidget {
+  const BookSeries({
     required this.itemBookMetadata,
     required this.bookDetailsCached,
   });
@@ -292,8 +292,8 @@ class _BookSeries extends StatelessWidget {
   }
 }
 
-class _BookNarrators extends StatelessWidget {
-  const _BookNarrators({
+class BookNarrators extends StatelessWidget {
+  const BookNarrators({
     required this.itemBookMetadata,
     required this.bookDetailsCached,
   });
@@ -423,8 +423,8 @@ class _BookTitle extends StatelessWidget {
   }
 }
 
-class _BookAuthors extends StatelessWidget {
-  const _BookAuthors({
+class BookAuthors extends StatelessWidget {
+  const BookAuthors({
     required this.itemBookMetadata,
     required this.bookDetailsCached,
   });
