@@ -6,12 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/features/settings/view/buttons.dart';
 import 'package:vaani/features/settings/view/simple_settings_page.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
-import 'package:vaani/shared/extensions/duration_format.dart';
 
 class DownloadSettingsPage extends HookConsumerWidget {
   const DownloadSettingsPage({
@@ -22,7 +21,7 @@ class DownloadSettingsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final appSettings = ref.watch(appSettingsProvider);
     final downloadSettings = appSettings.downloadSettings;
-    final primaryColor = Theme.of(context).colorScheme.primary;
+    // final primaryColor = Theme.of(context).colorScheme.primary;
 
     return SimpleSettingsPage(
       title: Text(S.of(context).playerSettings),

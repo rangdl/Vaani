@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,8 +16,6 @@ import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/theme/providers/system_theme_provider.dart';
-import 'package:vaani/theme/providers/theme_from_cover_provider.dart';
-import 'package:vaani/theme/theme.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
@@ -90,80 +87,19 @@ class AbsApp extends ConsumerWidget {
     if (needOnboarding) {
       routerConfig.goNamed(Routes.onboarding.name);
     }
-    final appSettings = ref.watch(appSettingsProvider);
-    final themeSettings = appSettings.themeSettings;
-
-    ColorScheme lightColorScheme = brandLightColorScheme;
-    ColorScheme darkColorScheme = brandDarkColorScheme;
-
-    final shouldUseHighContrast =
-        themeSettings.highContrast || MediaQuery.of(context).highContrast;
-
-    if (shouldUseHighContrast) {
-      lightColorScheme = lightColorScheme.copyWith(
-        surface: Colors.white,
-      );
-      darkColorScheme = darkColorScheme.copyWith(
-        surface: Colors.black,
-      );
-    }
-
-    if (themeSettings.useMaterialThemeFromSystem) {
-      var themes =
-          ref.watch(systemThemeProvider(highContrast: shouldUseHighContrast));
-      if (themes.valueOrNull != null) {
-        lightColorScheme = themes.valueOrNull!.$1;
-        darkColorScheme = themes.valueOrNull!.$2;
-      }
-    }
-
-    if (themeSettings.useCurrentPlayerThemeThroughoutApp) {
-      try {
-        final currentBook = ref.watch(currentBookProvider);
-        if (currentBook != null) {
-          final themeLight = ref.watch(
-            themeOfLibraryItemProvider(
-              currentBook.libraryItemId,
-              highContrast: shouldUseHighContrast,
-              brightness: Brightness.light,
-            ),
-          );
-          final themeDark = ref.watch(
-            themeOfLibraryItemProvider(
-              currentBook.libraryItemId,
-              highContrast: shouldUseHighContrast,
-              brightness: Brightness.dark,
-            ),
-          );
-          if (themeLight.valueOrNull != null && themeDark.valueOrNull != null) {
-            lightColorScheme = themeLight.valueOrNull!;
-            darkColorScheme = themeDark.valueOrNull!;
-          }
-        }
-      } catch (e) {
-        debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
-        appLogger.severe('not building with player theme');
-        appLogger.severe(e.toString());
-      }
-    }
-    final appThemeLight = ThemeData(
-      useMaterial3: true,
-      colorScheme: lightColorScheme.harmonized(),
-      fontFamily: fontFamilyPlatform,
-    );
-    final appThemeDark = ThemeData(
-      useMaterial3: true,
-      colorScheme: darkColorScheme.harmonized(),
-      fontFamily: fontFamilyPlatform,
-      brightness: Brightness.dark,
-      // TODO bottom sheet theme is not working
-      bottomSheetTheme: BottomSheetThemeData(
-        backgroundColor: darkColorScheme.surface,
+    final language = ref.watch(appSettingsProvider.select((v) => v.language));
+    final themeSettings =
+        ref.watch(appSettingsProvider.select((v) => v.themeSettings));
+    final currentBook = ref.watch(currentBookProvider);
+    final currentTheme = ref.watch(
+      CurrentThemeProvider(
+        highContrast: MediaQuery.of(context).highContrast,
+        id: currentBook?.libraryItemId,
       ),
     );
     try {
       return MaterialApp.router(
-        locale: Locale(appSettings.language),
+        locale: Locale(language),
         localizationsDelegates: [
           // 以下是其他代理
           S.delegate, //String 资源的 本地化
@@ -172,8 +108,8 @@ class AbsApp extends ConsumerWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
-        theme: appThemeLight,
-        darkTheme: appThemeDark,
+        theme: currentTheme.$1,
+        darkTheme: currentTheme.$2,
         themeMode: themeSettings.themeMode,
         routerConfig: routerConfig,
         themeAnimationCurve: Curves.easeInOut,

@@ -5,6 +5,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vaani/features/settings/app_settings_provider.dart';
+import 'package:vaani/theme/providers/theme_from_cover_provider.dart';
+import 'package:vaani/theme/theme.dart';
 
 part 'system_theme_provider.g.dart';
 
@@ -71,4 +74,83 @@ FutureOr<(ColorScheme light, ColorScheme dark)?> systemTheme(
         .harmonized();
   }
   return (schemeLight, schemeDark);
+}
+
+@riverpod
+(ThemeData light, ThemeData dark) currentTheme(
+  Ref ref, {
+  bool highContrast = false,
+  String? id,
+}) {
+  final themeSettings =
+      ref.watch(appSettingsProvider.select((v) => v.themeSettings));
+  ColorScheme lightColorScheme = brandLightColorScheme;
+  ColorScheme darkColorScheme = brandDarkColorScheme;
+
+  final shouldUseHighContrast = themeSettings.highContrast || highContrast;
+
+  if (shouldUseHighContrast) {
+    lightColorScheme = lightColorScheme.copyWith(
+      surface: Colors.white,
+    );
+    darkColorScheme = darkColorScheme.copyWith(
+      surface: Colors.black,
+    );
+  }
+
+  if (themeSettings.useMaterialThemeFromSystem) {
+    var themes =
+        ref.watch(systemThemeProvider(highContrast: shouldUseHighContrast));
+    if (themes.valueOrNull != null) {
+      lightColorScheme = themes.valueOrNull!.$1;
+      darkColorScheme = themes.valueOrNull!.$2;
+    }
+  }
+
+  if (themeSettings.useCurrentPlayerThemeThroughoutApp) {
+    try {
+      if (id != null) {
+        final themeLight = ref.watch(
+          themeOfLibraryItemProvider(
+            id,
+            highContrast: shouldUseHighContrast,
+            brightness: Brightness.light,
+          ),
+        );
+        final themeDark = ref.watch(
+          themeOfLibraryItemProvider(
+            id,
+            highContrast: shouldUseHighContrast,
+            brightness: Brightness.dark,
+          ),
+        );
+        if (themeLight.valueOrNull != null && themeDark.valueOrNull != null) {
+          lightColorScheme = themeLight.valueOrNull!;
+          darkColorScheme = themeDark.valueOrNull!;
+        }
+      }
+    } catch (e) {
+      debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
+      _logger.severe('not building with player theme');
+      _logger.severe(e.toString());
+    }
+  }
+  final appThemeLight = ThemeData(
+    useMaterial3: true,
+    colorScheme: lightColorScheme.harmonized(),
+    fontFamily: fontFamilyPlatform,
+    textTheme: textTheme,
+  );
+  final appThemeDark = ThemeData(
+    useMaterial3: true,
+    colorScheme: darkColorScheme.harmonized(),
+    fontFamily: fontFamilyPlatform,
+    textTheme: textTheme,
+    brightness: Brightness.dark,
+    // TODO bottom sheet theme is not working
+    bottomSheetTheme: BottomSheetThemeData(
+      backgroundColor: darkColorScheme.surface,
+    ),
+  );
+  return (appThemeLight, appThemeDark);
 }

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/constants/sizes.dart';
@@ -29,6 +30,7 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // final textTheme = Theme.of(context).textTheme;
     final book = ref.watch(currentBookProvider);
     if (book == null) {
       return SizedBox.shrink();
@@ -116,7 +118,16 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
                 timeLabelLocation: TimeLabelLocation.sides,
               ),
             ),
-            Container(child: _buildBottom()),
+            MouseRegion(
+              cursor: SystemMouseCursors.click, // 桌面端显示手型光标
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  context.pop();
+                },
+                child: _buildBottom(),
+              ),
+            ),
           ],
         ),
       ],
@@ -125,11 +136,15 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
 
   Widget _buildBottom() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      // mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Spacer(),
+        Expanded(
+          flex: 1,
+          child: Row(),
+        ),
         Expanded(
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const AudiobookPlayerSeekChapterButton(isForward: false),
               const AudiobookPlayerSeekButton(isForward: false),
@@ -141,6 +156,7 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
           ),
         ),
         Expanded(
+          flex: 1,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

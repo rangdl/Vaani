@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -8,9 +7,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/features/item_viewer/view/library_item_sliver_app_bar.dart';
 import 'package:vaani/features/player/view/mini_player_bottom_padding.dart';
+import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/shared/widgets/expandable_description.dart';
+import 'package:vaani/theme/providers/system_theme_provider.dart';
 
 import 'library_item_actions.dart';
 import 'library_item_hero_section.dart';
@@ -32,6 +33,23 @@ class LibraryItemPage extends HookConsumerWidget {
         extra is LibraryItemExtras ? extra as LibraryItemExtras : null;
     final scrollController = useScrollController();
     final showFab = useState(false);
+    final themeSettings =
+        ref.watch(appSettingsProvider.select((v) => v.themeSettings));
+
+    var currentTheme = Theme.of(context);
+    if (themeSettings.useMaterialThemeOnItemPage) {
+      final theme = ref.watch(
+        CurrentThemeProvider(
+          highContrast: MediaQuery.of(context).highContrast,
+          id: itemId,
+        ),
+      );
+      if (currentTheme.brightness == Brightness.dark) {
+        currentTheme = theme.$2;
+      } else {
+        currentTheme = theme.$1;
+      }
+    }
 
     // Effect to listen to scroll changes and update FAB visibility
     useEffect(
@@ -72,65 +90,62 @@ class LibraryItemPage extends HookConsumerWidget {
       }
     }
 
-    return ThemeProvider(
-      initTheme: Theme.of(context),
-      duration: 200.ms,
-      child: ThemeSwitchingArea(
-        child: Scaffold(
-          floatingActionButton: AnimatedSwitcher(
-            duration: 250.ms,
-            // A common transition for FABs (fade + scale)
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return ScaleTransition(
-                scale: animation,
-                child: FadeTransition(
-                  opacity: animation,
-                  child: child,
+    return Theme(
+      data: currentTheme,
+      child: Scaffold(
+        floatingActionButton: AnimatedSwitcher(
+          duration: 250.ms,
+          // A common transition for FABs (fade + scale)
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return ScaleTransition(
+              scale: animation,
+              child: FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+            );
+          },
+          child: showFab.value
+              ? FloatingActionButton(
+                  // Key is important for AnimatedSwitcher to differentiate
+                  key: const ValueKey('fab-scroll-top'),
+                  onPressed: scrollToTop,
+                  tooltip: 'Scroll to top',
+                  child: const Icon(Icons.arrow_upward),
+                )
+              : const SizedBox.shrink(
+                  key: ValueKey('fab-empty'),
                 ),
-              );
-            },
-            child: showFab.value
-                ? FloatingActionButton(
-                    // Key is important for AnimatedSwitcher to differentiate
-                    key: const ValueKey('fab-scroll-top'),
-                    onPressed: scrollToTop,
-                    tooltip: 'Scroll to top',
-                    child: const Icon(Icons.arrow_upward),
-                  )
-                : const SizedBox.shrink(
-                    key: ValueKey('fab-empty'),
-                  ),
-          ),
-          body: CustomScrollView(
-            controller: scrollController,
-            slivers: [
-              LibraryItemSliverAppBar(
-                id: itemId,
-                scrollController: scrollController,
+        ),
+        body: CustomScrollView(
+          controller: scrollController,
+          slivers: [
+            LibraryItemSliverAppBar(
+              id: itemId,
+              scrollController: scrollController,
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.all(8),
+              sliver: LibraryItemHeroSection(
+                itemId: itemId,
+                extraMap: additionalItemData,
               ),
-              SliverPadding(
-                padding: const EdgeInsets.all(8),
-                sliver: LibraryItemHeroSection(
-                  itemId: itemId,
-                  extraMap: additionalItemData,
-                ),
-              ),
-              // a horizontal display with dividers of metadata
-              SliverToBoxAdapter(
-                child: LibraryItemMetadata(id: itemId),
-              ),
-              // a row of actions like play, download, share, etc
-              SliverToBoxAdapter(
-                child: LibraryItemActions(id: itemId),
-              ),
-              // a expandable section for book description
-              SliverToBoxAdapter(
-                child: LibraryItemDescription(id: itemId),
-              ),
-              // a padding at the bottom to make sure the last item is not hidden by mini player
-              const SliverToBoxAdapter(child: MiniPlayerBottomPadding()),
-            ],
-          ),
+            ),
+            // a horizontal display with dividers of metadata
+            SliverToBoxAdapter(
+              child: LibraryItemMetadata(id: itemId),
+            ),
+            // a row of actions like play, download, share, etc
+            SliverToBoxAdapter(
+              child: LibraryItemActions(id: itemId),
+            ),
+            // a expandable section for book description
+            SliverToBoxAdapter(
+              child: LibraryItemDescription(id: itemId),
+            ),
+            // a padding at the bottom to make sure the last item is not hidden by mini player
+            const SliverToBoxAdapter(child: MiniPlayerBottomPadding()),
+          ],
         ),
       ),
     );

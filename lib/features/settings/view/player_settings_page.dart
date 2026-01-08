@@ -91,7 +91,7 @@ class PlayerSettingsPage extends HookConsumerWidget {
                 if (newSpeedOptions != null) {
                   ref.read(appSettingsProvider.notifier).update(
                         appSettings.copyWith.playerSettings(
-                          speedOptions: newSpeedOptions..sort(),
+                          speedOptions: [...newSpeedOptions]..sort(),
                         ),
                       );
                 }

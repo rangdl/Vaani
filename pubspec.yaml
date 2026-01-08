@@ -133,8 +133,8 @@ dependencies:
   # 动画
   flutter_animate: ^4.5.0
   lottie: ^3.1.0
-  animated_list_plus: ^0.5.2
-  animated_theme_switcher: ^2.0.10
+  # animated_list_plus: ^0.5.2
+  # animated_theme_switcher: ^2.0.10
   
   # Material Design 3色彩系统的算法和工具
   material_color_utilities: ^0.11.1
