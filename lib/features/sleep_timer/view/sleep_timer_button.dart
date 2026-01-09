@@ -25,7 +25,7 @@ class SleepTimerButton extends HookConsumerWidget {
     // if the sleep timer is active, show the remaining time in a pill shaped container
     return Tooltip(
       message: 'Sleep Timer',
-      child: InkWell(
+      child: GestureDetector(
         onTap: () async {
           appLogger.fine('Sleep Timer button pressed');
           pendingPlayerModals++;

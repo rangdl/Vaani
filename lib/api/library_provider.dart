@@ -63,8 +63,8 @@ class LibraryItemsState {
   final List<LibraryItem> items;
   final int limit;
   final int page;
-  final String? sort;
-  final bool? desc;
+  final String sort;
+  final bool desc;
   final bool isLoading;
   final bool isRefreshing;
   final bool hasMore;
@@ -75,8 +75,8 @@ class LibraryItemsState {
     this.items = const [],
     this.limit = 18,
     this.page = 0,
-    this.sort,
-    this.desc,
+    this.sort = 'media.metadata.title',
+    this.desc = false,
     this.isLoading = false,
     this.isRefreshing = false,
     this.hasMore = false,
@@ -111,6 +111,26 @@ class LibraryItemsState {
   }
 
   factory LibraryItemsState.initial() => const LibraryItemsState();
+
+  final sortMap = const {
+    'media.metadata.title': '标题',
+    'media.metadata.authorName': '作者(姓,名)',
+    'media.metadata.authorNameLF': '作者(名,姓)',
+    'media.metadata.publishedYear': '发布年份',
+    'addedAt': '添加于',
+    'size': '文件大小',
+    'media.duration': '持续时间',
+    'birthtimeMs': '文件创建时间',
+    'mtimeMs': '文件修改时间',
+    'progress': '进度更新时间',
+    'progress.createdAt': '开始日期',
+    'progress.finishedAt': '完成日期',
+    'random': '随机',
+  };
+  List<String> get sortList => sortMap.keys.toList();
+  String sortDisplay(String sort) {
+    return sortMap[sort] ?? 'unknown';
+  }
 }
 
 @riverpod
@@ -207,6 +227,11 @@ class LibraryItems extends _$LibraryItems {
       return newItems?.results ?? [];
     }
     return [];
+  }
+
+  void update(LibraryItemsState record) {
+    state = record;
+    refresh();
   }
 }
 

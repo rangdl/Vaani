@@ -176,7 +176,7 @@ class _SystemThemeProviderElement
   bool get highContrast => (origin as SystemThemeProvider).highContrast;
 }
 
-String _$currentThemeHash() => r'0e62a7f1b62c6ad73a3769909607407d41eb0338';
+String _$currentThemeHash() => r'90abeb0e647e2a0e0c5c6edf4223003500dce431';
 
 /// See also [currentTheme].
 @ProviderFor(currentTheme)

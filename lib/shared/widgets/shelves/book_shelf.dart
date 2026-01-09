@@ -9,6 +9,7 @@ import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/api/library_item_provider.dart' show libraryItemProvider;
 import 'package:vaani/constants/hero_tag_conventions.dart';
+import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/item_viewer/view/library_item_actions.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
@@ -315,28 +316,38 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
 }
 
 class BookCoverWidget extends HookConsumerWidget {
-  const BookCoverWidget({
+  final double width;
+  final String? itemId;
+  const BookCoverWidget(
+    this.width, {
     super.key,
+    this.itemId,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentBook = ref.watch(currentBookProvider);
-    if (currentBook == null) {
-      return const BookCoverSkeleton();
+    if (itemId == null) {
+      return SizedBox(width: width, child: const BookCoverSkeleton());
     }
-    final itemBeingPlayed =
-        ref.watch(libraryItemProvider(currentBook.libraryItemId));
+    final itemBeingPlayed = ref.watch(libraryItemProvider(itemId!));
     final imageOfItemBeingPlayed = itemBeingPlayed.valueOrNull != null
         ? ref.watch(
             coverImageProvider(itemBeingPlayed.valueOrNull!.id),
           )
         : null;
-    return imageOfItemBeingPlayed?.valueOrNull != null
-        ? Image.memory(
-            imageOfItemBeingPlayed!.valueOrNull!,
-            fit: BoxFit.cover,
-          )
-        : const BookCoverSkeleton();
+    return SizedBox(
+      width: width,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(
+          AppElementSizes.borderRadiusRegular,
+        ),
+        child: imageOfItemBeingPlayed?.valueOrNull != null
+            ? Image.memory(
+                imageOfItemBeingPlayed!.valueOrNull!,
+                fit: BoxFit.cover,
+              )
+            : const BookCoverSkeleton(),
+      ),
+    );
   }
 }

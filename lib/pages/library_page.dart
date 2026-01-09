@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -10,6 +11,7 @@ import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/api/library_provider.dart';
+import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/models/library_item_extras.dart';
@@ -18,11 +20,11 @@ import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/extensions/style.dart';
 import 'package:vaani/shared/icons/abs_icons.dart';
 import 'package:vaani/shared/utils/components.dart';
+import 'package:vaani/shared/widgets/custom_dropdown.dart';
 import 'package:vaani/shared/widgets/skeletons.dart';
 
-// TODO: implement the library page
 class LibraryPage extends HookConsumerWidget {
-  LibraryPage({this.libraryId, super.key});
+  const LibraryPage({this.libraryId, super.key});
 
   final String? libraryId;
   @override
@@ -72,6 +74,14 @@ class LibraryPage extends HookConsumerWidget {
           },
         ),
         actions: [
+          // IconButton(
+          //   icon: Icon(Icons.filter_list),
+          //   tooltip: '筛选', // Helpful tooltip for users
+          //   onPressed: () {
+          //     debugPrint('筛选');
+          //   },
+          // ),
+          const LibraryItemsSort(),
           IconButton(
             icon: Icon(Icons.next_plan),
             tooltip: '加载下一页', // Helpful tooltip for users
@@ -232,6 +242,67 @@ class BookCoverWidget extends HookConsumerWidget {
           return const Center(child: Icon(Icons.error));
         },
       ),
+    );
+  }
+}
+
+class LibraryItemsSort extends HookConsumerWidget {
+  const LibraryItemsSort({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // return IconButton(
+    //   icon: Icon(Icons.sort),
+    //   tooltip: '排序', // Helpful tooltip for users
+    //   onPressed: () {
+    //     debugPrint('排序');
+    //   },
+    // );
+    final state = ref.watch(libraryItemsProvider);
+    String selected = state.sort;
+    return DropdownSearch<String>(
+      selectedItem: selected,
+      mode: Mode.custom,
+      items: (filter, loadProps) => state.sortList,
+      dropdownBuilder: (ctx, selectedItem) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(state.sortDisplay(selectedItem ?? '')),
+            state.desc
+                ? const Icon(Icons.keyboard_arrow_down)
+                : const Icon(Icons.keyboard_arrow_up),
+          ],
+        );
+      },
+      popupProps: PopupProps.menu(
+        menuProps: MenuProps(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(AppElementSizes.borderRadiusRegular),
+          ),
+          popUpAnimationStyle: AnimationStyle(duration: Duration.zero),
+        ),
+        constraints: BoxConstraints(
+            minWidth: 180, maxHeight: MediaQuery.of(context).size.height * 0.5),
+        itemBuilder: (context, item, isDisabled, isSelected) => ListTile(
+          title: Text(state.sortDisplay(item)),
+          trailing: selected == item
+              ? state.desc
+                  ? const Icon(Icons.keyboard_arrow_down)
+                  : const Icon(Icons.keyboard_arrow_up)
+              : null,
+        ),
+        fit: FlexFit.loose,
+      ),
+      onChanged: (value) {
+        debugPrint(value);
+        ref.read(libraryItemsProvider.notifier).update(
+              state.copyWith(
+                sort: value,
+                desc: state.sort == value ? !state.desc : state.desc,
+              ),
+            );
+      },
     );
   }
 }

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
@@ -52,7 +53,10 @@ class PlayerExpanded extends HookConsumerWidget {
           child: Align(
             alignment: Alignment.center,
             // add a shadow to the image elevation hovering effect
-            child: PlayerExpandedImage(imageSize),
+            child: PlayerExpandedImage(
+              imageSize,
+              itemId: currentBook.libraryItemId,
+            ),
           ),
         ),
 
@@ -169,8 +173,9 @@ class PlayerExpanded extends HookConsumerWidget {
 
 class PlayerExpandedImage extends StatelessWidget {
   final double imageSize;
+  final String? itemId;
 
-  const PlayerExpandedImage(this.imageSize, {super.key});
+  const PlayerExpandedImage(this.imageSize, {super.key, this.itemId});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -183,16 +188,11 @@ class PlayerExpandedImage extends StatelessWidget {
           ),
         ],
       ),
-      child: SizedBox(
-        height: imageSize,
-        child: InkWell(
-          onTap: () {},
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(
-              AppElementSizes.borderRadiusRegular,
-            ),
-            child: BookCoverWidget(),
-          ),
+      child: InkWell(
+        onTap: () {},
+        child: Hero(
+          tag: HeroTagPrefixes.bookCoverWith(itemId),
+          child: BookCoverWidget(imageSize, itemId: itemId),
         ),
       ),
     );

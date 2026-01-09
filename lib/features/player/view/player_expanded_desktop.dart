@@ -5,19 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
+import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/item_viewer/view/library_item_hero_section.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/view/player_expanded.dart'
     show PlayerExpandedImage;
-import 'package:vaani/features/player/view/widgets/audiobook_player_seek_button.dart';
-import 'package:vaani/features/player/view/widgets/audiobook_player_seek_chapter_button.dart';
+import 'package:vaani/features/player/view/player_minimized.dart';
 import 'package:vaani/features/player/view/widgets/chapter_selection_button.dart';
-import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
 import 'package:vaani/features/player/view/widgets/player_progress_bar.dart';
-import 'package:vaani/features/player/view/widgets/player_speed_adjust_button.dart';
-import 'package:vaani/features/skip_start_end/view/skip_start_end_button.dart';
-import 'package:vaani/features/sleep_timer/view/sleep_timer_button.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 
@@ -30,9 +26,8 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final textTheme = Theme.of(context).textTheme;
-    final book = ref.watch(currentBookProvider);
-    if (book == null) {
+    final currentBook = ref.watch(currentBookProvider);
+    if (currentBook == null) {
       return SizedBox.shrink();
     }
 
@@ -45,7 +40,7 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
     final availWidth = MediaQuery.of(context).size.width;
     // the image width when the player is expanded
     final imageSize = min(playerMaxHeight * 0.5, availWidth * 0.9);
-    final itemBookMetadata = book.metadata.asBookMetadataExpanded;
+    final itemBookMetadata = currentBook.metadata.asBookMetadataExpanded;
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -65,7 +60,10 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
                       Align(
                         alignment: Alignment.topCenter,
                         // add a shadow to the image elevation hovering effect
-                        child: PlayerExpandedImage(imageSize),
+                        child: PlayerExpandedImage(
+                          imageSize,
+                          itemId: currentBook.libraryItemId,
+                        ),
                       ),
                       _buildBookDetails(imageSize, itemBookMetadata),
                     ],
@@ -118,14 +116,17 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
                 timeLabelLocation: TimeLabelLocation.sides,
               ),
             ),
-            MouseRegion(
-              cursor: SystemMouseCursors.click, // 桌面端显示手型光标
-              child: GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () {
-                  context.pop();
-                },
-                child: _buildBottom(),
+            SizedBox(
+              height: playerMinHeight,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click, // 桌面端显示手型光标
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    context.pop();
+                  },
+                  child: _buildBottom(),
+                ),
               ),
             ),
           ],
@@ -143,27 +144,16 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
           child: Row(),
         ),
         Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const AudiobookPlayerSeekChapterButton(isForward: false),
-              const AudiobookPlayerSeekButton(isForward: false),
-              // play/pause button
-              const AudiobookPlayerPlayPauseButton(),
-              const AudiobookPlayerSeekButton(isForward: true),
-              const AudiobookPlayerSeekChapterButton(isForward: true),
-            ],
+          child: Hero(
+            tag: HeroTagPrefixes.controlsCenter,
+            child: const PlayerControlsDesktopCenter(),
           ),
         ),
         Expanded(
           flex: 1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              const PlayerSpeedAdjustButton(),
-              const SleepTimerButton(),
-              SkipChapterStartEndButton(),
-            ],
+          child: Hero(
+            tag: HeroTagPrefixes.controlsRight,
+            child: const PlayerControlsDesktopRight(),
           ),
         ),
       ],
@@ -171,7 +161,9 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
   }
 
   Widget _buildBookDetails(
-      double width, BookMetadataExpanded? itemBookMetadata) {
+    double width,
+    BookMetadataExpanded? itemBookMetadata,
+  ) {
     return Container(
       padding: EdgeInsets.all(AppElementSizes.paddingLarge),
       width: width,

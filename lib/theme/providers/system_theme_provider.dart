@@ -140,17 +140,26 @@ FutureOr<(ColorScheme light, ColorScheme dark)?> systemTheme(
     colorScheme: lightColorScheme.harmonized(),
     fontFamily: fontFamilyPlatform,
     textTheme: textTheme,
+    // iconTheme: IconThemeData(size: 24),
   );
   final appThemeDark = ThemeData(
     useMaterial3: true,
     colorScheme: darkColorScheme.harmonized(),
     fontFamily: fontFamilyPlatform,
     textTheme: textTheme,
+    // iconTheme: IconThemeData(size: 24),
     brightness: Brightness.dark,
     // TODO bottom sheet theme is not working
     bottomSheetTheme: BottomSheetThemeData(
       backgroundColor: darkColorScheme.surface,
     ),
   );
-  return (appThemeLight, appThemeDark);
+  return (
+    appThemeLight.copyWith(
+        // iconTheme: appThemeLight.iconTheme.copyWith(size: 24),
+        ),
+    appThemeDark.copyWith(
+        // iconTheme: appThemeLight.iconTheme.copyWith(size: 24),
+        )
+  );
 }
