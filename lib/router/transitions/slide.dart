@@ -33,29 +33,26 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
     child: child,
     transitionsBuilder: (context, animation, secondaryAnimation, child) =>
         FadeTransition(
-      opacity: animation,
-      child: SlideTransition(
-        position: animation.drive(
-          Tween(
-            begin: const Offset(0, 1.50),
-            end: Offset.zero,
-          ).chain(
-            CurveTween(curve: Curves.easeOut),
+          opacity: animation,
+          child: SlideTransition(
+            position: animation.drive(
+              Tween(
+                begin: const Offset(0, 1.50),
+                end: Offset.zero,
+              ).chain(CurveTween(curve: Curves.easeOut)),
+            ),
+            child: child,
           ),
         ),
-        child: child,
-      ),
-    ),
   );
 }
 
 Page<dynamic> Function(BuildContext, GoRouterState) defaultPageBuilder<T>(
   Widget child,
-) =>
-    (BuildContext context, GoRouterState state) {
-      return buildPageWithDefaultTransition<T>(
-        context: context,
-        state: state,
-        child: child,
-      );
-    };
+) => (BuildContext context, GoRouterState state) {
+  return buildPageWithDefaultTransition<T>(
+    context: context,
+    state: state,
+    child: child,
+  );
+};

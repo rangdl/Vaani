@@ -20,16 +20,12 @@ import 'package:vaani/shared/extensions/obfuscation.dart' show ObfuscateSet;
 import 'package:vaani/shared/widgets/add_new_server.dart' show AddNewServer;
 
 class ServerManagerPage extends HookConsumerWidget {
-  const ServerManagerPage({
-    super.key,
-  });
+  const ServerManagerPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Manage Accounts'),
-      ),
+      appBar: AppBar(title: const Text('Manage Accounts')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -41,9 +37,7 @@ class ServerManagerPage extends HookConsumerWidget {
 }
 
 class ServerManagerBody extends HookConsumerWidget {
-  const ServerManagerBody({
-    super.key,
-  });
+  const ServerManagerBody({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -61,9 +55,7 @@ class ServerManagerBody extends HookConsumerWidget {
       // crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        const Text(
-          'Registered Servers',
-        ),
+        const Text('Registered Servers'),
         Expanded(
           child: ListView.builder(
             itemCount: registeredServers.length,
@@ -76,21 +68,17 @@ class ServerManagerBody extends HookConsumerWidget {
                   'Users: ${availableUsers.where((element) => element.server == registeredServer).length}',
                 ),
                 // children are list of users of this server
-                children: availableUsers
-                    .where(
-                      (element) => element.server == registeredServer,
-                    )
-                    .map<Widget>(
-                      (e) => AvailableUserTile(user: e),
-                    )
-                    .nonNulls
-                    .toList()
-
-                  // add buttons of delete server and add user to server at the end
-                  ..addAll([
-                    AddUserTile(server: registeredServer),
-                    DeleteServerTile(server: registeredServer),
-                  ]),
+                children:
+                    availableUsers
+                        .where((element) => element.server == registeredServer)
+                        .map<Widget>((e) => AvailableUserTile(user: e))
+                        .nonNulls
+                        .toList()
+                      // add buttons of delete server and add user to server at the end
+                      ..addAll([
+                        AddUserTile(server: registeredServer),
+                        DeleteServerTile(server: registeredServer),
+                      ]),
               );
             },
           ),
@@ -111,28 +99,24 @@ class ServerManagerBody extends HookConsumerWidget {
                   final newServer = model.AudiobookShelfServer(
                     serverUrl: makeBaseUrl(serverURIController.text),
                   );
-                  ref.read(audiobookShelfServerProvider.notifier).addServer(
-                        newServer,
-                      );
-                  ref.read(apiSettingsProvider.notifier).updateState(
-                        apiSettings.copyWith(
-                          activeServer: newServer,
-                        ),
+                  ref
+                      .read(audiobookShelfServerProvider.notifier)
+                      .addServer(newServer);
+                  ref
+                      .read(apiSettingsProvider.notifier)
+                      .updateState(
+                        apiSettings.copyWith(activeServer: newServer),
                       );
                   serverURIController.clear();
                 } on ServerAlreadyExistsException catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(e.toString()),
-                    ),
-                  );
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text(e.toString())));
                 }
               } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Invalid URL'),
-                  ),
-                );
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text('Invalid URL')));
               }
             },
           ),
@@ -144,10 +128,7 @@ class ServerManagerBody extends HookConsumerWidget {
 }
 
 class DeleteServerTile extends HookConsumerWidget {
-  const DeleteServerTile({
-    super.key,
-    required this.server,
-  });
+  const DeleteServerTile({super.key, required this.server});
 
   final model.AudiobookShelfServer server;
 
@@ -167,9 +148,7 @@ class DeleteServerTile extends HookConsumerWidget {
                 child: Text.rich(
                   TextSpan(
                     children: [
-                      const TextSpan(
-                        text: 'This will remove the server ',
-                      ),
+                      const TextSpan(text: 'This will remove the server '),
                       TextSpan(
                         text: server.serverUrl.host,
                         style: TextStyle(
@@ -194,13 +173,8 @@ class DeleteServerTile extends HookConsumerWidget {
                 TextButton(
                   onPressed: () {
                     ref
-                        .read(
-                          audiobookShelfServerProvider.notifier,
-                        )
-                        .removeServer(
-                          server,
-                          removeUsers: true,
-                        );
+                        .read(audiobookShelfServerProvider.notifier)
+                        .removeServer(server, removeUsers: true);
                     Navigator.of(context).pop();
                   },
                   child: const Text('Delete'),
@@ -215,10 +189,7 @@ class DeleteServerTile extends HookConsumerWidget {
 }
 
 class AddUserTile extends HookConsumerWidget {
-  const AddUserTile({
-    super.key,
-    required this.server,
-  });
+  const AddUserTile({super.key, required this.server});
 
   final model.AudiobookShelfServer server;
 
@@ -252,10 +223,12 @@ class AddUserTile extends HookConsumerWidget {
                           label: 'Switch',
                           onPressed: () {
                             // Switch to the new user
-                            ref.read(apiSettingsProvider.notifier).updateState(
-                                  ref.read(apiSettingsProvider).copyWith(
-                                        activeUser: user,
-                                      ),
+                            ref
+                                .read(apiSettingsProvider.notifier)
+                                .updateState(
+                                  ref
+                                      .read(apiSettingsProvider)
+                                      .copyWith(activeUser: user),
                                 );
                             context.goNamed(Routes.home.name);
                           },
@@ -283,10 +256,7 @@ class AddUserTile extends HookConsumerWidget {
 }
 
 class AvailableUserTile extends HookConsumerWidget {
-  const AvailableUserTile({
-    super.key,
-    required this.user,
-  });
+  const AvailableUserTile({super.key, required this.user});
 
   final model.AuthenticatedUser user;
 
@@ -303,18 +273,14 @@ class AvailableUserTile extends HookConsumerWidget {
       onTap: apiSettings.activeUser == user
           ? null
           : () {
-              ref.read(apiSettingsProvider.notifier).updateState(
-                    apiSettings.copyWith(
-                      activeUser: user,
-                    ),
-                  );
+              ref
+                  .read(apiSettingsProvider.notifier)
+                  .updateState(apiSettings.copyWith(activeUser: user));
               // pop all routes and go to the home page
               // while (context.canPop()) {
               //   context.pop();
               // }
-              context.goNamed(
-                Routes.home.name,
-              );
+              context.goNamed(Routes.home.name);
             },
       trailing: IconButton(
         icon: const Icon(Icons.delete),
@@ -337,9 +303,7 @@ class AvailableUserTile extends HookConsumerWidget {
                           color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
-                      const TextSpan(
-                        text: ' from this app.',
-                      ),
+                      const TextSpan(text: ' from this app.'),
                     ],
                   ),
                 ),
@@ -353,9 +317,7 @@ class AvailableUserTile extends HookConsumerWidget {
                   TextButton(
                     onPressed: () {
                       ref
-                          .read(
-                            authenticatedUsersProvider.notifier,
-                          )
+                          .read(authenticatedUsersProvider.notifier)
                           .removeUser(user);
                       Navigator.of(context).pop();
                     },

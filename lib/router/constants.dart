@@ -3,14 +3,8 @@
 part of 'router.dart';
 
 class Routes {
-  static const home = _SimpleRoute(
-    pathName: '',
-    name: 'home',
-  );
-  static const onboarding = _SimpleRoute(
-    pathName: 'login',
-    name: 'onboarding',
-  );
+  static const home = _SimpleRoute(pathName: '', name: 'home');
+  static const onboarding = _SimpleRoute(pathName: 'login', name: 'onboarding');
   static const library = _SimpleRoute(
     pathName: 'library',
     pathParamName: 'libraryId',
@@ -23,10 +17,7 @@ class Routes {
   );
 
   // Local settings
-  static const settings = _SimpleRoute(
-    pathName: 'config',
-    name: 'settings',
-  );
+  static const settings = _SimpleRoute(pathName: 'config', name: 'settings');
   static const themeSettings = _SimpleRoute(
     pathName: 'theme',
     name: 'themeSettings',
@@ -64,10 +55,7 @@ class Routes {
     name: 'search',
     // parentRoute: library,
   );
-  static const explore = _SimpleRoute(
-    pathName: 'explore',
-    name: 'explore',
-  );
+  static const explore = _SimpleRoute(pathName: 'explore', name: 'explore');
 
   // downloads
   static const downloads = _SimpleRoute(
@@ -83,10 +71,7 @@ class Routes {
   );
 
   // you page for the user
-  static const you = _SimpleRoute(
-    pathName: 'you',
-    name: 'you',
-  );
+  static const you = _SimpleRoute(pathName: 'you', name: 'you');
 
   // user management
   static const userManagement = _SimpleRoute(
@@ -102,10 +87,7 @@ class Routes {
   );
 
   // logs page
-  static const logs = _SimpleRoute(
-    pathName: 'logs',
-    name: 'logs',
-  );
+  static const logs = _SimpleRoute(pathName: 'logs', name: 'logs');
 }
 
 // a class to store path

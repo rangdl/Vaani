@@ -16,10 +16,7 @@ class SimpleAudiobookPlayer extends _$SimpleAudiobookPlayer {
   @override
   core.AudiobookPlayer build() {
     final api = ref.watch(authenticatedApiProvider);
-    final player = core.AudiobookPlayer(
-      api.token!,
-      api.baseUrl,
-    );
+    final player = core.AudiobookPlayer(api.token!, api.baseUrl);
 
     ref.onDispose(player.dispose);
     _logger.finer('created simple player');

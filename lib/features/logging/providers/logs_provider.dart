@@ -59,8 +59,10 @@ String generateZipFileName() {
 }
 
 Level parseLevel(String level) {
-  return Level.LEVELS
-      .firstWhere((l) => l.name == level, orElse: () => Level.ALL);
+  return Level.LEVELS.firstWhere(
+    (l) => l.name == level,
+    orElse: () => Level.ALL,
+  );
 }
 
 LogRecord parseLogLine(String line) {

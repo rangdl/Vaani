@@ -12,19 +12,19 @@ Future<String> deviceName(Ref ref) async {
 
   // try different keys to get the device name
   return
-      // android
-      data['product'] ??
-          // ios
-          data['name'] ??
-          // linux
-          data['name'] ??
-          // windows
-          data['computerName'] ??
-          // macos
-          data['model'] ??
-          // web
-          data['browserName'] ??
-          'Unknown name';
+  // android
+  data['product'] ??
+      // ios
+      data['name'] ??
+      // linux
+      data['name'] ??
+      // windows
+      data['computerName'] ??
+      // macos
+      data['model'] ??
+      // web
+      data['browserName'] ??
+      'Unknown name';
 }
 
 @Riverpod(keepAlive: true)
@@ -33,19 +33,19 @@ Future<String> deviceModel(Ref ref) async {
 
   // try different keys to get the device model
   return
-      // android, eg: Google Pixel 4
+  // android, eg: Google Pixel 4
+  data['model'] ??
+      // ios, eg: iPhone 12 Pro
+      data['name'] ??
+      // linux, eg: Linux Mint 20.1
+      data['name'] ??
+      // windows, eg: Surface Pro 7
+      data['productId'] ??
+      // macos, eg: MacBook Pro (13-inch, M1, 2020)
       data['model'] ??
-          // ios, eg: iPhone 12 Pro
-          data['name'] ??
-          // linux, eg: Linux Mint 20.1
-          data['name'] ??
-          // windows, eg: Surface Pro 7
-          data['productId'] ??
-          // macos, eg: MacBook Pro (13-inch, M1, 2020)
-          data['model'] ??
-          // web, eg: Chrome 87.0.4280.88
-          data['browserName'] ??
-          'Unknown model';
+      // web, eg: Chrome 87.0.4280.88
+      data['browserName'] ??
+      'Unknown model';
 }
 
 @Riverpod(keepAlive: true)
@@ -54,19 +54,19 @@ Future<String> deviceSdkVersion(Ref ref) async {
 
   // try different keys to get the device sdk version
   return
-      // android, eg: 30
-      data['version.sdkInt']?.toString() ??
-          // ios, eg: 14.4
-          data['systemVersion'] ??
-          // linux, eg: 5.4.0-66-generic
-          data['version'] ??
-          // windows, eg: 10.0.19042
-          data['displayVersion'] ??
-          // macos, eg: 11.2.1
-          data['osRelease'] ??
-          // web, eg: 87.0.4280.88
-          data['appVersion'] ??
-          'Unknown sdk version';
+  // android, eg: 30
+  data['version.sdkInt']?.toString() ??
+      // ios, eg: 14.4
+      data['systemVersion'] ??
+      // linux, eg: 5.4.0-66-generic
+      data['version'] ??
+      // windows, eg: 10.0.19042
+      data['displayVersion'] ??
+      // macos, eg: 11.2.1
+      data['osRelease'] ??
+      // web, eg: 87.0.4280.88
+      data['appVersion'] ??
+      'Unknown sdk version';
 }
 
 @Riverpod(keepAlive: true)
@@ -75,19 +75,19 @@ Future<String> deviceManufacturer(Ref ref) async {
 
   // try different keys to get the device manufacturer
   return
-      // android, eg: Google
+  // android, eg: Google
+  data['manufacturer'] ??
+      // ios, eg: Apple
       data['manufacturer'] ??
-          // ios, eg: Apple
-          data['manufacturer'] ??
-          // linux, eg: Linux
-          data['idLike'] ??
-          // windows, eg: Microsoft
-          data['productName'] ??
-          // macos, eg: Apple
-          data['manufacturer'] ??
-          // web, eg: Google Inc.
-          data['vendor'] ??
-          'Unknown manufacturer';
+      // linux, eg: Linux
+      data['idLike'] ??
+      // windows, eg: Microsoft
+      data['productName'] ??
+      // macos, eg: Apple
+      data['manufacturer'] ??
+      // web, eg: Google Inc.
+      data['vendor'] ??
+      'Unknown manufacturer';
 }
 
 // copied from https://pub.dev/packages/device_info_plus/example
@@ -234,25 +234,28 @@ Future<Map<String, dynamic>> _getDeviceData(
       deviceData = _readWebBrowserInfo(await deviceInfoPlugin.webBrowserInfo);
     } else {
       deviceData = switch (defaultTargetPlatform) {
-        TargetPlatform.android =>
-          _readAndroidBuildData(await deviceInfoPlugin.androidInfo),
-        TargetPlatform.iOS =>
-          _readIosDeviceInfo(await deviceInfoPlugin.iosInfo),
-        TargetPlatform.linux =>
-          _readLinuxDeviceInfo(await deviceInfoPlugin.linuxInfo),
-        TargetPlatform.windows =>
-          _readWindowsDeviceInfo(await deviceInfoPlugin.windowsInfo),
-        TargetPlatform.macOS =>
-          _readMacOsDeviceInfo(await deviceInfoPlugin.macOsInfo),
+        TargetPlatform.android => _readAndroidBuildData(
+          await deviceInfoPlugin.androidInfo,
+        ),
+        TargetPlatform.iOS => _readIosDeviceInfo(
+          await deviceInfoPlugin.iosInfo,
+        ),
+        TargetPlatform.linux => _readLinuxDeviceInfo(
+          await deviceInfoPlugin.linuxInfo,
+        ),
+        TargetPlatform.windows => _readWindowsDeviceInfo(
+          await deviceInfoPlugin.windowsInfo,
+        ),
+        TargetPlatform.macOS => _readMacOsDeviceInfo(
+          await deviceInfoPlugin.macOsInfo,
+        ),
         TargetPlatform.fuchsia => <String, dynamic>{
-            errorKey: 'Fuchsia platform isn\'t supported',
-          },
+          errorKey: 'Fuchsia platform isn\'t supported',
+        },
       };
     }
   } on PlatformException {
-    deviceData = <String, dynamic>{
-      errorKey: 'Failed to get platform version.',
-    };
+    deviceData = <String, dynamic>{errorKey: 'Failed to get platform version.'};
   }
   return deviceData;
 }

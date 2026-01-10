@@ -11,9 +11,7 @@ class DownloadsPage extends HookConsumerWidget {
     final downloadHistory = ref.watch(downloadHistoryProvider());
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Downloads'),
-      ),
+      appBar: AppBar(title: const Text('Downloads')),
       body: Center(
         // history of downloads
         child: downloadHistory.when(

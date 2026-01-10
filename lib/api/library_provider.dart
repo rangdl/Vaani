@@ -33,8 +33,9 @@ Future<Library?> library(Ref ref, String id) async {
 
 @riverpod
 Future<Library?> currentLibrary(Ref ref) async {
-  final libraryId =
-      ref.watch(apiSettingsProvider.select((s) => s.activeLibraryId));
+  final libraryId = ref.watch(
+    apiSettingsProvider.select((s) => s.activeLibraryId),
+  );
   if (libraryId == null) {
     _logger.warning('No active library id found');
     return null;

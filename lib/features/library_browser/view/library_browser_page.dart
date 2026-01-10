@@ -41,43 +41,41 @@ class LibraryBrowserPage extends HookConsumerWidget {
             title: Text(appBarTitle),
           ),
           SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                ListTile(
-                  title: const Text('Authors'),
-                  leading: const Icon(Icons.person),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    showNotImplementedToast(context);
-                  },
-                ),
-                ListTile(
-                  title: const Text('Genres'),
-                  leading: const Icon(Icons.category),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    showNotImplementedToast(context);
-                  },
-                ),
-                ListTile(
-                  title: const Text('Series'),
-                  leading: const Icon(Icons.list),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    showNotImplementedToast(context);
-                  },
-                ),
-                // Downloads
-                ListTile(
-                  title: const Text('Downloads'),
-                  leading: const Icon(Icons.download),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    GoRouter.of(context).pushNamed(Routes.downloads.name);
-                  },
-                ),
-              ],
-            ),
+            delegate: SliverChildListDelegate([
+              ListTile(
+                title: const Text('Authors'),
+                leading: const Icon(Icons.person),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  showNotImplementedToast(context);
+                },
+              ),
+              ListTile(
+                title: const Text('Genres'),
+                leading: const Icon(Icons.category),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  showNotImplementedToast(context);
+                },
+              ),
+              ListTile(
+                title: const Text('Series'),
+                leading: const Icon(Icons.list),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  showNotImplementedToast(context);
+                },
+              ),
+              // Downloads
+              ListTile(
+                title: const Text('Downloads'),
+                leading: const Icon(Icons.download),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  GoRouter.of(context).pushNamed(Routes.downloads.name);
+                },
+              ),
+            ]),
           ),
         ],
       ),

@@ -15,9 +15,7 @@ import 'package:vaani/settings/view/simple_settings_page.dart';
 import 'package:vaani/settings/view/widgets/navigation_with_switch_tile.dart';
 
 class AppSettingsPage extends HookConsumerWidget {
-  const AppSettingsPage({
-    super.key,
-  });
+  const AppSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,17 +31,12 @@ class AppSettingsPage extends HookConsumerWidget {
             horizontal: 16.0,
             vertical: 8.0,
           ),
-          title: Text(
-            'General',
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
+          title: Text('General', style: Theme.of(context).textTheme.titleLarge),
           tiles: [
             SettingsTile(
               title: const Text('Player Settings'),
               leading: const Icon(Icons.play_arrow),
-              description: const Text(
-                'Customize the player settings',
-              ),
+              description: const Text('Customize the player settings'),
               onPressed: (context) {
                 context.pushNamed(Routes.playerSettings.name);
               },
@@ -61,7 +54,9 @@ class AppSettingsPage extends HookConsumerWidget {
               },
               value: sleepTimerSettings.autoTurnOnTimer,
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.sleepTimerSettings(
                         autoTurnOnTimer: value,
                       ),
@@ -71,15 +66,15 @@ class AppSettingsPage extends HookConsumerWidget {
             NavigationWithSwitchTile(
               title: const Text('Shake Detector'),
               leading: const Icon(Icons.vibration),
-              description: const Text(
-                'Customize the shake detector settings',
-              ),
+              description: const Text('Customize the shake detector settings'),
               value: appSettings.shakeDetectionSettings.isEnabled,
               onPressed: (context) {
                 context.pushNamed(Routes.shakeDetectorSettings.name);
               },
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.shakeDetectionSettings(
                         isEnabled: value,
                       ),
@@ -103,9 +98,7 @@ class AppSettingsPage extends HookConsumerWidget {
             SettingsTile.navigation(
               leading: const Icon(Icons.color_lens),
               title: const Text('Theme Settings'),
-              description: const Text(
-                'Customize the app theme',
-              ),
+              description: const Text('Customize the app theme'),
               onPressed: (context) {
                 context.pushNamed(Routes.themeSettings.name);
               },
@@ -123,9 +116,7 @@ class AppSettingsPage extends HookConsumerWidget {
             SettingsTile.navigation(
               leading: const Icon(Icons.home_filled),
               title: const Text('Home Page Settings'),
-              description: const Text(
-                'Customize the home page',
-              ),
+              description: const Text('Customize the home page'),
               onPressed: (context) {
                 context.pushNamed(Routes.homePageSettings.name);
               },
@@ -147,21 +138,15 @@ class AppSettingsPage extends HookConsumerWidget {
             SettingsTile(
               title: const Text('Copy to Clipboard'),
               leading: const Icon(Icons.copy),
-              description: const Text(
-                'Copy the app settings to the clipboard',
-              ),
+              description: const Text('Copy the app settings to the clipboard'),
               onPressed: (context) async {
                 // copy to clipboard
                 await Clipboard.setData(
-                  ClipboardData(
-                    text: jsonEncode(appSettings.toJson()),
-                  ),
+                  ClipboardData(text: jsonEncode(appSettings.toJson())),
                 );
                 // show toast
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Settings copied to clipboard'),
-                  ),
+                  const SnackBar(content: Text('Settings copied to clipboard')),
                 );
               },
             ),
@@ -231,9 +216,7 @@ class AppSettingsPage extends HookConsumerWidget {
 }
 
 class RestoreDialogue extends HookConsumerWidget {
-  const RestoreDialogue({
-    super.key,
-  });
+  const RestoreDialogue({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -264,9 +247,7 @@ class RestoreDialogue extends HookConsumerWidget {
             }
             try {
               // try to decode the backup
-              settings.value = model.AppSettings.fromJson(
-                jsonDecode(value),
-              );
+              settings.value = model.AppSettings.fromJson(jsonDecode(value));
             } catch (e) {
               return 'Invalid backup';
             }
@@ -280,27 +261,21 @@ class RestoreDialogue extends HookConsumerWidget {
           onPressed: () {
             if (formKey.currentState!.validate()) {
               if (settings.value == null) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Invalid backup'),
-                  ),
-                );
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text('Invalid backup')));
                 return;
               }
               ref.read(appSettingsProvider.notifier).update(settings.value!);
               settingsInputController.clear();
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Settings restored'),
-                ),
+                const SnackBar(content: Text('Settings restored')),
               );
             } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Invalid backup'),
-                ),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(const SnackBar(content: Text('Invalid backup')));
             }
           },
           child: const Text('Restore'),

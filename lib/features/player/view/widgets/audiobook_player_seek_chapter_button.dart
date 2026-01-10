@@ -5,10 +5,7 @@ import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/audiobook_player.dart';
 
 class AudiobookPlayerSeekChapterButton extends HookConsumerWidget {
-  const AudiobookPlayerSeekChapterButton({
-    super.key,
-    required this.isForward,
-  });
+  const AudiobookPlayerSeekChapterButton({super.key, required this.isForward});
 
   /// if true, the button seeks forward, else it seeks backwards
   final bool isForward;
@@ -27,9 +24,7 @@ class AudiobookPlayerSeekChapterButton extends HookConsumerWidget {
     void seekForward() {
       final index = player.book!.chapters.indexOf(player.currentChapter!);
       if (index < player.book!.chapters.length - 1) {
-        player.seek(
-          player.book!.chapters[index + 1].start + offset,
-        );
+        player.seek(player.book!.chapters[index + 1].start + offset);
       } else {
         player.seek(player.currentChapter!.end);
       }
@@ -37,8 +32,9 @@ class AudiobookPlayerSeekChapterButton extends HookConsumerWidget {
 
     /// seek backward to the previous chapter or the start of the current chapter
     void seekBackward() {
-      final currentPlayingChapterIndex =
-          player.book!.chapters.indexOf(player.currentChapter!);
+      final currentPlayingChapterIndex = player.book!.chapters.indexOf(
+        player.currentChapter!,
+      );
       final chapterPosition =
           player.positionInBook - player.currentChapter!.start;
       BookChapter chapterToSeekTo;
@@ -49,9 +45,7 @@ class AudiobookPlayerSeekChapterButton extends HookConsumerWidget {
       } else {
         chapterToSeekTo = player.currentChapter!;
       }
-      player.seek(
-        chapterToSeekTo.start + offset,
-      );
+      player.seek(chapterToSeekTo.start + offset);
     }
 
     return IconButton(

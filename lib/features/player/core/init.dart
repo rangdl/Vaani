@@ -30,23 +30,28 @@ Future<void> configurePlayer() async {
     androidShowNotificationBadge: false,
     notificationConfigBuilder: (state) {
       final controls = [
-        if (appSettings.notificationSettings.mediaControls
-                .contains(NotificationMediaControl.skipToPreviousChapter) &&
+        if (appSettings.notificationSettings.mediaControls.contains(
+              NotificationMediaControl.skipToPreviousChapter,
+            ) &&
             state.hasPrevious)
           MediaControl.skipToPrevious,
-        if (appSettings.notificationSettings.mediaControls
-            .contains(NotificationMediaControl.rewind))
+        if (appSettings.notificationSettings.mediaControls.contains(
+          NotificationMediaControl.rewind,
+        ))
           MediaControl.rewind,
         if (state.playing) MediaControl.pause else MediaControl.play,
-        if (appSettings.notificationSettings.mediaControls
-            .contains(NotificationMediaControl.fastForward))
+        if (appSettings.notificationSettings.mediaControls.contains(
+          NotificationMediaControl.fastForward,
+        ))
           MediaControl.fastForward,
-        if (appSettings.notificationSettings.mediaControls
-                .contains(NotificationMediaControl.skipToNextChapter) &&
+        if (appSettings.notificationSettings.mediaControls.contains(
+              NotificationMediaControl.skipToNextChapter,
+            ) &&
             state.hasNext)
           MediaControl.skipToNext,
-        if (appSettings.notificationSettings.mediaControls
-            .contains(NotificationMediaControl.stop))
+        if (appSettings.notificationSettings.mediaControls.contains(
+          NotificationMediaControl.stop,
+        ))
           MediaControl.stop,
       ];
       return NotificationConfig(

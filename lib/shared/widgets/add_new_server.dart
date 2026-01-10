@@ -52,7 +52,8 @@ class AddNewServer extends HookConsumerWidget {
       // do nothing
       appLogger.severe('Error parsing URI: $e');
     }
-    final canSubmit = !readOnly &&
+    final canSubmit =
+        !readOnly &&
         (isServerAliveValue || (allowEmpty && newServerURI.text.isEmpty));
     return TextFormField(
       readOnly: readOnly,
@@ -71,8 +72,9 @@ class AddNewServer extends HookConsumerWidget {
           color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
         ),
         border: const OutlineInputBorder(),
-        prefixText:
-            myController.text.startsWith(httpUrlRegExp) ? '' : 'https://',
+        prefixText: myController.text.startsWith(httpUrlRegExp)
+            ? ''
+            : 'https://',
         prefixIcon: ServerAliveIcon(server: parsedUri),
 
         // add server button
@@ -101,10 +103,7 @@ class AddNewServer extends HookConsumerWidget {
 }
 
 class ServerAliveIcon extends HookConsumerWidget {
-  const ServerAliveIcon({
-    super.key,
-    required this.server,
-  });
+  const ServerAliveIcon({super.key, required this.server});
 
   final Uri server;
 
@@ -121,8 +120,8 @@ class ServerAliveIcon extends HookConsumerWidget {
       message: server.toString().isEmpty
           ? 'Server Status'
           : isServerAliveValue
-              ? 'Server connected'
-              : 'Cannot connect to server',
+          ? 'Server connected'
+          : 'Cannot connect to server',
       child: server.toString().isEmpty
           ? Icon(
               Icons.cloud_outlined,

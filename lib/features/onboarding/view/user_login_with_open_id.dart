@@ -54,9 +54,9 @@ class UserLoginWithOpenID extends HookConsumerWidget {
 
       if (openIDLoginEndpoint == null) {
         if (responseErrorHandler.response.statusCode == 400 &&
-            responseErrorHandler.response.body
-                .toLowerCase()
-                .contains(RegExp(r'invalid.*redirect.*uri'))) {
+            responseErrorHandler.response.body.toLowerCase().contains(
+              RegExp(r'invalid.*redirect.*uri'),
+            )) {
           // show error
           handleServerError(
             context,
@@ -97,16 +97,16 @@ class UserLoginWithOpenID extends HookConsumerWidget {
       );
 
       // add the flow to the provider
-      ref.read(oauthFlowsProvider.notifier).addFlow(
+      ref
+          .read(oauthFlowsProvider.notifier)
+          .addFlow(
             oauthState,
             verifier: verifier,
             serverUri: server,
             cookie: Cookie.fromSetCookieValue(authCookie!),
           );
 
-      await handleLaunchUrl(
-        openIDLoginEndpoint,
-      );
+      await handleLaunchUrl(openIDLoginEndpoint);
     }
 
     return Column(

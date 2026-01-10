@@ -89,10 +89,9 @@ class UserLoginWithToken extends HookConsumerWidget {
             decoration: InputDecoration(
               labelText: 'API Token',
               labelStyle: TextStyle(
-                color: Theme.of(context)
-                    .colorScheme
-                    .onSurface
-                    .withValues(alpha: 0.8),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.8),
               ),
               border: const OutlineInputBorder(),
             ),
@@ -107,10 +106,7 @@ class UserLoginWithToken extends HookConsumerWidget {
             },
           ),
           const SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: loginAndSave,
-            child: const Text('Login'),
-          ),
+          ElevatedButton(onPressed: loginAndSave, child: const Text('Login')),
         ],
       ),
     );

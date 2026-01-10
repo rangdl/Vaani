@@ -14,14 +14,17 @@ class AvailableHiveBoxes {
   static final apiSettingsBox = Hive.box<ApiSettings>(name: 'apiSettings');
 
   /// stores the a list of [AudiobookShelfServer]
-  static final serverBox =
-      Hive.box<AudiobookShelfServer>(name: 'audiobookShelfServer');
+  static final serverBox = Hive.box<AudiobookShelfServer>(
+    name: 'audiobookShelfServer',
+  );
 
   /// stores the a list of [AuthenticatedUser]
-  static final authenticatedUserBox =
-      Hive.box<AuthenticatedUser>(name: 'authenticatedUser');
+  static final authenticatedUserBox = Hive.box<AuthenticatedUser>(
+    name: 'authenticatedUser',
+  );
 
   /// stores the a list of [BookSettings]
-  static final individualBookSettingsBox =
-      Hive.box<BookSettings>(name: 'bookSettings');
+  static final individualBookSettingsBox = Hive.box<BookSettings>(
+    name: 'bookSettings',
+  );
 }

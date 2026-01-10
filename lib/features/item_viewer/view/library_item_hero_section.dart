@@ -42,14 +42,13 @@ class LibraryItemHeroSection extends HookConsumerWidget {
                 child: Column(
                   children: [
                     Hero(
-                      tag: HeroTagPrefixes.bookCover +
+                      tag:
+                          HeroTagPrefixes.bookCover +
                           itemId +
                           (extraMap?.heroTagSuffix ?? ''),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
-                        child: _BookCover(
-                          itemId: itemId,
-                        ),
+                        child: _BookCover(itemId: itemId),
                       ),
                     ),
                     // a progress bar
@@ -59,9 +58,7 @@ class LibraryItemHeroSection extends HookConsumerWidget {
                         right: 8.0,
                         left: 8.0,
                       ),
-                      child: _LibraryItemProgressIndicator(
-                        id: itemId,
-                      ),
+                      child: _LibraryItemProgressIndicator(id: itemId),
                     ),
                   ],
                 ),
@@ -77,10 +74,7 @@ class LibraryItemHeroSection extends HookConsumerWidget {
 }
 
 class _BookDetails extends HookConsumerWidget {
-  const _BookDetails({
-    required this.id,
-    this.extraMap,
-  });
+  const _BookDetails({required this.id, this.extraMap});
 
   final String id;
   final LibraryItemExtras? extraMap;
@@ -99,10 +93,7 @@ class _BookDetails extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            _BookTitle(
-              extraMap: extraMap,
-              itemBookMetadata: itemBookMetadata,
-            ),
+            _BookTitle(extraMap: extraMap, itemBookMetadata: itemBookMetadata),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 16),
               child: Column(
@@ -134,9 +125,7 @@ class _BookDetails extends HookConsumerWidget {
 }
 
 class _LibraryItemProgressIndicator extends HookConsumerWidget {
-  const _LibraryItemProgressIndicator({
-    required this.id,
-  });
+  const _LibraryItemProgressIndicator({required this.id});
 
   final String id;
 
@@ -157,13 +146,15 @@ class _LibraryItemProgressIndicator extends HookConsumerWidget {
     Duration remainingTime;
     if (player.book?.libraryItemId == libraryItem.id) {
       // final positionStream = useStream(player.slowPositionStream);
-      progress = (player.positionInBook).inSeconds /
+      progress =
+          (player.positionInBook).inSeconds /
           libraryItem.media.asBookExpanded.duration.inSeconds;
       remainingTime =
           libraryItem.media.asBookExpanded.duration - player.positionInBook;
     } else {
       progress = mediaProgress?.progress ?? 0;
-      remainingTime = (libraryItem.media.asBookExpanded.duration -
+      remainingTime =
+          (libraryItem.media.asBookExpanded.duration -
           mediaProgress!.currentTime);
     }
 
@@ -190,20 +181,17 @@ class _LibraryItemProgressIndicator extends HookConsumerWidget {
             semanticsLabel: 'Book progress',
             semanticsValue: '${progressInPercent.toStringAsFixed(2)}%',
           ),
-          const SizedBox.square(
-            dimension: 4.0,
-          ),
+          const SizedBox.square(dimension: 4.0),
           // time remaining
           Text(
             // only show 2 decimal places
             '${remainingTime.smartBinaryFormat} left',
 
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onSurface
-                      .withValues(alpha: 0.75),
-                ),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.75),
+            ),
           ),
         ],
       ),
@@ -212,10 +200,7 @@ class _LibraryItemProgressIndicator extends HookConsumerWidget {
 }
 
 class _HeroSectionSubLabelWithIcon extends HookConsumerWidget {
-  const _HeroSectionSubLabelWithIcon({
-    required this.icon,
-    required this.text,
-  });
+  const _HeroSectionSubLabelWithIcon({required this.icon, required this.text});
 
   final IconData icon;
   final Widget text;
@@ -225,8 +210,10 @@ class _HeroSectionSubLabelWithIcon extends HookConsumerWidget {
     final themeData = Theme.of(context);
     final useFontAwesome =
         icon.runtimeType == FontAwesomeIcons.book.runtimeType;
-    final useMaterialThemeOnItemPage =
-        ref.watch(appSettingsProvider).themeSettings.useMaterialThemeOnItemPage;
+    final useMaterialThemeOnItemPage = ref
+        .watch(appSettingsProvider)
+        .themeSettings
+        .useMaterialThemeOnItemPage;
     final color = useMaterialThemeOnItemPage
         ? themeData.colorScheme.primary
         : themeData.colorScheme.onSurface.withValues(alpha: 0.75);
@@ -237,20 +224,10 @@ class _HeroSectionSubLabelWithIcon extends HookConsumerWidget {
           Container(
             margin: const EdgeInsets.only(right: 8, top: 2),
             child: useFontAwesome
-                ? FaIcon(
-                    icon,
-                    size: 16,
-                    color: color,
-                  )
-                : Icon(
-                    icon,
-                    size: 16,
-                    color: color,
-                  ),
+                ? FaIcon(icon, size: 16, color: color)
+                : Icon(icon, size: 16, color: color),
           ),
-          Expanded(
-            child: text,
-          ),
+          Expanded(child: text),
         ],
       ),
     );
@@ -338,9 +315,7 @@ class _BookNarrators extends StatelessWidget {
 }
 
 class _BookCover extends HookConsumerWidget {
-  const _BookCover({
-    required this.itemId,
-  });
+  const _BookCover({required this.itemId});
 
   final String itemId;
 
@@ -358,7 +333,8 @@ class _BookCover extends HookConsumerWidget {
             themeOfLibraryItemProvider(
               itemId,
               brightness: Theme.of(context).brightness,
-              highContrast: themeSettings.highContrast ||
+              highContrast:
+                  themeSettings.highContrast ||
                   MediaQuery.of(context).highContrast,
             ),
           )
@@ -391,15 +367,10 @@ class _BookCover extends HookConsumerWidget {
               return const Icon(Icons.error);
             }
 
-            return Image.memory(
-              image,
-              fit: BoxFit.cover,
-            );
+            return Image.memory(image, fit: BoxFit.cover);
           },
           loading: () {
-            return const Center(
-              child: BookCoverSkeleton(),
-            );
+            return const Center(child: BookCoverSkeleton());
           },
           error: (error, stack) {
             return const Center(child: Icon(Icons.error));
@@ -411,10 +382,7 @@ class _BookCover extends HookConsumerWidget {
 }
 
 class _BookTitle extends StatelessWidget {
-  const _BookTitle({
-    required this.extraMap,
-    required this.itemBookMetadata,
-  });
+  const _BookTitle({required this.extraMap, required this.itemBookMetadata});
 
   final LibraryItemExtras? extraMap;
   final shelfsdk.BookMetadataExpanded? itemBookMetadata;
@@ -426,7 +394,8 @@ class _BookTitle extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Hero(
-          tag: HeroTagPrefixes.bookTitle +
+          tag:
+              HeroTagPrefixes.bookTitle +
               // itemId +
               (extraMap?.heroTagSuffix ?? ''),
           child: Text(

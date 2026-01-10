@@ -10,9 +10,7 @@ import 'package:vaani/settings/view/simple_settings_page.dart';
 import 'package:vaani/shared/extensions/enum.dart';
 
 class ThemeSettingsPage extends HookConsumerWidget {
-  const ThemeSettingsPage({
-    super.key,
-  });
+  const ThemeSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,7 +36,9 @@ class ThemeSettingsPage extends HookConsumerWidget {
                 selectedIcon: const Icon(Icons.check),
                 selected: {themeSettings.themeMode},
                 onSelectionChanged: (newSelection) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.themeSettings(
                           themeMode: newSelection.first,
                         ),
@@ -66,8 +66,8 @@ class ThemeSettingsPage extends HookConsumerWidget {
                 themeSettings.themeMode == ThemeMode.light
                     ? Icons.light_mode
                     : themeSettings.themeMode == ThemeMode.dark
-                        ? Icons.dark_mode
-                        : Icons.auto_awesome,
+                    ? Icons.dark_mode
+                    : Icons.auto_awesome,
               ),
             ),
 
@@ -82,10 +82,10 @@ class ThemeSettingsPage extends HookConsumerWidget {
                 'Increase the contrast between the background and the text',
               ),
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
-                      appSettings.copyWith.themeSettings(
-                        highContrast: value,
-                      ),
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
+                      appSettings.copyWith.themeSettings(highContrast: value),
                     );
               },
             ),
@@ -103,7 +103,9 @@ class ThemeSettingsPage extends HookConsumerWidget {
                   ? const Icon(Icons.auto_awesome)
                   : const Icon(Icons.auto_fix_off),
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.themeSettings(
                         useMaterialThemeFromSystem: value,
                       ),
@@ -164,7 +166,9 @@ class ThemeSettingsPage extends HookConsumerWidget {
                   ? const Icon(Icons.auto_fix_high)
                   : const Icon(Icons.auto_fix_off),
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.themeSettings(
                         useCurrentPlayerThemeThroughoutApp: value,
                       ),
@@ -182,7 +186,9 @@ class ThemeSettingsPage extends HookConsumerWidget {
                   ? const Icon(Icons.auto_fix_high)
                   : const Icon(Icons.auto_fix_off),
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.themeSettings(
                         useMaterialThemeOnItemPage: value,
                       ),

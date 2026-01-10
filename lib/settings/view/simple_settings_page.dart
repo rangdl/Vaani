@@ -4,11 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/features/player/view/mini_player_bottom_padding.dart';
 
 class SimpleSettingsPage extends HookConsumerWidget {
-  const SimpleSettingsPage({
-    super.key,
-    this.title,
-    this.sections,
-  });
+  const SimpleSettingsPage({super.key, this.title, this.sections});
 
   final Widget? title;
   final List<AbstractSettingsSection>? sections;
@@ -34,18 +30,16 @@ class SimpleSettingsPage extends HookConsumerWidget {
           ),
           if (sections != null)
             SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    child: SettingsList(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      sections: sections!,
-                    ),
+              delegate: SliverChildListDelegate([
+                ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  child: SettingsList(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    sections: sections!,
                   ),
-                ],
-              ),
+                ),
+              ]),
             ),
           // some padding at the bottom
           const SliverPadding(padding: EdgeInsets.only(bottom: 20)),

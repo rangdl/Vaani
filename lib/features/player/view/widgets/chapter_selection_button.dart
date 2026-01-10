@@ -15,9 +15,7 @@ import 'package:vaani/shared/extensions/duration_format.dart'
 import 'package:vaani/shared/hooks.dart' show useTimer;
 
 class ChapterSelectionButton extends HookConsumerWidget {
-  const ChapterSelectionButton({
-    super.key,
-  });
+  const ChapterSelectionButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,9 +47,7 @@ class ChapterSelectionButton extends HookConsumerWidget {
 }
 
 class ChapterSelectionModal extends HookConsumerWidget {
-  const ChapterSelectionModal({
-    super.key,
-  });
+  const ChapterSelectionModal({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -87,41 +83,40 @@ class ChapterSelectionModal extends HookConsumerWidget {
               child: currentBook?.chapters == null
                   ? const Text('No chapters found')
                   : Column(
-                      children: currentBook!.chapters.map(
-                        (chapter) {
-                          final isCurrent = currentChapterIndex == chapter.id;
-                          final isPlayed = currentChapterIndex != null &&
-                              chapter.id < currentChapterIndex;
-                          return ListTile(
-                            autofocus: isCurrent,
-                            iconColor: isPlayed && !isCurrent
-                                ? theme.disabledColor
+                      children: currentBook!.chapters.map((chapter) {
+                        final isCurrent = currentChapterIndex == chapter.id;
+                        final isPlayed =
+                            currentChapterIndex != null &&
+                            chapter.id < currentChapterIndex;
+                        return ListTile(
+                          autofocus: isCurrent,
+                          iconColor: isPlayed && !isCurrent
+                              ? theme.disabledColor
+                              : null,
+                          title: Text(
+                            chapter.title,
+                            style: isPlayed && !isCurrent
+                                ? TextStyle(color: theme.disabledColor)
                                 : null,
-                            title: Text(
-                              chapter.title,
-                              style: isPlayed && !isCurrent
-                                  ? TextStyle(color: theme.disabledColor)
-                                  : null,
-                            ),
-                            subtitle: Text(
-                              '(${chapter.duration.smartBinaryFormat})',
-                              style: isPlayed && !isCurrent
-                                  ? TextStyle(color: theme.disabledColor)
-                                  : null,
-                            ),
-                            trailing: isCurrent
-                                ? const PlayingIndicatorIcon()
-                                : const Icon(Icons.play_arrow),
-                            selected: isCurrent,
-                            key: isCurrent ? chapterKey : null,
-                            onTap: () {
-                              Navigator.of(context).pop();
-                              notifier.seek(chapter.start + 90.ms);
-                              notifier.play();
-                            },
-                          );
-                        },
-                      ).toList(),
+                          ),
+                          subtitle: Text(
+                            '(${chapter.duration.smartBinaryFormat})',
+                            style: isPlayed && !isCurrent
+                                ? TextStyle(color: theme.disabledColor)
+                                : null,
+                          ),
+                          trailing: isCurrent
+                              ? const PlayingIndicatorIcon()
+                              : const Icon(Icons.play_arrow),
+                          selected: isCurrent,
+                          key: isCurrent ? chapterKey : null,
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            notifier.seek(chapter.start + 90.ms);
+                            notifier.play();
+                          },
+                        );
+                      }).toList(),
                     ),
             ),
           ),

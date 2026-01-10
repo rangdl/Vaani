@@ -24,46 +24,106 @@ class AbsIcons {
   static const _kFontFam = 'AbsIcons';
   static const String? _kFontPkg = null;
 
-  static const IconData audiobookshelf =
-      IconData(0xe900, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData microphone_2 =
-      IconData(0xe901, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData microphone_1 =
-      IconData(0xe902, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData radio =
-      IconData(0xe903, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData podcast =
-      IconData(0xe904, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData books_1 =
-      IconData(0xe905, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData database_2 =
-      IconData(0xe906, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData headphones =
-      IconData(0xe910, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData music =
-      IconData(0xe911, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData video =
-      IconData(0xe914, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData microphone_3 =
-      IconData(0xe91e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData book =
-      IconData(0xe91f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData books_2 =
-      IconData(0xe920, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData file_picture =
-      IconData(0xe927, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData database_1 =
-      IconData(0xe964, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData rocket =
-      IconData(0xe9a5, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData power =
-      IconData(0xe9b5, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData star =
-      IconData(0xe9d9, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData heart =
-      IconData(0xe9da, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData rss =
-      IconData(0xea9b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData audiobookshelf = IconData(
+    0xe900,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData microphone_2 = IconData(
+    0xe901,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData microphone_1 = IconData(
+    0xe902,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData radio = IconData(
+    0xe903,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData podcast = IconData(
+    0xe904,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData books_1 = IconData(
+    0xe905,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData database_2 = IconData(
+    0xe906,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData headphones = IconData(
+    0xe910,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData music = IconData(
+    0xe911,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData video = IconData(
+    0xe914,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData microphone_3 = IconData(
+    0xe91e,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData book = IconData(
+    0xe91f,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData books_2 = IconData(
+    0xe920,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData file_picture = IconData(
+    0xe927,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData database_1 = IconData(
+    0xe964,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData rocket = IconData(
+    0xe9a5,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData power = IconData(
+    0xe9b5,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData star = IconData(
+    0xe9d9,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData heart = IconData(
+    0xe9da,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
+  static const IconData rss = IconData(
+    0xea9b,
+    fontFamily: _kFontFam,
+    fontPackage: _kFontPkg,
+  );
 
   static final Map<String, IconData> _iconMap = {
     'audiobookshelf': audiobookshelf,

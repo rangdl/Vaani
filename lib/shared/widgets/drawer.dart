@@ -4,9 +4,7 @@ import 'package:vaani/features/you/view/server_manager.dart';
 import 'package:vaani/router/router.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({
-    super.key,
-  });
+  const MyDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +14,7 @@ class MyDrawer extends StatelessWidget {
           const DrawerHeader(
             child: Text(
               'Vaani',
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-                fontSize: 30,
-              ),
+              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 30),
             ),
           ),
           ListTile(

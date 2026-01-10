@@ -16,49 +16,43 @@ import 'library_item_hero_section.dart';
 import 'library_item_metadata.dart';
 
 class LibraryItemPage extends HookConsumerWidget {
-  const LibraryItemPage({
-    super.key,
-    required this.itemId,
-    this.extra,
-  });
+  const LibraryItemPage({super.key, required this.itemId, this.extra});
 
   final String itemId;
   final Object? extra;
   static const double _showFabThreshold = 300.0;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final additionalItemData =
-        extra is LibraryItemExtras ? extra as LibraryItemExtras : null;
+    final additionalItemData = extra is LibraryItemExtras
+        ? extra as LibraryItemExtras
+        : null;
     final scrollController = useScrollController();
     final showFab = useState(false);
 
     // Effect to listen to scroll changes and update FAB visibility
-    useEffect(
-      () {
-        void listener() {
-          if (!scrollController.hasClients) {
-            return; // Ensure controller is attached
-          }
-          final shouldShow = scrollController.offset > _showFabThreshold;
-          // Update state only if it changes and widget is still mounted
-          if (showFab.value != shouldShow && context.mounted) {
-            showFab.value = shouldShow;
-          }
+    useEffect(() {
+      void listener() {
+        if (!scrollController.hasClients) {
+          return; // Ensure controller is attached
         }
+        final shouldShow = scrollController.offset > _showFabThreshold;
+        // Update state only if it changes and widget is still mounted
+        if (showFab.value != shouldShow && context.mounted) {
+          showFab.value = shouldShow;
+        }
+      }
 
-        scrollController.addListener(listener);
-        // Initial check in case the view starts scrolled (less likely but safe)
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (scrollController.hasClients && context.mounted) {
-            listener();
-          }
-        });
+      scrollController.addListener(listener);
+      // Initial check in case the view starts scrolled (less likely but safe)
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (scrollController.hasClients && context.mounted) {
+          listener();
+        }
+      });
 
-        // Cleanup: remove the listener when the widget is disposed
-        return () => scrollController.removeListener(listener);
-      },
-      [scrollController],
-    ); // Re-run effect if scrollController changes
+      // Cleanup: remove the listener when the widget is disposed
+      return () => scrollController.removeListener(listener);
+    }, [scrollController]); // Re-run effect if scrollController changes
 
     // --- FAB Scroll-to-Top Logic ---
     void scrollToTop() {
@@ -82,10 +76,7 @@ class LibraryItemPage extends HookConsumerWidget {
             transitionBuilder: (Widget child, Animation<double> animation) {
               return ScaleTransition(
                 scale: animation,
-                child: FadeTransition(
-                  opacity: animation,
-                  child: child,
-                ),
+                child: FadeTransition(opacity: animation, child: child),
               );
             },
             child: showFab.value
@@ -96,9 +87,7 @@ class LibraryItemPage extends HookConsumerWidget {
                     tooltip: 'Scroll to top',
                     child: const Icon(Icons.arrow_upward),
                   )
-                : const SizedBox.shrink(
-                    key: ValueKey('fab-empty'),
-                  ),
+                : const SizedBox.shrink(key: ValueKey('fab-empty')),
           ),
           body: CustomScrollView(
             controller: scrollController,
@@ -115,17 +104,11 @@ class LibraryItemPage extends HookConsumerWidget {
                 ),
               ),
               // a horizontal display with dividers of metadata
-              SliverToBoxAdapter(
-                child: LibraryItemMetadata(id: itemId),
-              ),
+              SliverToBoxAdapter(child: LibraryItemMetadata(id: itemId)),
               // a row of actions like play, download, share, etc
-              SliverToBoxAdapter(
-                child: LibraryItemActions(id: itemId),
-              ),
+              SliverToBoxAdapter(child: LibraryItemActions(id: itemId)),
               // a expandable section for book description
-              SliverToBoxAdapter(
-                child: LibraryItemDescription(id: itemId),
-              ),
+              SliverToBoxAdapter(child: LibraryItemDescription(id: itemId)),
               // a padding at the bottom to make sure the last item is not hidden by mini player
               const SliverToBoxAdapter(child: MiniPlayerBottomPadding()),
             ],
@@ -137,10 +120,7 @@ class LibraryItemPage extends HookConsumerWidget {
 }
 
 class LibraryItemDescription extends HookConsumerWidget {
-  const LibraryItemDescription({
-    super.key,
-    required this.id,
-  });
+  const LibraryItemDescription({super.key, required this.id});
 
   final String id;
   @override
@@ -160,16 +140,21 @@ class LibraryItemDescription extends HookConsumerWidget {
 double calculateWidth(
   BuildContext context,
   BoxConstraints constraints, {
+
   /// width ratio of the cover image to the available width
   double widthRatio = 0.4,
 
   /// height ratio of the cover image to the available height
   double maxHeightToUse = 0.25,
 }) {
-  final availHeight =
-      min(constraints.maxHeight, MediaQuery.of(context).size.height);
-  final availWidth =
-      min(constraints.maxWidth, MediaQuery.of(context).size.width);
+  final availHeight = min(
+    constraints.maxHeight,
+    MediaQuery.of(context).size.height,
+  );
+  final availWidth = min(
+    constraints.maxWidth,
+    MediaQuery.of(context).size.width,
+  );
 
   // make the width widthRatio of the available width
   var width = availWidth * widthRatio;

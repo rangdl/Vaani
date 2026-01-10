@@ -19,8 +19,10 @@ model.AppSettings loadOrCreateAppSettings() {
       settings = _box.getAt(0);
       _logger.fine('found settings in box: $settings');
     } catch (e) {
-      _logger.warning('error reading settings from box: $e'
-          '\nclearing box');
+      _logger.warning(
+        'error reading settings from box: $e'
+        '\nclearing box',
+      );
       _box.clear();
     }
   } else {

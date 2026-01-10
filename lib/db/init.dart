@@ -13,12 +13,7 @@ Future initStorage() async {
   final dir = await getApplicationDocumentsDirectory();
 
   // use vaani as the directory for hive
-  final storageDir = Directory(
-    p.join(
-      dir.path,
-      AppMetadata.appNameLowerCase,
-    ),
-  );
+  final storageDir = Directory(p.join(dir.path, AppMetadata.appNameLowerCase));
   await storageDir.create(recursive: true);
 
   Hive.defaultDirectory = storageDir.path;

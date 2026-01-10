@@ -33,11 +33,7 @@ void main() async {
   await configurePlayer();
 
   // run the app
-  runApp(
-    const ProviderScope(
-      child: _EagerInitialization(child: MyApp()),
-    ),
-  );
+  runApp(const ProviderScope(child: _EagerInitialization(child: MyApp())));
 }
 
 var routerConfig = const MyAppRouter().config;
@@ -65,17 +61,14 @@ class MyApp extends ConsumerWidget {
         themeSettings.highContrast || MediaQuery.of(context).highContrast;
 
     if (shouldUseHighContrast) {
-      lightColorScheme = lightColorScheme.copyWith(
-        surface: Colors.white,
-      );
-      darkColorScheme = darkColorScheme.copyWith(
-        surface: Colors.black,
-      );
+      lightColorScheme = lightColorScheme.copyWith(surface: Colors.white);
+      darkColorScheme = darkColorScheme.copyWith(surface: Colors.black);
     }
 
     if (themeSettings.useMaterialThemeFromSystem) {
-      var themes =
-          ref.watch(systemThemeProvider(highContrast: shouldUseHighContrast));
+      var themes = ref.watch(
+        systemThemeProvider(highContrast: shouldUseHighContrast),
+      );
       if (themes.value != null) {
         lightColorScheme = themes.value!.$1;
         darkColorScheme = themes.value!.$2;

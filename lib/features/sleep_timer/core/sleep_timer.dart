@@ -94,9 +94,7 @@ class SleepTimer {
   }
 
   /// starts the timer with the given duration or the default duration
-  void startCountDown([
-    Duration? forDuration,
-  ]) {
+  void startCountDown([Duration? forDuration]) {
     clearCountDownTimer();
     duration = forDuration ?? duration;
     timer = Timer(duration, () {

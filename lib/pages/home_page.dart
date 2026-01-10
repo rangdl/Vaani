@@ -52,7 +52,9 @@ class HomePage extends HookConsumerWidget {
                     // try again button
                     ElevatedButton(
                       onPressed: () {
-                        ref.read(apiSettingsProvider.notifier).updateState(
+                        ref
+                            .read(apiSettingsProvider.notifier)
+                            .updateState(
                               apiSettings.copyWith(activeLibraryId: null),
                             );
                         ref.invalidate(personalizedViewProvider);
@@ -66,24 +68,25 @@ class HomePage extends HookConsumerWidget {
             final shelvesToDisplay = data
                 // .where((element) => !element.id.contains('discover'))
                 .map((shelf) {
-              appLogger.fine('building shelf ${shelf.label}');
-              // check if showPlayButton is enabled for the shelf
-              // using the id of the shelf
-              final showPlayButton = switch (shelf.id) {
-                'continue-listening' =>
-                  homePageSettings.showPlayButtonOnContinueListeningShelf,
-                'continue-series' =>
-                  homePageSettings.showPlayButtonOnContinueSeriesShelf,
-                'listen-again' =>
-                  homePageSettings.showPlayButtonOnListenAgainShelf,
-                _ => homePageSettings.showPlayButtonOnAllRemainingShelves,
-              };
-              return HomeShelf(
-                title: shelf.label,
-                shelf: shelf,
-                showPlayButton: showPlayButton,
-              );
-            }).toList();
+                  appLogger.fine('building shelf ${shelf.label}');
+                  // check if showPlayButton is enabled for the shelf
+                  // using the id of the shelf
+                  final showPlayButton = switch (shelf.id) {
+                    'continue-listening' =>
+                      homePageSettings.showPlayButtonOnContinueListeningShelf,
+                    'continue-series' =>
+                      homePageSettings.showPlayButtonOnContinueSeriesShelf,
+                    'listen-again' =>
+                      homePageSettings.showPlayButtonOnListenAgainShelf,
+                    _ => homePageSettings.showPlayButtonOnAllRemainingShelves,
+                  };
+                  return HomeShelf(
+                    title: shelf.label,
+                    shelf: shelf,
+                    showPlayButton: showPlayButton,
+                  );
+                })
+                .toList();
             return RefreshIndicator(
               onRefresh: () async {
                 return ref.refresh(personalizedViewProvider);
@@ -132,10 +135,6 @@ class HomePageSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }

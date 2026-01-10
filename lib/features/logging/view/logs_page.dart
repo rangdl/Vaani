@@ -54,8 +54,9 @@ class LogsPage extends HookConsumerWidget {
             icon: const Icon(Icons.share),
             onPressed: () async {
               appLogger.info('Preparing logs for sharing');
-              final zipLogFilePath =
-                  await ref.read(logsProvider.notifier).getZipFilePath();
+              final zipLogFilePath = await ref
+                  .read(logsProvider.notifier)
+                  .getZipFilePath();
 
               // submit logs
               final result = await Share.shareXFiles([XFile(zipLogFilePath)]);
@@ -169,7 +170,6 @@ class LogsPage extends HookConsumerWidget {
         children: [
           // a filter for log levels, loggers, and search
           // TODO: implement filters and search
-
           Expanded(
             child: logs.when(
               data: (logRecords) {
@@ -243,9 +243,7 @@ class LogRecordTile extends StatelessWidget {
                       style: const TextStyle(fontStyle: FontStyle.italic),
                     ),
                     const TextSpan(text: '\n\n'),
-                    TextSpan(
-                      text: logRecord.message,
-                    ),
+                    TextSpan(text: logRecord.message),
                   ],
                 ),
               ),

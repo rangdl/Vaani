@@ -6,11 +6,7 @@ import 'package:vaani/shared/widgets/shelves/home_shelf.dart';
 
 /// A shelf that displays Authors on the home page
 class AuthorHomeShelf extends HookConsumerWidget {
-  const AuthorHomeShelf({
-    super.key,
-    required this.shelf,
-    required this.title,
-  });
+  const AuthorHomeShelf({super.key, required this.shelf, required this.title});
 
   final String title;
   final AuthorShelf shelf;
@@ -20,9 +16,7 @@ class AuthorHomeShelf extends HookConsumerWidget {
     return SimpleHomeShelf(
       title: title,
       children: shelf.entities
-          .map(
-            (item) => AuthorOnShelf(item: item),
-          )
+          .map((item) => AuthorOnShelf(item: item))
           .toList(),
     );
   }
@@ -30,10 +24,7 @@ class AuthorHomeShelf extends HookConsumerWidget {
 
 // a widget to display a item on the shelf
 class AuthorOnShelf extends HookConsumerWidget {
-  const AuthorOnShelf({
-    super.key,
-    required this.item,
-  });
+  const AuthorOnShelf({super.key, required this.item});
 
   final Author item;
 

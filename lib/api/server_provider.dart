@@ -80,11 +80,9 @@ class AudiobookShelfServer extends _$AudiobookShelfServer {
     // remove the server from the active server
     final apiSettings = ref.read(apiSettingsProvider);
     if (apiSettings.activeServer == server) {
-      ref.read(apiSettingsProvider.notifier).updateState(
-            apiSettings.copyWith(
-              activeServer: null,
-            ),
-          );
+      ref
+          .read(apiSettingsProvider.notifier)
+          .updateState(apiSettings.copyWith(activeServer: null));
     }
     // remove the users of this server
     if (removeUsers) {

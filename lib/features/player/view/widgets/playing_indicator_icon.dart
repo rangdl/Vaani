@@ -59,8 +59,11 @@ class _PlayingIndicatorIconState extends State<PlayingIndicatorIcon> {
   @override
   void initState() {
     super.initState();
-    _animationParams =
-        List.generate(widget.barCount, _createRandomParams, growable: false);
+    _animationParams = List.generate(
+      widget.barCount,
+      _createRandomParams,
+      growable: false,
+    );
   }
 
   // Helper to generate random parameters for one bar's animation cycle
@@ -72,10 +75,12 @@ class _PlayingIndicatorIconState extends State<PlayingIndicatorIcon> {
 
     // Note: These factors represent the scale relative to the *half-height*
     // if centerSymmetric is true, controlled by the alignment in scaleY.
-    final targetHeightFactor1 = widget.minHeightFactor +
+    final targetHeightFactor1 =
+        widget.minHeightFactor +
         _random.nextDouble() *
             (widget.maxHeightFactor - widget.minHeightFactor);
-    final targetHeightFactor2 = widget.minHeightFactor +
+    final targetHeightFactor2 =
+        widget.minHeightFactor +
         _random.nextDouble() *
             (widget.maxHeightFactor - widget.minHeightFactor);
 
@@ -95,7 +100,8 @@ class _PlayingIndicatorIconState extends State<PlayingIndicatorIcon> {
 
   @override
   Widget build(BuildContext context) {
-    final color = widget.color ??
+    final color =
+        widget.color ??
         IconTheme.of(context).color ??
         Theme.of(context).colorScheme.primary;
 
@@ -110,8 +116,9 @@ class _PlayingIndicatorIconState extends State<PlayingIndicatorIcon> {
     final double maxHeight = widget.size;
 
     // Determine the alignment for scaling based on the symmetric flag
-    final Alignment scaleAlignment =
-        widget.centerSymmetric ? Alignment.center : Alignment.bottomCenter;
+    final Alignment scaleAlignment = widget.centerSymmetric
+        ? Alignment.center
+        : Alignment.bottomCenter;
 
     // Determine the cross axis alignment for the Row
     final CrossAxisAlignment rowAlignment = widget.centerSymmetric
@@ -129,47 +136,40 @@ class _PlayingIndicatorIconState extends State<PlayingIndicatorIcon> {
           crossAxisAlignment: rowAlignment,
           // Use spaceEvenly for better distribution, especially with center alignment
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(
-            widget.barCount,
-            (index) {
-              final params = _animationParams[index];
-              // The actual bar widget that will be animated
-              return Container(
-                width: barWidth,
-                // Set initial height to the max potential height
-                // The scaleY animation will control the visible height
-                height: maxHeight,
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(barWidth / 2),
-                ),
-              )
-                  .animate(
-                    delay: params.initialDelay,
-                    onPlay: (controller) => controller.repeat(
-                      reverse: true,
-                    ),
-                  )
-                  // 1. Scale to targetHeightFactor1
-                  .scaleY(
-                    begin:
-                        widget.minHeightFactor, // Scale factor starts near min
-                    end: params.targetHeightFactor1,
-                    duration: params.duration1,
-                    curve: Curves.easeInOutCirc,
-                    alignment: scaleAlignment, // Apply chosen alignment
-                  )
-                  // 2. Then scale to targetHeightFactor2
-                  .then()
-                  .scaleY(
-                    end: params.targetHeightFactor2,
-                    duration: params.duration2,
-                    curve: Curves.easeInOutCirc,
-                    alignment: scaleAlignment, // Apply chosen alignment
-                  );
-            },
-            growable: false,
-          ),
+          children: List.generate(widget.barCount, (index) {
+            final params = _animationParams[index];
+            // The actual bar widget that will be animated
+            return Container(
+                  width: barWidth,
+                  // Set initial height to the max potential height
+                  // The scaleY animation will control the visible height
+                  height: maxHeight,
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(barWidth / 2),
+                  ),
+                )
+                .animate(
+                  delay: params.initialDelay,
+                  onPlay: (controller) => controller.repeat(reverse: true),
+                )
+                // 1. Scale to targetHeightFactor1
+                .scaleY(
+                  begin: widget.minHeightFactor, // Scale factor starts near min
+                  end: params.targetHeightFactor1,
+                  duration: params.duration1,
+                  curve: Curves.easeInOutCirc,
+                  alignment: scaleAlignment, // Apply chosen alignment
+                )
+                // 2. Then scale to targetHeightFactor2
+                .then()
+                .scaleY(
+                  end: params.targetHeightFactor2,
+                  duration: params.duration2,
+                  curve: Curves.easeInOutCirc,
+                  alignment: scaleAlignment, // Apply chosen alignment
+                );
+          }, growable: false),
         ),
       ),
     );

@@ -13,9 +13,7 @@ import 'package:vaani/settings/app_settings_provider.dart';
 import 'package:vaani/shared/extensions/duration_format.dart';
 
 class SleepTimerButton extends HookConsumerWidget {
-  const SleepTimerButton({
-    super.key,
-  });
+  const SleepTimerButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,8 +45,9 @@ class SleepTimerButton extends HookConsumerWidget {
           );
           pendingPlayerModals--;
           ref.read(sleepTimerProvider.notifier).setTimer(durationState.value);
-          appLogger
-              .fine('Sleep Timer dialog closed with ${durationState.value}');
+          appLogger.fine(
+            'Sleep Timer dialog closed with ${durationState.value}',
+          );
         },
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
@@ -57,9 +56,7 @@ class SleepTimerButton extends HookConsumerWidget {
                   Symbols.bedtime,
                   color: Theme.of(context).colorScheme.onSurface,
                 )
-              : RemainingSleepTimeDisplay(
-                  timer: sleepTimer,
-                ),
+              : RemainingSleepTimeDisplay(timer: sleepTimer),
         ),
       ),
     );
@@ -67,10 +64,7 @@ class SleepTimerButton extends HookConsumerWidget {
 }
 
 class SleepTimerBottomSheet extends HookConsumerWidget {
-  const SleepTimerBottomSheet({
-    super.key,
-    this.onDurationSelected,
-  });
+  const SleepTimerBottomSheet({super.key, this.onDurationSelected});
 
   final void Function(Duration?)? onDurationSelected;
 
@@ -91,8 +85,9 @@ class SleepTimerBottomSheet extends HookConsumerWidget {
     ];
 
     final scrollController = useFixedExtentScrollController(
-      initialItem:
-          allPossibleDurations.indexOf(sleepTimer?.duration ?? minDuration),
+      initialItem: allPossibleDurations.indexOf(
+        sleepTimer?.duration ?? minDuration,
+      ),
     );
 
     final durationState = useState<Duration>(
@@ -100,13 +95,10 @@ class SleepTimerBottomSheet extends HookConsumerWidget {
     );
 
     // useEffect to rebuild the sleep timer when the duration changes
-    useEffect(
-      () {
-        onDurationSelected?.call(durationState.value);
-        return null;
-      },
-      [durationState.value],
-    );
+    useEffect(() {
+      onDurationSelected?.call(durationState.value);
+      return null;
+    }, [durationState.value]);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -171,18 +163,19 @@ class SleepTimerBottomSheet extends HookConsumerWidget {
                   (timerDuration) => TextButton(
                     style: timerDuration == durationState.value
                         ? TextButton.styleFrom(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primaryContainer,
-                            foregroundColor: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer,
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.primaryContainer,
+                            foregroundColor: Theme.of(
+                              context,
+                            ).colorScheme.onPrimaryContainer,
                           )
                         // border if not selected
                         : TextButton.styleFrom(
                             side: BorderSide(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primaryContainer,
                             ),
                           ),
                     onPressed: () async {
@@ -215,10 +208,7 @@ class SleepTimerBottomSheet extends HookConsumerWidget {
 }
 
 class RemainingSleepTimeDisplay extends HookConsumerWidget {
-  const RemainingSleepTimeDisplay({
-    super.key,
-    required this.timer,
-  });
+  const RemainingSleepTimeDisplay({super.key, required this.timer});
 
   final SleepTimer timer;
 
@@ -230,17 +220,14 @@ class RemainingSleepTimeDisplay extends HookConsumerWidget {
         color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(16),
       ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8,
-        vertical: 4,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Text(
         timer.timer == null
             ? timer.duration.smartBinaryFormat
             : remainingTime?.smartBinaryFormat ?? '',
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Theme.of(context).colorScheme.onPrimary,
-            ),
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
       ),
     );
   }
@@ -272,8 +259,9 @@ class SleepTimerWheel extends StatelessWidget {
             icon: const Icon(Icons.remove),
             onPressed: () {
               // animate to index - 1
-              final index = availableDurations
-                  .indexOf(durationState.value ?? Duration.zero);
+              final index = availableDurations.indexOf(
+                durationState.value ?? Duration.zero,
+              );
               if (index > 0) {
                 scrollController.animateToItem(
                   index - 1,
@@ -289,14 +277,13 @@ class SleepTimerWheel extends StatelessWidget {
             controller: scrollController,
             scrollDirection: Axis.horizontal,
             itemExtent: itemExtent,
-            diameterRatio: 1.5, squeeze: 1.2,
+            diameterRatio: 1.5,
+            squeeze: 1.2,
             // useMagnifier: true,
             // magnification: 1.5,
             physics: const FixedExtentScrollPhysics(),
             children: availableDurations
-                .map(
-                  (duration) => DurationLine(duration: duration),
-                )
+                .map((duration) => DurationLine(duration: duration))
                 .toList(),
             onSelectedItemChanged: (index) {
               durationState.value = availableDurations[index];
@@ -310,8 +297,9 @@ class SleepTimerWheel extends StatelessWidget {
             icon: const Icon(Icons.add),
             onPressed: () {
               // animate to index + 1
-              final index = availableDurations
-                  .indexOf(durationState.value ?? Duration.zero);
+              final index = availableDurations.indexOf(
+                durationState.value ?? Duration.zero,
+              );
               if (index < availableDurations.length - 1) {
                 scrollController.animateToItem(
                   index + 1,
@@ -327,10 +315,7 @@ class SleepTimerWheel extends StatelessWidget {
 }
 
 class DurationLine extends StatelessWidget {
-  const DurationLine({
-    super.key,
-    required this.duration,
-  });
+  const DurationLine({super.key, required this.duration});
 
   final Duration duration;
 
@@ -345,8 +330,8 @@ class DurationLine extends StatelessWidget {
             width: duration.inMinutes % 5 == 0
                 ? 3
                 : duration.inMinutes % 2.5 == 0
-                    ? 2
-                    : 0.5,
+                ? 2
+                : 0.5,
             color: Theme.of(context).colorScheme.onSurface,
           ),
         ),

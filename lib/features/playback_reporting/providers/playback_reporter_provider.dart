@@ -20,8 +20,9 @@ class PlaybackReporter extends _$PlaybackReporter {
     final deviceName = await ref.watch(deviceNameProvider.future);
     final deviceModel = await ref.watch(deviceModelProvider.future);
     final deviceSdkVersion = await ref.watch(deviceSdkVersionProvider.future);
-    final deviceManufacturer =
-        await ref.watch(deviceManufacturerProvider.future);
+    final deviceManufacturer = await ref.watch(
+      deviceManufacturerProvider.future,
+    );
 
     final reporter = core.PlaybackReporter(
       player,

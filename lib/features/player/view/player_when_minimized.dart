@@ -32,8 +32,10 @@ class PlayerWhenMinimized extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final player = ref.watch(audiobookPlayerProvider);
     final vanishingPercentage = 1 - percentageMiniplayer;
-    final progress =
-        useStream(player.slowPositionStream, initialData: Duration.zero);
+    final progress = useStream(
+      player.slowPositionStream,
+      initialData: Duration.zero,
+    );
 
     final bookMetaExpanded = ref.watch(currentBookMetadataProvider);
 
@@ -61,9 +63,7 @@ class PlayerWhenMinimized extends HookConsumerWidget {
                   );
                 },
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: maxImgSize,
-                  ),
+                  constraints: BoxConstraints(maxWidth: maxImgSize),
                   child: imgWidget,
                 ),
               ),
@@ -80,7 +80,8 @@ class PlayerWhenMinimized extends HookConsumerWidget {
                     // AutoScrollText(
                     Text(
                       bookMetaExpanded?.title ?? '',
-                      maxLines: 1, overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       // velocity:
                       //     const Velocity(pixelsPerSecond: Offset(16, 0)),
                       style: Theme.of(context).textTheme.bodyLarge,
@@ -90,11 +91,10 @@ class PlayerWhenMinimized extends HookConsumerWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withValues(alpha: 0.7),
-                          ),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.7),
+                      ),
                     ),
                   ],
                 ),
@@ -135,7 +135,8 @@ class PlayerWhenMinimized extends HookConsumerWidget {
         SizedBox(
           height: barHeight,
           child: LinearProgressIndicator(
-            value: (progress.data ?? Duration.zero).inSeconds /
+            value:
+                (progress.data ?? Duration.zero).inSeconds /
                 player.book!.duration.inSeconds,
             color: Theme.of(context).colorScheme.onPrimaryContainer,
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,

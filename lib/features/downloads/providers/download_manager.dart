@@ -52,13 +52,9 @@ class DownloadManager extends _$DownloadManager {
     return manager;
   }
 
-  Future<void> queueAudioBookDownload(
-    LibraryItemExpanded item,
-  ) async {
+  Future<void> queueAudioBookDownload(LibraryItemExpanded item) async {
     _logger.fine('queueing download for ${item.id}');
-    await state.queueAudioBookDownload(
-      item,
-    );
+    await state.queueAudioBookDownload(item);
   }
 
   Future<void> deleteDownloadedItem(LibraryItemExpanded item) async {
@@ -83,58 +79,57 @@ class ItemDownloadProgress extends _$ItemDownloadProgress {
   Future<double?> build(String id) async {
     final item = await ref.watch(libraryItemProvider(id).future);
     final manager = ref.read(downloadManagerProvider);
-    manager.taskUpdateStream.map((taskUpdate) {
-      if (taskUpdate is! TaskProgressUpdate) {
-        return null;
-      }
-      if (taskUpdate.task.group == id) {
-        return taskUpdate;
-      }
-    }).listen((task) async {
-      if (task != null) {
-        final totalSize = item.totalSize;
-        // if total size is 0, return 0
-        if (totalSize == 0) {
-          state = const AsyncValue.data(0.0);
-          return;
-        }
-        final downloadedFiles = await manager.getDownloadedFilesMetadata(item);
-        // calculate total size of downloaded files and total size of item, then divide
-        // to get percentage
-        final downloadedSize = downloadedFiles.fold<int>(
-          0,
-          (previousValue, element) => previousValue + element.metadata.size,
-        );
+    manager.taskUpdateStream
+        .map((taskUpdate) {
+          if (taskUpdate is! TaskProgressUpdate) {
+            return null;
+          }
+          if (taskUpdate.task.group == id) {
+            return taskUpdate;
+          }
+        })
+        .listen((task) async {
+          if (task != null) {
+            final totalSize = item.totalSize;
+            // if total size is 0, return 0
+            if (totalSize == 0) {
+              state = const AsyncValue.data(0.0);
+              return;
+            }
+            final downloadedFiles = await manager.getDownloadedFilesMetadata(
+              item,
+            );
+            // calculate total size of downloaded files and total size of item, then divide
+            // to get percentage
+            final downloadedSize = downloadedFiles.fold<int>(
+              0,
+              (previousValue, element) => previousValue + element.metadata.size,
+            );
 
-        final inProgressFileSize = task.progress * task.expectedFileSize;
-        final totalDownloadedSize = downloadedSize + inProgressFileSize;
-        final progress = totalDownloadedSize / totalSize;
-        // if current progress is more than calculated progress, do not update
-        if (progress < (state.value ?? 0.0)) {
-          return;
-        }
+            final inProgressFileSize = task.progress * task.expectedFileSize;
+            final totalDownloadedSize = downloadedSize + inProgressFileSize;
+            final progress = totalDownloadedSize / totalSize;
+            // if current progress is more than calculated progress, do not update
+            if (progress < (state.value ?? 0.0)) {
+              return;
+            }
 
-        state = AsyncValue.data(progress.clamp(0.0, 1.0));
-      }
-    });
+            state = AsyncValue.data(progress.clamp(0.0, 1.0));
+          }
+        });
     return null;
   }
 }
 
 @riverpod
-FutureOr<List<TaskRecord>> downloadHistory(
-  Ref ref, {
-  String? group,
-}) async {
+FutureOr<List<TaskRecord>> downloadHistory(Ref ref, {String? group}) async {
   return await FileDownloader().database.allRecords(group: group);
 }
 
 @riverpod
 class IsItemDownloaded extends _$IsItemDownloaded {
   @override
-  FutureOr<bool> build(
-    LibraryItemExpanded item,
-  ) {
+  FutureOr<bool> build(LibraryItemExpanded item) {
     final manager = ref.watch(downloadManagerProvider);
     return manager.isItemDownloaded(item);
   }

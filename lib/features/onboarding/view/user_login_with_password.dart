@@ -39,17 +39,14 @@ class UserLoginWithPassword extends HookConsumerWidget {
     final api = ref.watch(audiobookshelfApiProvider(server));
 
     // forward animation when the password visibility changes
-    useEffect(
-      () {
-        if (isPasswordVisible.value) {
-          isPasswordVisibleAnimationController.forward();
-        } else {
-          isPasswordVisibleAnimationController.reverse();
-        }
-        return null;
-      },
-      [isPasswordVisible.value],
-    );
+    useEffect(() {
+      if (isPasswordVisible.value) {
+        isPasswordVisibleAnimationController.forward();
+      } else {
+        isPasswordVisibleAnimationController.reverse();
+      }
+      return null;
+    }, [isPasswordVisible.value]);
 
     /// Login to the server and save the user
     Future<void> loginAndSave() async {
@@ -109,10 +106,9 @@ class UserLoginWithPassword extends HookConsumerWidget {
                 decoration: InputDecoration(
                   labelText: 'Username',
                   labelStyle: TextStyle(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withValues(alpha: 0.8),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withValues(alpha: 0.8),
                   ),
                   border: const OutlineInputBorder(),
                 ),
@@ -129,18 +125,16 @@ class UserLoginWithPassword extends HookConsumerWidget {
                 decoration: InputDecoration(
                   labelText: 'Password',
                   labelStyle: TextStyle(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withValues(alpha: 0.8),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withValues(alpha: 0.8),
                   ),
                   border: const OutlineInputBorder(),
                   suffixIcon: ColorFiltered(
                     colorFilter: ColorFilter.mode(
-                      Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withValues(alpha: 0.8),
+                      Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 0.8),
                       BlendMode.srcIn,
                     ),
                     child: InkWell(
@@ -157,9 +151,7 @@ class UserLoginWithPassword extends HookConsumerWidget {
                       ),
                     ),
                   ),
-                  suffixIconConstraints: const BoxConstraints(
-                    maxHeight: 45,
-                  ),
+                  suffixIconConstraints: const BoxConstraints(maxHeight: 45),
                 ),
               ),
               const SizedBox(height: 30),
@@ -197,10 +189,12 @@ Future<void> handleServerError(
             context: context,
             builder: (context) => AlertDialog(
               title: const Text('Error'),
-              content: SelectableText('$title\n'
-                  'Got response: ${responseErrorHandler.response.body} (${responseErrorHandler.response.statusCode})\n'
-                  'Stacktrace: $e\n\n'
-                  '$body\n\n'),
+              content: SelectableText(
+                '$title\n'
+                'Got response: ${responseErrorHandler.response.body} (${responseErrorHandler.response.statusCode})\n'
+                'Stacktrace: $e\n\n'
+                '$body\n\n',
+              ),
               actions: [
                 if (outLink != null)
                   TextButton(
@@ -214,8 +208,8 @@ Future<void> handleServerError(
                     // open an issue on the github page
                     handleLaunchUrl(
                       AppMetadata.githubRepo
-                          // append the issue url
-                          .replace(
+                      // append the issue url
+                      .replace(
                         path: '${AppMetadata.githubRepo.path}/issues/new',
                       ),
                     );

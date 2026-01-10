@@ -16,10 +16,8 @@ import 'package:vaani/shared/extensions/obfuscation.dart';
 part 'api_provider.g.dart';
 
 // TODO: workaround for https://github.com/rrousselGit/riverpod/issues/3718
-typedef ResponseErrorHandler = void Function(
-  Response response, [
-  Object? error,
-]);
+typedef ResponseErrorHandler =
+    void Function(Response response, [Object? error]);
 
 final _logger = Logger('api_provider');
 
@@ -39,9 +37,7 @@ AudiobookshelfApi audiobookshelfApi(Ref ref, Uri? baseUrl) {
   // try to get the base url from app settings
   final apiSettings = ref.watch(apiSettingsProvider);
   baseUrl ??= apiSettings.activeServer?.serverUrl;
-  return AudiobookshelfApi(
-    baseUrl: makeBaseUrl(baseUrl.toString()),
-  );
+  return AudiobookshelfApi(baseUrl: makeBaseUrl(baseUrl.toString()));
 }
 
 /// get the api instance for the authenticated user
@@ -68,9 +64,9 @@ FutureOr<bool> isServerAlive(Ref ref, String address) async {
   }
 
   try {
-    return await AudiobookshelfApi(baseUrl: makeBaseUrl(address))
-            .server
-            .ping() ??
+    return await AudiobookshelfApi(
+          baseUrl: makeBaseUrl(address),
+        ).server.ping() ??
         false;
   } catch (e) {
     return false;
@@ -86,8 +82,9 @@ FutureOr<ServerStatusResponse?> serverStatus(
 ]) async {
   _logger.fine('fetching server status: ${baseUrl.obfuscate()}');
   final api = ref.watch(audiobookshelfApiProvider(baseUrl));
-  final res =
-      await api.server.status(responseErrorHandler: responseErrorHandler);
+  final res = await api.server.status(
+    responseErrorHandler: responseErrorHandler,
+  );
   _logger.fine('server status: $res');
   return res;
 }
@@ -113,7 +110,9 @@ class PersonalizedView extends _$PersonalizedView {
         yield [];
         return;
       }
-      ref.read(apiSettingsProvider.notifier).updateState(
+      ref
+          .read(apiSettingsProvider.notifier)
+          .updateState(
             apiSettings.copyWith(activeLibraryId: login.userDefaultLibraryId),
           );
       yield [];
@@ -122,9 +121,8 @@ class PersonalizedView extends _$PersonalizedView {
     // try to find in cache
     // final cacheKey = 'personalizedView:${apiSettings.activeLibraryId}';
     final key = 'personalizedView:${apiSettings.activeLibraryId! + user.id}';
-    final cachedRes = await apiResponseCacheManager.getFileFromMemory(
-          key,
-        ) ??
+    final cachedRes =
+        await apiResponseCacheManager.getFileFromMemory(key) ??
         await apiResponseCacheManager.getFileFromCache(key);
     if (cachedRes != null) {
       _logger.fine('reading from cache: $cachedRes for key: $key');
@@ -143,8 +141,9 @@ class PersonalizedView extends _$PersonalizedView {
 
     // ! exaggerated delay
     // await Future.delayed(const Duration(seconds: 2));
-    final res = await api.libraries
-        .getPersonalized(libraryId: apiSettings.activeLibraryId!);
+    final res = await api.libraries.getPersonalized(
+      libraryId: apiSettings.activeLibraryId!,
+    );
     // debugPrint('personalizedView: ${res!.map((e) => e).toSet()}');
     // save to cache
     if (res != null) {
@@ -172,9 +171,7 @@ class PersonalizedView extends _$PersonalizedView {
 
 /// fetch continue listening audiobooks
 @riverpod
-FutureOr<GetUserSessionsResponse> fetchContinueListening(
-  Ref ref,
-) async {
+FutureOr<GetUserSessionsResponse> fetchContinueListening(Ref ref) async {
   final api = ref.watch(authenticatedApiProvider);
   final res = await api.me.getSessions();
   // debugPrint(
@@ -184,9 +181,7 @@ FutureOr<GetUserSessionsResponse> fetchContinueListening(
 }
 
 @riverpod
-FutureOr<User> me(
-  Ref ref,
-) async {
+FutureOr<User> me(Ref ref) async {
   final api = ref.watch(authenticatedApiProvider);
   final errorResponseHandler = ErrorResponseHandler();
   final res = await api.me.getUser(
@@ -202,10 +197,7 @@ FutureOr<User> me(
 }
 
 @riverpod
-FutureOr<LoginResponse?> login(
-  Ref ref, {
-  AuthenticatedUser? user,
-}) async {
+FutureOr<LoginResponse?> login(Ref ref, {AuthenticatedUser? user}) async {
   if (user == null) {
     // try to get the user from settings
     final apiSettings = ref.watch(apiSettingsProvider);

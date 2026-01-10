@@ -67,17 +67,13 @@ class AudiobookDownloadManager {
 
   late StreamSubscription<TaskUpdate> _updatesSubscription;
 
-  Future<void> queueAudioBookDownload(
-    LibraryItemExpanded item,
-  ) async {
+  Future<void> queueAudioBookDownload(LibraryItemExpanded item) async {
     _logger.info('queuing download for item: ${item.id}');
     // create a download task for each file in the item
     final directory = await getApplicationSupportDirectory();
     for (final file in item.libraryFiles) {
       // check if the file is already downloaded
-      if (isFileDownloaded(
-        constructFilePath(directory, item, file),
-      )) {
+      if (isFileDownloaded(constructFilePath(directory, item, file))) {
         _logger.info('file already downloaded: ${file.metadata.filename}');
         continue;
       }
@@ -105,8 +101,7 @@ class AudiobookDownloadManager {
     Directory directory,
     LibraryItemExpanded item,
     LibraryFile file,
-  ) =>
-      '${directory.path}/${item.relPath}/${file.metadata.filename}';
+  ) => '${directory.path}/${item.relPath}/${file.metadata.filename}';
 
   void dispose() {
     _updatesSubscription.cancel();

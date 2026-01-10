@@ -59,34 +59,29 @@ class ShakeDetector extends _$ShakeDetector {
     final sleepTimer = ref.watch(sleepTimerProvider);
     if (!shakeDetectionSettings.shakeAction.isPlaybackManagementEnabled &&
         sleepTimer == null) {
-      _logger
-          .config('No playback management is enabled and sleep timer is off, '
-              'so shake detection is disabled');
+      _logger.config(
+        'No playback management is enabled and sleep timer is off, '
+        'so shake detection is disabled',
+      );
       return null;
     }
 
     _logger.config('Creating shake detector');
-    final detector = core.ShakeDetector(
-      shakeDetectionSettings,
-      () {
-        final wasActionComplete = doShakeAction(
-          shakeDetectionSettings.shakeAction,
-          ref: ref,
-        );
-        if (wasActionComplete) {
-          shakeDetectionSettings.feedback.forEach(postShakeFeedback);
-        }
-      },
-    );
+    final detector = core.ShakeDetector(shakeDetectionSettings, () {
+      final wasActionComplete = doShakeAction(
+        shakeDetectionSettings.shakeAction,
+        ref: ref,
+      );
+      if (wasActionComplete) {
+        shakeDetectionSettings.feedback.forEach(postShakeFeedback);
+      }
+    });
     ref.onDispose(detector.dispose);
     return detector;
   }
 
   /// Perform the shake action and return whether the action was successful
-  bool doShakeAction(
-    ShakeAction shakeAction, {
-    required Ref ref,
-  }) {
+  bool doShakeAction(ShakeAction shakeAction, {required Ref ref}) {
     final player = ref.read(simpleAudiobookPlayerProvider);
     if (player.book == null && shakeAction.isPlaybackManagementEnabled) {
       _logger.warning('No book is loaded');
@@ -166,8 +161,11 @@ extension on ShakeAction {
   }
 
   bool get isPlaybackManagementEnabled {
-    return {ShakeAction.playPause, ShakeAction.fastForward, ShakeAction.rewind}
-        .contains(this);
+    return {
+      ShakeAction.playPause,
+      ShakeAction.fastForward,
+      ShakeAction.rewind,
+    }.contains(this);
   }
 
   bool get shouldActOnSleepTimer {

@@ -38,10 +38,7 @@ class PlayerWhenExpanded extends HookConsumerWidget {
     const lateStart = 0.4;
     const earlyEnd = 1;
     final earlyPercentage = percentageExpandedPlayer
-        .inverseLerp(
-          lateStart,
-          earlyEnd,
-        )
+        .inverseLerp(lateStart, earlyEnd)
         .clamp(0.0, 1.0);
     final currentChapter = ref.watch(currentPlayingChapterProvider);
     final currentBookMetadata = ref.watch(currentBookMetadataProvider);
@@ -49,15 +46,11 @@ class PlayerWhenExpanded extends HookConsumerWidget {
     return Column(
       children: [
         // sized box for system status bar; not needed as not full screen
-        SizedBox(
-          height: MediaQuery.of(context).padding.top * earlyPercentage,
-        ),
+        SizedBox(height: MediaQuery.of(context).padding.top * earlyPercentage),
 
         // a row with a down arrow to minimize the player, a pill shaped container to drag the player, and a cast button
         ConstrainedBox(
-          constraints: BoxConstraints(
-            maxHeight: 100 * earlyPercentage,
-          ),
+          constraints: BoxConstraints(maxHeight: 100 * earlyPercentage),
           child: Opacity(
             opacity: earlyPercentage,
             child: Padding(
@@ -104,10 +97,9 @@ class PlayerWhenExpanded extends HookConsumerWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .primary
-                        .withValues(alpha: 0.1),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: 0.1),
                     blurRadius: 32 * earlyPercentage,
                     spreadRadius: 8 * earlyPercentage,
                     // offset: Offset(0, 16 * earlyPercentage),
@@ -170,11 +162,10 @@ class PlayerWhenExpanded extends HookConsumerWidget {
                 currentBookMetadata?.authorName ?? '',
               ].join(' - '),
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withValues(alpha: 0.7),
-                  ),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.7),
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

@@ -27,9 +27,7 @@ class CallbackPage extends HookConsumerWidget {
 
     // check if the state is in the flows
     if (!flows.containsKey(state)) {
-      return const _SomethingWentWrong(
-        message: 'State not found',
-      );
+      return const _SomethingWentWrong(message: 'State not found');
     }
 
     // get the token
@@ -45,26 +43,21 @@ class CallbackPage extends HookConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Contacting server...\nPlease wait\n\nGot:'
-                '\nState: $state\nCode: $code'),
+            Text(
+              'Contacting server...\nPlease wait\n\nGot:'
+              '\nState: $state\nCode: $code',
+            ),
             loginAuthToken.when(
               data: (authenticationToken) {
                 if (authenticationToken == null) {
-                  handleServerError(
-                    context,
-                    serverErrorResponse,
-                  );
+                  handleServerError(context, serverErrorResponse);
                   return const BackToLoginButton();
                 }
                 return Text('Token: $authenticationToken');
               },
               loading: () => const CircularProgressIndicator(),
               error: (error, _) {
-                handleServerError(
-                  context,
-                  serverErrorResponse,
-                  e: error,
-                );
+                handleServerError(context, serverErrorResponse, e: error);
                 return Column(
                   children: [
                     Text('Error with OAuth flow: $error'),
@@ -81,9 +74,7 @@ class CallbackPage extends HookConsumerWidget {
 }
 
 class BackToLoginButton extends StatelessWidget {
-  const BackToLoginButton({
-    super.key,
-  });
+  const BackToLoginButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -97,9 +88,7 @@ class BackToLoginButton extends StatelessWidget {
 }
 
 class _SomethingWentWrong extends StatelessWidget {
-  const _SomethingWentWrong({
-    this.message = 'Error with OAuth flow',
-  });
+  const _SomethingWentWrong({this.message = 'Error with OAuth flow'});
 
   final String message;
 
@@ -109,10 +98,7 @@ class _SomethingWentWrong extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(message),
-            const BackToLoginButton(),
-          ],
+          children: [Text(message), const BackToLoginButton()],
         ),
       ),
     );

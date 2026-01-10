@@ -23,7 +23,9 @@ Duration sumOfTracks(BookExpanded book, int? index) {
     _logger.warning('Index is null or less than 0, returning 0');
     return Duration.zero;
   }
-  final total = book.tracks.sublist(0, index).fold<Duration>(
+  final total = book.tracks
+      .sublist(0, index)
+      .fold<Duration>(
         Duration.zero,
         (previousValue, element) => previousValue + element.duration,
       );
@@ -34,13 +36,10 @@ Duration sumOfTracks(BookExpanded book, int? index) {
 /// returns the [AudioTrack] to play based on the [position] in the [book]
 AudioTrack getTrackToPlay(BookExpanded book, Duration position) {
   _logger.fine('Getting track to play for position: $position');
-  final track = book.tracks.firstWhere(
-    (element) {
-      return element.startOffset <= position &&
-          (element.startOffset + element.duration) >= position;
-    },
-    orElse: () => book.tracks.last,
-  );
+  final track = book.tracks.firstWhere((element) {
+    return element.startOffset <= position &&
+        (element.startOffset + element.duration) >= position;
+  }, orElse: () => book.tracks.last);
   _logger.fine('Track to play for position: $position is $track');
   return track;
 }
@@ -126,8 +125,12 @@ class AudiobookPlayer extends AudioPlayer {
       ConcatenatingAudioSource(
         useLazyPreparation: true,
         children: book.tracks.map((track) {
-          final retrievedUri =
-              _getUri(track, downloadedUris, baseUrl: baseUrl, token: token);
+          final retrievedUri = _getUri(
+            track,
+            downloadedUris,
+            baseUrl: baseUrl,
+            token: token,
+          );
           _logger.fine(
             'Setting source for track: ${track.title}, URI: ${retrievedUri.obfuscate()}',
           );
@@ -141,7 +144,8 @@ class AudiobookPlayer extends AudioPlayer {
                   .formatNotificationTitle(book),
               album: appSettings.notificationSettings.secondaryTitle
                   .formatNotificationTitle(book),
-              artUri: artworkUri ??
+              artUri:
+                  artworkUri ??
                   Uri.parse(
                     '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token&width=800',
                   ),
@@ -255,12 +259,9 @@ class AudiobookPlayer extends AudioPlayer {
     if (_book!.chapters.isEmpty) {
       return null;
     }
-    return _book!.chapters.firstWhere(
-      (element) {
-        return element.start <= positionInBook && element.end >= positionInBook;
-      },
-      orElse: () => _book!.chapters.first,
-    );
+    return _book!.chapters.firstWhere((element) {
+      return element.start <= positionInBook && element.end >= positionInBook;
+    }, orElse: () => _book!.chapters.first);
   }
 }
 
@@ -271,11 +272,9 @@ Uri _getUri(
   required String token,
 }) {
   // check if the track is in the downloadedUris
-  final uri = downloadedUris?.firstWhereOrNull(
-    (element) {
-      return element.pathSegments.last == track.metadata?.filename;
-    },
-  );
+  final uri = downloadedUris?.firstWhereOrNull((element) {
+    return element.pathSegments.last == track.metadata?.filename;
+  });
 
   return uri ??
       Uri.parse('${baseUrl.toString()}${track.contentUrl}?token=$token');
@@ -283,17 +282,14 @@ Uri _getUri(
 
 extension FormatNotificationTitle on String {
   String formatNotificationTitle(BookExpanded book) {
-    return replaceAllMapped(
-      RegExp(r'\$(\w+)'),
-      (match) {
-        final type = match.group(1);
-        return NotificationTitleType.values
-                .firstWhere((element) => element.name == type)
-                .extractFrom(book) ??
-            match.group(0) ??
-            '';
-      },
-    );
+    return replaceAllMapped(RegExp(r'\$(\w+)'), (match) {
+      final type = match.group(1);
+      return NotificationTitleType.values
+              .firstWhere((element) => element.name == type)
+              .extractFrom(book) ??
+          match.group(0) ??
+          '';
+    });
   }
 }
 

@@ -26,7 +26,8 @@ class LibraryItem extends _$LibraryItem {
 
     // look for the item in the cache
     final key = CacheKey.libraryItem(id);
-    final cachedFile = await apiResponseCacheManager.getFileFromMemory(key) ??
+    final cachedFile =
+        await apiResponseCacheManager.getFileFromMemory(key) ??
         await apiResponseCacheManager.getFileFromCache(key);
     if (cachedFile != null) {
       _logger.fine(

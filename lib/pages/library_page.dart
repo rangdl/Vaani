@@ -17,7 +17,9 @@ class LibraryPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // set the library id as the active library
     if (libraryId != null) {
-      ref.read(apiSettingsProvider.notifier).updateState(
+      ref
+          .read(apiSettingsProvider.notifier)
+          .updateState(
             ref.watch(apiSettingsProvider).copyWith(activeLibraryId: libraryId),
           );
     }
@@ -48,12 +50,10 @@ class LibraryPage extends HookConsumerWidget {
             final shelvesToDisplay = data
                 // .where((element) => !element.id.contains('discover'))
                 .map((shelf) {
-              appLogger.fine('building shelf ${shelf.label}');
-              return HomeShelf(
-                title: shelf.label,
-                shelf: shelf,
-              );
-            }).toList();
+                  appLogger.fine('building shelf ${shelf.label}');
+                  return HomeShelf(title: shelf.label, shelf: shelf);
+                })
+                .toList();
             return RefreshIndicator(
               onRefresh: () async {
                 return ref.refresh(personalizedViewProvider);
@@ -85,10 +85,6 @@ class LibraryPageSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }

@@ -25,7 +25,8 @@ class HomePageSettingsPage extends HookConsumerWidget {
           tiles: [
             SettingsTile.switchTile(
               initialValue: appSettings
-                  .homePageSettings.showPlayButtonOnContinueListeningShelf,
+                  .homePageSettings
+                  .showPlayButtonOnContinueListeningShelf,
               title: const Text('Continue Listening'),
               leading: const Icon(Icons.play_arrow),
               description: const Text(
@@ -48,7 +49,8 @@ class HomePageSettingsPage extends HookConsumerWidget {
                 'Show play button for books in continue series shelf',
               ),
               initialValue: appSettings
-                  .homePageSettings.showPlayButtonOnContinueSeriesShelf,
+                  .homePageSettings
+                  .showPlayButtonOnContinueSeriesShelf,
               onToggle: (value) {
                 appSettingsNotifier.update(
                   appSettings.copyWith(
@@ -66,7 +68,8 @@ class HomePageSettingsPage extends HookConsumerWidget {
                 'Show play button for all books in all remaining shelves',
               ),
               initialValue: appSettings
-                  .homePageSettings.showPlayButtonOnAllRemainingShelves,
+                  .homePageSettings
+                  .showPlayButtonOnAllRemainingShelves,
               onToggle: (value) {
                 appSettingsNotifier.update(
                   appSettings.copyWith(

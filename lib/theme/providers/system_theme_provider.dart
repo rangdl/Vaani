@@ -53,22 +53,15 @@ FutureOr<(ColorScheme light, ColorScheme dark)?> systemTheme(
   }
 
   if (schemeLight == null || schemeDark == null) {
-    _logger
-        .warning('dynamic_color: Dynamic color not detected on this device.');
+    _logger.warning(
+      'dynamic_color: Dynamic color not detected on this device.',
+    );
     return null;
   }
   // set high contrast theme
   if (highContrast) {
-    schemeLight = schemeLight
-        .copyWith(
-          surface: Colors.white,
-        )
-        .harmonized();
-    schemeDark = schemeDark
-        .copyWith(
-          surface: Colors.black,
-        )
-        .harmonized();
+    schemeLight = schemeLight.copyWith(surface: Colors.white).harmonized();
+    schemeDark = schemeDark.copyWith(surface: Colors.black).harmonized();
   }
   return (schemeLight, schemeDark);
 }

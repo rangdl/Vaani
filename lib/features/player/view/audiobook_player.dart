@@ -31,19 +31,15 @@ class AudiobookPlayer extends HookConsumerWidget {
     if (currentBook == null) {
       return const SizedBox.shrink();
     }
-    final itemBeingPlayed =
-        ref.watch(libraryItemProvider(currentBook.libraryItemId));
+    final itemBeingPlayed = ref.watch(
+      libraryItemProvider(currentBook.libraryItemId),
+    );
     final player = ref.watch(audiobookPlayerProvider);
     final imageOfItemBeingPlayed = itemBeingPlayed.value != null
-        ? ref.watch(
-            coverImageProvider(itemBeingPlayed.value!.id),
-          )
+        ? ref.watch(coverImageProvider(itemBeingPlayed.value!.id))
         : null;
     final imgWidget = imageOfItemBeingPlayed?.value != null
-        ? Image.memory(
-            imageOfItemBeingPlayed!.value!,
-            fit: BoxFit.cover,
-          )
+        ? Image.memory(imageOfItemBeingPlayed!.value!, fit: BoxFit.cover)
         : const BookCoverSkeleton();
 
     final playPauseController = useAnimationController(
@@ -65,7 +61,8 @@ class AudiobookPlayer extends HookConsumerWidget {
       themeOfLibraryItemProvider(
         itemBeingPlayed.value?.id,
         brightness: Theme.of(context).brightness,
-        highContrast: appSettings.themeSettings.highContrast ||
+        highContrast:
+            appSettings.themeSettings.highContrast ||
             MediaQuery.of(context).highContrast,
       ),
     );
@@ -88,8 +85,9 @@ class AudiobookPlayer extends HookConsumerWidget {
         onDragDown: (percentage) async {
           // preferred volume
           // set volume to 0 when dragging down
-          await player
-              .setVolume(preferredVolume * (1 - percentage.clamp(0, .75)));
+          await player.setVolume(
+            preferredVolume * (1 - percentage.clamp(0, .75)),
+          );
         },
         minHeight: playerMinHeight,
         // subtract the height of notches and other system UI
@@ -109,17 +107,14 @@ class AudiobookPlayer extends HookConsumerWidget {
           // also at this point the image should be at its max size and in the center of the player
           final miniplayerPercentageDeclaration =
               (maxImgSize - playerMinHeight) /
-                  (playerMaxHeight - playerMinHeight);
+              (playerMaxHeight - playerMinHeight);
           final bool isFormMiniplayer =
               percentage < miniplayerPercentageDeclaration;
 
           if (!isFormMiniplayer) {
             // this calculation needs a refactor
             var percentageExpandedPlayer = percentage
-                .inverseLerp(
-                  miniplayerPercentageDeclaration,
-                  1,
-                )
+                .inverseLerp(miniplayerPercentageDeclaration, 1)
                 .clamp(0.0, 1.0);
 
             return PlayerWhenExpanded(
@@ -164,37 +159,33 @@ class AudiobookPlayerPlayPauseButton extends HookConsumerWidget {
 
     return switch (player.processingState) {
       ProcessingState.loading || ProcessingState.buffering => const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: CircularProgressIndicator(),
-        ),
+        padding: EdgeInsets.all(8.0),
+        child: CircularProgressIndicator(),
+      ),
       ProcessingState.completed => IconButton(
-          onPressed: () async {
-            await player.seek(const Duration(seconds: 0));
-            await player.play();
-          },
-          icon: const Icon(
-            Icons.replay,
-          ),
-        ),
+        onPressed: () async {
+          await player.seek(const Duration(seconds: 0));
+          await player.play();
+        },
+        icon: const Icon(Icons.replay),
+      ),
       ProcessingState.ready => IconButton(
-          onPressed: () async {
-            await player.togglePlayPause();
-          },
-          iconSize: iconSize,
-          icon: AnimatedIcon(
-            icon: AnimatedIcons.play_pause,
-            progress: playPauseController,
-          ),
+        onPressed: () async {
+          await player.togglePlayPause();
+        },
+        iconSize: iconSize,
+        icon: AnimatedIcon(
+          icon: AnimatedIcons.play_pause,
+          progress: playPauseController,
         ),
+      ),
       ProcessingState.idle => const SizedBox.shrink(),
     };
   }
 }
 
 class AudiobookChapterProgressBar extends HookConsumerWidget {
-  const AudiobookChapterProgressBar({
-    super.key,
-  });
+  const AudiobookChapterProgressBar({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

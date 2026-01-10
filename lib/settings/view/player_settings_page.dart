@@ -9,9 +9,7 @@ import 'package:vaani/settings/view/simple_settings_page.dart';
 import 'package:vaani/shared/extensions/duration_format.dart';
 
 class PlayerSettingsPage extends HookConsumerWidget {
-  const PlayerSettingsPage({
-    super.key,
-  });
+  const PlayerSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,7 +35,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
               ),
               initialValue: playerSettings.configurePlayerForEveryBook,
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.playerSettings(
                         configurePlayerForEveryBook: value,
                       ),
@@ -50,8 +50,10 @@ class PlayerSettingsPage extends HookConsumerWidget {
               title: const Text('Default Speed'),
               trailing: Text(
                 '${playerSettings.preferredDefaultSpeed}x',
-                style:
-                    TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               leading: const Icon(Icons.speed),
               onPressed: (context) async {
@@ -62,7 +64,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   ),
                 );
                 if (newSpeed != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.playerSettings(
                           preferredDefaultSpeed: newSpeed,
                         ),
@@ -75,8 +79,10 @@ class PlayerSettingsPage extends HookConsumerWidget {
               title: const Text('Speed Options'),
               description: Text(
                 playerSettings.speedOptions.map((e) => '${e}x').join(', '),
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: primaryColor),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: primaryColor,
+                ),
               ),
               leading: const Icon(Icons.speed),
               onPressed: (context) async {
@@ -87,7 +93,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   ),
                 );
                 if (newSpeedOptions != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.playerSettings(
                           speedOptions: newSpeedOptions..sort(),
                         ),
@@ -110,7 +118,8 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   children: [
                     TextSpan(
                       text: playerSettings
-                          .minimumPositionForReporting.smartBinaryFormat,
+                          .minimumPositionForReporting
+                          .smartBinaryFormat,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: primaryColor,
@@ -133,7 +142,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   },
                 );
                 if (newDuration != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.playerSettings(
                           minimumPositionForReporting: newDuration,
                         ),
@@ -150,7 +161,8 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   children: [
                     TextSpan(
                       text: playerSettings
-                          .markCompleteWhenTimeLeft.smartBinaryFormat,
+                          .markCompleteWhenTimeLeft
+                          .smartBinaryFormat,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: primaryColor,
@@ -173,7 +185,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   },
                 );
                 if (newDuration != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.playerSettings(
                           markCompleteWhenTimeLeft: newDuration,
                         ),
@@ -190,7 +204,8 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   children: [
                     TextSpan(
                       text: playerSettings
-                          .playbackReportInterval.smartBinaryFormat,
+                          .playbackReportInterval
+                          .smartBinaryFormat,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: primaryColor,
@@ -213,7 +228,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   },
                 );
                 if (newDuration != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.playerSettings(
                           playbackReportInterval: newDuration,
                         ),
@@ -237,7 +254,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
               initialValue:
                   playerSettings.expandedPlayerSettings.showTotalProgress,
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.playerSettings
                           .expandedPlayerSettings(showTotalProgress: value),
                     );
@@ -253,7 +272,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
               initialValue:
                   playerSettings.expandedPlayerSettings.showChapterProgress,
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.playerSettings(
                         expandedPlayerSettings: playerSettings
                             .expandedPlayerSettings
@@ -306,17 +327,15 @@ class TimeDurationSelector extends HookConsumerWidget {
 }
 
 class SpeedPicker extends HookConsumerWidget {
-  const SpeedPicker({
-    super.key,
-    this.initialValue = 1,
-  });
+  const SpeedPicker({super.key, this.initialValue = 1});
 
   final double initialValue;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final speedController =
-        useTextEditingController(text: initialValue.toString());
+    final speedController = useTextEditingController(
+      text: initialValue.toString(),
+    );
     final speed = useState<double?>(initialValue);
     return AlertDialog(
       title: const Text('Select Speed'),
@@ -368,30 +387,32 @@ class SpeedOptionsPicker extends HookConsumerWidget {
           Wrap(
             spacing: 8.0,
             runSpacing: 8.0,
-            children: speedOptions.value
-                .map(
-                  (speed) => Chip(
-                    label: Text('${speed}x'),
-                    onDeleted: speed == 1
-                        ? null
-                        : () {
-                            speedOptions.value =
-                                speedOptions.value.where((element) {
-                              // speed option 1 can't be removed
-                              return element != speed;
-                            }).toList();
-                          },
-                  ),
-                )
-                .toList()
-              ..sort((a, b) {
-                // if (a.label == const Text('1x')) {
-                //   return -1;
-                // } else if (b.label == const Text('1x')) {
-                //   return 1;
-                // }
-                return a.label.toString().compareTo(b.label.toString());
-              }),
+            children:
+                speedOptions.value
+                    .map(
+                      (speed) => Chip(
+                        label: Text('${speed}x'),
+                        onDeleted: speed == 1
+                            ? null
+                            : () {
+                                speedOptions.value = speedOptions.value.where((
+                                  element,
+                                ) {
+                                  // speed option 1 can't be removed
+                                  return element != speed;
+                                }).toList();
+                              },
+                      ),
+                    )
+                    .toList()
+                  ..sort((a, b) {
+                    // if (a.label == const Text('1x')) {
+                    //   return -1;
+                    // } else if (b.label == const Text('1x')) {
+                    //   return 1;
+                    // }
+                    return a.label.toString().compareTo(b.label.toString());
+                  }),
           ),
           TextField(
             focusNode: focusNode,
