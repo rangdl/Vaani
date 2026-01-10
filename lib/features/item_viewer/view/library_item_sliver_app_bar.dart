@@ -17,7 +17,7 @@ class LibraryItemSliverAppBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final item = ref.watch(libraryItemProvider(id)).valueOrNull;
+    final item = ref.watch(libraryItemProvider(id)).value;
 
     final showTitle = useState(false);
 

@@ -4,7 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
-  isar_flutter_libs
+  isar_plus_flutter_libs
   media_kit_libs_linux
   url_launcher_linux
 )

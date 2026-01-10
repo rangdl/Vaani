@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,161 +9,263 @@ part of 'audiobookshelf_server.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-AudiobookShelfServer _$AudiobookShelfServerFromJson(Map<String, dynamic> json) {
-  return _AudiobookShelfServer.fromJson(json);
-}
 
 /// @nodoc
 mixin _$AudiobookShelfServer {
-  Uri get serverUrl => throw _privateConstructorUsedError;
+
+ AudiobookShelfUri get serverUrl;
+/// Create a copy of AudiobookShelfServer
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AudiobookShelfServerCopyWith<AudiobookShelfServer> get copyWith => _$AudiobookShelfServerCopyWithImpl<AudiobookShelfServer>(this as AudiobookShelfServer, _$identity);
 
   /// Serializes this AudiobookShelfServer to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of AudiobookShelfServer
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $AudiobookShelfServerCopyWith<AudiobookShelfServer> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AudiobookShelfServer&&(identical(other.serverUrl, serverUrl) || other.serverUrl == serverUrl));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,serverUrl);
+
+@override
+String toString() {
+  return 'AudiobookShelfServer(serverUrl: $serverUrl)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $AudiobookShelfServerCopyWith<$Res> {
-  factory $AudiobookShelfServerCopyWith(AudiobookShelfServer value,
-          $Res Function(AudiobookShelfServer) then) =
-      _$AudiobookShelfServerCopyWithImpl<$Res, AudiobookShelfServer>;
-  @useResult
-  $Res call({Uri serverUrl});
-}
+abstract mixin class $AudiobookShelfServerCopyWith<$Res>  {
+  factory $AudiobookShelfServerCopyWith(AudiobookShelfServer value, $Res Function(AudiobookShelfServer) _then) = _$AudiobookShelfServerCopyWithImpl;
+@useResult
+$Res call({
+ AudiobookShelfUri serverUrl
+});
 
+
+
+
+}
 /// @nodoc
-class _$AudiobookShelfServerCopyWithImpl<$Res,
-        $Val extends AudiobookShelfServer>
+class _$AudiobookShelfServerCopyWithImpl<$Res>
     implements $AudiobookShelfServerCopyWith<$Res> {
-  _$AudiobookShelfServerCopyWithImpl(this._value, this._then);
+  _$AudiobookShelfServerCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final AudiobookShelfServer _self;
+  final $Res Function(AudiobookShelfServer) _then;
 
-  /// Create a copy of AudiobookShelfServer
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? serverUrl = null,
-  }) {
-    return _then(_value.copyWith(
-      serverUrl: null == serverUrl
-          ? _value.serverUrl
-          : serverUrl // ignore: cast_nullable_to_non_nullable
-              as Uri,
-    ) as $Val);
-  }
+/// Create a copy of AudiobookShelfServer
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? serverUrl = null,}) {
+  return _then(_self.copyWith(
+serverUrl: null == serverUrl ? _self.serverUrl : serverUrl // ignore: cast_nullable_to_non_nullable
+as AudiobookShelfUri,
+  ));
 }
 
-/// @nodoc
-abstract class _$$AudiobookShelfServerImplCopyWith<$Res>
-    implements $AudiobookShelfServerCopyWith<$Res> {
-  factory _$$AudiobookShelfServerImplCopyWith(_$AudiobookShelfServerImpl value,
-          $Res Function(_$AudiobookShelfServerImpl) then) =
-      __$$AudiobookShelfServerImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({Uri serverUrl});
 }
 
-/// @nodoc
-class __$$AudiobookShelfServerImplCopyWithImpl<$Res>
-    extends _$AudiobookShelfServerCopyWithImpl<$Res, _$AudiobookShelfServerImpl>
-    implements _$$AudiobookShelfServerImplCopyWith<$Res> {
-  __$$AudiobookShelfServerImplCopyWithImpl(_$AudiobookShelfServerImpl _value,
-      $Res Function(_$AudiobookShelfServerImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of AudiobookShelfServer
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? serverUrl = null,
-  }) {
-    return _then(_$AudiobookShelfServerImpl(
-      serverUrl: null == serverUrl
-          ? _value.serverUrl
-          : serverUrl // ignore: cast_nullable_to_non_nullable
-              as Uri,
-    ));
-  }
+/// Adds pattern-matching-related methods to [AudiobookShelfServer].
+extension AudiobookShelfServerPatterns on AudiobookShelfServer {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AudiobookShelfServer value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AudiobookShelfServer() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AudiobookShelfServer value)  $default,){
+final _that = this;
+switch (_that) {
+case _AudiobookShelfServer():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AudiobookShelfServer value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AudiobookShelfServer() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AudiobookShelfUri serverUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AudiobookShelfServer() when $default != null:
+return $default(_that.serverUrl);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AudiobookShelfUri serverUrl)  $default,) {final _that = this;
+switch (_that) {
+case _AudiobookShelfServer():
+return $default(_that.serverUrl);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AudiobookShelfUri serverUrl)?  $default,) {final _that = this;
+switch (_that) {
+case _AudiobookShelfServer() when $default != null:
+return $default(_that.serverUrl);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AudiobookShelfServerImpl implements _AudiobookShelfServer {
-  const _$AudiobookShelfServerImpl({required this.serverUrl});
 
-  factory _$AudiobookShelfServerImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AudiobookShelfServerImplFromJson(json);
+class _AudiobookShelfServer implements AudiobookShelfServer {
+  const _AudiobookShelfServer({required this.serverUrl});
+  factory _AudiobookShelfServer.fromJson(Map<String, dynamic> json) => _$AudiobookShelfServerFromJson(json);
 
-  @override
-  final Uri serverUrl;
+@override final  AudiobookShelfUri serverUrl;
 
-  @override
-  String toString() {
-    return 'AudiobookShelfServer(serverUrl: $serverUrl)';
-  }
+/// Create a copy of AudiobookShelfServer
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AudiobookShelfServerCopyWith<_AudiobookShelfServer> get copyWith => __$AudiobookShelfServerCopyWithImpl<_AudiobookShelfServer>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AudiobookShelfServerImpl &&
-            (identical(other.serverUrl, serverUrl) ||
-                other.serverUrl == serverUrl));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, serverUrl);
-
-  /// Create a copy of AudiobookShelfServer
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AudiobookShelfServerImplCopyWith<_$AudiobookShelfServerImpl>
-      get copyWith =>
-          __$$AudiobookShelfServerImplCopyWithImpl<_$AudiobookShelfServerImpl>(
-              this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AudiobookShelfServerImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$AudiobookShelfServerToJson(this, );
 }
 
-abstract class _AudiobookShelfServer implements AudiobookShelfServer {
-  const factory _AudiobookShelfServer({required final Uri serverUrl}) =
-      _$AudiobookShelfServerImpl;
-
-  factory _AudiobookShelfServer.fromJson(Map<String, dynamic> json) =
-      _$AudiobookShelfServerImpl.fromJson;
-
-  @override
-  Uri get serverUrl;
-
-  /// Create a copy of AudiobookShelfServer
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AudiobookShelfServerImplCopyWith<_$AudiobookShelfServerImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AudiobookShelfServer&&(identical(other.serverUrl, serverUrl) || other.serverUrl == serverUrl));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,serverUrl);
+
+@override
+String toString() {
+  return 'AudiobookShelfServer(serverUrl: $serverUrl)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AudiobookShelfServerCopyWith<$Res> implements $AudiobookShelfServerCopyWith<$Res> {
+  factory _$AudiobookShelfServerCopyWith(_AudiobookShelfServer value, $Res Function(_AudiobookShelfServer) _then) = __$AudiobookShelfServerCopyWithImpl;
+@override @useResult
+$Res call({
+ AudiobookShelfUri serverUrl
+});
+
+
+
+
+}
+/// @nodoc
+class __$AudiobookShelfServerCopyWithImpl<$Res>
+    implements _$AudiobookShelfServerCopyWith<$Res> {
+  __$AudiobookShelfServerCopyWithImpl(this._self, this._then);
+
+  final _AudiobookShelfServer _self;
+  final $Res Function(_AudiobookShelfServer) _then;
+
+/// Create a copy of AudiobookShelfServer
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? serverUrl = null,}) {
+  return _then(_AudiobookShelfServer(
+serverUrl: null == serverUrl ? _self.serverUrl : serverUrl // ignore: cast_nullable_to_non_nullable
+as AudiobookShelfUri,
+  ));
+}
+
+
+}
+
+// dart format on

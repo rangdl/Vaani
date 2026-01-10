@@ -6,16 +6,17 @@ part of 'book_settings.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BookSettingsImpl _$$BookSettingsImplFromJson(Map<String, dynamic> json) =>
-    _$BookSettingsImpl(
+_BookSettings _$BookSettingsFromJson(Map<String, dynamic> json) =>
+    _BookSettings(
       bookId: json['bookId'] as String,
       playerSettings: json['playerSettings'] == null
           ? const NullablePlayerSettings()
           : NullablePlayerSettings.fromJson(
-              json['playerSettings'] as Map<String, dynamic>),
+              json['playerSettings'] as Map<String, dynamic>,
+            ),
     );
 
-Map<String, dynamic> _$$BookSettingsImplToJson(_$BookSettingsImpl instance) =>
+Map<String, dynamic> _$BookSettingsToJson(_BookSettings instance) =>
     <String, dynamic>{
       'bookId': instance.bookId,
       'playerSettings': instance.playerSettings,

@@ -217,7 +217,7 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
         player.book?.libraryItemId == libraryItemId;
     final isPlayingThisBook = player.playing && isCurrentBookSetInPlayer;
 
-    final userProgress = me.valueOrNull?.mediaProgress
+    final userProgress = me.value?.mediaProgress
         ?.firstWhereOrNull((element) => element.libraryItemId == libraryItemId);
     final isBookCompleted = userProgress?.isFinished ?? false;
 
@@ -243,7 +243,7 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
       // if current book is set in player, get theme from the cover image
       data: ThemeData(
         colorScheme:
-            coverColorScheme.valueOrNull ?? Theme.of(context).colorScheme,
+            coverColorScheme.value ?? Theme.of(context).colorScheme,
       ),
       child: Padding(
         padding: EdgeInsets.all(strokeWidth / 2 + 2),

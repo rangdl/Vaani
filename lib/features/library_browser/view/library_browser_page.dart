@@ -13,7 +13,7 @@ class LibraryBrowserPage extends HookConsumerWidget {
   const LibraryBrowserPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentLibrary = ref.watch(currentLibraryProvider).valueOrNull;
+    final currentLibrary = ref.watch(currentLibraryProvider).value;
 
     // Determine the icon to use, with a fallback
     final IconData libraryIconData =

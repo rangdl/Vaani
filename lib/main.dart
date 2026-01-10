@@ -76,9 +76,9 @@ class MyApp extends ConsumerWidget {
     if (themeSettings.useMaterialThemeFromSystem) {
       var themes =
           ref.watch(systemThemeProvider(highContrast: shouldUseHighContrast));
-      if (themes.valueOrNull != null) {
-        lightColorScheme = themes.valueOrNull!.$1;
-        darkColorScheme = themes.valueOrNull!.$2;
+      if (themes.value != null) {
+        lightColorScheme = themes.value!.$1;
+        darkColorScheme = themes.value!.$2;
       }
     }
 
@@ -100,9 +100,9 @@ class MyApp extends ConsumerWidget {
               brightness: Brightness.dark,
             ),
           );
-          if (themeLight.valueOrNull != null && themeDark.valueOrNull != null) {
-            lightColorScheme = themeLight.valueOrNull!;
-            darkColorScheme = themeDark.valueOrNull!;
+          if (themeLight.value != null && themeDark.value != null) {
+            lightColorScheme = themeLight.value!;
+            darkColorScheme = themeDark.value!;
           }
         }
       } catch (e) {

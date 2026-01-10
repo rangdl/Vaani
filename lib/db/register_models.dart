@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_plus_secure/hive_plus_secure.dart';
 import 'package:vaani/features/per_book_settings/models/book_settings.dart';
 import 'package:vaani/settings/models/models.dart';
 

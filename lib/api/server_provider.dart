@@ -28,7 +28,7 @@ class ServerAlreadyExistsException implements Exception {
 class AudiobookShelfServer extends _$AudiobookShelfServer {
   @override
   Set<model.AudiobookShelfServer> build() {
-    ref.listenSelf((_, __) {
+    listenSelf((_, __) {
       writeStateToBox();
     });
     // get the app settings

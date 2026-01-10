@@ -1,4 +1,5 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart' show Ref;
+import 'package:hooks_riverpod/hooks_riverpod.dart'
+    show Ref, ProviderListenableSelect;
 import 'package:logging/logging.dart' show Logger;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

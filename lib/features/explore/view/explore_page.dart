@@ -232,7 +232,7 @@ class BookSearchResultMini extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final item = ref.watch(libraryItemProvider(book.libraryItemId)).valueOrNull;
+    final item = ref.watch(libraryItemProvider(book.libraryItemId)).value;
     final image = item == null
         ? const AsyncValue.loading()
         : ref.watch(coverImageProvider(item.id));

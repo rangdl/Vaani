@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,241 +9,272 @@ part of 'flow.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$Flow {
-  Uri get serverUri => throw _privateConstructorUsedError;
-  String get state => throw _privateConstructorUsedError;
-  String get verifier => throw _privateConstructorUsedError;
-  Cookie get cookie => throw _privateConstructorUsedError;
-  bool get isFlowComplete => throw _privateConstructorUsedError;
-  String? get authToken => throw _privateConstructorUsedError;
 
-  /// Create a copy of Flow
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $FlowCopyWith<Flow> get copyWith => throw _privateConstructorUsedError;
+ Uri get serverUri; String get state; String get verifier; Cookie get cookie; bool get isFlowComplete; String? get authToken;
+/// Create a copy of Flow
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FlowCopyWith<Flow> get copyWith => _$FlowCopyWithImpl<Flow>(this as Flow, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Flow&&(identical(other.serverUri, serverUri) || other.serverUri == serverUri)&&(identical(other.state, state) || other.state == state)&&(identical(other.verifier, verifier) || other.verifier == verifier)&&(identical(other.cookie, cookie) || other.cookie == cookie)&&(identical(other.isFlowComplete, isFlowComplete) || other.isFlowComplete == isFlowComplete)&&(identical(other.authToken, authToken) || other.authToken == authToken));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,serverUri,state,verifier,cookie,isFlowComplete,authToken);
+
+@override
+String toString() {
+  return 'Flow(serverUri: $serverUri, state: $state, verifier: $verifier, cookie: $cookie, isFlowComplete: $isFlowComplete, authToken: $authToken)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $FlowCopyWith<$Res> {
-  factory $FlowCopyWith(Flow value, $Res Function(Flow) then) =
-      _$FlowCopyWithImpl<$Res, Flow>;
-  @useResult
-  $Res call(
-      {Uri serverUri,
-      String state,
-      String verifier,
-      Cookie cookie,
-      bool isFlowComplete,
-      String? authToken});
-}
+abstract mixin class $FlowCopyWith<$Res>  {
+  factory $FlowCopyWith(Flow value, $Res Function(Flow) _then) = _$FlowCopyWithImpl;
+@useResult
+$Res call({
+ Uri serverUri, String state, String verifier, Cookie cookie, bool isFlowComplete, String? authToken
+});
 
+
+
+
+}
 /// @nodoc
-class _$FlowCopyWithImpl<$Res, $Val extends Flow>
+class _$FlowCopyWithImpl<$Res>
     implements $FlowCopyWith<$Res> {
-  _$FlowCopyWithImpl(this._value, this._then);
+  _$FlowCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Flow _self;
+  final $Res Function(Flow) _then;
 
-  /// Create a copy of Flow
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? serverUri = null,
-    Object? state = null,
-    Object? verifier = null,
-    Object? cookie = null,
-    Object? isFlowComplete = null,
-    Object? authToken = freezed,
-  }) {
-    return _then(_value.copyWith(
-      serverUri: null == serverUri
-          ? _value.serverUri
-          : serverUri // ignore: cast_nullable_to_non_nullable
-              as Uri,
-      state: null == state
-          ? _value.state
-          : state // ignore: cast_nullable_to_non_nullable
-              as String,
-      verifier: null == verifier
-          ? _value.verifier
-          : verifier // ignore: cast_nullable_to_non_nullable
-              as String,
-      cookie: null == cookie
-          ? _value.cookie
-          : cookie // ignore: cast_nullable_to_non_nullable
-              as Cookie,
-      isFlowComplete: null == isFlowComplete
-          ? _value.isFlowComplete
-          : isFlowComplete // ignore: cast_nullable_to_non_nullable
-              as bool,
-      authToken: freezed == authToken
-          ? _value.authToken
-          : authToken // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
+/// Create a copy of Flow
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? serverUri = null,Object? state = null,Object? verifier = null,Object? cookie = null,Object? isFlowComplete = null,Object? authToken = freezed,}) {
+  return _then(_self.copyWith(
+serverUri: null == serverUri ? _self.serverUri : serverUri // ignore: cast_nullable_to_non_nullable
+as Uri,state: null == state ? _self.state : state // ignore: cast_nullable_to_non_nullable
+as String,verifier: null == verifier ? _self.verifier : verifier // ignore: cast_nullable_to_non_nullable
+as String,cookie: null == cookie ? _self.cookie : cookie // ignore: cast_nullable_to_non_nullable
+as Cookie,isFlowComplete: null == isFlowComplete ? _self.isFlowComplete : isFlowComplete // ignore: cast_nullable_to_non_nullable
+as bool,authToken: freezed == authToken ? _self.authToken : authToken // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [Flow].
+extension FlowPatterns on Flow {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Flow value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Flow() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Flow value)  $default,){
+final _that = this;
+switch (_that) {
+case _Flow():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Flow value)?  $default,){
+final _that = this;
+switch (_that) {
+case _Flow() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Uri serverUri,  String state,  String verifier,  Cookie cookie,  bool isFlowComplete,  String? authToken)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Flow() when $default != null:
+return $default(_that.serverUri,_that.state,_that.verifier,_that.cookie,_that.isFlowComplete,_that.authToken);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Uri serverUri,  String state,  String verifier,  Cookie cookie,  bool isFlowComplete,  String? authToken)  $default,) {final _that = this;
+switch (_that) {
+case _Flow():
+return $default(_that.serverUri,_that.state,_that.verifier,_that.cookie,_that.isFlowComplete,_that.authToken);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Uri serverUri,  String state,  String verifier,  Cookie cookie,  bool isFlowComplete,  String? authToken)?  $default,) {final _that = this;
+switch (_that) {
+case _Flow() when $default != null:
+return $default(_that.serverUri,_that.state,_that.verifier,_that.cookie,_that.isFlowComplete,_that.authToken);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
-abstract class _$$FlowImplCopyWith<$Res> implements $FlowCopyWith<$Res> {
-  factory _$$FlowImplCopyWith(
-          _$FlowImpl value, $Res Function(_$FlowImpl) then) =
-      __$$FlowImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {Uri serverUri,
-      String state,
-      String verifier,
-      Cookie cookie,
-      bool isFlowComplete,
-      String? authToken});
+
+
+class _Flow implements Flow {
+  const _Flow({required this.serverUri, required this.state, required this.verifier, required this.cookie, this.isFlowComplete = false, this.authToken});
+  
+
+@override final  Uri serverUri;
+@override final  String state;
+@override final  String verifier;
+@override final  Cookie cookie;
+@override@JsonKey() final  bool isFlowComplete;
+@override final  String? authToken;
+
+/// Create a copy of Flow
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FlowCopyWith<_Flow> get copyWith => __$FlowCopyWithImpl<_Flow>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Flow&&(identical(other.serverUri, serverUri) || other.serverUri == serverUri)&&(identical(other.state, state) || other.state == state)&&(identical(other.verifier, verifier) || other.verifier == verifier)&&(identical(other.cookie, cookie) || other.cookie == cookie)&&(identical(other.isFlowComplete, isFlowComplete) || other.isFlowComplete == isFlowComplete)&&(identical(other.authToken, authToken) || other.authToken == authToken));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,serverUri,state,verifier,cookie,isFlowComplete,authToken);
+
+@override
+String toString() {
+  return 'Flow(serverUri: $serverUri, state: $state, verifier: $verifier, cookie: $cookie, isFlowComplete: $isFlowComplete, authToken: $authToken)';
+}
+
+
 }
 
 /// @nodoc
-class __$$FlowImplCopyWithImpl<$Res>
-    extends _$FlowCopyWithImpl<$Res, _$FlowImpl>
-    implements _$$FlowImplCopyWith<$Res> {
-  __$$FlowImplCopyWithImpl(_$FlowImpl _value, $Res Function(_$FlowImpl) _then)
-      : super(_value, _then);
+abstract mixin class _$FlowCopyWith<$Res> implements $FlowCopyWith<$Res> {
+  factory _$FlowCopyWith(_Flow value, $Res Function(_Flow) _then) = __$FlowCopyWithImpl;
+@override @useResult
+$Res call({
+ Uri serverUri, String state, String verifier, Cookie cookie, bool isFlowComplete, String? authToken
+});
 
-  /// Create a copy of Flow
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? serverUri = null,
-    Object? state = null,
-    Object? verifier = null,
-    Object? cookie = null,
-    Object? isFlowComplete = null,
-    Object? authToken = freezed,
-  }) {
-    return _then(_$FlowImpl(
-      serverUri: null == serverUri
-          ? _value.serverUri
-          : serverUri // ignore: cast_nullable_to_non_nullable
-              as Uri,
-      state: null == state
-          ? _value.state
-          : state // ignore: cast_nullable_to_non_nullable
-              as String,
-      verifier: null == verifier
-          ? _value.verifier
-          : verifier // ignore: cast_nullable_to_non_nullable
-              as String,
-      cookie: null == cookie
-          ? _value.cookie
-          : cookie // ignore: cast_nullable_to_non_nullable
-              as Cookie,
-      isFlowComplete: null == isFlowComplete
-          ? _value.isFlowComplete
-          : isFlowComplete // ignore: cast_nullable_to_non_nullable
-              as bool,
-      authToken: freezed == authToken
-          ? _value.authToken
-          : authToken // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
+
+
+
 }
-
 /// @nodoc
+class __$FlowCopyWithImpl<$Res>
+    implements _$FlowCopyWith<$Res> {
+  __$FlowCopyWithImpl(this._self, this._then);
 
-class _$FlowImpl implements _Flow {
-  const _$FlowImpl(
-      {required this.serverUri,
-      required this.state,
-      required this.verifier,
-      required this.cookie,
-      this.isFlowComplete = false,
-      this.authToken});
+  final _Flow _self;
+  final $Res Function(_Flow) _then;
 
-  @override
-  final Uri serverUri;
-  @override
-  final String state;
-  @override
-  final String verifier;
-  @override
-  final Cookie cookie;
-  @override
-  @JsonKey()
-  final bool isFlowComplete;
-  @override
-  final String? authToken;
-
-  @override
-  String toString() {
-    return 'Flow(serverUri: $serverUri, state: $state, verifier: $verifier, cookie: $cookie, isFlowComplete: $isFlowComplete, authToken: $authToken)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FlowImpl &&
-            (identical(other.serverUri, serverUri) ||
-                other.serverUri == serverUri) &&
-            (identical(other.state, state) || other.state == state) &&
-            (identical(other.verifier, verifier) ||
-                other.verifier == verifier) &&
-            (identical(other.cookie, cookie) || other.cookie == cookie) &&
-            (identical(other.isFlowComplete, isFlowComplete) ||
-                other.isFlowComplete == isFlowComplete) &&
-            (identical(other.authToken, authToken) ||
-                other.authToken == authToken));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, serverUri, state, verifier,
-      cookie, isFlowComplete, authToken);
-
-  /// Create a copy of Flow
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FlowImplCopyWith<_$FlowImpl> get copyWith =>
-      __$$FlowImplCopyWithImpl<_$FlowImpl>(this, _$identity);
+/// Create a copy of Flow
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? serverUri = null,Object? state = null,Object? verifier = null,Object? cookie = null,Object? isFlowComplete = null,Object? authToken = freezed,}) {
+  return _then(_Flow(
+serverUri: null == serverUri ? _self.serverUri : serverUri // ignore: cast_nullable_to_non_nullable
+as Uri,state: null == state ? _self.state : state // ignore: cast_nullable_to_non_nullable
+as String,verifier: null == verifier ? _self.verifier : verifier // ignore: cast_nullable_to_non_nullable
+as String,cookie: null == cookie ? _self.cookie : cookie // ignore: cast_nullable_to_non_nullable
+as Cookie,isFlowComplete: null == isFlowComplete ? _self.isFlowComplete : isFlowComplete // ignore: cast_nullable_to_non_nullable
+as bool,authToken: freezed == authToken ? _self.authToken : authToken // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
 }
 
-abstract class _Flow implements Flow {
-  const factory _Flow(
-      {required final Uri serverUri,
-      required final String state,
-      required final String verifier,
-      required final Cookie cookie,
-      final bool isFlowComplete,
-      final String? authToken}) = _$FlowImpl;
 
-  @override
-  Uri get serverUri;
-  @override
-  String get state;
-  @override
-  String get verifier;
-  @override
-  Cookie get cookie;
-  @override
-  bool get isFlowComplete;
-  @override
-  String? get authToken;
-
-  /// Create a copy of Flow
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FlowImplCopyWith<_$FlowImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
+
+// dart format on

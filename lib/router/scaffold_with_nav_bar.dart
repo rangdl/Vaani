@@ -23,10 +23,8 @@ const bottomBarHeight = 64;
 /// BottomNavigationBar, where [child] is placed in the body of the Scaffold.
 class ScaffoldWithNavBar extends HookConsumerWidget {
   /// Constructs an [ScaffoldWithNavBar].
-  const ScaffoldWithNavBar({
-    required this.navigationShell,
-    Key? key,
-  }) : super(key: key ?? const ValueKey<String>('ScaffoldWithNavBar'));
+  const ScaffoldWithNavBar({required this.navigationShell, Key? key})
+    : super(key: key ?? const ValueKey<String>('ScaffoldWithNavBar'));
 
   /// The navigation shell and container for the branch Navigators.
   final StatefulNavigationShell navigationShell;
@@ -35,10 +33,11 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // playerExpandProgress is used to animate bottom navigation bar to opacity 0 and slide down when player is expanded
     // final playerProgress =
-    //     useValueListenable(ref.watch(playerExpandProgressNotifierProvider));
+    //     useValueListenable(ref.watch(playerExpandProgressProvider));
     final playerProgress = ref.watch(playerHeightProvider);
     final playerMaxHeight = MediaQuery.of(context).size.height;
-    var percentExpandedMiniPlayer = (playerProgress - playerMinHeight) /
+    var percentExpandedMiniPlayer =
+        (playerProgress - playerMinHeight) /
         (playerMaxHeight - playerMinHeight);
     // Clamp the value between 0 and 1
     percentExpandedMiniPlayer = percentExpandedMiniPlayer.clamp(0.0, 1.0);
@@ -52,9 +51,7 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
 
       // close miniplayer if it is open
       if (isPlayerExpanded && pendingPlayerModals == 0) {
-        appLogger.fine(
-          'BackButtonListener: closing the player',
-        );
+        appLogger.fine('BackButtonListener: closing the player');
         audioBookMiniplayerController.animateToHeight(state: PanelState.MIN);
         return true;
       }
@@ -96,12 +93,7 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
     return BackButtonListener(
       onBackButtonPressed: onBackButtonPressed,
       child: Scaffold(
-        body: Stack(
-          children: [
-            navigationShell,
-            const AudiobookPlayer(),
-          ],
-        ),
+        body: Stack(children: [navigationShell, const AudiobookPlayer()]),
         bottomNavigationBar: Opacity(
           // Opacity is interpolated from 1 to 0 when player is expanded
           opacity: 1 - percentExpandedMiniPlayer,
@@ -116,11 +108,8 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
             // `navigationShell.route.branches`.
             destinations: _navigationItems.map((item) {
               final isDestinationLibrary = item.name == 'Library';
-              var currentLibrary =
-                  ref.watch(currentLibraryProvider).valueOrNull;
-              final libraryIcon = AbsIcons.getIconByName(
-                currentLibrary?.icon,
-              );
+              var currentLibrary = ref.watch(currentLibraryProvider).value;
+              final libraryIcon = AbsIcons.getIconByName(currentLibrary?.icon);
               final destinationWidget = NavigationDestination(
                 icon: Icon(
                   isDestinationLibrary ? libraryIcon ?? item.icon : item.icon,

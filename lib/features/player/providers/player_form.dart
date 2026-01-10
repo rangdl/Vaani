@@ -49,7 +49,7 @@ Raw<ValueNotifier<double>> playerExpandProgressNotifier(
 double playerHeight(
   Ref ref,
 ) {
-  final playerExpandProgress = ref.watch(playerExpandProgressNotifierProvider);
+  final playerExpandProgress = ref.watch(playerExpandProgressProvider);
 
   // on change of the playerExpandProgress invalidate
   playerExpandProgress.addListener(() {

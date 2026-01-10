@@ -5,7 +5,7 @@ part 'nullable_player_settings.freezed.dart';
 part 'nullable_player_settings.g.dart';
 
 @freezed
-class NullablePlayerSettings with _$NullablePlayerSettings {
+sealed class NullablePlayerSettings with _$NullablePlayerSettings {
   const factory NullablePlayerSettings({
     MinimizedPlayerSettings? miniPlayerSettings,
     ExpandedPlayerSettings? expandedPlayerSettings,

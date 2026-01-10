@@ -19,7 +19,7 @@ final _logger = Logger('authenticated_users_provider');
 class AuthenticatedUsers extends _$AuthenticatedUsers {
   @override
   Set<model.AuthenticatedUser> build() {
-    ref.listenSelf((_, __) {
+    listenSelf((_, __) {
       writeStateToBox();
     });
     // get the app settings

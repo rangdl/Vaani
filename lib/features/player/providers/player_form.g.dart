@@ -6,58 +6,134 @@ part of 'player_form.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(playerExpandProgressNotifier)
+final playerExpandProgressProvider = PlayerExpandProgressNotifierProvider._();
+
+final class PlayerExpandProgressNotifierProvider
+    extends
+        $FunctionalProvider<
+          Raw<ValueNotifier<double>>,
+          Raw<ValueNotifier<double>>,
+          Raw<ValueNotifier<double>>
+        >
+    with $Provider<Raw<ValueNotifier<double>>> {
+  PlayerExpandProgressNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'playerExpandProgressProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$playerExpandProgressNotifierHash();
+
+  @$internal
+  @override
+  $ProviderElement<Raw<ValueNotifier<double>>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  Raw<ValueNotifier<double>> create(Ref ref) {
+    return playerExpandProgressNotifier(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Raw<ValueNotifier<double>> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Raw<ValueNotifier<double>>>(value),
+    );
+  }
+}
+
 String _$playerExpandProgressNotifierHash() =>
     r'1ac7172d90a070f96222286edd1a176be197f378';
 
-/// See also [playerExpandProgressNotifier].
-@ProviderFor(playerExpandProgressNotifier)
-final playerExpandProgressNotifierProvider =
-    Provider<Raw<ValueNotifier<double>>>.internal(
-  playerExpandProgressNotifier,
-  name: r'playerExpandProgressNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$playerExpandProgressNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef PlayerExpandProgressNotifierRef
-    = ProviderRef<Raw<ValueNotifier<double>>>;
-String _$playerHeightHash() => r'3f031eaffdffbb2c6ddf7eb1aba31bf1619260fc';
-
-/// See also [playerHeight].
 @ProviderFor(playerHeight)
-final playerHeightProvider = Provider<double>.internal(
-  playerHeight,
-  name: r'playerHeightProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$playerHeightHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final playerHeightProvider = PlayerHeightProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef PlayerHeightRef = ProviderRef<double>;
-String _$isPlayerActiveHash() => r'2c7ca125423126fb5f0ef218d37bc8fe0ca9ec98';
+final class PlayerHeightProvider
+    extends $FunctionalProvider<double, double, double>
+    with $Provider<double> {
+  PlayerHeightProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'playerHeightProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// See also [isPlayerActive].
+  @override
+  String debugGetCreateSourceHash() => _$playerHeightHash();
+
+  @$internal
+  @override
+  $ProviderElement<double> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  double create(Ref ref) {
+    return playerHeight(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(double value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<double>(value),
+    );
+  }
+}
+
+String _$playerHeightHash() => r'41144a733b5ffd1c872a237ed7c9ea5f450dd0d4';
+
 @ProviderFor(isPlayerActive)
-final isPlayerActiveProvider = Provider<bool>.internal(
-  isPlayerActive,
-  name: r'isPlayerActiveProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$isPlayerActiveHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final isPlayerActiveProvider = IsPlayerActiveProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef IsPlayerActiveRef = ProviderRef<bool>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class IsPlayerActiveProvider extends $FunctionalProvider<bool, bool, bool>
+    with $Provider<bool> {
+  IsPlayerActiveProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'isPlayerActiveProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$isPlayerActiveHash();
+
+  @$internal
+  @override
+  $ProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  bool create(Ref ref) {
+    return isPlayerActive(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+}
+
+String _$isPlayerActiveHash() => r'2c7ca125423126fb5f0ef218d37bc8fe0ca9ec98';

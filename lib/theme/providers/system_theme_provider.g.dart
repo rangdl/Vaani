@@ -6,174 +6,91 @@ part of 'system_theme_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$systemThemeHash() => r'c78d3d94683624a80b296594268c5fd4295e77a3';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 /// copied from [DynamicColorBuilder]
-///
-/// Copied from [systemTheme].
+
 @ProviderFor(systemTheme)
-const systemThemeProvider = SystemThemeFamily();
+final systemThemeProvider = SystemThemeFamily._();
 
 /// copied from [DynamicColorBuilder]
-///
-/// Copied from [systemTheme].
-class SystemThemeFamily
-    extends Family<AsyncValue<(ColorScheme light, ColorScheme dark)?>> {
-  /// copied from [DynamicColorBuilder]
-  ///
-  /// Copied from [systemTheme].
-  const SystemThemeFamily();
 
+final class SystemThemeProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<(ColorScheme, ColorScheme)?>,
+          (ColorScheme, ColorScheme)?,
+          FutureOr<(ColorScheme, ColorScheme)?>
+        >
+    with
+        $FutureModifier<(ColorScheme, ColorScheme)?>,
+        $FutureProvider<(ColorScheme, ColorScheme)?> {
   /// copied from [DynamicColorBuilder]
-  ///
-  /// Copied from [systemTheme].
-  SystemThemeProvider call({
-    bool highContrast = false,
-  }) {
-    return SystemThemeProvider(
-      highContrast: highContrast,
-    );
+  SystemThemeProvider._({
+    required SystemThemeFamily super.from,
+    required bool super.argument,
+  }) : super(
+         retry: null,
+         name: r'systemThemeProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$systemThemeHash();
+
+  @override
+  String toString() {
+    return r'systemThemeProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  SystemThemeProvider getProviderOverride(
-    covariant SystemThemeProvider provider,
-  ) {
-    return call(
-      highContrast: provider.highContrast,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $FutureProviderElement<(ColorScheme, ColorScheme)?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'systemThemeProvider';
-}
-
-/// copied from [DynamicColorBuilder]
-///
-/// Copied from [systemTheme].
-class SystemThemeProvider
-    extends FutureProvider<(ColorScheme light, ColorScheme dark)?> {
-  /// copied from [DynamicColorBuilder]
-  ///
-  /// Copied from [systemTheme].
-  SystemThemeProvider({
-    bool highContrast = false,
-  }) : this._internal(
-          (ref) => systemTheme(
-            ref as SystemThemeRef,
-            highContrast: highContrast,
-          ),
-          from: systemThemeProvider,
-          name: r'systemThemeProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$systemThemeHash,
-          dependencies: SystemThemeFamily._dependencies,
-          allTransitiveDependencies:
-              SystemThemeFamily._allTransitiveDependencies,
-          highContrast: highContrast,
-        );
-
-  SystemThemeProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.highContrast,
-  }) : super.internal();
-
-  final bool highContrast;
-
-  @override
-  Override overrideWith(
-    FutureOr<(ColorScheme light, ColorScheme dark)?> Function(
-            SystemThemeRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: SystemThemeProvider._internal(
-        (ref) => create(ref as SystemThemeRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        highContrast: highContrast,
-      ),
-    );
-  }
-
-  @override
-  FutureProviderElement<(ColorScheme light, ColorScheme dark)?>
-      createElement() {
-    return _SystemThemeProviderElement(this);
+  FutureOr<(ColorScheme, ColorScheme)?> create(Ref ref) {
+    final argument = this.argument as bool;
+    return systemTheme(ref, highContrast: argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SystemThemeProvider && other.highContrast == highContrast;
+    return other is SystemThemeProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, highContrast.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin SystemThemeRef
-    on FutureProviderRef<(ColorScheme light, ColorScheme dark)?> {
-  /// The parameter `highContrast` of this provider.
-  bool get highContrast;
-}
+String _$systemThemeHash() => r'c78d3d94683624a80b296594268c5fd4295e77a3';
 
-class _SystemThemeProviderElement
-    extends FutureProviderElement<(ColorScheme light, ColorScheme dark)?>
-    with SystemThemeRef {
-  _SystemThemeProviderElement(super.provider);
+/// copied from [DynamicColorBuilder]
+
+final class SystemThemeFamily extends $Family
+    with
+        $FunctionalFamilyOverride<FutureOr<(ColorScheme, ColorScheme)?>, bool> {
+  SystemThemeFamily._()
+    : super(
+        retry: null,
+        name: r'systemThemeProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: false,
+      );
+
+  /// copied from [DynamicColorBuilder]
+
+  SystemThemeProvider call({bool highContrast = false}) =>
+      SystemThemeProvider._(argument: highContrast, from: this);
 
   @override
-  bool get highContrast => (origin as SystemThemeProvider).highContrast;
+  String toString() => r'systemThemeProvider';
 }
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

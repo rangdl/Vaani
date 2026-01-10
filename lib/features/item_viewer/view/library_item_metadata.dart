@@ -13,7 +13,7 @@ class LibraryItemMetadata extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final item = ref.watch(libraryItemProvider(id)).valueOrNull;
+    final item = ref.watch(libraryItemProvider(id)).value;
 
     /// formats the duration of the book as `10h 30m`
     ///

@@ -6,20 +6,57 @@ part of 'api_settings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$apiSettingsHash() => r'5bc1e16e9d72b77fb10637aabadf08e8947da580';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [ApiSettings].
 @ProviderFor(ApiSettings)
-final apiSettingsProvider =
-    NotifierProvider<ApiSettings, model.ApiSettings>.internal(
-  ApiSettings.new,
-  name: r'apiSettingsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$apiSettingsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final apiSettingsProvider = ApiSettingsProvider._();
 
-typedef _$ApiSettings = Notifier<model.ApiSettings>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class ApiSettingsProvider
+    extends $NotifierProvider<ApiSettings, model.ApiSettings> {
+  ApiSettingsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'apiSettingsProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$apiSettingsHash();
+
+  @$internal
+  @override
+  ApiSettings create() => ApiSettings();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(model.ApiSettings value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<model.ApiSettings>(value),
+    );
+  }
+}
+
+String _$apiSettingsHash() => r'02af850985338eade33d76fc9965808bed548290';
+
+abstract class _$ApiSettings extends $Notifier<model.ApiSettings> {
+  model.ApiSettings build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<model.ApiSettings, model.ApiSettings>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<model.ApiSettings, model.ApiSettings>,
+              model.ApiSettings,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}

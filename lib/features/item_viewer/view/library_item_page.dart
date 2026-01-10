@@ -145,7 +145,7 @@ class LibraryItemDescription extends HookConsumerWidget {
   final String id;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final item = ref.watch(libraryItemProvider(id)).valueOrNull;
+    final item = ref.watch(libraryItemProvider(id)).value;
     if (item == null) {
       return const SizedBox();
     }

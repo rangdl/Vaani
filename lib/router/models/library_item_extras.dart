@@ -11,7 +11,7 @@ part 'library_item_extras.freezed.dart';
 /// [book] is the book that the item represents
 /// [heroTagSuffix] is the suffix to use for the hero tag to avoid conflicts
 @freezed
-class LibraryItemExtras with _$LibraryItemExtras {
+sealed class LibraryItemExtras with _$LibraryItemExtras {
   const factory LibraryItemExtras({
     BookMinified? book,
     @Default('') String heroTagSuffix,

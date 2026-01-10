@@ -6,7 +6,7 @@ part 'book_settings.g.dart';
 
 /// per book settings
 @freezed
-class BookSettings with _$BookSettings {
+sealed class BookSettings with _$BookSettings {
   const factory BookSettings({
     required String bookId,
     @Default(NullablePlayerSettings()) NullablePlayerSettings playerSettings,

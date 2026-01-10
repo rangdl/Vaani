@@ -34,14 +34,14 @@ class AudiobookPlayer extends HookConsumerWidget {
     final itemBeingPlayed =
         ref.watch(libraryItemProvider(currentBook.libraryItemId));
     final player = ref.watch(audiobookPlayerProvider);
-    final imageOfItemBeingPlayed = itemBeingPlayed.valueOrNull != null
+    final imageOfItemBeingPlayed = itemBeingPlayed.value != null
         ? ref.watch(
-            coverImageProvider(itemBeingPlayed.valueOrNull!.id),
+            coverImageProvider(itemBeingPlayed.value!.id),
           )
         : null;
-    final imgWidget = imageOfItemBeingPlayed?.valueOrNull != null
+    final imgWidget = imageOfItemBeingPlayed?.value != null
         ? Image.memory(
-            imageOfItemBeingPlayed!.valueOrNull!,
+            imageOfItemBeingPlayed!.value!,
             fit: BoxFit.cover,
           )
         : const BookCoverSkeleton();
@@ -63,7 +63,7 @@ class AudiobookPlayer extends HookConsumerWidget {
     // theme from image
     final imageTheme = ref.watch(
       themeOfLibraryItemProvider(
-        itemBeingPlayed.valueOrNull?.id,
+        itemBeingPlayed.value?.id,
         brightness: Theme.of(context).brightness,
         highContrast: appSettings.themeSettings.highContrast ||
             MediaQuery.of(context).highContrast,
@@ -81,10 +81,10 @@ class AudiobookPlayer extends HookConsumerWidget {
     final preferredVolume = appSettings.playerSettings.preferredDefaultVolume;
     return Theme(
       data: ThemeData(
-        colorScheme: imageTheme.valueOrNull ?? Theme.of(context).colorScheme,
+        colorScheme: imageTheme.value ?? Theme.of(context).colorScheme,
       ),
       child: Miniplayer(
-        valueNotifier: ref.watch(playerExpandProgressNotifierProvider),
+        valueNotifier: ref.watch(playerExpandProgressProvider),
         onDragDown: (percentage) async {
           // preferred volume
           // set volume to 0 when dragging down

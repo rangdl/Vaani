@@ -110,7 +110,7 @@ class ItemDownloadProgress extends _$ItemDownloadProgress {
         final totalDownloadedSize = downloadedSize + inProgressFileSize;
         final progress = totalDownloadedSize / totalSize;
         // if current progress is more than calculated progress, do not update
-        if (progress < (state.valueOrNull ?? 0.0)) {
+        if (progress < (state.value ?? 0.0)) {
           return;
         }
 

@@ -90,7 +90,7 @@ class _BookDetails extends HookConsumerWidget {
     final itemFromApi = ref.watch(libraryItemProvider(id));
 
     final itemBookMetadata =
-        itemFromApi.valueOrNull?.media.metadata.asBookMetadataExpanded;
+        itemFromApi.value?.media.metadata.asBookMetadataExpanded;
 
     return Expanded(
       child: Padding(
@@ -143,7 +143,7 @@ class _LibraryItemProgressIndicator extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final player = ref.watch(audiobookPlayerProvider);
-    final libraryItem = ref.watch(libraryItemProvider(id)).valueOrNull;
+    final libraryItem = ref.watch(libraryItemProvider(id)).value;
     if (libraryItem == null) {
       return const SizedBox.shrink();
     }
@@ -362,7 +362,7 @@ class _BookCover extends HookConsumerWidget {
                   MediaQuery.of(context).highContrast,
             ),
           )
-          .valueOrNull;
+          .value;
     }
 
     return ThemeSwitcher(

@@ -35,7 +35,7 @@ class LibraryItemActions extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final item = ref.watch(libraryItemProvider(id)).valueOrNull;
+    final item = ref.watch(libraryItemProvider(id)).value;
     if (item == null) {
       return const SizedBox.shrink();
     }
@@ -216,7 +216,7 @@ class LibItemDownloadButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isItemDownloaded = ref.watch(isItemDownloadedProvider(item));
-    if (isItemDownloaded.valueOrNull ?? false) {
+    if (isItemDownloaded.value ?? false) {
       return AlreadyItemDownloadedButton(item: item);
     }
     final isItemDownloading = ref.watch(isItemDownloadingProvider(item.id));
@@ -252,7 +252,7 @@ class ItemCurrentlyInDownloadQueue extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final progress = ref
         .watch(itemDownloadProgressProvider(item.id))
-        .valueOrNull
+        .value
         ?.clamp(0.05, 1.0);
 
     if (progress == 1) {
