@@ -30,7 +30,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "dr.blank.vaani"
-    compileSdk flutter.compileSdkVersion
+    compileSdk 36
     // ndkVersion flutter.ndkVersion
     // The NDK version is set to a specific version since it was not building
     // TODO remove when https://github.com/flutter/flutter/issues/139427 is closed
@@ -65,7 +65,7 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 23
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
