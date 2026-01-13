@@ -9,7 +9,7 @@ import 'package:vaani/shared/extensions/obfuscation.dart';
 
 part 'server_provider.g.dart';
 
-final _box = AvailableHiveBoxes.serverBox;
+final _box = HiveBoxes.serverBox;
 
 final _logger = Logger('AudiobookShelfServerProvider');
 

@@ -41,6 +41,8 @@ dependencies:
 
   # 图标
   icons_plus: ^5.0.0
+  # 自动适配Material和Cupertino
+  #flutter_platform_widgets: ^9.0.0
 
   # hooks
   flutter_hooks: ^0.21.2
@@ -143,6 +145,8 @@ dependencies:
   
   # 分享插件
   share_plus: ^10.0.2
+  # chart
+  # fl_chart: ^1.1.1
 
   # AudiobookShelf SDK
   shelfsdk:
@@ -174,7 +178,7 @@ dev_dependencies:
   freezed: ^2.5.2
   json_serializable: ^6.8.0
 
-  hive_ce_generator: ^1.8.1
+  # hive_ce_generator: ^1.8.1
   
   # 启动图标
   flutter_launcher_icons: "^0.14.4"

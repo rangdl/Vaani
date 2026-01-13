@@ -7,7 +7,7 @@ import 'package:vaani/features/per_book_settings/models/nullable_player_settings
 
 part 'book_settings_provider.g.dart';
 
-final _box = AvailableHiveBoxes.individualBookSettingsBox;
+final _box = HiveBoxes.individualBookSettingsBox;
 
 final _logger = Logger('BookSettingsProvider');
 

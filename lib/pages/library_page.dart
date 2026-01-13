@@ -20,7 +20,6 @@ import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/extensions/style.dart';
 import 'package:vaani/shared/icons/abs_icons.dart';
 import 'package:vaani/shared/utils/components.dart';
-import 'package:vaani/shared/widgets/custom_dropdown.dart';
 import 'package:vaani/shared/widgets/skeletons.dart';
 
 class LibraryPage extends HookConsumerWidget {
@@ -83,21 +82,21 @@ class LibraryPage extends HookConsumerWidget {
           // ),
           const LibraryItemsSort(),
           IconButton(
-            icon: Icon(Icons.next_plan),
-            tooltip: '加载下一页', // Helpful tooltip for users
-            onPressed: () => ref.read(libraryItemsProvider.notifier).loadMore(),
+            icon: Icon(Icons.bar_chart),
+            tooltip: '统计',
+            onPressed: () =>
+                GoRouter.of(context).pushNamed(Routes.libraryStatistics.name),
           ),
-          IconButton(
-            icon: Icon(Icons.refresh),
-            tooltip: '刷新', // Helpful tooltip for users
-            onPressed: () => ref.read(libraryItemsProvider.notifier).refresh(),
-          ),
+          // IconButton(
+          //   icon: Icon(Icons.refresh),
+          //   tooltip: '刷新', // Helpful tooltip for users
+          //   onPressed: () => ref.read(libraryItemsProvider.notifier).refresh(),
+          // ),
           IconButton(
             icon: Icon(Icons.download),
             tooltip: S.of(context).bookDownloads, // Helpful tooltip for users
-            onPressed: () {
-              GoRouter.of(context).pushNamed(Routes.downloads.name);
-            },
+            onPressed: () =>
+                GoRouter.of(context).pushNamed(Routes.downloads.name),
           ),
         ],
       ),

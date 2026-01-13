@@ -21,6 +21,11 @@ class Routes {
     pathParamName: 'itemId',
     name: 'libraryItem',
   );
+  static const libraryStatistics = _SimpleRoute(
+    pathName: 'statistics',
+    // pathParamName: 'statistics',
+    name: 'libraryStatistics',
+  );
 
   // Local settings
   static const settings = _SimpleRoute(

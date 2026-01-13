@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:logging/logging.dart';
@@ -18,8 +19,9 @@ final offset = Duration(milliseconds: 10);
 final _logger = Logger('AbsAudioPlayer');
 
 class AbsAudioPlayer {
+  final Ref ref;
   late final AudioPlayer _player;
-  AbsAudioPlayer(AudioPlayer player) : _player = player {
+  AbsAudioPlayer(AudioPlayer player, this.ref) : _player = player {
     _player.positionStream.listen((position) {
       final chapter = currentChapter;
       if (positionInBook <= (chapter?.start ?? Duration.zero) ||
@@ -53,34 +55,23 @@ class AbsAudioPlayer {
     List<Uri>? downloadedUris,
     Duration? start,
     Duration? end,
+    bool force = false,
   }) async {
-    if (_bookStreamController.nvalue == book) {
+    if (!force && _bookStreamController.nvalue == book) {
       _logger.info('Book is the same, doing nothing');
       return;
     }
     _bookStreamController.add(book);
-    final appSettings = loadOrCreateAppSettings();
 
     final currentTrack = book.findTrackAtTime(initialPosition ?? Duration.zero);
     final indexTrack = book.tracks.indexOf(currentTrack);
     final positionInTrack = initialPosition != null
         ? initialPosition - currentTrack.startOffset
         : null;
-    final title = appSettings.notificationSettings.primaryTitle
-        .formatNotificationTitle(book);
-    final artist = appSettings.notificationSettings.secondaryTitle
-        .formatNotificationTitle(book);
     chapterStreamController
         .add(book.findChapterAtTime(initialPosition ?? Duration.zero));
-    // final item = MediaItem(
-    //   id: book.libraryItemId,
-    //   title: title,
-    //   artist: artist,
-    //   duration: currentChapter?.duration ?? book.duration,
-    //   artUri: Uri.parse(
-    //     '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token',
-    //   ),
-    // );
+    final title = primaryTitle();
+    final artist = secondaryTitle();
 
     mediaItem(track) => MediaItem(
           id: book.libraryItemId + track.index.toString(),
@@ -91,6 +82,13 @@ class AbsAudioPlayer {
             '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token',
           ),
         );
+    if (start != null && start > Duration.zero ||
+        end != null && end > Duration.zero) {
+      _logger.info(
+        'Skip the opening ${start?.inSeconds} seconds, end ${end?.inSeconds} seconds',
+      );
+    }
+
     List<AudioSource> audioSources = start != null && start > Duration.zero ||
             end != null && end > Duration.zero
         ? book.tracks
@@ -270,6 +268,26 @@ class AbsAudioPlayer {
     _bookStreamController.close();
     chapterStreamController.close();
   }
+
+  String primaryTitle() {
+    final appSettings = ref.read(appSettingsProvider);
+    final currentBook = book;
+    if (currentBook != null) {
+      return appSettings.notificationSettings.primaryTitle
+          .formatNotificationTitle(currentBook, chapter: currentChapter);
+    }
+    return "";
+  }
+
+  String secondaryTitle() {
+    final appSettings = ref.read(appSettingsProvider);
+    final currentBook = book;
+    if (currentBook != null) {
+      return appSettings.notificationSettings.secondaryTitle
+          .formatNotificationTitle(currentBook, chapter: currentChapter);
+    }
+    return "";
+  }
 }
 
 Uri _getUri(
@@ -328,14 +346,14 @@ extension BookExpandedExtension on BookExpanded {
 }
 
 extension FormatNotificationTitle on String {
-  String formatNotificationTitle(BookExpanded book) {
+  String formatNotificationTitle(BookExpanded book, {BookChapter? chapter}) {
     return replaceAllMapped(
       RegExp(r'\$(\w+)'),
       (match) {
         final type = match.group(1);
         return NotificationTitleType.values
                 .firstWhere((element) => element.name == type)
-                .extractFrom(book) ??
+                .extractFrom(book, chapter: chapter) ??
             match.group(0) ??
             '';
       },
@@ -344,13 +362,16 @@ extension FormatNotificationTitle on String {
 }
 
 extension NotificationTitleUtils on NotificationTitleType {
-  String? extractFrom(BookExpanded book) {
+  String? extractFrom(BookExpanded book, {BookChapter? chapter}) {
     var bookMetadataExpanded = book.metadata.asBookMetadataExpanded;
     switch (this) {
       case NotificationTitleType.bookTitle:
         return bookMetadataExpanded.title;
       case NotificationTitleType.chapterTitle:
         // TODO: implement chapter title; depends on https://github.com/Dr-Blank/Vaani/issues/2
+        if (chapter != null) {
+          return chapter.title;
+        }
         return bookMetadataExpanded.title;
       case NotificationTitleType.author:
         return bookMetadataExpanded.authorName;

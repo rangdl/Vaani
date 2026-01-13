@@ -18,6 +18,6 @@ Future initStorage() async {
   // Hive.defaultDirectory = appDocumentsDir.path;
   // appLogger.config('Hive storage directory init: ${Hive.defaultDirectory}');
 
-  await registerModels();
-  await AvailableHiveBoxes.init();
+  registerModels();
+  await HiveBoxes.init();
 }

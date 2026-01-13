@@ -1,9 +1,10 @@
+// ignore_for_file: unreachable_switch_default, unused_element
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vaani/features/player/providers/abs_provider.dart'
-    hide AudioPlayer;
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart'
     show appSettingsProvider;
 import 'package:vaani/features/settings/models/app_settings.dart';

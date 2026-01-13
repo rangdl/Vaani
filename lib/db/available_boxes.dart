@@ -4,48 +4,34 @@ import 'package:vaani/features/per_book_settings/models/book_settings.dart';
 import 'package:vaani/features/settings/models/models.dart';
 
 @immutable
-class AvailableHiveBoxes {
-  const AvailableHiveBoxes._();
-
-  static Future<void> init() async {
-    await Hive.openBox('basicTypes');
-
-    /// Box for storing user preferences as [AppSettings]
-    await Hive.openBox<AppSettings>('userPrefs');
-
-    /// Box for storing [ApiSettings]
-    await Hive.openBox<ApiSettings>('apiSettings');
-
-    /// stores the a list of [AudiobookShelfServer]
-
-    await Hive.openBox<AudiobookShelfServer>('audiobookShelfServer');
-
-    /// stores the a list of [AuthenticatedUser]
-
-    await Hive.openBox<AuthenticatedUser>('authenticatedUser');
-
-    /// stores the a list of [BookSettings]
-
-    await Hive.openBox<BookSettings>('bookSettings');
-  }
-
-  static final basicBox = Hive.box('basicTypes');
+class HiveBoxes {
+  const HiveBoxes._();
+  static late final Box<dynamic> basicBox;
 
   /// Box for storing user preferences as [AppSettings]
-  static final userPrefsBox = Hive.box<AppSettings>('userPrefs');
+  static late final Box<AppSettings> userPrefsBox;
 
   /// Box for storing [ApiSettings]
-  static final apiSettingsBox = Hive.box<ApiSettings>('apiSettings');
+  static late final Box<ApiSettings> apiSettingsBox;
 
   /// stores the a list of [AudiobookShelfServer]
-  static final serverBox =
-      Hive.box<AudiobookShelfServer>('audiobookShelfServer');
+  static late final Box<AudiobookShelfServer> serverBox;
 
   /// stores the a list of [AuthenticatedUser]
-  static final authenticatedUserBox =
-      Hive.box<AuthenticatedUser>('authenticatedUser');
+  static late final Box<AuthenticatedUser> authenticatedUserBox;
 
   /// stores the a list of [BookSettings]
-  static final individualBookSettingsBox =
-      Hive.box<BookSettings>('bookSettings');
+  static late final Box<BookSettings> individualBookSettingsBox;
+
+  static Future<void> init() async {
+    basicBox = await Hive.openBox('basicTypes');
+    userPrefsBox = await Hive.openBox<AppSettings>('userPrefs');
+    apiSettingsBox = await Hive.openBox<ApiSettings>('apiSettings');
+    serverBox =
+        await Hive.openBox<AudiobookShelfServer>('audiobookShelfServer');
+    authenticatedUserBox =
+        await Hive.openBox<AuthenticatedUser>('authenticatedUser');
+    individualBookSettingsBox =
+        await Hive.openBox<BookSettings>('bookSettings');
+  }
 }

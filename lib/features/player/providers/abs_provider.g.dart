@@ -6,11 +6,9 @@ part of 'abs_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$playerActiveHash() => r'86831758035aa69d74f42ebde0a19bf7ef830910';
+String _$playerActiveHash() => r'4d3e7181cf66bfdb46d5caaece56cde07f610cc4';
 
-/// 音频播放器 配置
-///
-/// Copied from [playerActive].
+/// See also [playerActive].
 @ProviderFor(playerActive)
 final playerActiveProvider = AutoDisposeProvider<bool>.internal(
   playerActive,
@@ -41,7 +39,87 @@ final simpleAudioPlayerProvider = Provider<audio.AudioPlayer>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef SimpleAudioPlayerRef = ProviderRef<audio.AudioPlayer>;
-String _$currentTimeHash() => r'3e7f99dbf48242a5fa0a4239a0f696535d0b4ac9';
+String _$totalHash() => r'2d01953862a875f6e66fe3af56868e819e33fcc8';
+
+/// 进度条显示
+///
+/// Copied from [total].
+@ProviderFor(total)
+final totalProvider = AutoDisposeProvider<Duration>.internal(
+  total,
+  name: r'totalProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$totalHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef TotalRef = AutoDisposeProviderRef<Duration>;
+String _$progressHash() => r'7ed041be2d26a437becc9ab624322b47efbee06e';
+
+/// See also [progress].
+@ProviderFor(progress)
+final progressProvider = AutoDisposeStreamProvider<Duration>.internal(
+  progress,
+  name: r'progressProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$progressHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef ProgressRef = AutoDisposeStreamProviderRef<Duration>;
+String _$progressBufferedHash() => r'20f886a5ad8bd4eb031eceb845201dc61dfd5fca';
+
+/// See also [progressBuffered].
+@ProviderFor(progressBuffered)
+final progressBufferedProvider = AutoDisposeStreamProvider<Duration>.internal(
+  progressBuffered,
+  name: r'progressBufferedProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$progressBufferedHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef ProgressBufferedRef = AutoDisposeStreamProviderRef<Duration>;
+String _$absPlayerHash() => r'c43c02b600326c2d47b900cb3977cd9fae201463';
+
+/// See also [AbsPlayer].
+@ProviderFor(AbsPlayer)
+final absPlayerProvider = NotifierProvider<AbsPlayer, AbsAudioPlayer>.internal(
+  AbsPlayer.new,
+  name: r'absPlayerProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$absPlayerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$AbsPlayer = Notifier<AbsAudioPlayer>;
+String _$playerStateHash() => r'eb79bd816714f721da1c4226d4447de5dc55fc5c';
+
+/// See also [PlayerState].
+@ProviderFor(PlayerState)
+final playerStateProvider =
+    AutoDisposeNotifierProvider<PlayerState, audio.PlayerState>.internal(
+  PlayerState.new,
+  name: r'playerStateProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$playerStateHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$PlayerState = AutoDisposeNotifier<audio.PlayerState>;
+String _$currentTimeHash() => r'e2cf66f5f04cd51f5ddafd64ace395ec3bf0ede2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -64,16 +142,25 @@ class _SystemHash {
   }
 }
 
-/// See also [currentTime].
-@ProviderFor(currentTime)
+abstract class _$CurrentTime
+    extends BuildlessAutoDisposeAsyncNotifier<shelfsdk.MediaProgress?> {
+  late final String libraryItemId;
+
+  FutureOr<shelfsdk.MediaProgress?> build(
+    String libraryItemId,
+  );
+}
+
+/// See also [CurrentTime].
+@ProviderFor(CurrentTime)
 const currentTimeProvider = CurrentTimeFamily();
 
-/// See also [currentTime].
-class CurrentTimeFamily extends Family<AsyncValue<Duration?>> {
-  /// See also [currentTime].
+/// See also [CurrentTime].
+class CurrentTimeFamily extends Family<AsyncValue<shelfsdk.MediaProgress?>> {
+  /// See also [CurrentTime].
   const CurrentTimeFamily();
 
-  /// See also [currentTime].
+  /// See also [CurrentTime].
   CurrentTimeProvider call(
     String libraryItemId,
   ) {
@@ -106,16 +193,14 @@ class CurrentTimeFamily extends Family<AsyncValue<Duration?>> {
   String? get name => r'currentTimeProvider';
 }
 
-/// See also [currentTime].
-class CurrentTimeProvider extends AutoDisposeFutureProvider<Duration?> {
-  /// See also [currentTime].
+/// See also [CurrentTime].
+class CurrentTimeProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    CurrentTime, shelfsdk.MediaProgress?> {
+  /// See also [CurrentTime].
   CurrentTimeProvider(
     String libraryItemId,
   ) : this._internal(
-          (ref) => currentTime(
-            ref as CurrentTimeRef,
-            libraryItemId,
-          ),
+          () => CurrentTime()..libraryItemId = libraryItemId,
           from: currentTimeProvider,
           name: r'currentTimeProvider',
           debugGetCreateSourceHash:
@@ -141,13 +226,20 @@ class CurrentTimeProvider extends AutoDisposeFutureProvider<Duration?> {
   final String libraryItemId;
 
   @override
-  Override overrideWith(
-    FutureOr<Duration?> Function(CurrentTimeRef provider) create,
+  FutureOr<shelfsdk.MediaProgress?> runNotifierBuild(
+    covariant CurrentTime notifier,
   ) {
+    return notifier.build(
+      libraryItemId,
+    );
+  }
+
+  @override
+  Override overrideWith(CurrentTime Function() create) {
     return ProviderOverride(
       origin: this,
       override: CurrentTimeProvider._internal(
-        (ref) => create(ref as CurrentTimeRef),
+        () => create()..libraryItemId = libraryItemId,
         from: from,
         name: null,
         dependencies: null,
@@ -159,7 +251,8 @@ class CurrentTimeProvider extends AutoDisposeFutureProvider<Duration?> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<Duration?> createElement() {
+  AutoDisposeAsyncNotifierProviderElement<CurrentTime, shelfsdk.MediaProgress?>
+      createElement() {
     return _CurrentTimeProviderElement(this);
   }
 
@@ -179,73 +272,27 @@ class CurrentTimeProvider extends AutoDisposeFutureProvider<Duration?> {
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin CurrentTimeRef on AutoDisposeFutureProviderRef<Duration?> {
+mixin CurrentTimeRef
+    on AutoDisposeAsyncNotifierProviderRef<shelfsdk.MediaProgress?> {
   /// The parameter `libraryItemId` of this provider.
   String get libraryItemId;
 }
 
 class _CurrentTimeProviderElement
-    extends AutoDisposeFutureProviderElement<Duration?> with CurrentTimeRef {
+    extends AutoDisposeAsyncNotifierProviderElement<CurrentTime,
+        shelfsdk.MediaProgress?> with CurrentTimeRef {
   _CurrentTimeProviderElement(super.provider);
 
   @override
   String get libraryItemId => (origin as CurrentTimeProvider).libraryItemId;
 }
 
-String _$positionChapterHash() => r'ac6148e92363fad849713c07045503653dcaa7e8';
-
-/// See also [positionChapter].
-@ProviderFor(positionChapter)
-final positionChapterProvider = AutoDisposeStreamProvider<Duration>.internal(
-  positionChapter,
-  name: r'positionChapterProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$positionChapterHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef PositionChapterRef = AutoDisposeStreamProviderRef<Duration>;
-String _$absPlayerHash() => r'370f576d3d3a2196d1a93f2046005c1a3298d994';
-
-/// See also [AbsPlayer].
-@ProviderFor(AbsPlayer)
-final absPlayerProvider = NotifierProvider<AbsPlayer, AbsAudioPlayer>.internal(
-  AbsPlayer.new,
-  name: r'absPlayerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$absPlayerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$AbsPlayer = Notifier<AbsAudioPlayer>;
-String _$playerStateHash() => r'eb79bd816714f721da1c4226d4447de5dc55fc5c';
-
-/// 音频播放器 riverpod状态
-///
-/// Copied from [PlayerState].
-@ProviderFor(PlayerState)
-final playerStateProvider =
-    AutoDisposeNotifierProvider<PlayerState, audio.PlayerState>.internal(
-  PlayerState.new,
-  name: r'playerStateProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$playerStateHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$PlayerState = AutoDisposeNotifier<audio.PlayerState>;
-String _$currentBookHash() => r'85de9041d356e214761b65bd1b7b74321d5a9221';
+String _$currentBookHash() => r'f13ba110d104be8bae48972d6fd266d461d30898';
 
 /// See also [CurrentBook].
 @ProviderFor(CurrentBook)
 final currentBookProvider =
-    AutoDisposeNotifierProvider<CurrentBook, api.BookExpanded?>.internal(
+    AutoDisposeNotifierProvider<CurrentBook, shelfsdk.BookExpanded?>.internal(
   CurrentBook.new,
   name: r'currentBookProvider',
   debugGetCreateSourceHash:
@@ -254,13 +301,13 @@ final currentBookProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$CurrentBook = AutoDisposeNotifier<api.BookExpanded?>;
-String _$currentChapterHash() => r'aff83aed7d098099805ec7d72ea84fff3a298522';
+typedef _$CurrentBook = AutoDisposeNotifier<shelfsdk.BookExpanded?>;
+String _$currentChapterHash() => r'e8d867067f383372afd758186f13950a6746ba85';
 
 /// See also [CurrentChapter].
 @ProviderFor(CurrentChapter)
 final currentChapterProvider =
-    AutoDisposeNotifierProvider<CurrentChapter, api.BookChapter?>.internal(
+    AutoDisposeNotifierProvider<CurrentChapter, shelfsdk.BookChapter?>.internal(
   CurrentChapter.new,
   name: r'currentChapterProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -270,6 +317,6 @@ final currentChapterProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$CurrentChapter = AutoDisposeNotifier<api.BookChapter?>;
+typedef _$CurrentChapter = AutoDisposeNotifier<shelfsdk.BookChapter?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

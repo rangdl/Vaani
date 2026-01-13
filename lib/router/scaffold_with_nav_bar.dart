@@ -35,12 +35,18 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
     final size = MediaQuery.of(context).size;
     // 竖屏
     final isVertical = size.height > size.width;
+    final currentBook = ref.watch(currentBookProvider);
 
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          isVertical ? navigationShell : buildNavLeft(context, ref),
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: currentBook != null ? playerMinHeight : 0,
+            ),
+            child: isVertical ? navigationShell : buildNavLeft(context, ref),
+          ),
           const PlayerMinimized(),
         ],
       ),
@@ -49,67 +55,62 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
   }
 
   Widget buildNavLeft(BuildContext context, WidgetRef ref) {
-    final currentBook = ref.watch(currentBookProvider);
-    return Padding(
-      padding:
-          EdgeInsets.only(bottom: currentBook != null ? playerMinHeight : 0),
-      child: Row(
-        children: [
-          SafeArea(
-            child: NavigationRail(
-              minWidth: 60,
-              minExtendedWidth: 180,
-              extended: MediaQuery.of(context).size.width > 640,
-              // extended: false,
-              destinations: _navigationItems(context).map((item) {
-                final isDestinationLibrary = item.name == S.of(context).library;
-                var currentLibrary =
-                    ref.watch(currentLibraryProvider).valueOrNull;
-                final libraryIcon = AbsIcons.getIconByName(
-                  currentLibrary?.icon,
-                );
-                final destinationWidget = NavigationRailDestination(
-                  icon: Icon(
-                    isDestinationLibrary ? libraryIcon ?? item.icon : item.icon,
-                  ),
-                  selectedIcon: Icon(
-                    isDestinationLibrary
-                        ? libraryIcon ?? item.activeIcon
-                        : item.activeIcon,
-                  ),
-                  label: Text(
-                    isDestinationLibrary
-                        ? currentLibrary?.name ?? item.name
-                        : item.name,
-                  ),
-                  // tooltip: item.tooltip,
-                );
-                // if (isDestinationLibrary) {
-                //   return GestureDetector(
-                //     onSecondaryTap: () => showLibrarySwitcher(context, ref),
-                //     onDoubleTap: () => showLibrarySwitcher(context, ref),
-                //     child:
-                //         destinationWidget, // Wrap the actual NavigationDestination
-                //   );
-                // } else {
-                //   // Return the unwrapped destination for other items
-                //   return destinationWidget;
-                // }
-                return destinationWidget;
-                // return NavigationRailDestination(icon: Icon(nav.icon), label: Text(nav.name));
-              }).toList(),
-              selectedIndex: navigationShell.currentIndex,
-              onDestinationSelected: (int index) {
-                _onTap(context, index, ref);
-              },
-            ),
+    return Row(
+      children: [
+        SafeArea(
+          child: NavigationRail(
+            minWidth: 60,
+            minExtendedWidth: 180,
+            extended: MediaQuery.of(context).size.width > 640,
+            // extended: false,
+            destinations: _navigationItems(context).map((item) {
+              final isDestinationLibrary = item.name == S.of(context).library;
+              var currentLibrary =
+                  ref.watch(currentLibraryProvider).valueOrNull;
+              final libraryIcon = AbsIcons.getIconByName(
+                currentLibrary?.icon,
+              );
+              final destinationWidget = NavigationRailDestination(
+                icon: Icon(
+                  isDestinationLibrary ? libraryIcon ?? item.icon : item.icon,
+                ),
+                selectedIcon: Icon(
+                  isDestinationLibrary
+                      ? libraryIcon ?? item.activeIcon
+                      : item.activeIcon,
+                ),
+                label: Text(
+                  isDestinationLibrary
+                      ? currentLibrary?.name ?? item.name
+                      : item.name,
+                ),
+                // tooltip: item.tooltip,
+              );
+              // if (isDestinationLibrary) {
+              //   return GestureDetector(
+              //     onSecondaryTap: () => showLibrarySwitcher(context, ref),
+              //     onDoubleTap: () => showLibrarySwitcher(context, ref),
+              //     child:
+              //         destinationWidget, // Wrap the actual NavigationDestination
+              //   );
+              // } else {
+              //   // Return the unwrapped destination for other items
+              //   return destinationWidget;
+              // }
+              return destinationWidget;
+              // return NavigationRailDestination(icon: Icon(nav.icon), label: Text(nav.name));
+            }).toList(),
+            selectedIndex: navigationShell.currentIndex,
+            onDestinationSelected: (int index) {
+              _onTap(context, index, ref);
+            },
           ),
-          VerticalDivider(width: 0.5, thickness: 0.5),
-          Expanded(
-            child: navigationShell,
-          ),
-        ],
-      ),
+        ),
+        VerticalDivider(width: 0.5, thickness: 0.5),
+        Expanded(
+          child: navigationShell,
+        ),
+      ],
     );
   }
 

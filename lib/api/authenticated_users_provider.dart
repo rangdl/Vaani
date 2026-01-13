@@ -11,7 +11,7 @@ import 'package:vaani/shared/extensions/obfuscation.dart';
 
 part 'authenticated_users_provider.g.dart';
 
-final _box = AvailableHiveBoxes.authenticatedUserBox;
+final _box = HiveBoxes.authenticatedUserBox;
 
 final _logger = Logger('authenticated_users_provider');
 

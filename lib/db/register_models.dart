@@ -5,7 +5,7 @@ import 'package:vaani/features/per_book_settings/models/book_settings.dart';
 import 'package:vaani/features/settings/models/models.dart';
 
 // register all models to Hive for serialization
-Future registerModels() async {
+void registerModels() {
   Hive.registerAdapter(
     JsonAdapter<AppSettings>(
       id: 1,

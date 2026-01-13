@@ -105,19 +105,8 @@ class PlayerExpanded extends HookConsumerWidget {
                 left: AppElementSizes.paddingRegular,
                 right: AppElementSizes.paddingRegular,
               ),
-              child: const AudiobookChapterProgressBar(),
+              child: const AbsDesktopProgressBar(),
             ),
-          ),
-        ),
-
-        SizedBox(
-          width: imageSize,
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: AppElementSizes.paddingRegular,
-              right: AppElementSizes.paddingRegular,
-            ),
-            child: const AudiobookProgressBar(),
           ),
         ),
 

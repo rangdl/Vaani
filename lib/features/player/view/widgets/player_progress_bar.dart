@@ -1,60 +1,44 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
+import 'package:vaani/features/settings/app_settings_provider.dart';
 
-// 章节进度
-class AudiobookChapterProgressBar extends HookConsumerWidget {
+/// 进度条展示 根据设置显示章节进度或整本书的进度
+class AbsDesktopProgressBar extends HookConsumerWidget {
   final TimeLabelLocation timeLabelLocation;
-  const AudiobookChapterProgressBar({
+  const AbsDesktopProgressBar({
     super.key,
     this.timeLabelLocation = TimeLabelLocation.below,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final book = ref.watch(currentBookProvider);
     final player = ref.watch(absPlayerProvider);
     final currentChapter = ref.watch(currentChapterProvider);
-    final position = useStream(
-      player.positionInBookStream,
-      initialData: const Duration(seconds: 0),
-    );
-    final buffered = useStream(
-      player.bufferedPositionInBookStream,
-      initialData: const Duration(seconds: 0),
-    );
+    final playerSettings =
+        ref.watch(appSettingsProvider.select((v) => v.playerSettings));
+    final showChapterProgress =
+        playerSettings.expandedPlayerSettings.showChapterProgress;
 
-    // now find the chapter that corresponds to the current time
-    // and calculate the progress of the current chapter
-    final currentChapterProgress = currentChapter == null
-        ? null
-        : (player.positionInBook - currentChapter.start);
+    final position = ref.watch(progressProvider);
+    final buffered = ref.watch(progressBufferedProvider);
 
-    final currentChapterBuffered = currentChapter == null
-        ? null
-        : (player.bufferedPositionInBook - currentChapter.start);
-
-    final progress =
-        currentChapterProgress ?? position.data ?? const Duration(seconds: 0);
-    final total = currentChapter == null
-        ? book?.duration ?? const Duration(seconds: 0)
-        : currentChapter.end - currentChapter.start;
+    final total = ref.watch(totalProvider);
     return ProgressBar(
-      progress: progress,
+      progress: position.requireValue,
       total: total,
-      // ! TODO add onSeek
       onSeek: (duration) {
         player.seekInBook(
-          duration + (currentChapter?.start ?? const Duration(seconds: 0)),
+          duration +
+              (showChapterProgress
+                  ? (currentChapter?.start ?? Duration.zero)
+                  : Duration.zero),
         );
-        // player.seek(duration);
       },
       thumbRadius: 8,
-      buffered:
-          currentChapterBuffered ?? buffered.data ?? const Duration(seconds: 0),
+      buffered: buffered.requireValue,
       bufferedBarColor: Theme.of(context).colorScheme.secondary,
       timeLabelType: TimeLabelType.remainingTime,
       timeLabelLocation: timeLabelLocation,
@@ -63,26 +47,19 @@ class AudiobookChapterProgressBar extends HookConsumerWidget {
 }
 
 // 书籍进度 简化版
-class AudiobookProgressBar extends HookConsumerWidget {
-  const AudiobookProgressBar({
-    super.key,
-  });
+class AbsMinimizedProgress extends HookConsumerWidget {
+  const AbsMinimizedProgress({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final book = ref.watch(currentBookProvider);
-    final player = ref.read(absPlayerProvider);
-    final position = useStream(
-      player.positionInBookStream,
-      initialData: const Duration(seconds: 0),
-    );
-
+    final position = ref.watch(progressProvider);
+    final total = ref.watch(totalProvider);
     return SizedBox(
-      height: AppElementSizes.barHeightLarge,
+      height: AppElementSizes.barHeight,
       child: LinearProgressIndicator(
-        value: (position.data ?? const Duration(seconds: 0)).inSeconds /
-            (book?.duration ?? const Duration(seconds: 0)).inSeconds,
-        borderRadius: BorderRadiusGeometry.all(Radius.circular(10)),
+        value: total > Duration.zero
+            ? ((position.value ?? Duration.zero).inSeconds / total.inSeconds)
+            : 0,
       ),
     );
   }

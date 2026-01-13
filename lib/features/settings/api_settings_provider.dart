@@ -8,7 +8,7 @@ import 'package:vaani/shared/extensions/obfuscation.dart';
 
 part 'api_settings_provider.g.dart';
 
-final _box = AvailableHiveBoxes.apiSettingsBox;
+final _box = HiveBoxes.apiSettingsBox;
 
 final _logger = Logger('ApiSettingsProvider');
 

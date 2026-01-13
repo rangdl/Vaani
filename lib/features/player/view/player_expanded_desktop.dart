@@ -110,9 +110,9 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: AppElementSizes.paddingRegular,
+                horizontal: AppElementSizes.paddingLarge,
               ),
-              child: const AudiobookChapterProgressBar(
+              child: const AbsDesktopProgressBar(
                 timeLabelLocation: TimeLabelLocation.sides,
               ),
             ),
@@ -140,10 +140,10 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
       // mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-          flex: 1,
           child: Row(),
         ),
         Expanded(
+          flex: 1,
           child: Hero(
             tag: HeroTagPrefixes.controlsCenter,
             child: const PlayerControlsDesktopCenter(),

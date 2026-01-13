@@ -73,6 +73,7 @@ class PlayerSkipChapterStartEnd extends HookConsumerWidget {
                       bookSettings.copyWith
                           .playerSettings(skipChapterStart: interval),
                     );
+                reloadPlayer(ref);
               },
             ),
           ),
@@ -97,11 +98,23 @@ class PlayerSkipChapterStartEnd extends HookConsumerWidget {
                       bookSettings.copyWith
                           .playerSettings(skipChapterEnd: interval),
                     );
+                reloadPlayer(ref);
               },
             ),
           ),
         ],
       ),
     );
+  }
+
+  void reloadPlayer(WidgetRef ref) {
+    final currentBook = ref.watch(currentBookProvider);
+    if (currentBook == null) {
+      return;
+    }
+    final absPlayer = ref.read(absPlayerProvider);
+    final positionInBook = absPlayer.positionInBook;
+    ref.read(currentBookProvider.notifier).update(currentBook.libraryItemId,
+        force: true, currentTime: positionInBook);
   }
 }

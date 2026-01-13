@@ -7,7 +7,7 @@ import 'package:vaani/features/settings/models/app_settings.dart' as model;
 
 part 'app_settings_provider.g.dart';
 
-final _box = AvailableHiveBoxes.userPrefsBox;
+final _box = HiveBoxes.userPrefsBox;
 
 final _logger = Logger('AppSettingsProvider');
 

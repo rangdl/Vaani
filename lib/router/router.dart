@@ -15,6 +15,7 @@ import 'package:vaani/features/settings/view/notification_settings_page.dart';
 import 'package:vaani/features/settings/view/player_settings_page.dart';
 import 'package:vaani/features/settings/view/shake_detector_settings_page.dart';
 import 'package:vaani/features/settings/view/theme_settings_page.dart';
+import 'package:vaani/features/statistics/abs_statistics.dart';
 import 'package:vaani/features/you/view/server_manager.dart';
 import 'package:vaani/features/you/view/you_page.dart';
 import 'package:vaani/globals.dart';
@@ -125,10 +126,18 @@ class MyAppRouter {
                   //   pageBuilder: defaultPageBuilder(const LibraryBrowserPage()),
                   // ),
                   GoRoute(
-                    path: Routes.library.localPath,
-                    name: Routes.library.name,
-                    pageBuilder: defaultPageBuilder(LibraryPage()),
-                  ),
+                      path: Routes.library.localPath,
+                      name: Routes.library.name,
+                      pageBuilder: defaultPageBuilder(LibraryPage()),
+                      routes: [
+                        GoRoute(
+                          path: Routes.libraryStatistics.pathName,
+                          name: Routes.libraryStatistics.name,
+                          pageBuilder: defaultPageBuilder(
+                            const LibraryStatisticsPage(),
+                          ),
+                        ),
+                      ]),
                 ],
               ),
               // search/explore page
