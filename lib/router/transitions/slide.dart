@@ -42,9 +42,7 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
           position: Tween(
             begin: const Offset(0, 0.3),
             end: Offset.zero,
-          ).animate(
-            curvedAnimation,
-          ),
+          ).animate(curvedAnimation),
           child: child,
         ),
       );
@@ -54,11 +52,10 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
 
 Page<dynamic> Function(BuildContext, GoRouterState) defaultPageBuilder<T>(
   Widget child,
-) =>
-    (BuildContext context, GoRouterState state) {
-      return buildPageWithDefaultTransition<T>(
-        context: context,
-        state: state,
-        child: child,
-      );
-    };
+) => (BuildContext context, GoRouterState state) {
+  return buildPageWithDefaultTransition<T>(
+    context: context,
+    state: state,
+    child: child,
+  );
+};

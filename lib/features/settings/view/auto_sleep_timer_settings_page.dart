@@ -7,16 +7,15 @@ import 'package:vaani/features/settings/view/simple_settings_page.dart';
 import 'package:vaani/shared/extensions/time_of_day.dart';
 
 class AutoSleepTimerSettingsPage extends HookConsumerWidget {
-  const AutoSleepTimerSettingsPage({
-    super.key,
-  });
+  const AutoSleepTimerSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appSettings = ref.watch(appSettingsProvider);
     final sleepTimerSettings = appSettings.sleepTimerSettings;
 
-    var enabled = sleepTimerSettings.autoTurnOnTimer &&
+    var enabled =
+        sleepTimerSettings.autoTurnOnTimer &&
         !sleepTimerSettings.alwaysAutoTurnOnTimer;
     final selectedValueColor = enabled
         ? Theme.of(context).colorScheme.primary
@@ -33,14 +32,14 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
             SettingsTile.switchTile(
               // initialValue: sleepTimerSettings.autoTurnOnTimer,
               title: Text(S.of(context).autoTurnOnTimer),
-              description: Text(
-                S.of(context).autoTurnOnTimerDescription,
-              ),
+              description: Text(S.of(context).autoTurnOnTimerDescription),
               leading: sleepTimerSettings.autoTurnOnTimer
                   ? const Icon(Icons.timer_outlined)
                   : const Icon(Icons.timer_off_outlined),
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.sleepTimerSettings(
                         autoTurnOnTimer: value,
                       ),
@@ -53,9 +52,7 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
               enabled: enabled,
               leading: const Icon(Icons.play_circle),
               title: Text(S.of(context).autoTurnOnTimerFrom),
-              description: Text(
-                S.of(context).autoTurnOnTimerFromDescription,
-              ),
+              description: Text(S.of(context).autoTurnOnTimerFromDescription),
               onPressed: (context) async {
                 // navigate to the time picker
                 final selected = await showTimePicker(
@@ -63,7 +60,9 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
                   initialTime: sleepTimerSettings.autoTurnOnTime.toTimeOfDay(),
                 );
                 if (selected != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.sleepTimerSettings(
                           autoTurnOnTime: selected.toDuration(),
                         ),
@@ -79,9 +78,7 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
               enabled: enabled,
               leading: const Icon(Icons.pause_circle),
               title: Text(S.of(context).autoTurnOnTimerUntil),
-              description: Text(
-                S.of(context).autoTurnOnTimerUntilDescription,
-              ),
+              description: Text(S.of(context).autoTurnOnTimerUntilDescription),
               onPressed: (context) async {
                 // navigate to the time picker
                 final selected = await showTimePicker(
@@ -89,7 +86,9 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
                   initialTime: sleepTimerSettings.autoTurnOffTime.toTimeOfDay(),
                 );
                 if (selected != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.sleepTimerSettings(
                           autoTurnOffTime: selected.toDuration(),
                         ),
@@ -97,9 +96,9 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
                 }
               },
               trailing: Text(
-                sleepTimerSettings.autoTurnOffTime
-                    .toTimeOfDay()
-                    .format(context),
+                sleepTimerSettings.autoTurnOffTime.toTimeOfDay().format(
+                  context,
+                ),
                 style: TextStyle(color: selectedValueColor),
               ),
             ),
@@ -108,11 +107,11 @@ class AutoSleepTimerSettingsPage extends HookConsumerWidget {
             SettingsTile.switchTile(
               leading: const Icon(Icons.all_inclusive),
               title: Text(S.of(context).autoTurnOnTimerAlways),
-              description: Text(
-                S.of(context).autoTurnOnTimerAlwaysDescription,
-              ),
+              description: Text(S.of(context).autoTurnOnTimerAlwaysDescription),
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.sleepTimerSettings(
                         alwaysAutoTurnOnTimer: value,
                       ),

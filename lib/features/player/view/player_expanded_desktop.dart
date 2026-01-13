@@ -20,9 +20,7 @@ import 'package:vaani/shared/extensions/model_conversions.dart';
 var pendingPlayerModals = 0;
 
 class PlayerExpandedDesktop extends HookConsumerWidget {
-  const PlayerExpandedDesktop({
-    super.key,
-  });
+  const PlayerExpandedDesktop({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -93,9 +91,7 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
                               ),
                             ),
                           ),
-                          child: ChapterSelectionModal(
-                            back: false,
-                          ),
+                          child: ChapterSelectionModal(back: false),
                         ),
                       ),
                     ],
@@ -139,9 +135,7 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
     return Row(
       // mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(
-          child: Row(),
-        ),
+        Expanded(child: Row()),
         Expanded(
           flex: 1,
           child: Hero(

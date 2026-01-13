@@ -56,10 +56,7 @@ class ExpandableDescription extends HookWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // header text
-                  Text(
-                    style: textTheme.titleMedium,
-                    title,
-                  ),
+                  Text(style: textTheme.titleMedium, title),
                   // carrot icon
                   AnimatedRotation(
                     turns: isDescExpanded.value ? 0.5 : 0,
@@ -100,9 +97,7 @@ class ExpandableDescription extends HookWidget {
                           textOverflow: TextOverflow.ellipsis,
                           fontStyle: textTheme.bodyMedium?.fontStyle,
                         )
-                      : Style(
-                          fontStyle: textTheme.bodyMedium?.fontStyle,
-                        ),
+                      : Style(fontStyle: textTheme.bodyMedium?.fontStyle),
                 },
               ),
             ),

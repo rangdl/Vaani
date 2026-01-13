@@ -27,7 +27,8 @@ class CoverImage extends _$CoverImage {
     // await Future.delayed(const Duration(seconds: 2));
 
     // try to get the image from the cache
-    final file = await imageCacheManager.getFileFromMemory(itemId) ??
+    final file =
+        await imageCacheManager.getFileFromMemory(itemId) ??
         await imageCacheManager.getFileFromCache(itemId);
 
     if (file != null) {
@@ -44,9 +45,7 @@ class CoverImage extends _$CoverImage {
         );
         return;
       } else {
-        _logger.fine(
-          'cover image stale for $itemId, fetching from the server',
-        );
+        _logger.fine('cover image stale for $itemId, fetching from the server');
       }
     } else {
       _logger.fine('cover image not found in cache for $itemId');

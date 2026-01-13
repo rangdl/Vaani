@@ -59,8 +59,8 @@ class PlaybackReporter {
     Duration reportingInterval = const Duration(seconds: 10),
     this.minimumPositionForReporting,
     this.markCompleteWhenTimeLeft = const Duration(seconds: 5),
-  })  : _reportingInterval = reportingInterval,
-        _session = session {
+  }) : _reportingInterval = reportingInterval,
+       _session = session {
     // initial conditions
     // if (player.playing) {
     //   _stopwatch.start();
@@ -110,9 +110,7 @@ class PlaybackReporter {
   }
 
   Future<void> tryReportPlayback(_) async {
-    _logger.fine(
-      'callback called when elapsed ${_stopwatch.elapsed}',
-    );
+    _logger.fine('callback called when elapsed ${_stopwatch.elapsed}');
     if (player.positionInBook >= _session.duration - markCompleteWhenTimeLeft) {
       _logger.info(
         'marking complete as time left is less than $markCompleteWhenTimeLeft',

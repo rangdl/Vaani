@@ -9,19 +9,13 @@ class PageSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }
 
 // a skeleton for the book cover
 class BookCoverSkeleton extends StatelessWidget {
-  const BookCoverSkeleton({
-    super.key,
-  });
+  const BookCoverSkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +24,13 @@ class BookCoverSkeleton extends StatelessWidget {
       child: SizedBox(
         width: 150,
         child: Shimmer.fromColors(
-          baseColor:
-              Theme.of(context).colorScheme.surface.withValues(alpha: 0.3),
-          highlightColor:
-              Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
-          child: Container(
-            color: Theme.of(context).colorScheme.surface,
-          ),
+          baseColor: Theme.of(
+            context,
+          ).colorScheme.surface.withValues(alpha: 0.3),
+          highlightColor: Theme.of(
+            context,
+          ).colorScheme.onSurface.withValues(alpha: 0.1),
+          child: Container(color: Theme.of(context).colorScheme.surface),
         ),
       ),
     );

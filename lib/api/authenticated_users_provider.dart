@@ -36,9 +36,7 @@ class AuthenticatedUsers extends _$AuthenticatedUsers {
   Set<model.AuthenticatedUser> readFromBoxOrCreate() {
     if (_box.isNotEmpty) {
       final foundData = _box.values.toList();
-      _logger.fine(
-        'found users in box: ${foundData.obfuscate()}',
-      );
+      _logger.fine('found users in box: ${foundData.obfuscate()}');
       return foundData.toSet();
     } else {
       _logger.fine('no settings found in box');
@@ -60,11 +58,9 @@ class AuthenticatedUsers extends _$AuthenticatedUsers {
     ref.invalidateSelf();
     if (setActive) {
       final apiSettings = ref.read(apiSettingsProvider);
-      ref.read(apiSettingsProvider.notifier).updateState(
-            apiSettings.copyWith(
-              activeUser: user,
-            ),
-          );
+      ref
+          .read(apiSettingsProvider.notifier)
+          .updateState(apiSettings.copyWith(activeUser: user));
     }
   }
 
@@ -87,11 +83,9 @@ class AuthenticatedUsers extends _$AuthenticatedUsers {
       // replace the active user with the first user in the list
       // or null if there are no users left
       final newActiveUser = state.isNotEmpty ? state.first : null;
-      ref.read(apiSettingsProvider.notifier).updateState(
-            apiSettings.copyWith(
-              activeUser: newActiveUser,
-            ),
-          );
+      ref
+          .read(apiSettingsProvider.notifier)
+          .updateState(apiSettings.copyWith(activeUser: newActiveUser));
     }
   }
 }

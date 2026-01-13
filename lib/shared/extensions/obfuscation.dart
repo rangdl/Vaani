@@ -79,9 +79,7 @@ extension ObfuscateServer on AudiobookShelfServer {
     if (!kReleaseMode) {
       return this;
     }
-    return copyWith(
-      serverUrl: serverUrl.obfuscate(),
-    );
+    return copyWith(serverUrl: serverUrl.obfuscate());
   }
 }
 
@@ -150,10 +148,7 @@ extension ObfuscateRequest on shelfsdk.ApiRequest {
     if (!kReleaseMode) {
       return this;
     }
-    return shelfsdk.ApiRequest(
-      method: method,
-      url: url,
-    );
+    return shelfsdk.ApiRequest(method: method, url: url);
   }
 }
 
@@ -181,9 +176,11 @@ extension ObfuscateResponse on shelfsdk.ApiResponse {
     // token regex is `"token": "..."`
     return body
         .replaceAll(
-          RegExp(r'(\b\w+@\w+\.\w+\b)|'
-              r'(\b\d{3}-\d{3}-\d{4}\b)|'
-              r'(\bhttps?://\S+\b)'),
+          RegExp(
+            r'(\b\w+@\w+\.\w+\b)|'
+            r'(\b\d{3}-\d{3}-\d{4}\b)|'
+            r'(\bhttps?://\S+\b)',
+          ),
           'obfuscated',
         )
         .replaceAll(
@@ -198,9 +195,7 @@ extension ObfuscateLoginResponse on shelfsdk.LoginResponse {
     if (!kReleaseMode) {
       return this;
     }
-    return copyWith(
-      user: user.obfuscate(),
-    );
+    return copyWith(user: user.obfuscate());
   }
 }
 
@@ -209,8 +204,6 @@ extension ObfuscateUser on shelfsdk.User {
     if (!kReleaseMode) {
       return this;
     }
-    return shelfsdk.User.fromJson(
-      toJson()..['token'] = 'tokenObfuscated',
-    );
+    return shelfsdk.User.fromJson(toJson()..['token'] = 'tokenObfuscated');
   }
 }

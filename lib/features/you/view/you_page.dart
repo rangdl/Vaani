@@ -13,9 +13,7 @@ import 'package:vaani/shared/widgets/not_implemented.dart';
 import 'package:vaani/shared/widgets/vaani_logo.dart';
 
 class YouPage extends HookConsumerWidget {
-  const YouPage({
-    super.key,
-  });
+  const YouPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -89,8 +87,9 @@ class YouPage extends HookConsumerWidget {
                             // Maybe show error details or allow retry
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content:
-                                    Text('Failed to load libraries: $error'),
+                                content: Text(
+                                  'Failed to load libraries: $error',
+                                ),
                               ),
                             );
                           },
@@ -160,9 +159,7 @@ class YouPage extends HookConsumerWidget {
                         Theme.of(context).colorScheme.primary,
                         BlendMode.srcIn,
                       ),
-                      child: const VaaniLogo(
-                        size: 48,
-                      ),
+                      child: const VaaniLogo(size: 48),
                     ),
                   ),
                 ],
@@ -177,9 +174,7 @@ class YouPage extends HookConsumerWidget {
 }
 
 class UserBar extends HookConsumerWidget {
-  const UserBar({
-    super.key,
-  });
+  const UserBar({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -218,8 +213,9 @@ class UserBar extends HookConsumerWidget {
                 Text(
                   api.baseUrl.toString(),
                   style: textTheme.bodyMedium?.copyWith(
-                    color:
-                        themeData.colorScheme.onSurface.withValues(alpha: 0.6),
+                    color: themeData.colorScheme.onSurface.withValues(
+                      alpha: 0.6,
+                    ),
                   ),
                 ),
               ],

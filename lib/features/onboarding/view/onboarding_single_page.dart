@@ -11,9 +11,7 @@ import 'package:vaani/shared/utils.dart';
 import 'package:vaani/shared/widgets/add_new_server.dart';
 
 class OnboardingSinglePage extends HookConsumerWidget {
-  const OnboardingSinglePage({
-    super.key,
-  });
+  const OnboardingSinglePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,8 +23,9 @@ class OnboardingSinglePage extends HookConsumerWidget {
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   maxWidth: 600,
-                  minWidth:
-                      constraints.maxWidth < 600 ? constraints.maxWidth : 0,
+                  minWidth: constraints.maxWidth < 600
+                      ? constraints.maxWidth
+                      : 0,
                 ),
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -41,10 +40,7 @@ class OnboardingSinglePage extends HookConsumerWidget {
   }
 }
 
-Widget fadeSlideTransitionBuilder(
-  Widget child,
-  Animation<double> animation,
-) {
+Widget fadeSlideTransitionBuilder(Widget child, Animation<double> animation) {
   return FadeTransition(
     opacity: animation,
     child: SlideTransition(
@@ -58,9 +54,7 @@ Widget fadeSlideTransitionBuilder(
 }
 
 class OnboardingBody extends HookConsumerWidget {
-  const OnboardingBody({
-    super.key,
-  });
+  const OnboardingBody({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -83,9 +77,7 @@ class OnboardingBody extends HookConsumerWidget {
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),
-        const SizedBox.square(
-          dimension: 16.0,
-        ),
+        const SizedBox.square(dimension: 16.0),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: AnimatedSwitcher(
@@ -114,21 +106,17 @@ class OnboardingBody extends HookConsumerWidget {
             },
           ),
         ),
-        const SizedBox.square(
-          dimension: 16.0,
-        ),
+        const SizedBox.square(dimension: 16.0),
         AnimatedSwitcher(
           duration: 500.ms,
           transitionBuilder: fadeSlideTransitionBuilder,
           child: canUserLogin.value
-              ? UserLoginWidget(
-                  server: audiobookshelfUri,
-                )
+              ? UserLoginWidget(server: audiobookshelfUri)
               // ).animate().fade(duration: 600.ms).slideY(begin: 0.3, end: 0)
               : const RedirectToABS().animate().fadeIn().slideY(
-                    curve: Curves.easeInOut,
-                    duration: 500.ms,
-                  ),
+                  curve: Curves.easeInOut,
+                  duration: 500.ms,
+                ),
         ),
       ],
     );
@@ -136,9 +124,7 @@ class OnboardingBody extends HookConsumerWidget {
 }
 
 class RedirectToABS extends StatelessWidget {
-  const RedirectToABS({
-    super.key,
-  });
+  const RedirectToABS({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -154,18 +140,14 @@ class RedirectToABS extends StatelessWidget {
             isSemanticButton: false,
             style: ButtonStyle(
               elevation: WidgetStateProperty.all(0),
-              padding: WidgetStateProperty.all(
-                const EdgeInsets.all(0),
-              ),
+              padding: WidgetStateProperty.all(const EdgeInsets.all(0)),
             ),
             onPressed: () async {
               // open the github page
               // ignore: avoid_print
               // print('Opening the github page');
               await handleLaunchUrl(
-                Uri.parse(
-                  'https://www.audiobookshelf.org',
-                ),
+                Uri.parse('https://www.audiobookshelf.org'),
               );
             },
             child: Text(S.of(context).loginServerClick),

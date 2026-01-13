@@ -12,39 +12,30 @@ void useInterval(VoidCallback callback, Duration delay) {
   final savedCallback = useRef(callback);
   savedCallback.value = callback;
 
-  useEffect(
-    () {
-      final timer = Timer.periodic(delay, (_) => savedCallback.value());
-      return timer.cancel;
-    },
-    [delay],
-  );
+  useEffect(() {
+    final timer = Timer.periodic(delay, (_) => savedCallback.value());
+    return timer.cancel;
+  }, [delay]);
 }
 
 void useTimer(VoidCallback callback, Duration delay) {
   final savedCallback = useRef(callback);
   savedCallback.value = callback;
 
-  useEffect(
-    () {
-      final timer = Timer(delay, savedCallback.value);
-      return timer.cancel;
-    },
-    [delay],
-  );
+  useEffect(() {
+    final timer = Timer(delay, savedCallback.value);
+    return timer.cancel;
+  }, [delay]);
 }
 
 void useLayoutEffect(VoidCallback callback) {
   final savedCallback = useRef(callback);
   savedCallback.value = callback;
 
-  useEffect(
-    () {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        savedCallback.value();
-      });
-      return null;
-    },
-    [],
-  );
+  useEffect(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      savedCallback.value();
+    });
+    return null;
+  }, []);
 }

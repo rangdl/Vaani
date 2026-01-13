@@ -13,9 +13,7 @@ import 'package:vaani/shared/extensions/duration_format.dart'
 import 'package:vaani/shared/hooks.dart' show useLayoutEffect;
 
 class ChapterSelectionButton extends HookConsumerWidget {
-  const ChapterSelectionButton({
-    super.key,
-  });
+  const ChapterSelectionButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,10 +45,7 @@ class ChapterSelectionButton extends HookConsumerWidget {
 }
 
 class ChapterSelectionModal extends HookConsumerWidget {
-  const ChapterSelectionModal({
-    super.key,
-    this.back = true,
-  });
+  const ChapterSelectionModal({super.key, this.back = true});
   final bool back;
 
   @override
@@ -99,8 +94,9 @@ class ChapterSelectionModal extends HookConsumerWidget {
                     : null,
                 child: ListTile(
                   // autofocus: isCurrent,
-                  iconColor:
-                      isPlayed && !isCurrent ? theme.disabledColor : null,
+                  iconColor: isPlayed && !isCurrent
+                      ? theme.disabledColor
+                      : null,
                   title: Text(
                     chapter.title,
                     style: isPlayed && !isCurrent

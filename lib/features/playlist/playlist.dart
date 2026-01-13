@@ -62,8 +62,8 @@ class AudiobookPlaylist {
     this.books = const [],
     currentIndex = 0,
     subCurrentIndex = 0,
-  })  : _currentIndex = currentIndex,
-        _subCurrentIndex = subCurrentIndex;
+  }) : _currentIndex = currentIndex,
+       _subCurrentIndex = subCurrentIndex;
 
   // most important method, gets the audio file to play
   // this is needed as a library item is a list of audio files

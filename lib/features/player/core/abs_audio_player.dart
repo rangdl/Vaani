@@ -68,20 +68,21 @@ class AbsAudioPlayer {
     final positionInTrack = initialPosition != null
         ? initialPosition - currentTrack.startOffset
         : null;
-    chapterStreamController
-        .add(book.findChapterAtTime(initialPosition ?? Duration.zero));
+    chapterStreamController.add(
+      book.findChapterAtTime(initialPosition ?? Duration.zero),
+    );
     final title = primaryTitle();
     final artist = secondaryTitle();
 
     mediaItem(track) => MediaItem(
-          id: book.libraryItemId + track.index.toString(),
-          title: title,
-          artist: artist,
-          duration: currentChapter?.duration ?? book.duration,
-          artUri: Uri.parse(
-            '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token',
-          ),
-        );
+      id: book.libraryItemId + track.index.toString(),
+      title: title,
+      artist: artist,
+      duration: currentChapter?.duration ?? book.duration,
+      artUri: Uri.parse(
+        '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token',
+      ),
+    );
     if (start != null && start > Duration.zero ||
         end != null && end > Duration.zero) {
       _logger.info(
@@ -89,45 +90,51 @@ class AbsAudioPlayer {
       );
     }
 
-    List<AudioSource> audioSources = start != null && start > Duration.zero ||
+    List<AudioSource> audioSources =
+        start != null && start > Duration.zero ||
             end != null && end > Duration.zero
         ? book.tracks
-            .map(
-              (track) => ClippingAudioSource(
-                child: AudioSource.uri(
+              .map(
+                (track) => ClippingAudioSource(
+                  child: AudioSource.uri(
+                    _getUri(
+                      track,
+                      downloadedUris,
+                      baseUrl: baseUrl,
+                      token: token,
+                    ),
+                  ),
+                  start: start,
+                  end: end == null ? null : track.duration - end,
+                  tag: mediaItem(track),
+                ),
+              )
+              .toList()
+        : book.tracks
+              .map(
+                (track) => AudioSource.uri(
                   _getUri(
                     track,
                     downloadedUris,
                     baseUrl: baseUrl,
                     token: token,
                   ),
+                  tag: mediaItem(track),
                 ),
-                start: start,
-                end: end == null ? null : track.duration - end,
-                tag: mediaItem(track),
-              ),
-            )
-            .toList()
-        : book.tracks
-            .map(
-              (track) => AudioSource.uri(
-                _getUri(track, downloadedUris, baseUrl: baseUrl, token: token),
-                tag: mediaItem(track),
-              ),
-            )
-            .toList();
+              )
+              .toList();
 
     await _player
         .setAudioSources(
-      audioSources,
-      preload: true,
-      initialIndex: indexTrack,
-      initialPosition: positionInTrack,
-    )
+          audioSources,
+          preload: true,
+          initialIndex: indexTrack,
+          initialPosition: positionInTrack,
+        )
         .catchError((error) {
-      _logger.shout('Error in setting audio source: $error');
-      return null;
-    });
+          _logger.shout('Error in setting audio source: $error');
+          return null;
+        });
   }
 
   Future<void> play() async {
@@ -237,8 +244,8 @@ class AbsAudioPlayer {
       });
 
   Stream<Duration> get positionInBookStream => positionStream.map((position) {
-        return positionInBook;
-      });
+    return positionInBook;
+  });
 
   Duration get bufferedPosition => _player.bufferedPosition;
   Stream<Duration> get bufferedPositionStream => _player.bufferedPositionStream;
@@ -297,11 +304,9 @@ Uri _getUri(
   required String token,
 }) {
   // check if the track is in the downloadedUris
-  final uri = downloadedUris?.firstWhereOrNull(
-    (element) {
-      return element.pathSegments.last == track.metadata?.filename;
-    },
-  );
+  final uri = downloadedUris?.firstWhereOrNull((element) {
+    return element.pathSegments.last == track.metadata?.filename;
+  });
 
   return uri ??
       Uri.parse('${baseUrl.toString()}${track.contentUrl}?token=$token');
@@ -315,22 +320,16 @@ extension _ValueStreamExtension<T> on ValueStream<T> {
 
 extension BookExpandedExtension on BookExpanded {
   BookChapter findChapterAtTime(Duration position) {
-    return chapters.firstWhere(
-      (element) {
-        return element.start <= position && element.end >= position + offset;
-      },
-      orElse: () => chapters.first,
-    );
+    return chapters.firstWhere((element) {
+      return element.start <= position && element.end >= position + offset;
+    }, orElse: () => chapters.first);
   }
 
   AudioTrack findTrackAtTime(Duration position) {
-    return tracks.firstWhere(
-      (element) {
-        return element.startOffset <= position &&
-            element.startOffset + element.duration >= position + offset;
-      },
-      orElse: () => tracks.first,
-    );
+    return tracks.firstWhere((element) {
+      return element.startOffset <= position &&
+          element.startOffset + element.duration >= position + offset;
+    }, orElse: () => tracks.first);
   }
 
   int findTrackIndexAtTime(Duration position) {
@@ -347,17 +346,14 @@ extension BookExpandedExtension on BookExpanded {
 
 extension FormatNotificationTitle on String {
   String formatNotificationTitle(BookExpanded book, {BookChapter? chapter}) {
-    return replaceAllMapped(
-      RegExp(r'\$(\w+)'),
-      (match) {
-        final type = match.group(1);
-        return NotificationTitleType.values
-                .firstWhere((element) => element.name == type)
-                .extractFrom(book, chapter: chapter) ??
-            match.group(0) ??
-            '';
-      },
-    );
+    return replaceAllMapped(RegExp(r'\$(\w+)'), (match) {
+      final type = match.group(1);
+      return NotificationTitleType.values
+              .firstWhere((element) => element.name == type)
+              .extractFrom(book, chapter: chapter) ??
+          match.group(0) ??
+          '';
+    });
   }
 }
 

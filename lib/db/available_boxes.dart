@@ -27,11 +27,14 @@ class HiveBoxes {
     basicBox = await Hive.openBox('basicTypes');
     userPrefsBox = await Hive.openBox<AppSettings>('userPrefs');
     apiSettingsBox = await Hive.openBox<ApiSettings>('apiSettings');
-    serverBox =
-        await Hive.openBox<AudiobookShelfServer>('audiobookShelfServer');
-    authenticatedUserBox =
-        await Hive.openBox<AuthenticatedUser>('authenticatedUser');
-    individualBookSettingsBox =
-        await Hive.openBox<BookSettings>('bookSettings');
+    serverBox = await Hive.openBox<AudiobookShelfServer>(
+      'audiobookShelfServer',
+    );
+    authenticatedUserBox = await Hive.openBox<AuthenticatedUser>(
+      'authenticatedUser',
+    );
+    individualBookSettingsBox = await Hive.openBox<BookSettings>(
+      'bookSettings',
+    );
   }
 }

@@ -16,9 +16,7 @@ import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/widgets/custom_dropdown.dart';
 
 class AppSettingsPage extends HookConsumerWidget {
-  const AppSettingsPage({
-    super.key,
-  });
+  const AppSettingsPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appSettings = ref.watch(appSettingsProvider);
@@ -47,12 +45,9 @@ class AppSettingsPage extends HookConsumerWidget {
                   return locale.languageCode;
                 }).toList(),
                 itemAsString: (item) => locales[item] ?? 'unknown',
-                onChanged: (value) async =>
-                    ref.read(appSettingsProvider.notifier).update(
-                          appSettings.copyWith(
-                            language: value!,
-                          ),
-                        ),
+                onChanged: (value) async => ref
+                    .read(appSettingsProvider.notifier)
+                    .update(appSettings.copyWith(language: value!)),
               ),
               // trailing: DropdownButton(
               //   value: appSettings.language,
@@ -99,7 +94,9 @@ class AppSettingsPage extends HookConsumerWidget {
               },
               value: sleepTimerSettings.autoTurnOnTimer,
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.sleepTimerSettings(
                         autoTurnOnTimer: value,
                       ),
@@ -109,15 +106,15 @@ class AppSettingsPage extends HookConsumerWidget {
             NavigationWithSwitchTile(
               title: Text(S.of(context).shakeDetector),
               leading: const Icon(Icons.vibration),
-              description: Text(
-                S.of(context).shakeDetectorDescription,
-              ),
+              description: Text(S.of(context).shakeDetectorDescription),
               value: appSettings.shakeDetectionSettings.isEnabled,
               onPressed: (context) {
                 context.pushNamed(Routes.shakeDetectorSettings.name);
               },
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.shakeDetectionSettings(
                         isEnabled: value,
                       ),
@@ -149,8 +146,9 @@ class AppSettingsPage extends HookConsumerWidget {
             SettingsTile(
               title: Text(S.of(context).notificationMediaPlayer),
               leading: const Icon(Icons.play_lesson),
-              description:
-                  Text(S.of(context).notificationMediaPlayerDescription),
+              description: Text(
+                S.of(context).notificationMediaPlayerDescription,
+              ),
               onPressed: (context) {
                 context.pushNamed(Routes.notificationSettings.name);
               },
@@ -180,21 +178,15 @@ class AppSettingsPage extends HookConsumerWidget {
             SettingsTile(
               title: Text(S.of(context).copyToClipboard),
               leading: const Icon(Icons.copy),
-              description: Text(
-                S.of(context).copyToClipboardDescription,
-              ),
+              description: Text(S.of(context).copyToClipboardDescription),
               onPressed: (context) async {
                 // copy to clipboard
                 await Clipboard.setData(
-                  ClipboardData(
-                    text: jsonEncode(appSettings.toJson()),
-                  ),
+                  ClipboardData(text: jsonEncode(appSettings.toJson())),
                 );
                 // show toast
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(S.of(context).copyToClipboardToast),
-                  ),
+                  SnackBar(content: Text(S.of(context).copyToClipboardToast)),
                 );
               },
             ),
@@ -258,9 +250,7 @@ class AppSettingsPage extends HookConsumerWidget {
 }
 
 class RestoreDialogue extends HookConsumerWidget {
-  const RestoreDialogue({
-    super.key,
-  });
+  const RestoreDialogue({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -291,9 +281,7 @@ class RestoreDialogue extends HookConsumerWidget {
             }
             try {
               // try to decode the backup
-              settings.value = model.AppSettings.fromJson(
-                jsonDecode(value),
-              );
+              settings.value = model.AppSettings.fromJson(jsonDecode(value));
             } catch (e) {
               return S.of(context).restoreBackupInvalid;
             }
@@ -308,9 +296,7 @@ class RestoreDialogue extends HookConsumerWidget {
             if (formKey.currentState!.validate()) {
               if (settings.value == null) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(S.of(context).restoreBackupInvalid),
-                  ),
+                  SnackBar(content: Text(S.of(context).restoreBackupInvalid)),
                 );
                 return;
               }
@@ -318,15 +304,11 @@ class RestoreDialogue extends HookConsumerWidget {
               settingsInputController.clear();
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(S.of(context).restoreBackupSuccess),
-                ),
+                SnackBar(content: Text(S.of(context).restoreBackupSuccess)),
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(S.of(context).restoreBackupInvalid),
-                ),
+                SnackBar(content: Text(S.of(context).restoreBackupInvalid)),
               );
             }
           },

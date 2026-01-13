@@ -44,10 +44,7 @@ class NavigationWithSwitchTile extends AbstractSettingsTile {
               indent: 8.0,
               endIndent: 8.0,
             ),
-            Switch.adaptive(
-              value: value,
-              onChanged: onToggle,
-            ),
+            Switch.adaptive(value: value, onChanged: onToggle),
           ],
         ),
       ),

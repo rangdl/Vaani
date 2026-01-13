@@ -19,11 +19,8 @@ class Image {
   String? imagePath;
   DateTime lastSaved;
 
-  Image({
-    required this.id,
-    this.thumbnailPath,
-    this.imagePath,
-  }) : lastSaved = DateTime.now();
+  Image({required this.id, this.thumbnailPath, this.imagePath})
+    : lastSaved = DateTime.now();
 
   /// returns the path to the image
   String? get path => thumbnailPath ?? imagePath;

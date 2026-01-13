@@ -71,17 +71,13 @@ class AudiobookDownloadManager {
 
   late StreamSubscription<TaskUpdate> _updatesSubscription;
 
-  Future<void> queueAudioBookDownload(
-    LibraryItemExpanded item,
-  ) async {
+  Future<void> queueAudioBookDownload(LibraryItemExpanded item) async {
     _logger.info('queuing download for item: ${item.id}');
     // create a download task for each file in the item
     // for (final file in item.libraryFiles) {
     for (final file in item.media.asBookExpanded.audioFiles) {
       // check if the file is already downloaded
-      if (isFileDownloaded(
-        constructFilePath(item, file),
-      )) {
+      if (isFileDownloaded(constructFilePath(item, file))) {
         _logger.info('file already downloaded: ${file.metadata.filename}');
         continue;
       }
@@ -105,10 +101,7 @@ class AudiobookDownloadManager {
     }
   }
 
-  String constructFilePath(
-    LibraryItemExpanded item,
-    AudioFile file,
-  ) =>
+  String constructFilePath(LibraryItemExpanded item, AudioFile file) =>
       '$basePath/${item.relPath}/${file.metadata.filename}';
 
   void dispose() {
@@ -217,10 +210,10 @@ class AudiobookDownloadManager {
   }
 
   String get basePath => switch (baseDirectory) {
-        BaseDirectory.applicationSupport => appSupportDir.path,
-        BaseDirectory.applicationDocuments => appDocumentsDir.path,
-        _ => path,
-      };
+    BaseDirectory.applicationSupport => appSupportDir.path,
+    BaseDirectory.applicationDocuments => appDocumentsDir.path,
+    _ => path,
+  };
 
   BaseDirectory get baseDirectory {
     if (path.isNotEmpty) {

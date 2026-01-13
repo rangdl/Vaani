@@ -13,9 +13,7 @@ import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 
 class DownloadSettingsPage extends HookConsumerWidget {
-  const DownloadSettingsPage({
-    super.key,
-  });
+  const DownloadSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,16 +35,16 @@ class DownloadSettingsPage extends HookConsumerWidget {
               SettingsTile(
                 title: Text('下载目录'),
                 leading: const Icon(Icons.folder_open_rounded),
-                description: Text(
-                  '自定义下载目录',
-                ),
+                description: Text('自定义下载目录'),
                 trailing: Text(downloadSettings.path),
                 onPressed: (context) async {
-                  String? selectedDirectory =
-                      await FilePicker.platform.getDirectoryPath();
+                  String? selectedDirectory = await FilePicker.platform
+                      .getDirectoryPath();
                   appLogger.info(selectedDirectory);
                   if (selectedDirectory != null) {
-                    ref.read(appSettingsProvider.notifier).update(
+                    ref
+                        .read(appSettingsProvider.notifier)
+                        .update(
                           appSettings.copyWith.downloadSettings(
                             path: selectedDirectory,
                           ),
@@ -119,17 +117,15 @@ class TimeDurationSelector extends HookConsumerWidget {
 }
 
 class SpeedPicker extends HookConsumerWidget {
-  const SpeedPicker({
-    super.key,
-    this.initialValue = 1,
-  });
+  const SpeedPicker({super.key, this.initialValue = 1});
 
   final double initialValue;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final speedController =
-        useTextEditingController(text: initialValue.toString());
+    final speedController = useTextEditingController(
+      text: initialValue.toString(),
+    );
     final speed = useState<double?>(initialValue);
     return AlertDialog(
       title: Text(S.of(context).playerSettingsSpeedSelect),
@@ -179,30 +175,32 @@ class SpeedOptionsPicker extends HookConsumerWidget {
           Wrap(
             spacing: 8.0,
             runSpacing: 8.0,
-            children: speedOptions.value
-                .map(
-                  (speed) => Chip(
-                    label: Text('${speed}x'),
-                    onDeleted: speed == 1
-                        ? null
-                        : () {
-                            speedOptions.value =
-                                speedOptions.value.where((element) {
-                              // speed option 1 can't be removed
-                              return element != speed;
-                            }).toList();
-                          },
-                  ),
-                )
-                .toList()
-              ..sort((a, b) {
-                // if (a.label == const Text('1x')) {
-                //   return -1;
-                // } else if (b.label == const Text('1x')) {
-                //   return 1;
-                // }
-                return a.label.toString().compareTo(b.label.toString());
-              }),
+            children:
+                speedOptions.value
+                    .map(
+                      (speed) => Chip(
+                        label: Text('${speed}x'),
+                        onDeleted: speed == 1
+                            ? null
+                            : () {
+                                speedOptions.value = speedOptions.value.where((
+                                  element,
+                                ) {
+                                  // speed option 1 can't be removed
+                                  return element != speed;
+                                }).toList();
+                              },
+                      ),
+                    )
+                    .toList()
+                  ..sort((a, b) {
+                    // if (a.label == const Text('1x')) {
+                    //   return -1;
+                    // } else if (b.label == const Text('1x')) {
+                    //   return 1;
+                    // }
+                    return a.label.toString().compareTo(b.label.toString());
+                  }),
           ),
           TextField(
             focusNode: focusNode,
@@ -219,8 +217,9 @@ class SpeedOptionsPicker extends HookConsumerWidget {
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               labelText: S.of(context).playerSettingsSpeedOptionsSelectAdd,
-              helper:
-                  Text(S.of(context).playerSettingsSpeedOptionsSelectAddHelper),
+              helper: Text(
+                S.of(context).playerSettingsSpeedOptionsSelectAddHelper,
+              ),
             ),
           ),
         ],

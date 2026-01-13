@@ -24,11 +24,7 @@ import 'package:vaani/features/settings/api_settings_provider.dart'
 import 'package:vaani/features/settings/models/models.dart' as model;
 
 class UserLoginWidget extends HookConsumerWidget {
-  const UserLoginWidget({
-    super.key,
-    required this.server,
-    this.onSuccess,
-  });
+  const UserLoginWidget({super.key, required this.server, this.onSuccess});
 
   final Uri server;
   final Function(model.AuthenticatedUser)? onSuccess;
@@ -36,8 +32,9 @@ class UserLoginWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final serverStatusError = useMemoized(() => ErrorResponseHandler(), []);
-    final serverStatus =
-        ref.watch(serverStatusProvider(server, serverStatusError.storeError));
+    final serverStatus = ref.watch(
+      serverStatusProvider(server, serverStatusError.storeError),
+    );
 
     return serverStatus.when(
       data: (value) {
@@ -57,9 +54,7 @@ class UserLoginWidget extends HookConsumerWidget {
         );
       },
       loading: () {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const Center(child: CircularProgressIndicator());
       },
       error: (error, _) {
         return Center(
@@ -70,10 +65,7 @@ class UserLoginWidget extends HookConsumerWidget {
               ElevatedButton(
                 onPressed: () {
                   ref.invalidate(
-                    serverStatusProvider(
-                      server,
-                      serverStatusError.storeError,
-                    ),
+                    serverStatusProvider(server, serverStatusError.storeError),
                   );
                 },
                 child: Text(S.of(context).retry),
@@ -86,11 +78,7 @@ class UserLoginWidget extends HookConsumerWidget {
   }
 }
 
-enum AuthMethodChoice {
-  local,
-  openid,
-  authToken,
-}
+enum AuthMethodChoice { local, openid, authToken }
 
 class UserLoginMultipleAuth extends HookConsumerWidget {
   const UserLoginMultipleAuth({
@@ -119,21 +107,17 @@ class UserLoginMultipleAuth extends HookConsumerWidget {
     );
 
     model.AudiobookShelfServer addServer() {
-      var newServer = model.AudiobookShelfServer(
-        serverUrl: server,
-      );
+      var newServer = model.AudiobookShelfServer(serverUrl: server);
       try {
         // add the server to the list of servers
-        ref.read(audiobookShelfServerProvider.notifier).addServer(
-              newServer,
-            );
+        ref.read(audiobookShelfServerProvider.notifier).addServer(newServer);
       } on ServerAlreadyExistsException catch (e) {
         newServer = e.server;
       } finally {
-        ref.read(apiSettingsProvider.notifier).updateState(
-              ref.read(apiSettingsProvider).copyWith(
-                    activeServer: newServer,
-                  ),
+        ref
+            .read(apiSettingsProvider.notifier)
+            .updateState(
+              ref.read(apiSettingsProvider).copyWith(activeServer: newServer),
             );
       }
       return newServer;
@@ -152,42 +136,49 @@ class UserLoginMultipleAuth extends HookConsumerWidget {
                   runAlignment: WrapAlignment.center,
                   runSpacing: 10,
                   alignment: WrapAlignment.center,
-                  children: [
-                    // a small label to show the user what to do
-                    if (localAvailable)
-                      ChoiceChip(
-                        label: Text(S.of(context).loginLocal),
-                        selected: methodChoice.value == AuthMethodChoice.local,
-                        onSelected: (selected) {
-                          if (selected) {
-                            methodChoice.value = AuthMethodChoice.local;
-                          }
-                        },
-                      ),
-                    if (openIDAvailable)
-                      ChoiceChip(
-                        label: Text(S.of(context).loginOpenID),
-                        selected: methodChoice.value == AuthMethodChoice.openid,
-                        onSelected: (selected) {
-                          if (selected) {
-                            methodChoice.value = AuthMethodChoice.openid;
-                          }
-                        },
-                      ),
-                    ChoiceChip(
-                      label: Text(S.of(context).loginToken),
-                      selected:
-                          methodChoice.value == AuthMethodChoice.authToken,
-                      onSelected: (selected) {
-                        if (selected) {
-                          methodChoice.value = AuthMethodChoice.authToken;
-                        }
-                      },
-                    ),
-                  ].animate(interval: 100.ms).fadeIn(
-                        duration: 150.ms,
-                        curve: Curves.easeIn,
-                      ),
+                  children:
+                      [
+                            // a small label to show the user what to do
+                            if (localAvailable)
+                              ChoiceChip(
+                                label: Text(S.of(context).loginLocal),
+                                selected:
+                                    methodChoice.value ==
+                                    AuthMethodChoice.local,
+                                onSelected: (selected) {
+                                  if (selected) {
+                                    methodChoice.value = AuthMethodChoice.local;
+                                  }
+                                },
+                              ),
+                            if (openIDAvailable)
+                              ChoiceChip(
+                                label: Text(S.of(context).loginOpenID),
+                                selected:
+                                    methodChoice.value ==
+                                    AuthMethodChoice.openid,
+                                onSelected: (selected) {
+                                  if (selected) {
+                                    methodChoice.value =
+                                        AuthMethodChoice.openid;
+                                  }
+                                },
+                              ),
+                            ChoiceChip(
+                              label: Text(S.of(context).loginToken),
+                              selected:
+                                  methodChoice.value ==
+                                  AuthMethodChoice.authToken,
+                              onSelected: (selected) {
+                                if (selected) {
+                                  methodChoice.value =
+                                      AuthMethodChoice.authToken;
+                                }
+                              },
+                            ),
+                          ]
+                          .animate(interval: 100.ms)
+                          .fadeIn(duration: 150.ms, curve: Curves.easeIn),
                 ),
               ),
               Padding(
@@ -197,21 +188,21 @@ class UserLoginMultipleAuth extends HookConsumerWidget {
                   transitionBuilder: fadeSlideTransitionBuilder,
                   child: switch (methodChoice.value) {
                     AuthMethodChoice.authToken => UserLoginWithToken(
-                        server: server,
-                        addServer: addServer,
-                        onSuccess: onSuccess,
-                      ),
+                      server: server,
+                      addServer: addServer,
+                      onSuccess: onSuccess,
+                    ),
                     AuthMethodChoice.local => UserLoginWithPassword(
-                        server: server,
-                        addServer: addServer,
-                        onSuccess: onSuccess,
-                      ),
+                      server: server,
+                      addServer: addServer,
+                      onSuccess: onSuccess,
+                    ),
                     AuthMethodChoice.openid => UserLoginWithOpenID(
-                        server: server,
-                        addServer: addServer,
-                        openIDButtonText: openIDButtonText,
-                        onSuccess: onSuccess,
-                      ),
+                      server: server,
+                      addServer: addServer,
+                      openIDButtonText: openIDButtonText,
+                      onSuccess: onSuccess,
+                    ),
                   },
                 ),
               ),

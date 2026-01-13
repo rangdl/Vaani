@@ -5,13 +5,7 @@ import 'package:vaani/features/explore/providers/search_result_provider.dart';
 import 'package:vaani/features/explore/view/explore_page.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 
-enum SearchResultCategory {
-  books,
-  authors,
-  series,
-  tags,
-  narrators,
-}
+enum SearchResultCategory { books, authors, series, tags, narrators }
 
 class SearchResultPage extends HookConsumerWidget {
   const SearchResultPage({
@@ -41,9 +35,7 @@ class SearchResultPage extends HookConsumerWidget {
       body: results.when(
         data: (options) {
           if (options == null) {
-            return Container(
-              child: const Text('No data found'),
-            );
+            return Container(child: const Text('No data found'));
           }
           if (options is BookLibrarySearchResponse) {
             if (category == null) {
@@ -51,18 +43,15 @@ class SearchResultPage extends HookConsumerWidget {
             }
             return switch (category!) {
               SearchResultCategory.books => ListView.builder(
-                  itemCount: options.book.length,
-                  itemBuilder: (context, index) {
-                    final book =
-                        options.book[index].libraryItem.media.asBookExpanded;
-                    final metadata = book.metadata.asBookMetadataExpanded;
+                itemCount: options.book.length,
+                itemBuilder: (context, index) {
+                  final book =
+                      options.book[index].libraryItem.media.asBookExpanded;
+                  final metadata = book.metadata.asBookMetadataExpanded;
 
-                    return BookSearchResultMini(
-                      book: book,
-                      metadata: metadata,
-                    );
-                  },
-                ),
+                  return BookSearchResultMini(book: book, metadata: metadata);
+                },
+              ),
               SearchResultCategory.authors => Container(),
               SearchResultCategory.series => Container(),
               SearchResultCategory.tags => Container(),
@@ -71,12 +60,8 @@ class SearchResultPage extends HookConsumerWidget {
           }
           return null;
         },
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        error: (error, stackTrace) => Center(
-          child: Text('Error: $error'),
-        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) => Center(child: Text('Error: $error')),
       ),
     );
   }

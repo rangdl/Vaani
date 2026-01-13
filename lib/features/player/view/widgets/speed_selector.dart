@@ -10,10 +10,7 @@ import 'package:vaani/features/settings/app_settings_provider.dart';
 const double itemExtent = 25;
 
 class SpeedSelector extends HookConsumerWidget {
-  const SpeedSelector({
-    super.key,
-    required this.onSpeedSelected,
-  });
+  const SpeedSelector({super.key, required this.onSpeedSelected});
 
   final void Function(double speed) onSpeedSelected;
 
@@ -26,36 +23,24 @@ class SpeedSelector extends HookConsumerWidget {
     final speedState = useState(currentSpeed);
 
     // hook the onSpeedSelected function to the state
-    useEffect(
-      () {
-        Future.microtask(() {
-          onSpeedSelected(speedState.value);
-        });
-        return null;
-      },
-      [speedState.value],
-    );
+    useEffect(() {
+      Future.microtask(() {
+        onSpeedSelected(speedState.value);
+      });
+      return null;
+    }, [speedState.value]);
 
     // the speed options
-    final minSpeed = min(
-      speeds.reduce(min),
-      playerSettings.minSpeed,
-    );
-    final maxSpeed = max(
-      speeds.reduce(max),
-      playerSettings.maxSpeed,
-    );
+    final minSpeed = min(speeds.reduce(min), playerSettings.minSpeed);
+    final maxSpeed = max(speeds.reduce(max), playerSettings.maxSpeed);
     final speedIncrement = playerSettings.speedIncrement;
     final availableSpeeds = ((maxSpeed - minSpeed) / speedIncrement).ceil() + 1;
-    final availableSpeedsList = List.generate(
-      availableSpeeds,
-      (index) {
-        // need to round to 2 decimal place to avoid floating point errors
-        return double.parse(
-          (minSpeed + index * speedIncrement).toStringAsFixed(2),
-        );
-      },
-    );
+    final availableSpeedsList = List.generate(availableSpeeds, (index) {
+      // need to round to 2 decimal place to avoid floating point errors
+      return double.parse(
+        (minSpeed + index * speedIncrement).toStringAsFixed(2),
+      );
+    });
 
     final scrollController = useFixedExtentScrollController(
       initialItem: availableSpeedsList.indexOf(currentSpeed),
@@ -109,18 +94,19 @@ class SpeedSelector extends HookConsumerWidget {
                   (speed) => TextButton(
                     style: speed == speedState.value
                         ? TextButton.styleFrom(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primaryContainer,
-                            foregroundColor: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer,
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.primaryContainer,
+                            foregroundColor: Theme.of(
+                              context,
+                            ).colorScheme.onPrimaryContainer,
                           )
                         // border if not selected
                         : TextButton.styleFrom(
                             side: BorderSide(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primaryContainer,
                             ),
                           ),
                     onPressed: () async {
@@ -197,14 +183,13 @@ class SpeedWheel extends StatelessWidget {
             controller: scrollController,
             scrollDirection: Axis.horizontal,
             itemExtent: itemExtent,
-            diameterRatio: 1.5, squeeze: 1.2,
+            diameterRatio: 1.5,
+            squeeze: 1.2,
             // useMagnifier: true,
             // magnification: 1.5,
             physics: const FixedExtentScrollPhysics(),
             children: availableSpeedsList
-                .map(
-                  (speed) => SpeedLine(speed: speed),
-                )
+                .map((speed) => SpeedLine(speed: speed))
                 .toList(),
             onSelectedItemChanged: (index) {
               speedState.value = availableSpeedsList[index];
@@ -234,10 +219,7 @@ class SpeedWheel extends StatelessWidget {
 }
 
 class SpeedLine extends StatelessWidget {
-  const SpeedLine({
-    super.key,
-    required this.speed,
-  });
+  const SpeedLine({super.key, required this.speed});
 
   final double speed;
 
@@ -252,8 +234,8 @@ class SpeedLine extends StatelessWidget {
             width: speed % 0.5 == 0
                 ? 3
                 : speed % 0.25 == 0
-                    ? 2
-                    : 0.5,
+                ? 2
+                : 0.5,
             color: Theme.of(context).colorScheme.onSurface,
           ),
         ),

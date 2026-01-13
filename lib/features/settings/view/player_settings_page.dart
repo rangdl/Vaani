@@ -12,9 +12,7 @@ import 'package:vaani/shared/extensions/duration_format.dart';
 import 'package:vaani/shared/widgets/custom_dropdown.dart';
 
 class PlayerSettingsPage extends HookConsumerWidget {
-  const PlayerSettingsPage({
-    super.key,
-  });
+  const PlayerSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,7 +38,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
               ),
               initialValue: playerSettings.configurePlayerForEveryBook,
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.playerSettings(
                         configurePlayerForEveryBook: value,
                       ),
@@ -62,7 +62,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
                 itemAsString: (item) => '${item}x',
                 onChanged: (value) {
                   if (value != null) {
-                    ref.read(appSettingsProvider.notifier).update(
+                    ref
+                        .read(appSettingsProvider.notifier)
+                        .update(
                           appSettings.copyWith.playerSettings(
                             preferredDefaultSpeed: value,
                           ),
@@ -77,8 +79,10 @@ class PlayerSettingsPage extends HookConsumerWidget {
               title: Text(S.of(context).playerSettingsSpeedOptions),
               description: Text(
                 playerSettings.speedOptions.map((e) => '${e}x').join(', '),
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: primaryColor),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: primaryColor,
+                ),
               ),
               leading: const Icon(Icons.speed),
               onPressed: (context) async {
@@ -89,7 +93,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   ),
                 );
                 if (newSpeedOptions != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.playerSettings(
                           speedOptions: [...newSpeedOptions]..sort(),
                         ),
@@ -114,16 +120,18 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   children: [
                     TextSpan(
                       text: playerSettings
-                          .minimumPositionForReporting.smartBinaryFormat,
+                          .minimumPositionForReporting
+                          .smartBinaryFormat,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: primaryColor,
                       ),
                     ),
                     TextSpan(
-                        text: S
-                            .of(context)
-                            .playerSettingsPlaybackReportingMinimumDescriptionTail),
+                      text: S
+                          .of(context)
+                          .playerSettingsPlaybackReportingMinimumDescriptionTail,
+                    ),
                   ],
                 ),
               ),
@@ -134,14 +142,17 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   builder: (context) {
                     return TimeDurationSelector(
                       title: Text(
-                          S.of(context).playerSettingsPlaybackReportingIgnore),
+                        S.of(context).playerSettingsPlaybackReportingIgnore,
+                      ),
                       baseUnit: BaseUnit.second,
                       initialValue: playerSettings.minimumPositionForReporting,
                     );
                   },
                 );
                 if (newDuration != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.playerSettings(
                           minimumPositionForReporting: newDuration,
                         ),
@@ -158,16 +169,18 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   children: [
                     TextSpan(
                       text: playerSettings
-                          .markCompleteWhenTimeLeft.smartBinaryFormat,
+                          .markCompleteWhenTimeLeft
+                          .smartBinaryFormat,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: primaryColor,
                       ),
                     ),
                     TextSpan(
-                        text: S
-                            .of(context)
-                            .playerSettingsCompleteTimeDescriptionTail),
+                      text: S
+                          .of(context)
+                          .playerSettingsCompleteTimeDescriptionTail,
+                    ),
                   ],
                 ),
               ),
@@ -184,7 +197,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   },
                 );
                 if (newDuration != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.playerSettings(
                           markCompleteWhenTimeLeft: newDuration,
                         ),
@@ -203,16 +218,18 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   children: [
                     TextSpan(
                       text: playerSettings
-                          .playbackReportInterval.smartBinaryFormat,
+                          .playbackReportInterval
+                          .smartBinaryFormat,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: primaryColor,
                       ),
                     ),
                     TextSpan(
-                        text: S
-                            .of(context)
-                            .playerSettingsPlaybackIntervalDescriptionTail),
+                      text: S
+                          .of(context)
+                          .playerSettingsPlaybackIntervalDescriptionTail,
+                    ),
                   ],
                 ),
               ),
@@ -229,7 +246,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
                   },
                 );
                 if (newDuration != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.playerSettings(
                           playbackReportInterval: newDuration,
                         ),
@@ -253,7 +272,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
               initialValue:
                   playerSettings.expandedPlayerSettings.showTotalProgress,
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.playerSettings
                           .expandedPlayerSettings(showTotalProgress: value),
                     );
@@ -269,7 +290,9 @@ class PlayerSettingsPage extends HookConsumerWidget {
               initialValue:
                   playerSettings.expandedPlayerSettings.showChapterProgress,
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.playerSettings(
                         expandedPlayerSettings: playerSettings
                             .expandedPlayerSettings
@@ -322,17 +345,15 @@ class TimeDurationSelector extends HookConsumerWidget {
 }
 
 class SpeedPicker extends HookConsumerWidget {
-  const SpeedPicker({
-    super.key,
-    this.initialValue = 1,
-  });
+  const SpeedPicker({super.key, this.initialValue = 1});
 
   final double initialValue;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final speedController =
-        useTextEditingController(text: initialValue.toString());
+    final speedController = useTextEditingController(
+      text: initialValue.toString(),
+    );
     final speed = useState<double?>(initialValue);
     return AlertDialog(
       title: Text(S.of(context).playerSettingsSpeedSelect),
@@ -382,30 +403,32 @@ class SpeedOptionsPicker extends HookConsumerWidget {
           Wrap(
             spacing: 8.0,
             runSpacing: 8.0,
-            children: speedOptions.value
-                .map(
-                  (speed) => Chip(
-                    label: Text('${speed}x'),
-                    onDeleted: speed == 1
-                        ? null
-                        : () {
-                            speedOptions.value =
-                                speedOptions.value.where((element) {
-                              // speed option 1 can't be removed
-                              return element != speed;
-                            }).toList();
-                          },
-                  ),
-                )
-                .toList()
-              ..sort((a, b) {
-                // if (a.label == const Text('1x')) {
-                //   return -1;
-                // } else if (b.label == const Text('1x')) {
-                //   return 1;
-                // }
-                return a.label.toString().compareTo(b.label.toString());
-              }),
+            children:
+                speedOptions.value
+                    .map(
+                      (speed) => Chip(
+                        label: Text('${speed}x'),
+                        onDeleted: speed == 1
+                            ? null
+                            : () {
+                                speedOptions.value = speedOptions.value.where((
+                                  element,
+                                ) {
+                                  // speed option 1 can't be removed
+                                  return element != speed;
+                                }).toList();
+                              },
+                      ),
+                    )
+                    .toList()
+                  ..sort((a, b) {
+                    // if (a.label == const Text('1x')) {
+                    //   return -1;
+                    // } else if (b.label == const Text('1x')) {
+                    //   return 1;
+                    // }
+                    return a.label.toString().compareTo(b.label.toString());
+                  }),
           ),
           TextField(
             focusNode: focusNode,
@@ -422,8 +445,9 @@ class SpeedOptionsPicker extends HookConsumerWidget {
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               labelText: S.of(context).playerSettingsSpeedOptionsSelectAdd,
-              helper:
-                  Text(S.of(context).playerSettingsSpeedOptionsSelectAddHelper),
+              helper: Text(
+                S.of(context).playerSettingsSpeedOptionsSelectAddHelper,
+              ),
             ),
           ),
         ],

@@ -26,14 +26,14 @@ class HomeShelf extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return switch (shelf.type) {
       ShelfType.book => BookHomeShelf(
-          title: title,
-          shelf: shelf.asLibraryItemShelf,
-          showPlayButton: showPlayButton,
-        ),
+        title: title,
+        shelf: shelf.asLibraryItemShelf,
+        showPlayButton: showPlayButton,
+      ),
       ShelfType.authors => AuthorHomeShelf(
-          title: title,
-          shelf: shelf.asAuthorShelf,
-        ),
+        title: title,
+        shelf: shelf.asAuthorShelf,
+      ),
       _ => Container(),
     };
   }
@@ -75,9 +75,7 @@ class SimpleHomeShelf extends HookConsumerWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 if (index == 0 || index == children.length + 1) {
-                  return const SizedBox(
-                    width: 8,
-                  );
+                  return const SizedBox(width: 8);
                 }
                 return children[index - 1];
               },
@@ -88,7 +86,8 @@ class SimpleHomeShelf extends HookConsumerWidget {
 
                 return const SizedBox(width: 4);
               },
-              itemCount: children.length +
+              itemCount:
+                  children.length +
                   2, // add some extra space at the start and end so that the first and last items are not at the edge
             ),
           ),

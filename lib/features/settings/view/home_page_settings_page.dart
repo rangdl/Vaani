@@ -26,11 +26,13 @@ class HomePageSettingsPage extends HookConsumerWidget {
           tiles: [
             SettingsTile.switchTile(
               initialValue: appSettings
-                  .homePageSettings.showPlayButtonOnContinueListeningShelf,
+                  .homePageSettings
+                  .showPlayButtonOnContinueListeningShelf,
               title: Text(S.of(context).homeContinueListening),
               leading: const Icon(Icons.play_arrow),
-              description:
-                  Text(S.of(context).homeBookContinueListeningDescription),
+              description: Text(
+                S.of(context).homeBookContinueListeningDescription,
+              ),
               onToggle: (value) {
                 appSettingsNotifier.update(
                   appSettings.copyWith(
@@ -44,10 +46,12 @@ class HomePageSettingsPage extends HookConsumerWidget {
             SettingsTile.switchTile(
               title: Text(S.of(context).homeBookContinueSeries),
               leading: const Icon(Icons.play_arrow),
-              description:
-                  Text(S.of(context).homeBookContinueSeriesDescription),
+              description: Text(
+                S.of(context).homeBookContinueSeriesDescription,
+              ),
               initialValue: appSettings
-                  .homePageSettings.showPlayButtonOnContinueSeriesShelf,
+                  .homePageSettings
+                  .showPlayButtonOnContinueSeriesShelf,
               onToggle: (value) {
                 appSettingsNotifier.update(
                   appSettings.copyWith(
@@ -61,10 +65,12 @@ class HomePageSettingsPage extends HookConsumerWidget {
             SettingsTile.switchTile(
               title: Text(S.of(context).homePageSettingsOtherShelves),
               leading: const Icon(Icons.all_inclusive),
-              description:
-                  Text(S.of(context).homePageSettingsOtherShelvesDescription),
+              description: Text(
+                S.of(context).homePageSettingsOtherShelvesDescription,
+              ),
               initialValue: appSettings
-                  .homePageSettings.showPlayButtonOnAllRemainingShelves,
+                  .homePageSettings
+                  .showPlayButtonOnAllRemainingShelves,
               onToggle: (value) {
                 appSettingsNotifier.update(
                   appSettings.copyWith(

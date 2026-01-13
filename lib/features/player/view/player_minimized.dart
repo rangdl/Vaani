@@ -102,7 +102,8 @@ class PlayerMinimizedControls extends HookConsumerWidget {
                   // AutoScrollText(
                   Text(
                     '${currentBook?.metadata.title ?? ''} - ${currentChapter?.title ?? ''}',
-                    maxLines: 1, overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     // velocity:
                     //     const Velocity(pixelsPerSecond: Offset(16, 0)),
                     style: Theme.of(context).textTheme.bodyLarge,
@@ -113,11 +114,10 @@ class PlayerMinimizedControls extends HookConsumerWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withValues(alpha: 0.7),
-                        ),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.7),
+                    ),
                   ),
                 ],
               ),
@@ -210,7 +210,8 @@ class PlayerMinimizedControlsDesktop extends HookConsumerWidget {
                           // AutoScrollText(
                           Text(
                             absPlayer.primaryTitle(),
-                            maxLines: 1, overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             // velocity:
                             //     const Velocity(pixelsPerSecond: Offset(16, 0)),
                             style: Theme.of(context).textTheme.bodyLarge,
@@ -219,13 +220,9 @@ class PlayerMinimizedControlsDesktop extends HookConsumerWidget {
                             absPlayer.secondaryTitle(),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
+                            style: Theme.of(context).textTheme.bodyMedium!
                                 .copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurface
+                                  color: Theme.of(context).colorScheme.onSurface
                                       .withValues(alpha: 0.7),
                                 ),
                           ),

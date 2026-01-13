@@ -7,9 +7,7 @@ class LibraryStatisticsPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('统计'),
-      ),
+      appBar: AppBar(title: Text('统计')),
       // body: Text('统计'),
     );
   }

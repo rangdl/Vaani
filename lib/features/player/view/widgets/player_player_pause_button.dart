@@ -5,10 +5,7 @@ import 'package:vaani/features/player/providers/abs_provider.dart'
     hide PlayerState;
 
 class AudiobookPlayerPlayPauseButton extends HookConsumerWidget {
-  const AudiobookPlayerPlayPauseButton({
-    super.key,
-    this.iconSize = 48.0,
-  });
+  const AudiobookPlayerPlayPauseButton({super.key, this.iconSize = 48.0});
 
   final double iconSize;
   @override

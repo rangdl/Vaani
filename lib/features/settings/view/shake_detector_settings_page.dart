@@ -12,9 +12,7 @@ import 'package:vaani/features/settings/view/simple_settings_page.dart';
 import 'package:vaani/shared/extensions/enum.dart';
 
 class ShakeDetectorSettingsPage extends HookConsumerWidget {
-  const ShakeDetectorSettingsPage({
-    super.key,
-  });
+  const ShakeDetectorSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,12 +37,12 @@ class ShakeDetectorSettingsPage extends HookConsumerWidget {
                   ? const Icon(Icons.vibration)
                   : const Icon(Icons.not_interested),
               title: Text(S.of(context).shakeDetectorEnable),
-              description: Text(
-                S.of(context).shakeDetectorEnableDescription,
-              ),
+              description: Text(S.of(context).shakeDetectorEnableDescription),
               initialValue: shakeDetectionSettings.isEnabled,
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.shakeDetectionSettings(
                         isEnabled: value,
                       ),
@@ -80,7 +78,9 @@ class ShakeDetectorSettingsPage extends HookConsumerWidget {
                 );
 
                 if (newThreshold != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.shakeDetectionSettings(
                           threshold: newThreshold,
                         ),
@@ -94,9 +94,7 @@ class ShakeDetectorSettingsPage extends HookConsumerWidget {
               enabled: isShakeDetectionEnabled,
               leading: const Icon(Icons.directions_run),
               title: Text(S.of(context).shakeAction),
-              description: Text(
-                S.of(context).shakeActionDescription,
-              ),
+              description: Text(S.of(context).shakeActionDescription),
               trailing: Icon(
                 shakeDetectionSettings.shakeAction.icon,
                 color: selectedValueColor,
@@ -110,7 +108,9 @@ class ShakeDetectorSettingsPage extends HookConsumerWidget {
                 );
 
                 if (newShakeAction != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.shakeDetectionSettings(
                           shakeAction: newShakeAction,
                         ),
@@ -124,9 +124,7 @@ class ShakeDetectorSettingsPage extends HookConsumerWidget {
               enabled: isShakeDetectionEnabled,
               leading: const Icon(Icons.feedback),
               title: Text(S.of(context).shakeFeedback),
-              description: Text(
-                S.of(context).shakeFeedbackDescription,
-              ),
+              description: Text(S.of(context).shakeFeedbackDescription),
               trailing: shakeDetectionSettings.feedback.isEmpty
                   ? Icon(
                       Icons.not_interested,
@@ -134,26 +132,23 @@ class ShakeDetectorSettingsPage extends HookConsumerWidget {
                     )
                   : Wrap(
                       spacing: 8.0,
-                      children: shakeDetectionSettings.feedback.map(
-                        (feedback) {
-                          return Icon(
-                            feedback.icon,
-                            color: selectedValueColor,
-                          );
-                        },
-                      ).toList(),
+                      children: shakeDetectionSettings.feedback.map((feedback) {
+                        return Icon(feedback.icon, color: selectedValueColor);
+                      }).toList(),
                     ),
               onPressed: (context) async {
                 final newFeedback =
                     await showDialog<Set<ShakeDetectedFeedback>>(
-                  context: context,
-                  builder: (context) => ShakeFeedbackSelector(
-                    initialValue: shakeDetectionSettings.feedback,
-                  ),
-                );
+                      context: context,
+                      builder: (context) => ShakeFeedbackSelector(
+                        initialValue: shakeDetectionSettings.feedback,
+                      ),
+                    );
 
                 if (newFeedback != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.shakeDetectionSettings(
                           feedback: newFeedback,
                         ),
@@ -259,10 +254,7 @@ class ShakeActionSelector extends HookConsumerWidget {
 }
 
 class ShakeForceSelector extends HookConsumerWidget {
-  const ShakeForceSelector({
-    super.key,
-    this.initialValue = 6,
-  });
+  const ShakeForceSelector({super.key, this.initialValue = 6});
 
   final double initialValue;
 
@@ -294,9 +286,7 @@ class ShakeForceSelector extends HookConsumerWidget {
                   shakeForce.value = 0;
                 },
               ),
-              helper: Text(
-                S.of(context).shakeSelectActivationThresholdHelper,
-              ),
+              helper: Text(S.of(context).shakeSelectActivationThresholdHelper),
             ),
           ),
           Wrap(

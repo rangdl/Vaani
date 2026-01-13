@@ -10,9 +10,7 @@ import 'package:vaani/features/settings/app_settings_provider.dart';
 final _logger = Logger('PlayerSpeedAdjustButton');
 
 class PlayerSpeedAdjustButton extends HookConsumerWidget {
-  const PlayerSpeedAdjustButton({
-    super.key,
-  });
+  const PlayerSpeedAdjustButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,21 +33,19 @@ class PlayerSpeedAdjustButton extends HookConsumerWidget {
                 player.setSpeed(speed);
                 if (appSettings.playerSettings.configurePlayerForEveryBook) {
                   ref
-                      .read(
-                        bookSettingsProvider(bookId).notifier,
-                      )
+                      .read(bookSettingsProvider(bookId).notifier)
                       .update(
-                        bookSettings.copyWith
-                            .playerSettings(preferredDefaultSpeed: speed),
+                        bookSettings.copyWith.playerSettings(
+                          preferredDefaultSpeed: speed,
+                        ),
                       );
                 } else {
                   ref
-                      .read(
-                        appSettingsProvider.notifier,
-                      )
+                      .read(appSettingsProvider.notifier)
                       .update(
-                        appSettings.copyWith
-                            .playerSettings(preferredDefaultSpeed: speed),
+                        appSettings.copyWith.playerSettings(
+                          preferredDefaultSpeed: speed,
+                        ),
                       );
                 }
               },

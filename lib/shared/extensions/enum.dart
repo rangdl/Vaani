@@ -13,10 +13,7 @@ extension TitleCase on Enum {
   String get pascalCase {
     // capitalize the first letter of each word
     return name
-        .replaceAllMapped(
-          RegExp(r'([A-Z])'),
-          (match) => ' ${match.group(0)}',
-        )
+        .replaceAllMapped(RegExp(r'([A-Z])'), (match) => ' ${match.group(0)}')
         .trim()
         .split(' ')
         .map((word) => word[0].toUpperCase() + word.substring(1))

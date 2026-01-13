@@ -8,9 +8,7 @@ import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/features/settings/view/simple_settings_page.dart';
 
 class ThemeSettingsPage extends HookConsumerWidget {
-  const ThemeSettingsPage({
-    super.key,
-  });
+  const ThemeSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,7 +34,9 @@ class ThemeSettingsPage extends HookConsumerWidget {
                 selectedIcon: const Icon(Icons.check),
                 selected: {themeSettings.themeMode},
                 onSelectionChanged: (newSelection) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.themeSettings(
                           themeMode: newSelection.first,
                         ),
@@ -64,8 +64,8 @@ class ThemeSettingsPage extends HookConsumerWidget {
                 themeSettings.themeMode == ThemeMode.light
                     ? Icons.light_mode
                     : themeSettings.themeMode == ThemeMode.dark
-                        ? Icons.dark_mode
-                        : Icons.auto_awesome,
+                    ? Icons.dark_mode
+                    : Icons.auto_awesome,
               ),
             ),
 
@@ -76,14 +76,12 @@ class ThemeSettingsPage extends HookConsumerWidget {
                   : const Icon(Icons.accessibility_new_outlined),
               initialValue: themeSettings.highContrast,
               title: Text(S.of(context).themeModeHighContrast),
-              description: Text(
-                S.of(context).themeModeHighContrastDescription,
-              ),
+              description: Text(S.of(context).themeModeHighContrastDescription),
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
-                      appSettings.copyWith.themeSettings(
-                        highContrast: value,
-                      ),
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
+                      appSettings.copyWith.themeSettings(highContrast: value),
                     );
               },
             ),
@@ -99,7 +97,9 @@ class ThemeSettingsPage extends HookConsumerWidget {
                   ? const Icon(Icons.auto_awesome)
                   : const Icon(Icons.auto_fix_off),
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.themeSettings(
                         useMaterialThemeFromSystem: value,
                       ),
@@ -153,13 +153,16 @@ class ThemeSettingsPage extends HookConsumerWidget {
             SettingsTile.switchTile(
               initialValue: themeSettings.useCurrentPlayerThemeThroughoutApp,
               title: Text(S.of(context).themeSettingsColorsCurrent),
-              description:
-                  Text(S.of(context).themeSettingsColorsCurrentDescription),
+              description: Text(
+                S.of(context).themeSettingsColorsCurrentDescription,
+              ),
               leading: themeSettings.useCurrentPlayerThemeThroughoutApp
                   ? const Icon(Icons.auto_fix_high)
                   : const Icon(Icons.auto_fix_off),
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.themeSettings(
                         useCurrentPlayerThemeThroughoutApp: value,
                       ),
@@ -170,13 +173,16 @@ class ThemeSettingsPage extends HookConsumerWidget {
             SettingsTile.switchTile(
               initialValue: themeSettings.useMaterialThemeOnItemPage,
               title: Text(S.of(context).themeSettingsColorsBook),
-              description:
-                  Text(S.of(context).themeSettingsColorsBookDescription),
+              description: Text(
+                S.of(context).themeSettingsColorsBookDescription,
+              ),
               leading: themeSettings.useMaterialThemeOnItemPage
                   ? const Icon(Icons.auto_fix_high)
                   : const Icon(Icons.auto_fix_off),
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.themeSettings(
                         useMaterialThemeOnItemPage: value,
                       ),

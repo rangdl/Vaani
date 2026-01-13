@@ -12,10 +12,7 @@ import 'package:vaani/features/settings/api_settings_provider.dart'
 import 'package:vaani/shared/icons/abs_icons.dart';
 
 class LibrarySwitchChip extends HookConsumerWidget {
-  const LibrarySwitchChip({
-    super.key,
-    required this.libraries,
-  });
+  const LibrarySwitchChip({super.key, required this.libraries});
   final List<Library> libraries;
 
   @override
@@ -27,30 +24,22 @@ class LibrarySwitchChip extends HookConsumerWidget {
         AbsIcons.getIconByName(
           apiSettings.activeLibraryId != null
               ? libraries
-                  .firstWhere(
-                    (lib) => lib.id == apiSettings.activeLibraryId,
-                  )
-                  .icon
+                    .firstWhere((lib) => lib.id == apiSettings.activeLibraryId)
+                    .icon
               : libraries.first.icon,
         ),
       ), // Replace with your icon
       label: Text(S.of(context).libraryChange),
       // Enable only if libraries are loaded and not empty
       onPressed: libraries.isNotEmpty
-          ? () => showLibrarySwitcher(
-                context,
-                ref,
-              )
+          ? () => showLibrarySwitcher(context, ref)
           : null, // Disable if no libraries
     );
   }
 }
 
 // --- Helper Function to Show the Switcher ---
-void showLibrarySwitcher(
-  BuildContext context,
-  WidgetRef ref,
-) {
+void showLibrarySwitcher(BuildContext context, WidgetRef ref) {
   final content = _LibrarySelectionContent();
 
   // --- Platform-Specific UI ---
@@ -210,7 +199,9 @@ class _LibrarySelectionContent extends ConsumerWidget {
                   // Get current settings state
                   final currentSettings = ref.read(apiSettingsProvider);
                   // Update the active library ID
-                  ref.read(apiSettingsProvider.notifier).updateState(
+                  ref
+                      .read(apiSettingsProvider.notifier)
+                      .updateState(
                         currentSettings.copyWith(activeLibraryId: library.id),
                       );
                   // Close the dialog/bottom sheet

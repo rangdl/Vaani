@@ -3,9 +3,6 @@ import 'package:vaani/generated/l10n.dart';
 
 void showNotImplementedToast(BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(S.of(context).notImplemented),
-      showCloseIcon: true,
-    ),
+    SnackBar(content: Text(S.of(context).notImplemented), showCloseIcon: true),
   );
 }

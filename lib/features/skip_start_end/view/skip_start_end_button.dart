@@ -66,12 +66,11 @@ class PlayerSkipChapterStartEnd extends HookConsumerWidget {
               step: const Duration(seconds: 1),
               onChangedEnd: (interval) {
                 ref
-                    .read(
-                      bookSettingsProvider(bookId).notifier,
-                    )
+                    .read(bookSettingsProvider(bookId).notifier)
                     .update(
-                      bookSettings.copyWith
-                          .playerSettings(skipChapterStart: interval),
+                      bookSettings.copyWith.playerSettings(
+                        skipChapterStart: interval,
+                      ),
                     );
                 reloadPlayer(ref);
               },
@@ -91,12 +90,11 @@ class PlayerSkipChapterStartEnd extends HookConsumerWidget {
               step: const Duration(seconds: 1),
               onChangedEnd: (interval) {
                 ref
-                    .read(
-                      bookSettingsProvider(bookId).notifier,
-                    )
+                    .read(bookSettingsProvider(bookId).notifier)
                     .update(
-                      bookSettings.copyWith
-                          .playerSettings(skipChapterEnd: interval),
+                      bookSettings.copyWith.playerSettings(
+                        skipChapterEnd: interval,
+                      ),
                     );
                 reloadPlayer(ref);
               },
@@ -114,7 +112,12 @@ class PlayerSkipChapterStartEnd extends HookConsumerWidget {
     }
     final absPlayer = ref.read(absPlayerProvider);
     final positionInBook = absPlayer.positionInBook;
-    ref.read(currentBookProvider.notifier).update(currentBook.libraryItemId,
-        force: true, currentTime: positionInBook);
+    ref
+        .read(currentBookProvider.notifier)
+        .update(
+          currentBook.libraryItemId,
+          force: true,
+          currentTime: positionInBook,
+        );
   }
 }

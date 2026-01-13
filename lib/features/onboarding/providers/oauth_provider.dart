@@ -53,8 +53,10 @@ class OauthFlows extends _$OauthFlows {
     }
     state = {
       ...state,
-      oauthState: state[oauthState]!
-          .copyWith(isFlowComplete: true, authToken: authToken),
+      oauthState: state[oauthState]!.copyWith(
+        isFlowComplete: true,
+        authToken: authToken,
+      ),
     };
   }
 }

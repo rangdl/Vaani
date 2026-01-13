@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 
 extension ToTimeOfDay on Duration {
   TimeOfDay toTimeOfDay() {
-    return TimeOfDay(
-      hour: inHours % 24,
-      minute: inMinutes % 60,
-    );
+    return TimeOfDay(hour: inHours % 24, minute: inMinutes % 60);
   }
 }
 

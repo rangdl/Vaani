@@ -14,10 +14,7 @@ import 'package:flutter/material.dart';
 class InactiveFocusScopeObserver extends StatefulWidget {
   final Widget child;
 
-  const InactiveFocusScopeObserver({
-    super.key,
-    required this.child,
-  });
+  const InactiveFocusScopeObserver({super.key, required this.child});
 
   @override
   State<InactiveFocusScopeObserver> createState() =>
@@ -39,10 +36,8 @@ class _InactiveFocusScopeObserverState
   }
 
   @override
-  Widget build(BuildContext context) => FocusScope(
-        node: _focusScope,
-        child: widget.child,
-      );
+  Widget build(BuildContext context) =>
+      FocusScope(node: _focusScope, child: widget.child);
 
   @override
   void dispose() {

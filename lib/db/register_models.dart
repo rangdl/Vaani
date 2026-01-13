@@ -7,16 +7,10 @@ import 'package:vaani/features/settings/models/models.dart';
 // register all models to Hive for serialization
 void registerModels() {
   Hive.registerAdapter(
-    JsonAdapter<AppSettings>(
-      id: 1,
-      fromJson: AppSettings.fromJson,
-    ),
+    JsonAdapter<AppSettings>(id: 1, fromJson: AppSettings.fromJson),
   );
   Hive.registerAdapter(
-    JsonAdapter<ApiSettings>(
-      id: 2,
-      fromJson: ApiSettings.fromJson,
-    ),
+    JsonAdapter<ApiSettings>(id: 2, fromJson: ApiSettings.fromJson),
   );
   Hive.registerAdapter(
     JsonAdapter<AudiobookShelfServer>(
@@ -25,16 +19,10 @@ void registerModels() {
     ),
   );
   Hive.registerAdapter(
-    JsonAdapter<AuthenticatedUser>(
-      id: 4,
-      fromJson: AuthenticatedUser.fromJson,
-    ),
+    JsonAdapter<AuthenticatedUser>(id: 4, fromJson: AuthenticatedUser.fromJson),
   );
   Hive.registerAdapter(
-    JsonAdapter<BookSettings>(
-      id: 5,
-      fromJson: BookSettings.fromJson,
-    ),
+    JsonAdapter<BookSettings>(id: 5, fromJson: BookSettings.fromJson),
   );
 }
 
@@ -43,10 +31,7 @@ class JsonAdapter<T> extends TypeAdapter<T> {
   final T Function(Map<String, dynamic>) fromJson;
   final int id;
 
-  const JsonAdapter({
-    required this.id,
-    required this.fromJson,
-  });
+  const JsonAdapter({required this.id, required this.fromJson});
 
   @override
   int get typeId => id;

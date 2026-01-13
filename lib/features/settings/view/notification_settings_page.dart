@@ -10,9 +10,7 @@ import 'package:vaani/features/settings/view/simple_settings_page.dart';
 import 'package:vaani/shared/extensions/enum.dart';
 
 class NotificationSettingsPage extends HookConsumerWidget {
-  const NotificationSettingsPage({
-    super.key,
-  });
+  const NotificationSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -60,7 +58,9 @@ class NotificationSettingsPage extends HookConsumerWidget {
                   },
                 );
                 if (selectedTitle != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.notificationSettings(
                           primaryTitle: selectedTitle,
                         ),
@@ -98,7 +98,9 @@ class NotificationSettingsPage extends HookConsumerWidget {
                   },
                 );
                 if (selectedTitle != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.notificationSettings(
                           secondaryTitle: selectedTitle,
                         ),
@@ -113,7 +115,9 @@ class NotificationSettingsPage extends HookConsumerWidget {
               description: Row(
                 children: [
                   Text(
-                    S.of(context).timeSecond(
+                    S
+                        .of(context)
+                        .timeSecond(
                           notificationSettings.fastForwardInterval.inSeconds,
                         ),
                   ),
@@ -121,7 +125,9 @@ class NotificationSettingsPage extends HookConsumerWidget {
                     child: TimeIntervalSlider(
                       defaultValue: notificationSettings.fastForwardInterval,
                       onChangedEnd: (interval) {
-                        ref.read(appSettingsProvider.notifier).update(
+                        ref
+                            .read(appSettingsProvider.notifier)
+                            .update(
                               appSettings.copyWith.notificationSettings(
                                 fastForwardInterval: interval,
                               ),
@@ -138,7 +144,9 @@ class NotificationSettingsPage extends HookConsumerWidget {
               description: Row(
                 children: [
                   Text(
-                    S.of(context).timeSecond(
+                    S
+                        .of(context)
+                        .timeSecond(
                           notificationSettings.rewindInterval.inSeconds,
                         ),
                   ),
@@ -146,7 +154,9 @@ class NotificationSettingsPage extends HookConsumerWidget {
                     child: TimeIntervalSlider(
                       defaultValue: notificationSettings.rewindInterval,
                       onChangedEnd: (interval) {
-                        ref.read(appSettingsProvider.notifier).update(
+                        ref
+                            .read(appSettingsProvider.notifier)
+                            .update(
                               appSettings.copyWith.notificationSettings(
                                 rewindInterval: interval,
                               ),
@@ -163,31 +173,29 @@ class NotificationSettingsPage extends HookConsumerWidget {
               title: Text(S.of(context).nmpSettingsMediaControls),
               leading: const Icon(Icons.control_camera),
               // description: const Text('Select the media controls to display'),
-              description:
-                  Text(S.of(context).nmpSettingsMediaControlsDescription),
+              description: Text(
+                S.of(context).nmpSettingsMediaControlsDescription,
+              ),
               trailing: Wrap(
                 spacing: 8.0,
                 children: notificationSettings.mediaControls
-                    .map(
-                      (control) => Icon(
-                        control.icon,
-                        color: primaryColor,
-                      ),
-                    )
+                    .map((control) => Icon(control.icon, color: primaryColor))
                     .toList(),
               ),
               onPressed: (context) async {
                 final selectedControls =
                     await showDialog<List<NotificationMediaControl>>(
-                  context: context,
-                  builder: (context) {
-                    return MediaControlsPicker(
-                      selectedControls: notificationSettings.mediaControls,
+                      context: context,
+                      builder: (context) {
+                        return MediaControlsPicker(
+                          selectedControls: notificationSettings.mediaControls,
+                        );
+                      },
                     );
-                  },
-                );
                 if (selectedControls != null) {
-                  ref.read(appSettingsProvider.notifier).update(
+                  ref
+                      .read(appSettingsProvider.notifier)
+                      .update(
                         appSettings.copyWith.notificationSettings(
                           mediaControls: selectedControls,
                         ),
@@ -200,11 +208,14 @@ class NotificationSettingsPage extends HookConsumerWidget {
             SettingsTile.switchTile(
               title: Text(S.of(context).nmpSettingsShowChapterProgress),
               leading: const Icon(Icons.book),
-              description:
-                  Text(S.of(context).nmpSettingsShowChapterProgressDescription),
+              description: Text(
+                S.of(context).nmpSettingsShowChapterProgressDescription,
+              ),
               initialValue: notificationSettings.progressBarIsChapterProgress,
               onToggle: (value) {
-                ref.read(appSettingsProvider.notifier).update(
+                ref
+                    .read(appSettingsProvider.notifier)
+                    .update(
                       appSettings.copyWith.notificationSettings(
                         progressBarIsChapterProgress: value,
                       ),
@@ -219,10 +230,7 @@ class NotificationSettingsPage extends HookConsumerWidget {
 }
 
 class MediaControlsPicker extends HookConsumerWidget {
-  const MediaControlsPicker({
-    super.key,
-    required this.selectedControls,
-  });
+  const MediaControlsPicker({super.key, required this.selectedControls});
 
   final List<NotificationMediaControl> selectedControls;
 

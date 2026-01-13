@@ -53,8 +53,9 @@ class AbsPlayer extends _$AbsPlayer {
     }
     final api = ref.read(authenticatedApiProvider);
     final downloadManager = ref.read(simpleDownloadManagerProvider);
-    final libItem =
-        await ref.read(libraryItemProvider(book.libraryItemId).future);
+    final libItem = await ref.read(
+      libraryItemProvider(book.libraryItemId).future,
+    );
     final downloadedUris = await downloadManager.getDownloadedFilesUri(libItem);
 
     final bookSettings = ref.read(bookSettingsProvider(book.libraryItemId));
@@ -78,14 +79,14 @@ class AbsPlayer extends _$AbsPlayer {
     await state.setVolume(
       configurePlayerForEveryBook
           ? bookPlayerSettings.preferredDefaultVolume ??
-              appPlayerSettings.preferredDefaultVolume
+                appPlayerSettings.preferredDefaultVolume
           : appPlayerSettings.preferredDefaultVolume,
     );
     // set the speed
     await state.setSpeed(
       configurePlayerForEveryBook
           ? bookPlayerSettings.preferredDefaultSpeed ??
-              appPlayerSettings.preferredDefaultSpeed
+                appPlayerSettings.preferredDefaultSpeed
           : appPlayerSettings.preferredDefaultSpeed,
     );
     if (play) await state.play();
@@ -122,8 +123,9 @@ class CurrentTime extends _$CurrentTime {
   @override
   Future<shelfsdk.MediaProgress?> build(String libraryItemId) async {
     final me = await ref.watch(meProvider.future);
-    final userProgress = me.mediaProgress
-        ?.firstWhereOrNull((element) => element.libraryItemId == libraryItemId);
+    final userProgress = me.mediaProgress?.firstWhereOrNull(
+      (element) => element.libraryItemId == libraryItemId,
+    );
     return userProgress;
   }
 }
@@ -134,8 +136,9 @@ class CurrentBook extends _$CurrentBook {
   shelfsdk.BookExpanded? build() {
     listenSelf((previous, next) {
       if (previous == null && next == null) {
-        final activeLibraryItemId =
-            HiveBoxes.basicBox.getAs<String>(CacheKey.activeLibraryItemId);
+        final activeLibraryItemId = HiveBoxes.basicBox.getAs<String>(
+          CacheKey.activeLibraryItemId,
+        );
         if (activeLibraryItemId != null) {
           update(activeLibraryItemId, play: false);
         }
@@ -156,19 +159,19 @@ class CurrentBook extends _$CurrentBook {
     }
     final book = await ref.read(libraryItemProvider(libraryItemId).future);
     state = book.media.asBookExpanded;
-    final mediaProgress =
-        await ref.read(currentTimeProvider(libraryItemId).future);
-    await ref.read(absPlayerProvider.notifier).load(
+    final mediaProgress = await ref.read(
+      currentTimeProvider(libraryItemId).future,
+    );
+    await ref
+        .read(absPlayerProvider.notifier)
+        .load(
           state!,
           initialPosition: currentTime ?? mediaProgress?.currentTime,
           play: play,
           force: force,
         );
     if (play) {
-      HiveBoxes.basicBox.put(
-        CacheKey.activeLibraryItemId,
-        libraryItemId,
-      );
+      HiveBoxes.basicBox.put(CacheKey.activeLibraryItemId, libraryItemId);
     }
   }
 }
@@ -193,13 +196,14 @@ class CurrentChapter extends _$CurrentChapter {
 Duration total(Ref ref) {
   final currentBook = ref.watch(currentBookProvider);
   final currentChapter = ref.watch(currentChapterProvider);
-  final playerSettings =
-      ref.watch(appSettingsProvider.select((v) => v.playerSettings));
+  final playerSettings = ref.watch(
+    appSettingsProvider.select((v) => v.playerSettings),
+  );
   final showChapterProgress =
       playerSettings.expandedPlayerSettings.showChapterProgress;
   return showChapterProgress
       ? ((currentChapter?.end ?? Duration.zero) -
-          (currentChapter?.start ?? Duration.zero))
+            (currentChapter?.start ?? Duration.zero))
       : currentBook?.duration ?? Duration.zero;
 }
 
@@ -207,8 +211,9 @@ Duration total(Ref ref) {
 @riverpod
 Stream<Duration> progress(Ref ref) {
   final player = ref.read(absPlayerProvider);
-  final playerSettings =
-      ref.watch(appSettingsProvider.select((v) => v.playerSettings));
+  final playerSettings = ref.watch(
+    appSettingsProvider.select((v) => v.playerSettings),
+  );
   final showChapterProgress =
       playerSettings.expandedPlayerSettings.showChapterProgress;
   return player.positionStream.map((position) {
@@ -222,8 +227,9 @@ Stream<Duration> progress(Ref ref) {
 @riverpod
 Stream<Duration> progressBuffered(Ref ref) {
   final player = ref.read(absPlayerProvider);
-  final playerSettings =
-      ref.watch(appSettingsProvider.select((v) => v.playerSettings));
+  final playerSettings = ref.watch(
+    appSettingsProvider.select((v) => v.playerSettings),
+  );
   final showChapterProgress =
       playerSettings.expandedPlayerSettings.showChapterProgress;
   return player.bufferedPositionStream.map((position) {

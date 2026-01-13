@@ -125,9 +125,7 @@ class PlaybackReporter {
   }
 
   Future<void> tryReportPlayback(_) async {
-    _logger.fine(
-      'callback called when elapsed ${_stopwatch.elapsed}',
-    );
+    _logger.fine('callback called when elapsed ${_stopwatch.elapsed}');
     if (player.book != null &&
         player.positionInBook >=
             player.book!.duration - markCompleteWhenTimeLeft) {

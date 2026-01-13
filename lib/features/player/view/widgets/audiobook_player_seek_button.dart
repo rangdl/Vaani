@@ -4,10 +4,7 @@ import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 
 class AudiobookPlayerSeekButton extends HookConsumerWidget {
-  const AudiobookPlayerSeekButton({
-    super.key,
-    required this.isForward,
-  });
+  const AudiobookPlayerSeekButton({super.key, required this.isForward});
 
   /// if true, the button seeks forward, else it seeks backwards
   final bool isForward;

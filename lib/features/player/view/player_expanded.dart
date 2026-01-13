@@ -20,9 +20,7 @@ import 'widgets/player_speed_adjust_button.dart';
 var pendingPlayerModals = 0;
 
 class PlayerExpanded extends HookConsumerWidget {
-  const PlayerExpanded({
-    super.key,
-  });
+  const PlayerExpanded({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,9 +41,7 @@ class PlayerExpanded extends HookConsumerWidget {
     return Column(
       children: [
         // sized box for system status bar; not needed as not full screen
-        SizedBox(
-          height: MediaQuery.of(context).padding.top,
-        ),
+        SizedBox(height: MediaQuery.of(context).padding.top),
 
         // the image
         Padding(
@@ -85,11 +81,10 @@ class PlayerExpanded extends HookConsumerWidget {
                 currentBook.metadata.asBookMetadataExpanded.authorName ?? '',
               ].join(' - '),
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withValues(alpha: 0.7),
-                  ),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.7),
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

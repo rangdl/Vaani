@@ -29,7 +29,7 @@ class ShakeDetector {
   DateTime _lastShakeTime = DateTime.now();
 
   final StreamController<UserAccelerometerEvent>
-      _detectedShakeStreamController = StreamController.broadcast();
+  _detectedShakeStreamController = StreamController.broadcast();
 
   void start() {
     if (_accelerometerSubscription != null) {
@@ -37,26 +37,27 @@ class ShakeDetector {
       return;
     }
     _accelerometerSubscription =
-        userAccelerometerEventStream(samplingPeriod: _settings.samplingPeriod)
-            .listen((event) {
-      _logger.finest('RMS: ${event.rms}');
-      if (event.rms > _settings.threshold) {
-        _currentShakeCount++;
+        userAccelerometerEventStream(
+          samplingPeriod: _settings.samplingPeriod,
+        ).listen((event) {
+          _logger.finest('RMS: ${event.rms}');
+          if (event.rms > _settings.threshold) {
+            _currentShakeCount++;
 
-        if (_currentShakeCount >= _settings.shakeTriggerCount &&
-            !isCoolDownNeeded()) {
-          _logger.fine('Shake detected $_currentShakeCount times');
+            if (_currentShakeCount >= _settings.shakeTriggerCount &&
+                !isCoolDownNeeded()) {
+              _logger.fine('Shake detected $_currentShakeCount times');
 
-          onShakeDetected?.call();
-          _detectedShakeStreamController.add(event);
+              onShakeDetected?.call();
+              _detectedShakeStreamController.add(event);
 
-          _lastShakeTime = DateTime.now();
-          _currentShakeCount = 0;
-        }
-      } else {
-        _currentShakeCount = 0;
-      }
-    });
+              _lastShakeTime = DateTime.now();
+              _currentShakeCount = 0;
+            }
+          } else {
+            _currentShakeCount = 0;
+          }
+        });
 
     _logger.fine('ShakeDetector started');
   }

@@ -47,8 +47,8 @@ extension ShelfConversion on Shelf {
 
 extension UserConversion on User {
   UserWithSessionAndMostRecentProgress
-      get asUserWithSessionAndMostRecentProgress =>
-          UserWithSessionAndMostRecentProgress.fromJson(toJson());
+  get asUserWithSessionAndMostRecentProgress =>
+      UserWithSessionAndMostRecentProgress.fromJson(toJson());
   User get asUser => User.fromJson(toJson());
 }
 

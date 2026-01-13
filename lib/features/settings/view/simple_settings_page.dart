@@ -3,11 +3,7 @@ import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SimpleSettingsPage extends HookConsumerWidget {
-  const SimpleSettingsPage({
-    super.key,
-    this.title,
-    this.sections,
-  });
+  const SimpleSettingsPage({super.key, this.title, this.sections});
 
   final Widget? title;
   final List<AbstractSettingsSection>? sections;
@@ -17,9 +13,7 @@ class SimpleSettingsPage extends HookConsumerWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: title,
-      ),
+      appBar: AppBar(title: title),
       // body: body,
       // an app bar which is bigger than the default app bar but on scroll shrinks to the default app bar with the title being animated
       body: CustomScrollView(
@@ -35,29 +29,27 @@ class SimpleSettingsPage extends HookConsumerWidget {
           // ),
           if (sections != null)
             SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  ClipRRect(
-                    // borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    child: SettingsList(
-                      lightTheme: SettingsThemeData(
-                        settingsListBackground: colorScheme.surface,
-                        settingsSectionBackground: colorScheme.surfaceContainer,
-                        // inactiveTitleColor:
-                        // trailingTextColor: colorScheme.primary,
-                        // settingsTileTextColor:
-                      ),
-                      darkTheme: SettingsThemeData(
-                        settingsListBackground: colorScheme.surface,
-                        settingsSectionBackground: colorScheme.surfaceContainer,
-                      ),
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      sections: sections!,
+              delegate: SliverChildListDelegate([
+                ClipRRect(
+                  // borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  child: SettingsList(
+                    lightTheme: SettingsThemeData(
+                      settingsListBackground: colorScheme.surface,
+                      settingsSectionBackground: colorScheme.surfaceContainer,
+                      // inactiveTitleColor:
+                      // trailingTextColor: colorScheme.primary,
+                      // settingsTileTextColor:
                     ),
+                    darkTheme: SettingsThemeData(
+                      settingsListBackground: colorScheme.surface,
+                      settingsSectionBackground: colorScheme.surfaceContainer,
+                    ),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    sections: sections!,
                   ),
-                ],
-              ),
+                ),
+              ]),
             ),
           // some padding at the bottom
           // const SliverPadding(padding: EdgeInsets.only(bottom: 20)),
