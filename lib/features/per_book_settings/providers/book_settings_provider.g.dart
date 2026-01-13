@@ -6,319 +6,200 @@ part of 'book_settings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bookSettingsHash() => r'ef4316367513b1b2b3971e53609e8f0f29de8667';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-abstract class _$BookSettings
-    extends BuildlessAutoDisposeNotifier<model.BookSettings> {
-  late final String bookId;
-
-  model.BookSettings build(
-    String bookId,
-  );
-}
-
-/// See also [BookSettings].
 @ProviderFor(BookSettings)
-const bookSettingsProvider = BookSettingsFamily();
+final bookSettingsProvider = BookSettingsFamily._();
 
-/// See also [BookSettings].
-class BookSettingsFamily extends Family<model.BookSettings> {
-  /// See also [BookSettings].
-  const BookSettingsFamily();
+final class BookSettingsProvider
+    extends $NotifierProvider<BookSettings, model.BookSettings> {
+  BookSettingsProvider._({
+    required BookSettingsFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'bookSettingsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [BookSettings].
-  BookSettingsProvider call(
-    String bookId,
-  ) {
-    return BookSettingsProvider(
-      bookId,
-    );
+  @override
+  String debugGetCreateSourceHash() => _$bookSettingsHash();
+
+  @override
+  String toString() {
+    return r'bookSettingsProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  BookSettingsProvider getProviderOverride(
-    covariant BookSettingsProvider provider,
-  ) {
-    return call(
-      provider.bookId,
-    );
-  }
+  BookSettings create() => BookSettings();
 
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'bookSettingsProvider';
-}
-
-/// See also [BookSettings].
-class BookSettingsProvider
-    extends AutoDisposeNotifierProviderImpl<BookSettings, model.BookSettings> {
-  /// See also [BookSettings].
-  BookSettingsProvider(
-    String bookId,
-  ) : this._internal(
-          () => BookSettings()..bookId = bookId,
-          from: bookSettingsProvider,
-          name: r'bookSettingsProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$bookSettingsHash,
-          dependencies: BookSettingsFamily._dependencies,
-          allTransitiveDependencies:
-              BookSettingsFamily._allTransitiveDependencies,
-          bookId: bookId,
-        );
-
-  BookSettingsProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.bookId,
-  }) : super.internal();
-
-  final String bookId;
-
-  @override
-  model.BookSettings runNotifierBuild(
-    covariant BookSettings notifier,
-  ) {
-    return notifier.build(
-      bookId,
-    );
-  }
-
-  @override
-  Override overrideWith(BookSettings Function() create) {
-    return ProviderOverride(
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(model.BookSettings value) {
+    return $ProviderOverride(
       origin: this,
-      override: BookSettingsProvider._internal(
-        () => create()..bookId = bookId,
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        bookId: bookId,
-      ),
+      providerOverride: $SyncValueProvider<model.BookSettings>(value),
     );
-  }
-
-  @override
-  AutoDisposeNotifierProviderElement<BookSettings, model.BookSettings>
-      createElement() {
-    return _BookSettingsProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is BookSettingsProvider && other.bookId == bookId;
+    return other is BookSettingsProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, bookId.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin BookSettingsRef on AutoDisposeNotifierProviderRef<model.BookSettings> {
-  /// The parameter `bookId` of this provider.
-  String get bookId;
-}
+String _$bookSettingsHash() => r'ef4316367513b1b2b3971e53609e8f0f29de8667';
 
-class _BookSettingsProviderElement
-    extends AutoDisposeNotifierProviderElement<BookSettings, model.BookSettings>
-    with BookSettingsRef {
-  _BookSettingsProviderElement(super.provider);
+final class BookSettingsFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          BookSettings,
+          model.BookSettings,
+          model.BookSettings,
+          model.BookSettings,
+          String
+        > {
+  BookSettingsFamily._()
+    : super(
+        retry: null,
+        name: r'bookSettingsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  BookSettingsProvider call(String bookId) =>
+      BookSettingsProvider._(argument: bookId, from: this);
 
   @override
-  String get bookId => (origin as BookSettingsProvider).bookId;
+  String toString() => r'bookSettingsProvider';
+}
+
+abstract class _$BookSettings extends $Notifier<model.BookSettings> {
+  late final _$args = ref.$arg as String;
+  String get bookId => _$args;
+
+  model.BookSettings build(String bookId);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<model.BookSettings, model.BookSettings>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<model.BookSettings, model.BookSettings>,
+              model.BookSettings,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, () => build(_$args));
+  }
+}
+
+@ProviderFor(BookProgressSettings)
+final bookProgressSettingsProvider = BookProgressSettingsFamily._();
+
+final class BookProgressSettingsProvider
+    extends $NotifierProvider<BookProgressSettings, model.BookProgress> {
+  BookProgressSettingsProvider._({
+    required BookProgressSettingsFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'bookProgressSettingsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$bookProgressSettingsHash();
+
+  @override
+  String toString() {
+    return r'bookProgressSettingsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  BookProgressSettings create() => BookProgressSettings();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(model.BookProgress value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<model.BookProgress>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is BookProgressSettingsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
 String _$bookProgressSettingsHash() =>
     r'be890f6b4f90565620a48c347cb86266fc232374';
 
-abstract class _$BookProgressSettings
-    extends BuildlessAutoDisposeNotifier<model.BookProgress> {
-  late final String bookId;
-
-  model.BookProgress build(
-    String bookId,
-  );
-}
-
-/// See also [BookProgressSettings].
-@ProviderFor(BookProgressSettings)
-const bookProgressSettingsProvider = BookProgressSettingsFamily();
-
-/// See also [BookProgressSettings].
-class BookProgressSettingsFamily extends Family<model.BookProgress> {
-  /// See also [BookProgressSettings].
-  const BookProgressSettingsFamily();
-
-  /// See also [BookProgressSettings].
-  BookProgressSettingsProvider call(
-    String bookId,
-  ) {
-    return BookProgressSettingsProvider(
-      bookId,
-    );
-  }
-
-  @override
-  BookProgressSettingsProvider getProviderOverride(
-    covariant BookProgressSettingsProvider provider,
-  ) {
-    return call(
-      provider.bookId,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'bookProgressSettingsProvider';
-}
-
-/// See also [BookProgressSettings].
-class BookProgressSettingsProvider extends AutoDisposeNotifierProviderImpl<
-    BookProgressSettings, model.BookProgress> {
-  /// See also [BookProgressSettings].
-  BookProgressSettingsProvider(
-    String bookId,
-  ) : this._internal(
-          () => BookProgressSettings()..bookId = bookId,
-          from: bookProgressSettingsProvider,
-          name: r'bookProgressSettingsProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$bookProgressSettingsHash,
-          dependencies: BookProgressSettingsFamily._dependencies,
-          allTransitiveDependencies:
-              BookProgressSettingsFamily._allTransitiveDependencies,
-          bookId: bookId,
-        );
-
-  BookProgressSettingsProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.bookId,
-  }) : super.internal();
-
-  final String bookId;
-
-  @override
-  model.BookProgress runNotifierBuild(
-    covariant BookProgressSettings notifier,
-  ) {
-    return notifier.build(
-      bookId,
-    );
-  }
-
-  @override
-  Override overrideWith(BookProgressSettings Function() create) {
-    return ProviderOverride(
-      origin: this,
-      override: BookProgressSettingsProvider._internal(
-        () => create()..bookId = bookId,
-        from: from,
-        name: null,
+final class BookProgressSettingsFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          BookProgressSettings,
+          model.BookProgress,
+          model.BookProgress,
+          model.BookProgress,
+          String
+        > {
+  BookProgressSettingsFamily._()
+    : super(
+        retry: null,
+        name: r'bookProgressSettingsProvider',
         dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        bookId: bookId,
-      ),
-    );
-  }
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  BookProgressSettingsProvider call(String bookId) =>
+      BookProgressSettingsProvider._(argument: bookId, from: this);
 
   @override
-  AutoDisposeNotifierProviderElement<BookProgressSettings, model.BookProgress>
-      createElement() {
-    return _BookProgressSettingsProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is BookProgressSettingsProvider && other.bookId == bookId;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, bookId.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
+  String toString() => r'bookProgressSettingsProvider';
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin BookProgressSettingsRef
-    on AutoDisposeNotifierProviderRef<model.BookProgress> {
-  /// The parameter `bookId` of this provider.
-  String get bookId;
-}
+abstract class _$BookProgressSettings extends $Notifier<model.BookProgress> {
+  late final _$args = ref.$arg as String;
+  String get bookId => _$args;
 
-class _BookProgressSettingsProviderElement
-    extends AutoDisposeNotifierProviderElement<BookProgressSettings,
-        model.BookProgress> with BookProgressSettingsRef {
-  _BookProgressSettingsProviderElement(super.provider);
-
+  model.BookProgress build(String bookId);
+  @$mustCallSuper
   @override
-  String get bookId => (origin as BookProgressSettingsProvider).bookId;
+  void runBuild() {
+    final ref = this.ref as $Ref<model.BookProgress, model.BookProgress>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<model.BookProgress, model.BookProgress>,
+              model.BookProgress,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, () => build(_$args));
+  }
 }
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

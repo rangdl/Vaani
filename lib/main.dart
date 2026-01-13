@@ -38,10 +38,7 @@ void main() async {
   // await container.read(configurePlayerProvider.future);
   // run the app
   runApp(
-    UncontrolledProviderScope(
-      container: container,
-      child: Framework(AbsApp()),
-    ),
+    UncontrolledProviderScope(container: container, child: Framework(AbsApp())),
   );
 }
 
@@ -79,8 +76,9 @@ class AbsApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final servers = ref.watch(audiobookShelfServerProvider);
-    final activeUser =
-        ref.watch(apiSettingsProvider.select((v) => v.activeUser));
+    final activeUser = ref.watch(
+      apiSettingsProvider.select((v) => v.activeUser),
+    );
 
     final needOnboarding = activeUser == null || servers.isEmpty;
 
@@ -88,11 +86,12 @@ class AbsApp extends ConsumerWidget {
       routerConfig.goNamed(Routes.onboarding.name);
     }
     final language = ref.watch(appSettingsProvider.select((v) => v.language));
-    final themeSettings =
-        ref.watch(appSettingsProvider.select((v) => v.themeSettings));
+    final themeSettings = ref.watch(
+      appSettingsProvider.select((v) => v.themeSettings),
+    );
     final currentBook = ref.watch(currentBookProvider);
     final currentTheme = ref.watch(
-      CurrentThemeProvider(
+      currentThemeProvider(
         highContrast: MediaQuery.of(context).highContrast,
         id: currentBook?.libraryItemId,
       ),

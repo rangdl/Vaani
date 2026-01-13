@@ -13,9 +13,7 @@ class DownloadsPage extends HookConsumerWidget {
     final downloadHistory = ref.watch(downloadHistoryProvider());
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(S.of(context).bookDownloads),
-      ),
+      appBar: AppBar(title: Text(S.of(context).bookDownloads)),
       body: Center(
         // history of downloads
         child: downloadHistory.when(
@@ -27,7 +25,7 @@ class DownloadsPage extends HookConsumerWidget {
               itemBuilder: (context, index) {
                 final group = uniqueGroups.elementAt(index);
                 final groupRecords = records.where((e) => e.group == group);
-                final item = ref.watch(libraryItemProvider(group)).valueOrNull;
+                final item = ref.watch(libraryItemProvider(group)).value;
 
                 return ExpansionTile(
                   title: Text(item?.media.metadata.title ?? group),

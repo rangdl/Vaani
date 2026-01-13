@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,238 +9,317 @@ part of 'api_settings.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-ApiSettings _$ApiSettingsFromJson(Map<String, dynamic> json) {
-  return _ApiSettings.fromJson(json);
-}
 
 /// @nodoc
 mixin _$ApiSettings {
-  AudiobookShelfServer? get activeServer => throw _privateConstructorUsedError;
-  AuthenticatedUser? get activeUser => throw _privateConstructorUsedError;
-  String? get activeLibraryId => throw _privateConstructorUsedError;
+
+ AudiobookShelfServer? get activeServer; AuthenticatedUser? get activeUser; String? get activeLibraryId;
+/// Create a copy of ApiSettings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ApiSettingsCopyWith<ApiSettings> get copyWith => _$ApiSettingsCopyWithImpl<ApiSettings>(this as ApiSettings, _$identity);
 
   /// Serializes this ApiSettings to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of ApiSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ApiSettingsCopyWith<ApiSettings> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ApiSettings&&(identical(other.activeServer, activeServer) || other.activeServer == activeServer)&&(identical(other.activeUser, activeUser) || other.activeUser == activeUser)&&(identical(other.activeLibraryId, activeLibraryId) || other.activeLibraryId == activeLibraryId));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,activeServer,activeUser,activeLibraryId);
+
+@override
+String toString() {
+  return 'ApiSettings(activeServer: $activeServer, activeUser: $activeUser, activeLibraryId: $activeLibraryId)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $ApiSettingsCopyWith<$Res> {
-  factory $ApiSettingsCopyWith(
-          ApiSettings value, $Res Function(ApiSettings) then) =
-      _$ApiSettingsCopyWithImpl<$Res, ApiSettings>;
-  @useResult
-  $Res call(
-      {AudiobookShelfServer? activeServer,
-      AuthenticatedUser? activeUser,
-      String? activeLibraryId});
+abstract mixin class $ApiSettingsCopyWith<$Res>  {
+  factory $ApiSettingsCopyWith(ApiSettings value, $Res Function(ApiSettings) _then) = _$ApiSettingsCopyWithImpl;
+@useResult
+$Res call({
+ AudiobookShelfServer? activeServer, AuthenticatedUser? activeUser, String? activeLibraryId
+});
 
-  $AudiobookShelfServerCopyWith<$Res>? get activeServer;
-  $AuthenticatedUserCopyWith<$Res>? get activeUser;
+
+$AudiobookShelfServerCopyWith<$Res>? get activeServer;$AuthenticatedUserCopyWith<$Res>? get activeUser;
+
 }
-
 /// @nodoc
-class _$ApiSettingsCopyWithImpl<$Res, $Val extends ApiSettings>
+class _$ApiSettingsCopyWithImpl<$Res>
     implements $ApiSettingsCopyWith<$Res> {
-  _$ApiSettingsCopyWithImpl(this._value, this._then);
+  _$ApiSettingsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final ApiSettings _self;
+  final $Res Function(ApiSettings) _then;
 
-  /// Create a copy of ApiSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? activeServer = freezed,
-    Object? activeUser = freezed,
-    Object? activeLibraryId = freezed,
-  }) {
-    return _then(_value.copyWith(
-      activeServer: freezed == activeServer
-          ? _value.activeServer
-          : activeServer // ignore: cast_nullable_to_non_nullable
-              as AudiobookShelfServer?,
-      activeUser: freezed == activeUser
-          ? _value.activeUser
-          : activeUser // ignore: cast_nullable_to_non_nullable
-              as AuthenticatedUser?,
-      activeLibraryId: freezed == activeLibraryId
-          ? _value.activeLibraryId
-          : activeLibraryId // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+/// Create a copy of ApiSettings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? activeServer = freezed,Object? activeUser = freezed,Object? activeLibraryId = freezed,}) {
+  return _then(_self.copyWith(
+activeServer: freezed == activeServer ? _self.activeServer : activeServer // ignore: cast_nullable_to_non_nullable
+as AudiobookShelfServer?,activeUser: freezed == activeUser ? _self.activeUser : activeUser // ignore: cast_nullable_to_non_nullable
+as AuthenticatedUser?,activeLibraryId: freezed == activeLibraryId ? _self.activeLibraryId : activeLibraryId // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+/// Create a copy of ApiSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AudiobookShelfServerCopyWith<$Res>? get activeServer {
+    if (_self.activeServer == null) {
+    return null;
   }
 
-  /// Create a copy of ApiSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AudiobookShelfServerCopyWith<$Res>? get activeServer {
-    if (_value.activeServer == null) {
-      return null;
-    }
-
-    return $AudiobookShelfServerCopyWith<$Res>(_value.activeServer!, (value) {
-      return _then(_value.copyWith(activeServer: value) as $Val);
-    });
+  return $AudiobookShelfServerCopyWith<$Res>(_self.activeServer!, (value) {
+    return _then(_self.copyWith(activeServer: value));
+  });
+}/// Create a copy of ApiSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AuthenticatedUserCopyWith<$Res>? get activeUser {
+    if (_self.activeUser == null) {
+    return null;
   }
 
-  /// Create a copy of ApiSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AuthenticatedUserCopyWith<$Res>? get activeUser {
-    if (_value.activeUser == null) {
-      return null;
-    }
-
-    return $AuthenticatedUserCopyWith<$Res>(_value.activeUser!, (value) {
-      return _then(_value.copyWith(activeUser: value) as $Val);
-    });
-  }
+  return $AuthenticatedUserCopyWith<$Res>(_self.activeUser!, (value) {
+    return _then(_self.copyWith(activeUser: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$ApiSettingsImplCopyWith<$Res>
-    implements $ApiSettingsCopyWith<$Res> {
-  factory _$$ApiSettingsImplCopyWith(
-          _$ApiSettingsImpl value, $Res Function(_$ApiSettingsImpl) then) =
-      __$$ApiSettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {AudiobookShelfServer? activeServer,
-      AuthenticatedUser? activeUser,
-      String? activeLibraryId});
 
-  @override
-  $AudiobookShelfServerCopyWith<$Res>? get activeServer;
-  @override
-  $AuthenticatedUserCopyWith<$Res>? get activeUser;
+/// Adds pattern-matching-related methods to [ApiSettings].
+extension ApiSettingsPatterns on ApiSettings {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ApiSettings value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ApiSettings() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ApiSettings value)  $default,){
+final _that = this;
+switch (_that) {
+case _ApiSettings():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ApiSettings value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ApiSettings() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AudiobookShelfServer? activeServer,  AuthenticatedUser? activeUser,  String? activeLibraryId)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ApiSettings() when $default != null:
+return $default(_that.activeServer,_that.activeUser,_that.activeLibraryId);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AudiobookShelfServer? activeServer,  AuthenticatedUser? activeUser,  String? activeLibraryId)  $default,) {final _that = this;
+switch (_that) {
+case _ApiSettings():
+return $default(_that.activeServer,_that.activeUser,_that.activeLibraryId);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AudiobookShelfServer? activeServer,  AuthenticatedUser? activeUser,  String? activeLibraryId)?  $default,) {final _that = this;
+switch (_that) {
+case _ApiSettings() when $default != null:
+return $default(_that.activeServer,_that.activeUser,_that.activeLibraryId);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$ApiSettingsImplCopyWithImpl<$Res>
-    extends _$ApiSettingsCopyWithImpl<$Res, _$ApiSettingsImpl>
-    implements _$$ApiSettingsImplCopyWith<$Res> {
-  __$$ApiSettingsImplCopyWithImpl(
-      _$ApiSettingsImpl _value, $Res Function(_$ApiSettingsImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of ApiSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? activeServer = freezed,
-    Object? activeUser = freezed,
-    Object? activeLibraryId = freezed,
-  }) {
-    return _then(_$ApiSettingsImpl(
-      activeServer: freezed == activeServer
-          ? _value.activeServer
-          : activeServer // ignore: cast_nullable_to_non_nullable
-              as AudiobookShelfServer?,
-      activeUser: freezed == activeUser
-          ? _value.activeUser
-          : activeUser // ignore: cast_nullable_to_non_nullable
-              as AuthenticatedUser?,
-      activeLibraryId: freezed == activeLibraryId
-          ? _value.activeLibraryId
-          : activeLibraryId // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ApiSettingsImpl implements _ApiSettings {
-  const _$ApiSettingsImpl(
-      {this.activeServer, this.activeUser, this.activeLibraryId});
 
-  factory _$ApiSettingsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ApiSettingsImplFromJson(json);
+class _ApiSettings implements ApiSettings {
+  const _ApiSettings({this.activeServer, this.activeUser, this.activeLibraryId});
+  factory _ApiSettings.fromJson(Map<String, dynamic> json) => _$ApiSettingsFromJson(json);
 
-  @override
-  final AudiobookShelfServer? activeServer;
-  @override
-  final AuthenticatedUser? activeUser;
-  @override
-  final String? activeLibraryId;
+@override final  AudiobookShelfServer? activeServer;
+@override final  AuthenticatedUser? activeUser;
+@override final  String? activeLibraryId;
 
-  @override
-  String toString() {
-    return 'ApiSettings(activeServer: $activeServer, activeUser: $activeUser, activeLibraryId: $activeLibraryId)';
-  }
+/// Create a copy of ApiSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ApiSettingsCopyWith<_ApiSettings> get copyWith => __$ApiSettingsCopyWithImpl<_ApiSettings>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ApiSettingsImpl &&
-            (identical(other.activeServer, activeServer) ||
-                other.activeServer == activeServer) &&
-            (identical(other.activeUser, activeUser) ||
-                other.activeUser == activeUser) &&
-            (identical(other.activeLibraryId, activeLibraryId) ||
-                other.activeLibraryId == activeLibraryId));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, activeServer, activeUser, activeLibraryId);
-
-  /// Create a copy of ApiSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ApiSettingsImplCopyWith<_$ApiSettingsImpl> get copyWith =>
-      __$$ApiSettingsImplCopyWithImpl<_$ApiSettingsImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ApiSettingsImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$ApiSettingsToJson(this, );
 }
 
-abstract class _ApiSettings implements ApiSettings {
-  const factory _ApiSettings(
-      {final AudiobookShelfServer? activeServer,
-      final AuthenticatedUser? activeUser,
-      final String? activeLibraryId}) = _$ApiSettingsImpl;
-
-  factory _ApiSettings.fromJson(Map<String, dynamic> json) =
-      _$ApiSettingsImpl.fromJson;
-
-  @override
-  AudiobookShelfServer? get activeServer;
-  @override
-  AuthenticatedUser? get activeUser;
-  @override
-  String? get activeLibraryId;
-
-  /// Create a copy of ApiSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ApiSettingsImplCopyWith<_$ApiSettingsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ApiSettings&&(identical(other.activeServer, activeServer) || other.activeServer == activeServer)&&(identical(other.activeUser, activeUser) || other.activeUser == activeUser)&&(identical(other.activeLibraryId, activeLibraryId) || other.activeLibraryId == activeLibraryId));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,activeServer,activeUser,activeLibraryId);
+
+@override
+String toString() {
+  return 'ApiSettings(activeServer: $activeServer, activeUser: $activeUser, activeLibraryId: $activeLibraryId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ApiSettingsCopyWith<$Res> implements $ApiSettingsCopyWith<$Res> {
+  factory _$ApiSettingsCopyWith(_ApiSettings value, $Res Function(_ApiSettings) _then) = __$ApiSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ AudiobookShelfServer? activeServer, AuthenticatedUser? activeUser, String? activeLibraryId
+});
+
+
+@override $AudiobookShelfServerCopyWith<$Res>? get activeServer;@override $AuthenticatedUserCopyWith<$Res>? get activeUser;
+
+}
+/// @nodoc
+class __$ApiSettingsCopyWithImpl<$Res>
+    implements _$ApiSettingsCopyWith<$Res> {
+  __$ApiSettingsCopyWithImpl(this._self, this._then);
+
+  final _ApiSettings _self;
+  final $Res Function(_ApiSettings) _then;
+
+/// Create a copy of ApiSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? activeServer = freezed,Object? activeUser = freezed,Object? activeLibraryId = freezed,}) {
+  return _then(_ApiSettings(
+activeServer: freezed == activeServer ? _self.activeServer : activeServer // ignore: cast_nullable_to_non_nullable
+as AudiobookShelfServer?,activeUser: freezed == activeUser ? _self.activeUser : activeUser // ignore: cast_nullable_to_non_nullable
+as AuthenticatedUser?,activeLibraryId: freezed == activeLibraryId ? _self.activeLibraryId : activeLibraryId // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+/// Create a copy of ApiSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AudiobookShelfServerCopyWith<$Res>? get activeServer {
+    if (_self.activeServer == null) {
+    return null;
+  }
+
+  return $AudiobookShelfServerCopyWith<$Res>(_self.activeServer!, (value) {
+    return _then(_self.copyWith(activeServer: value));
+  });
+}/// Create a copy of ApiSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AuthenticatedUserCopyWith<$Res>? get activeUser {
+    if (_self.activeUser == null) {
+    return null;
+  }
+
+  return $AuthenticatedUserCopyWith<$Res>(_self.activeUser!, (value) {
+    return _then(_self.copyWith(activeUser: value));
+  });
+}
+}
+
+// dart format on

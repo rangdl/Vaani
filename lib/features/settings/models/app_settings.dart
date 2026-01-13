@@ -10,7 +10,7 @@ part 'app_settings.g.dart';
 ///
 /// only the visual settings are stored here
 @freezed
-class AppSettings with _$AppSettings {
+sealed class AppSettings with _$AppSettings {
   const factory AppSettings({
     @Default('zh') String language,
     @Default(ThemeSettings()) ThemeSettings themeSettings,
@@ -28,7 +28,7 @@ class AppSettings with _$AppSettings {
 }
 
 @freezed
-class ThemeSettings with _$ThemeSettings {
+sealed class ThemeSettings with _$ThemeSettings {
   const factory ThemeSettings({
     @Default(ThemeMode.system) ThemeMode themeMode,
     @Default(false) bool highContrast,
@@ -43,7 +43,7 @@ class ThemeSettings with _$ThemeSettings {
 }
 
 @freezed
-class PlayerSettings with _$PlayerSettings {
+sealed class PlayerSettings with _$PlayerSettings {
   const factory PlayerSettings({
     @Default(MinimizedPlayerSettings())
     MinimizedPlayerSettings miniPlayerSettings,
@@ -66,7 +66,7 @@ class PlayerSettings with _$PlayerSettings {
 }
 
 @freezed
-class ExpandedPlayerSettings with _$ExpandedPlayerSettings {
+sealed class ExpandedPlayerSettings with _$ExpandedPlayerSettings {
   const factory ExpandedPlayerSettings({
     @Default(false) bool showTotalProgress,
     @Default(true) bool showChapterProgress,
@@ -77,28 +77,25 @@ class ExpandedPlayerSettings with _$ExpandedPlayerSettings {
 }
 
 @freezed
-class MinimizedPlayerSettings with _$MinimizedPlayerSettings {
-  const factory MinimizedPlayerSettings({
-    @Default(false) bool useChapterInfo,
-  }) = _MinimizedPlayerSettings;
+sealed class MinimizedPlayerSettings with _$MinimizedPlayerSettings {
+  const factory MinimizedPlayerSettings({@Default(false) bool useChapterInfo}) =
+      _MinimizedPlayerSettings;
 
   factory MinimizedPlayerSettings.fromJson(Map<String, dynamic> json) =>
       _$MinimizedPlayerSettingsFromJson(json);
 }
 
 @freezed
-class SleepTimerSettings with _$SleepTimerSettings {
+sealed class SleepTimerSettings with _$SleepTimerSettings {
   const factory SleepTimerSettings({
     @Default(Duration(minutes: 15)) Duration defaultDuration,
-    @Default(
-      [
-        Duration(minutes: 5),
-        Duration(minutes: 10),
-        Duration(minutes: 15),
-        Duration(minutes: 20),
-        Duration(minutes: 30),
-      ],
-    )
+    @Default([
+      Duration(minutes: 5),
+      Duration(minutes: 10),
+      Duration(minutes: 15),
+      Duration(minutes: 20),
+      Duration(minutes: 30),
+    ])
     List<Duration> presetDurations,
     @Default(Duration(minutes: 100)) Duration maxDuration,
     @Default(false) bool fadeOutAudio,
@@ -135,7 +132,7 @@ class SleepTimerSettings with _$SleepTimerSettings {
 }
 
 @freezed
-class DownloadSettings with _$DownloadSettings {
+sealed class DownloadSettings with _$DownloadSettings {
   const factory DownloadSettings({
     @Default(true) bool requiresWiFi,
     @Default(3) int retries,
@@ -151,21 +148,19 @@ class DownloadSettings with _$DownloadSettings {
 }
 
 @freezed
-class NotificationSettings with _$NotificationSettings {
+sealed class NotificationSettings with _$NotificationSettings {
   const factory NotificationSettings({
     @Default(Duration(seconds: 30)) Duration fastForwardInterval,
     @Default(Duration(seconds: 10)) Duration rewindInterval,
     @Default(true) bool progressBarIsChapterProgress,
     @Default('\$bookTitle') String primaryTitle,
     @Default('\$author') String secondaryTitle,
-    @Default(
-      [
-        NotificationMediaControl.rewind,
-        NotificationMediaControl.fastForward,
-        NotificationMediaControl.skipToPreviousChapter,
-        NotificationMediaControl.skipToNextChapter,
-      ],
-    )
+    @Default([
+      NotificationMediaControl.rewind,
+      NotificationMediaControl.fastForward,
+      NotificationMediaControl.skipToPreviousChapter,
+      NotificationMediaControl.skipToNextChapter,
+    ])
     List<NotificationMediaControl> mediaControls,
   }) = _NotificationSettings;
 
@@ -198,7 +193,7 @@ enum NotificationMediaControl {
 
 /// Shake Detection Settings
 @freezed
-class ShakeDetectionSettings with _$ShakeDetectionSettings {
+sealed class ShakeDetectionSettings with _$ShakeDetectionSettings {
   const factory ShakeDetectionSettings({
     @Default(true) bool isEnabled,
     @Default(ShakeDirection.horizontal) ShakeDirection direction,
@@ -224,18 +219,12 @@ class ShakeDetectionSettings with _$ShakeDetectionSettings {
 
 enum ShakeDirection { horizontal, vertical }
 
-enum ShakeAction {
-  none,
-  playPause,
-  resetSleepTimer,
-  fastForward,
-  rewind,
-}
+enum ShakeAction { none, playPause, resetSleepTimer, fastForward, rewind }
 
 enum ShakeDetectedFeedback { vibrate, beep }
 
 @freezed
-class HomePageSettings with _$HomePageSettings {
+sealed class HomePageSettings with _$HomePageSettings {
   const factory HomePageSettings({
     @Default(true) bool showPlayButtonOnContinueListeningShelf,
     @Default(false) bool showPlayButtonOnContinueSeriesShelf,

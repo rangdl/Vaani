@@ -25,16 +25,13 @@ import 'package:vaani/shared/utils.dart';
 import 'package:vaani/shared/utils/custom_dialog.dart';
 
 class LibraryItemActions extends HookConsumerWidget {
-  const LibraryItemActions({
-    super.key,
-    required this.id,
-  });
+  const LibraryItemActions({super.key, required this.id});
 
   final String id;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final item = ref.watch(libraryItemProvider(id)).valueOrNull;
+    final item = ref.watch(libraryItemProvider(id)).value;
     if (item == null) {
       return const SizedBox.shrink();
     }
@@ -67,9 +64,7 @@ class LibraryItemActions extends HookConsumerWidget {
                       // read list button
                       IconButton(
                         onPressed: () {},
-                        icon: const Icon(
-                          Icons.playlist_add_rounded,
-                        ),
+                        icon: const Icon(Icons.playlist_add_rounded),
                       ),
                       // share button
                       IconButton(
@@ -78,8 +73,9 @@ class LibraryItemActions extends HookConsumerWidget {
                           var currentServerUrl =
                               apiSettings.activeServer!.serverUrl;
                           if (!currentServerUrl.hasScheme) {
-                            currentServerUrl =
-                                Uri.https(currentServerUrl.toString());
+                            currentServerUrl = Uri.https(
+                              currentServerUrl.toString(),
+                            );
                           }
                           handleLaunchUrl(
                             Uri.parse(
@@ -140,7 +136,8 @@ class LibraryItemActions extends HookConsumerWidget {
                                                             .database
                                                             .deleteRecordWithId(
                                                               record
-                                                                  .task.taskId,
+                                                                  .task
+                                                                  .taskId,
                                                             );
                                                         Navigator.pop(context);
                                                       },
@@ -161,8 +158,8 @@ class LibraryItemActions extends HookConsumerWidget {
                                             // open the file location
                                             final didOpen =
                                                 await FileDownloader().openFile(
-                                              task: record.task,
-                                            );
+                                                  task: record.task,
+                                                );
 
                                             if (!didOpen) {
                                               appLogger.warning(
@@ -182,16 +179,13 @@ class LibraryItemActions extends HookConsumerWidget {
                                 loading: () => const Center(
                                   child: CircularProgressIndicator(),
                                 ),
-                                error: (error, stackTrace) => Center(
-                                  child: Text('Error: $error'),
-                                ),
+                                error: (error, stackTrace) =>
+                                    Center(child: Text('Error: $error')),
                               );
                             },
                           );
                         },
-                        icon: const Icon(
-                          Icons.more_vert_rounded,
-                        ),
+                        icon: const Icon(Icons.more_vert_rounded),
                       ),
                     ],
                   ),
@@ -223,9 +217,7 @@ class LibItemDownButton extends HookConsumerWidget {
           },
         );
       },
-      icon: const Icon(
-        Icons.download_sharp,
-      ),
+      icon: const Icon(Icons.download_sharp),
     );
   }
 }
@@ -263,9 +255,7 @@ class LibItemDownSheet extends HookConsumerWidget {
                               onPressed: () {
                                 ref
                                     .read(downloadManagerProvider.notifier)
-                                    .deleteDownloadedItem(
-                                      item,
-                                    );
+                                    .deleteDownloadedItem(item);
                               },
                             );
                           },
@@ -289,9 +279,7 @@ class LibItemDownSheet extends HookConsumerWidget {
                         // track.metadata?.relPath ?? '',
                         item.relPath,
                       ),
-                      trailing: const Icon(
-                        Icons.open_in_new_rounded,
-                      ),
+                      trailing: const Icon(Icons.open_in_new_rounded),
                       onLongPress: () {
                         // show the delete dialog
                         // _showDialog(context, record.task);
@@ -307,36 +295,27 @@ class LibItemDownSheet extends HookConsumerWidget {
           ),
         );
       },
-      loading: () => const Center(
-        child: CircularProgressIndicator(),
-      ),
-      error: (error, stackTrace) => Center(
-        child: Text('Error: $error'),
-      ),
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stackTrace) => Center(child: Text('Error: $error')),
     );
   }
 }
 
 class LibItemDownloadButton extends HookConsumerWidget {
-  const LibItemDownloadButton({
-    super.key,
-    required this.item,
-  });
+  const LibItemDownloadButton({super.key, required this.item});
 
   final shelfsdk.LibraryItemExpanded item;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isItemDownloaded = ref.watch(isItemDownloadedProvider(item));
-    if (isItemDownloaded.valueOrNull ?? false) {
+    if (isItemDownloaded.value ?? false) {
       return AlreadyItemDownloadedButton(item: item);
     }
     final isItemDownloading = ref.watch(isItemDownloadingProvider(item.id));
 
     return isItemDownloading
-        ? ItemCurrentlyInDownloadQueue(
-            item: item,
-          )
+        ? ItemCurrentlyInDownloadQueue(item: item)
         : IconButton(
             onPressed: () {
               appLogger.fine('Pressed download button');
@@ -345,18 +324,13 @@ class LibItemDownloadButton extends HookConsumerWidget {
                   .read(downloadManagerProvider.notifier)
                   .queueAudioBookDownload(item);
             },
-            icon: const Icon(
-              Icons.download_rounded,
-            ),
+            icon: const Icon(Icons.download_rounded),
           );
   }
 }
 
 class ItemCurrentlyInDownloadQueue extends HookConsumerWidget {
-  const ItemCurrentlyInDownloadQueue({
-    super.key,
-    required this.item,
-  });
+  const ItemCurrentlyInDownloadQueue({super.key, required this.item});
 
   final shelfsdk.LibraryItemExpanded item;
 
@@ -364,7 +338,7 @@ class ItemCurrentlyInDownloadQueue extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final progress = ref
         .watch(itemDownloadProgressProvider(item.id))
-        .valueOrNull
+        .value
         ?.clamp(0.05, 1.0);
 
     if (progress == 1) {
@@ -375,17 +349,12 @@ class ItemCurrentlyInDownloadQueue extends HookConsumerWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        CircularProgressIndicator(
-          value: progress,
-          strokeWidth: 2,
-        ),
+        CircularProgressIndicator(value: progress, strokeWidth: 2),
         const Icon(
-          Icons.download,
-          // color: Theme.of(context).progressIndicatorTheme.color,
-        )
-            .animate(
-              onPlay: (controller) => controller.repeat(),
+              Icons.download,
+              // color: Theme.of(context).progressIndicatorTheme.color,
             )
+            .animate(onPlay: (controller) => controller.repeat())
             .fade(
               duration: shimmerDuration,
               end: 1,
@@ -404,10 +373,7 @@ class ItemCurrentlyInDownloadQueue extends HookConsumerWidget {
 }
 
 class AlreadyItemDownloadedButton extends HookConsumerWidget {
-  const AlreadyItemDownloadedButton({
-    super.key,
-    required this.item,
-  });
+  const AlreadyItemDownloadedButton({super.key, required this.item});
 
   final shelfsdk.LibraryItemExpanded item;
 
@@ -430,25 +396,18 @@ class AlreadyItemDownloadedButton extends HookConsumerWidget {
                 top: 8.0,
                 bottom: (isBookPlaying ? playerMinHeight : 0) + 8,
               ),
-              child: DownloadSheet(
-                item: item,
-              ),
+              child: DownloadSheet(item: item),
             );
           },
         );
       },
-      icon: const Icon(
-        Icons.download_done_rounded,
-      ),
+      icon: const Icon(Icons.download_done_rounded),
     );
   }
 }
 
 class DownloadSheet extends HookConsumerWidget {
-  const DownloadSheet({
-    super.key,
-    required this.item,
-  });
+  const DownloadSheet({super.key, required this.item});
 
   final shelfsdk.LibraryItemExpanded item;
 
@@ -480,9 +439,7 @@ class DownloadSheet extends HookConsumerWidget {
         // ),
         ListTile(
           title: Text(S.of(context).delete),
-          leading: const Icon(
-            Icons.delete_rounded,
-          ),
+          leading: const Icon(Icons.delete_rounded),
           onTap: () async {
             // show the delete dialog
             final wasDeleted = await showDialog<bool>(
@@ -500,9 +457,7 @@ class DownloadSheet extends HookConsumerWidget {
                         // delete the file
                         ref
                             .read(downloadManagerProvider.notifier)
-                            .deleteDownloadedItem(
-                              item,
-                            );
+                            .deleteDownloadedItem(item);
                         GoRouter.of(context).pop(true);
                       },
                       child: Text(S.of(context).yes),
@@ -519,8 +474,9 @@ class DownloadSheet extends HookConsumerWidget {
             );
 
             if (wasDeleted ?? false) {
-              appLogger
-                  .fine(S.of(context).deleted(item.media.metadata.title ?? ''));
+              appLogger.fine(
+                S.of(context).deleted(item.media.metadata.title ?? ''),
+              );
               GoRouter.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -538,9 +494,7 @@ class DownloadSheet extends HookConsumerWidget {
 }
 
 class _LibraryItemPlayButton extends HookConsumerWidget {
-  const _LibraryItemPlayButton({
-    required this.item,
-  });
+  const _LibraryItemPlayButton({required this.item});
 
   final shelfsdk.LibraryItemExpanded item;
 
@@ -594,9 +548,7 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
       ),
       label: Text(getPlayDisplayText()),
       style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
     );
   }
@@ -622,18 +574,16 @@ class DynamicItemPlayIcon extends StatelessWidget {
         ? SizedBox(
             // width: 20,
             // height: 20,
-            child: CircularProgressIndicator(
-              strokeWidth: 4,
-            ),
+            child: CircularProgressIndicator(strokeWidth: 4),
           )
         : Icon(
             isCurrentBookSetInPlayer
                 ? isPlayingThisBook
-                    ? Icons.pause_rounded
-                    : Icons.play_arrow_rounded
+                      ? Icons.pause_rounded
+                      : Icons.play_arrow_rounded
                 : isBookCompleted
-                    ? Icons.replay_rounded
-                    : Icons.play_arrow_rounded,
+                ? Icons.replay_rounded
+                : Icons.play_arrow_rounded,
           );
   }
 }

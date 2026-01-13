@@ -6,317 +6,515 @@ part of 'abs_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(playerActive)
+final playerActiveProvider = PlayerActiveProvider._();
+
+final class PlayerActiveProvider extends $FunctionalProvider<bool, bool, bool>
+    with $Provider<bool> {
+  PlayerActiveProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'playerActiveProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$playerActiveHash();
+
+  @$internal
+  @override
+  $ProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  bool create(Ref ref) {
+    return playerActive(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+}
+
 String _$playerActiveHash() => r'4d3e7181cf66bfdb46d5caaece56cde07f610cc4';
 
-/// See also [playerActive].
-@ProviderFor(playerActive)
-final playerActiveProvider = AutoDisposeProvider<bool>.internal(
-  playerActive,
-  name: r'playerActiveProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$playerActiveHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+@ProviderFor(simpleAudioPlayer)
+final simpleAudioPlayerProvider = SimpleAudioPlayerProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef PlayerActiveRef = AutoDisposeProviderRef<bool>;
+final class SimpleAudioPlayerProvider
+    extends
+        $FunctionalProvider<
+          audio.AudioPlayer,
+          audio.AudioPlayer,
+          audio.AudioPlayer
+        >
+    with $Provider<audio.AudioPlayer> {
+  SimpleAudioPlayerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'simpleAudioPlayerProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$simpleAudioPlayerHash();
+
+  @$internal
+  @override
+  $ProviderElement<audio.AudioPlayer> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  audio.AudioPlayer create(Ref ref) {
+    return simpleAudioPlayer(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(audio.AudioPlayer value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<audio.AudioPlayer>(value),
+    );
+  }
+}
+
 String _$simpleAudioPlayerHash() => r'99d84a750cf605ad036603320925f0ba7253930b';
 
-/// See also [simpleAudioPlayer].
-@ProviderFor(simpleAudioPlayer)
-final simpleAudioPlayerProvider = Provider<audio.AudioPlayer>.internal(
-  simpleAudioPlayer,
-  name: r'simpleAudioPlayerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$simpleAudioPlayerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+@ProviderFor(AbsPlayer)
+final absPlayerProvider = AbsPlayerProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SimpleAudioPlayerRef = ProviderRef<audio.AudioPlayer>;
-String _$totalHash() => r'2d01953862a875f6e66fe3af56868e819e33fcc8';
+final class AbsPlayerProvider
+    extends $NotifierProvider<AbsPlayer, AbsAudioPlayer> {
+  AbsPlayerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'absPlayerProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// 进度条显示
-///
-/// Copied from [total].
-@ProviderFor(total)
-final totalProvider = AutoDisposeProvider<Duration>.internal(
-  total,
-  name: r'totalProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$totalHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+  @override
+  String debugGetCreateSourceHash() => _$absPlayerHash();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef TotalRef = AutoDisposeProviderRef<Duration>;
-String _$progressHash() => r'7ed041be2d26a437becc9ab624322b47efbee06e';
+  @$internal
+  @override
+  AbsPlayer create() => AbsPlayer();
 
-/// See also [progress].
-@ProviderFor(progress)
-final progressProvider = AutoDisposeStreamProvider<Duration>.internal(
-  progress,
-  name: r'progressProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$progressHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AbsAudioPlayer value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AbsAudioPlayer>(value),
+    );
+  }
+}
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ProgressRef = AutoDisposeStreamProviderRef<Duration>;
-String _$progressBufferedHash() => r'20f886a5ad8bd4eb031eceb845201dc61dfd5fca';
-
-/// See also [progressBuffered].
-@ProviderFor(progressBuffered)
-final progressBufferedProvider = AutoDisposeStreamProvider<Duration>.internal(
-  progressBuffered,
-  name: r'progressBufferedProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$progressBufferedHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ProgressBufferedRef = AutoDisposeStreamProviderRef<Duration>;
 String _$absPlayerHash() => r'c43c02b600326c2d47b900cb3977cd9fae201463';
 
-/// See also [AbsPlayer].
-@ProviderFor(AbsPlayer)
-final absPlayerProvider = NotifierProvider<AbsPlayer, AbsAudioPlayer>.internal(
-  AbsPlayer.new,
-  name: r'absPlayerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$absPlayerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+abstract class _$AbsPlayer extends $Notifier<AbsAudioPlayer> {
+  AbsAudioPlayer build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<AbsAudioPlayer, AbsAudioPlayer>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AbsAudioPlayer, AbsAudioPlayer>,
+              AbsAudioPlayer,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
 
-typedef _$AbsPlayer = Notifier<AbsAudioPlayer>;
+@ProviderFor(PlayerState)
+final playerStateProvider = PlayerStateProvider._();
+
+final class PlayerStateProvider
+    extends $NotifierProvider<PlayerState, audio.PlayerState> {
+  PlayerStateProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'playerStateProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$playerStateHash();
+
+  @$internal
+  @override
+  PlayerState create() => PlayerState();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(audio.PlayerState value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<audio.PlayerState>(value),
+    );
+  }
+}
+
 String _$playerStateHash() => r'eb79bd816714f721da1c4226d4447de5dc55fc5c';
 
-/// See also [PlayerState].
-@ProviderFor(PlayerState)
-final playerStateProvider =
-    AutoDisposeNotifierProvider<PlayerState, audio.PlayerState>.internal(
-  PlayerState.new,
-  name: r'playerStateProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$playerStateHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$PlayerState = AutoDisposeNotifier<audio.PlayerState>;
-String _$currentTimeHash() => r'e2cf66f5f04cd51f5ddafd64ace395ec3bf0ede2';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+abstract class _$PlayerState extends $Notifier<audio.PlayerState> {
+  audio.PlayerState build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<audio.PlayerState, audio.PlayerState>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<audio.PlayerState, audio.PlayerState>,
+              audio.PlayerState,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
   }
 }
 
-abstract class _$CurrentTime
-    extends BuildlessAutoDisposeAsyncNotifier<shelfsdk.MediaProgress?> {
-  late final String libraryItemId;
-
-  FutureOr<shelfsdk.MediaProgress?> build(
-    String libraryItemId,
-  );
-}
-
-/// See also [CurrentTime].
 @ProviderFor(CurrentTime)
-const currentTimeProvider = CurrentTimeFamily();
+final currentTimeProvider = CurrentTimeFamily._();
 
-/// See also [CurrentTime].
-class CurrentTimeFamily extends Family<AsyncValue<shelfsdk.MediaProgress?>> {
-  /// See also [CurrentTime].
-  const CurrentTimeFamily();
+final class CurrentTimeProvider
+    extends $AsyncNotifierProvider<CurrentTime, shelfsdk.MediaProgress?> {
+  CurrentTimeProvider._({
+    required CurrentTimeFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'currentTimeProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [CurrentTime].
-  CurrentTimeProvider call(
-    String libraryItemId,
-  ) {
-    return CurrentTimeProvider(
-      libraryItemId,
-    );
+  @override
+  String debugGetCreateSourceHash() => _$currentTimeHash();
+
+  @override
+  String toString() {
+    return r'currentTimeProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  CurrentTimeProvider getProviderOverride(
-    covariant CurrentTimeProvider provider,
-  ) {
-    return call(
-      provider.libraryItemId,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'currentTimeProvider';
-}
-
-/// See also [CurrentTime].
-class CurrentTimeProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    CurrentTime, shelfsdk.MediaProgress?> {
-  /// See also [CurrentTime].
-  CurrentTimeProvider(
-    String libraryItemId,
-  ) : this._internal(
-          () => CurrentTime()..libraryItemId = libraryItemId,
-          from: currentTimeProvider,
-          name: r'currentTimeProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$currentTimeHash,
-          dependencies: CurrentTimeFamily._dependencies,
-          allTransitiveDependencies:
-              CurrentTimeFamily._allTransitiveDependencies,
-          libraryItemId: libraryItemId,
-        );
-
-  CurrentTimeProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.libraryItemId,
-  }) : super.internal();
-
-  final String libraryItemId;
-
-  @override
-  FutureOr<shelfsdk.MediaProgress?> runNotifierBuild(
-    covariant CurrentTime notifier,
-  ) {
-    return notifier.build(
-      libraryItemId,
-    );
-  }
-
-  @override
-  Override overrideWith(CurrentTime Function() create) {
-    return ProviderOverride(
-      origin: this,
-      override: CurrentTimeProvider._internal(
-        () => create()..libraryItemId = libraryItemId,
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        libraryItemId: libraryItemId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeAsyncNotifierProviderElement<CurrentTime, shelfsdk.MediaProgress?>
-      createElement() {
-    return _CurrentTimeProviderElement(this);
-  }
+  CurrentTime create() => CurrentTime();
 
   @override
   bool operator ==(Object other) {
-    return other is CurrentTimeProvider && other.libraryItemId == libraryItemId;
+    return other is CurrentTimeProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, libraryItemId.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin CurrentTimeRef
-    on AutoDisposeAsyncNotifierProviderRef<shelfsdk.MediaProgress?> {
-  /// The parameter `libraryItemId` of this provider.
-  String get libraryItemId;
-}
+String _$currentTimeHash() => r'e2cf66f5f04cd51f5ddafd64ace395ec3bf0ede2';
 
-class _CurrentTimeProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<CurrentTime,
-        shelfsdk.MediaProgress?> with CurrentTimeRef {
-  _CurrentTimeProviderElement(super.provider);
+final class CurrentTimeFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          CurrentTime,
+          AsyncValue<shelfsdk.MediaProgress?>,
+          shelfsdk.MediaProgress?,
+          FutureOr<shelfsdk.MediaProgress?>,
+          String
+        > {
+  CurrentTimeFamily._()
+    : super(
+        retry: null,
+        name: r'currentTimeProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  CurrentTimeProvider call(String libraryItemId) =>
+      CurrentTimeProvider._(argument: libraryItemId, from: this);
 
   @override
-  String get libraryItemId => (origin as CurrentTimeProvider).libraryItemId;
+  String toString() => r'currentTimeProvider';
+}
+
+abstract class _$CurrentTime extends $AsyncNotifier<shelfsdk.MediaProgress?> {
+  late final _$args = ref.$arg as String;
+  String get libraryItemId => _$args;
+
+  FutureOr<shelfsdk.MediaProgress?> build(String libraryItemId);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref =
+        this.ref
+            as $Ref<
+              AsyncValue<shelfsdk.MediaProgress?>,
+              shelfsdk.MediaProgress?
+            >;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<
+                AsyncValue<shelfsdk.MediaProgress?>,
+                shelfsdk.MediaProgress?
+              >,
+              AsyncValue<shelfsdk.MediaProgress?>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, () => build(_$args));
+  }
+}
+
+@ProviderFor(CurrentBook)
+final currentBookProvider = CurrentBookProvider._();
+
+final class CurrentBookProvider
+    extends $NotifierProvider<CurrentBook, shelfsdk.BookExpanded?> {
+  CurrentBookProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'currentBookProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$currentBookHash();
+
+  @$internal
+  @override
+  CurrentBook create() => CurrentBook();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(shelfsdk.BookExpanded? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<shelfsdk.BookExpanded?>(value),
+    );
+  }
 }
 
 String _$currentBookHash() => r'f13ba110d104be8bae48972d6fd266d461d30898';
 
-/// See also [CurrentBook].
-@ProviderFor(CurrentBook)
-final currentBookProvider =
-    AutoDisposeNotifierProvider<CurrentBook, shelfsdk.BookExpanded?>.internal(
-  CurrentBook.new,
-  name: r'currentBookProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$currentBookHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+abstract class _$CurrentBook extends $Notifier<shelfsdk.BookExpanded?> {
+  shelfsdk.BookExpanded? build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref =
+        this.ref as $Ref<shelfsdk.BookExpanded?, shelfsdk.BookExpanded?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<shelfsdk.BookExpanded?, shelfsdk.BookExpanded?>,
+              shelfsdk.BookExpanded?,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
 
-typedef _$CurrentBook = AutoDisposeNotifier<shelfsdk.BookExpanded?>;
+@ProviderFor(CurrentChapter)
+final currentChapterProvider = CurrentChapterProvider._();
+
+final class CurrentChapterProvider
+    extends $NotifierProvider<CurrentChapter, shelfsdk.BookChapter?> {
+  CurrentChapterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'currentChapterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$currentChapterHash();
+
+  @$internal
+  @override
+  CurrentChapter create() => CurrentChapter();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(shelfsdk.BookChapter? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<shelfsdk.BookChapter?>(value),
+    );
+  }
+}
+
 String _$currentChapterHash() => r'e8d867067f383372afd758186f13950a6746ba85';
 
-/// See also [CurrentChapter].
-@ProviderFor(CurrentChapter)
-final currentChapterProvider =
-    AutoDisposeNotifierProvider<CurrentChapter, shelfsdk.BookChapter?>.internal(
-  CurrentChapter.new,
-  name: r'currentChapterProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$currentChapterHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+abstract class _$CurrentChapter extends $Notifier<shelfsdk.BookChapter?> {
+  shelfsdk.BookChapter? build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<shelfsdk.BookChapter?, shelfsdk.BookChapter?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<shelfsdk.BookChapter?, shelfsdk.BookChapter?>,
+              shelfsdk.BookChapter?,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
 
-typedef _$CurrentChapter = AutoDisposeNotifier<shelfsdk.BookChapter?>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+/// 进度条显示
+// 进度条总时长
+
+@ProviderFor(total)
+final totalProvider = TotalProvider._();
+
+/// 进度条显示
+// 进度条总时长
+
+final class TotalProvider
+    extends $FunctionalProvider<Duration, Duration, Duration>
+    with $Provider<Duration> {
+  /// 进度条显示
+  // 进度条总时长
+  TotalProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'totalProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$totalHash();
+
+  @$internal
+  @override
+  $ProviderElement<Duration> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Duration create(Ref ref) {
+    return total(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Duration value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Duration>(value),
+    );
+  }
+}
+
+String _$totalHash() => r'2d01953862a875f6e66fe3af56868e819e33fcc8';
+
+@ProviderFor(progress)
+final progressProvider = ProgressProvider._();
+
+final class ProgressProvider
+    extends
+        $FunctionalProvider<AsyncValue<Duration>, Duration, Stream<Duration>>
+    with $FutureModifier<Duration>, $StreamProvider<Duration> {
+  ProgressProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'progressProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$progressHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<Duration> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<Duration> create(Ref ref) {
+    return progress(ref);
+  }
+}
+
+String _$progressHash() => r'7ed041be2d26a437becc9ab624322b47efbee06e';
+
+@ProviderFor(progressBuffered)
+final progressBufferedProvider = ProgressBufferedProvider._();
+
+final class ProgressBufferedProvider
+    extends
+        $FunctionalProvider<AsyncValue<Duration>, Duration, Stream<Duration>>
+    with $FutureModifier<Duration>, $StreamProvider<Duration> {
+  ProgressBufferedProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'progressBufferedProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$progressBufferedHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<Duration> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<Duration> create(Ref ref) {
+    return progressBuffered(ref);
+  }
+}
+
+String _$progressBufferedHash() => r'20f886a5ad8bd4eb031eceb845201dc61dfd5fca';

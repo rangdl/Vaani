@@ -6,679 +6,536 @@ part of 'api_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$audiobookshelfApiHash() => r'ba34f6a16394cdc849b1bd63cd1f3f2472f04f69';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 /// get the api instance for the given base url
-///
-/// Copied from [audiobookshelfApi].
+
 @ProviderFor(audiobookshelfApi)
-const audiobookshelfApiProvider = AudiobookshelfApiFamily();
+final audiobookshelfApiProvider = AudiobookshelfApiFamily._();
 
 /// get the api instance for the given base url
-///
-/// Copied from [audiobookshelfApi].
-class AudiobookshelfApiFamily extends Family<AudiobookshelfApi> {
-  /// get the api instance for the given base url
-  ///
-  /// Copied from [audiobookshelfApi].
-  const AudiobookshelfApiFamily();
 
+final class AudiobookshelfApiProvider
+    extends
+        $FunctionalProvider<
+          AudiobookshelfApi,
+          AudiobookshelfApi,
+          AudiobookshelfApi
+        >
+    with $Provider<AudiobookshelfApi> {
   /// get the api instance for the given base url
-  ///
-  /// Copied from [audiobookshelfApi].
-  AudiobookshelfApiProvider call(
-    Uri? baseUrl,
-  ) {
-    return AudiobookshelfApiProvider(
-      baseUrl,
-    );
+  AudiobookshelfApiProvider._({
+    required AudiobookshelfApiFamily super.from,
+    required Uri? super.argument,
+  }) : super(
+         retry: null,
+         name: r'audiobookshelfApiProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$audiobookshelfApiHash();
+
+  @override
+  String toString() {
+    return r'audiobookshelfApiProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AudiobookshelfApiProvider getProviderOverride(
-    covariant AudiobookshelfApiProvider provider,
-  ) {
-    return call(
-      provider.baseUrl,
-    );
+  $ProviderElement<AudiobookshelfApi> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  AudiobookshelfApi create(Ref ref) {
+    final argument = this.argument as Uri?;
+    return audiobookshelfApi(ref, argument);
   }
 
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'audiobookshelfApiProvider';
-}
-
-/// get the api instance for the given base url
-///
-/// Copied from [audiobookshelfApi].
-class AudiobookshelfApiProvider extends AutoDisposeProvider<AudiobookshelfApi> {
-  /// get the api instance for the given base url
-  ///
-  /// Copied from [audiobookshelfApi].
-  AudiobookshelfApiProvider(
-    Uri? baseUrl,
-  ) : this._internal(
-          (ref) => audiobookshelfApi(
-            ref as AudiobookshelfApiRef,
-            baseUrl,
-          ),
-          from: audiobookshelfApiProvider,
-          name: r'audiobookshelfApiProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$audiobookshelfApiHash,
-          dependencies: AudiobookshelfApiFamily._dependencies,
-          allTransitiveDependencies:
-              AudiobookshelfApiFamily._allTransitiveDependencies,
-          baseUrl: baseUrl,
-        );
-
-  AudiobookshelfApiProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.baseUrl,
-  }) : super.internal();
-
-  final Uri? baseUrl;
-
-  @override
-  Override overrideWith(
-    AudiobookshelfApi Function(AudiobookshelfApiRef provider) create,
-  ) {
-    return ProviderOverride(
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AudiobookshelfApi value) {
+    return $ProviderOverride(
       origin: this,
-      override: AudiobookshelfApiProvider._internal(
-        (ref) => create(ref as AudiobookshelfApiRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        baseUrl: baseUrl,
-      ),
+      providerOverride: $SyncValueProvider<AudiobookshelfApi>(value),
     );
-  }
-
-  @override
-  AutoDisposeProviderElement<AudiobookshelfApi> createElement() {
-    return _AudiobookshelfApiProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is AudiobookshelfApiProvider && other.baseUrl == baseUrl;
+    return other is AudiobookshelfApiProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, baseUrl.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin AudiobookshelfApiRef on AutoDisposeProviderRef<AudiobookshelfApi> {
-  /// The parameter `baseUrl` of this provider.
-  Uri? get baseUrl;
-}
+String _$audiobookshelfApiHash() => r'ba34f6a16394cdc849b1bd63cd1f3f2472f04f69';
 
-class _AudiobookshelfApiProviderElement
-    extends AutoDisposeProviderElement<AudiobookshelfApi>
-    with AudiobookshelfApiRef {
-  _AudiobookshelfApiProviderElement(super.provider);
+/// get the api instance for the given base url
+
+final class AudiobookshelfApiFamily extends $Family
+    with $FunctionalFamilyOverride<AudiobookshelfApi, Uri?> {
+  AudiobookshelfApiFamily._()
+    : super(
+        retry: null,
+        name: r'audiobookshelfApiProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  /// get the api instance for the given base url
+
+  AudiobookshelfApiProvider call(Uri? baseUrl) =>
+      AudiobookshelfApiProvider._(argument: baseUrl, from: this);
 
   @override
-  Uri? get baseUrl => (origin as AudiobookshelfApiProvider).baseUrl;
+  String toString() => r'audiobookshelfApiProvider';
 }
-
-String _$authenticatedApiHash() => r'd672c261b2da7b5091d64e2f7efb0da356ca32a5';
 
 /// get the api instance for the authenticated user
 ///
 /// if the user is not authenticated throw an error
-///
-/// Copied from [authenticatedApi].
+
 @ProviderFor(authenticatedApi)
-final authenticatedApiProvider = Provider<AudiobookshelfApi>.internal(
-  authenticatedApi,
-  name: r'authenticatedApiProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$authenticatedApiHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final authenticatedApiProvider = AuthenticatedApiProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef AuthenticatedApiRef = ProviderRef<AudiobookshelfApi>;
-String _$isServerAliveHash() => r'71f272f2102f43c1d2be212eff85faf2aadf916d';
-
-/// ping the server to check if it is reachable
+/// get the api instance for the authenticated user
 ///
-/// Copied from [isServerAlive].
-@ProviderFor(isServerAlive)
-const isServerAliveProvider = IsServerAliveFamily();
+/// if the user is not authenticated throw an error
 
-/// ping the server to check if it is reachable
-///
-/// Copied from [isServerAlive].
-class IsServerAliveFamily extends Family<AsyncValue<bool>> {
-  /// ping the server to check if it is reachable
+final class AuthenticatedApiProvider
+    extends
+        $FunctionalProvider<
+          AudiobookshelfApi,
+          AudiobookshelfApi,
+          AudiobookshelfApi
+        >
+    with $Provider<AudiobookshelfApi> {
+  /// get the api instance for the authenticated user
   ///
-  /// Copied from [isServerAlive].
-  const IsServerAliveFamily();
+  /// if the user is not authenticated throw an error
+  AuthenticatedApiProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'authenticatedApiProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-  /// ping the server to check if it is reachable
-  ///
-  /// Copied from [isServerAlive].
-  IsServerAliveProvider call(
-    String address,
-  ) {
-    return IsServerAliveProvider(
-      address,
-    );
+  @override
+  String debugGetCreateSourceHash() => _$authenticatedApiHash();
+
+  @$internal
+  @override
+  $ProviderElement<AudiobookshelfApi> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  AudiobookshelfApi create(Ref ref) {
+    return authenticatedApi(ref);
   }
 
-  @override
-  IsServerAliveProvider getProviderOverride(
-    covariant IsServerAliveProvider provider,
-  ) {
-    return call(
-      provider.address,
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AudiobookshelfApi value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AudiobookshelfApi>(value),
     );
   }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'isServerAliveProvider';
 }
 
+String _$authenticatedApiHash() => r'd672c261b2da7b5091d64e2f7efb0da356ca32a5';
+
 /// ping the server to check if it is reachable
-///
-/// Copied from [isServerAlive].
-class IsServerAliveProvider extends AutoDisposeFutureProvider<bool> {
+
+@ProviderFor(isServerAlive)
+final isServerAliveProvider = IsServerAliveFamily._();
+
+/// ping the server to check if it is reachable
+
+final class IsServerAliveProvider
+    extends $FunctionalProvider<AsyncValue<bool>, bool, FutureOr<bool>>
+    with $FutureModifier<bool>, $FutureProvider<bool> {
   /// ping the server to check if it is reachable
-  ///
-  /// Copied from [isServerAlive].
-  IsServerAliveProvider(
-    String address,
-  ) : this._internal(
-          (ref) => isServerAlive(
-            ref as IsServerAliveRef,
-            address,
-          ),
-          from: isServerAliveProvider,
-          name: r'isServerAliveProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$isServerAliveHash,
-          dependencies: IsServerAliveFamily._dependencies,
-          allTransitiveDependencies:
-              IsServerAliveFamily._allTransitiveDependencies,
-          address: address,
-        );
-
-  IsServerAliveProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.address,
-  }) : super.internal();
-
-  final String address;
+  IsServerAliveProvider._({
+    required IsServerAliveFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'isServerAliveProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
-  Override overrideWith(
-    FutureOr<bool> Function(IsServerAliveRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: IsServerAliveProvider._internal(
-        (ref) => create(ref as IsServerAliveRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        address: address,
-      ),
-    );
+  String debugGetCreateSourceHash() => _$isServerAliveHash();
+
+  @override
+  String toString() {
+    return r'isServerAliveProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<bool> createElement() {
-    return _IsServerAliveProviderElement(this);
+  $FutureProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<bool> create(Ref ref) {
+    final argument = this.argument as String;
+    return isServerAlive(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is IsServerAliveProvider && other.address == address;
+    return other is IsServerAliveProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, address.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin IsServerAliveRef on AutoDisposeFutureProviderRef<bool> {
-  /// The parameter `address` of this provider.
-  String get address;
-}
+String _$isServerAliveHash() => r'71f272f2102f43c1d2be212eff85faf2aadf916d';
 
-class _IsServerAliveProviderElement
-    extends AutoDisposeFutureProviderElement<bool> with IsServerAliveRef {
-  _IsServerAliveProviderElement(super.provider);
+/// ping the server to check if it is reachable
+
+final class IsServerAliveFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<bool>, String> {
+  IsServerAliveFamily._()
+    : super(
+        retry: null,
+        name: r'isServerAliveProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  /// ping the server to check if it is reachable
+
+  IsServerAliveProvider call(String address) =>
+      IsServerAliveProvider._(argument: address, from: this);
 
   @override
-  String get address => (origin as IsServerAliveProvider).address;
+  String toString() => r'isServerAliveProvider';
+}
+
+/// fetch status of server
+
+@ProviderFor(serverStatus)
+final serverStatusProvider = ServerStatusFamily._();
+
+/// fetch status of server
+
+final class ServerStatusProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<ServerStatusResponse?>,
+          ServerStatusResponse?,
+          FutureOr<ServerStatusResponse?>
+        >
+    with
+        $FutureModifier<ServerStatusResponse?>,
+        $FutureProvider<ServerStatusResponse?> {
+  /// fetch status of server
+  ServerStatusProvider._({
+    required ServerStatusFamily super.from,
+    required (Uri, ResponseErrorHandler?) super.argument,
+  }) : super(
+         retry: null,
+         name: r'serverStatusProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$serverStatusHash();
+
+  @override
+  String toString() {
+    return r'serverStatusProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<ServerStatusResponse?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<ServerStatusResponse?> create(Ref ref) {
+    final argument = this.argument as (Uri, ResponseErrorHandler?);
+    return serverStatus(ref, argument.$1, argument.$2);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ServerStatusProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
 String _$serverStatusHash() => r'2d9c5d6f970caec555e5322d43a388ea8572619f';
 
 /// fetch status of server
-///
-/// Copied from [serverStatus].
-@ProviderFor(serverStatus)
-const serverStatusProvider = ServerStatusFamily();
 
-/// fetch status of server
-///
-/// Copied from [serverStatus].
-class ServerStatusFamily extends Family<AsyncValue<ServerStatusResponse?>> {
-  /// fetch status of server
-  ///
-  /// Copied from [serverStatus].
-  const ServerStatusFamily();
+final class ServerStatusFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<ServerStatusResponse?>,
+          (Uri, ResponseErrorHandler?)
+        > {
+  ServerStatusFamily._()
+    : super(
+        retry: null,
+        name: r'serverStatusProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
 
   /// fetch status of server
-  ///
-  /// Copied from [serverStatus].
+
   ServerStatusProvider call(
     Uri baseUrl, [
-    void Function(ApiResponse, [Object?])? responseErrorHandler,
-  ]) {
-    return ServerStatusProvider(
-      baseUrl,
-      responseErrorHandler,
-    );
-  }
+    ResponseErrorHandler? responseErrorHandler,
+  ]) => ServerStatusProvider._(
+    argument: (baseUrl, responseErrorHandler),
+    from: this,
+  );
 
   @override
-  ServerStatusProvider getProviderOverride(
-    covariant ServerStatusProvider provider,
-  ) {
-    return call(
-      provider.baseUrl,
-      provider.responseErrorHandler,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'serverStatusProvider';
+  String toString() => r'serverStatusProvider';
 }
 
-/// fetch status of server
-///
-/// Copied from [serverStatus].
-class ServerStatusProvider
-    extends AutoDisposeFutureProvider<ServerStatusResponse?> {
-  /// fetch status of server
-  ///
-  /// Copied from [serverStatus].
-  ServerStatusProvider(
-    Uri baseUrl, [
-    void Function(ApiResponse, [Object?])? responseErrorHandler,
-  ]) : this._internal(
-          (ref) => serverStatus(
-            ref as ServerStatusRef,
-            baseUrl,
-            responseErrorHandler,
-          ),
-          from: serverStatusProvider,
-          name: r'serverStatusProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$serverStatusHash,
-          dependencies: ServerStatusFamily._dependencies,
-          allTransitiveDependencies:
-              ServerStatusFamily._allTransitiveDependencies,
-          baseUrl: baseUrl,
-          responseErrorHandler: responseErrorHandler,
-        );
+/// fetch the personalized view
 
-  ServerStatusProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.baseUrl,
-    required this.responseErrorHandler,
-  }) : super.internal();
+@ProviderFor(PersonalizedView)
+final personalizedViewProvider = PersonalizedViewProvider._();
 
-  final Uri baseUrl;
-  final void Function(ApiResponse, [Object?])? responseErrorHandler;
-
-  @override
-  Override overrideWith(
-    FutureOr<ServerStatusResponse?> Function(ServerStatusRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ServerStatusProvider._internal(
-        (ref) => create(ref as ServerStatusRef),
-        from: from,
-        name: null,
+/// fetch the personalized view
+final class PersonalizedViewProvider
+    extends $StreamNotifierProvider<PersonalizedView, List<Shelf>> {
+  /// fetch the personalized view
+  PersonalizedViewProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'personalizedViewProvider',
+        isAutoDispose: true,
         dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        baseUrl: baseUrl,
-        responseErrorHandler: responseErrorHandler,
-      ),
-    );
-  }
+        $allTransitiveDependencies: null,
+      );
 
   @override
-  AutoDisposeFutureProviderElement<ServerStatusResponse?> createElement() {
-    return _ServerStatusProviderElement(this);
-  }
+  String debugGetCreateSourceHash() => _$personalizedViewHash();
 
+  @$internal
   @override
-  bool operator ==(Object other) {
-    return other is ServerStatusProvider &&
-        other.baseUrl == baseUrl &&
-        other.responseErrorHandler == responseErrorHandler;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, baseUrl.hashCode);
-    hash = _SystemHash.combine(hash, responseErrorHandler.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ServerStatusRef on AutoDisposeFutureProviderRef<ServerStatusResponse?> {
-  /// The parameter `baseUrl` of this provider.
-  Uri get baseUrl;
-
-  /// The parameter `responseErrorHandler` of this provider.
-  void Function(ApiResponse, [Object?])? get responseErrorHandler;
-}
-
-class _ServerStatusProviderElement
-    extends AutoDisposeFutureProviderElement<ServerStatusResponse?>
-    with ServerStatusRef {
-  _ServerStatusProviderElement(super.provider);
-
-  @override
-  Uri get baseUrl => (origin as ServerStatusProvider).baseUrl;
-  @override
-  void Function(ApiResponse, [Object?])? get responseErrorHandler =>
-      (origin as ServerStatusProvider).responseErrorHandler;
-}
-
-String _$fetchContinueListeningHash() =>
-    r'50aeb77369eda38d496b2f56f3df2aea135dab45';
-
-/// fetch continue listening audiobooks
-///
-/// Copied from [fetchContinueListening].
-@ProviderFor(fetchContinueListening)
-final fetchContinueListeningProvider =
-    AutoDisposeFutureProvider<GetUserSessionsResponse>.internal(
-  fetchContinueListening,
-  name: r'fetchContinueListeningProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$fetchContinueListeningHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef FetchContinueListeningRef
-    = AutoDisposeFutureProviderRef<GetUserSessionsResponse>;
-String _$meHash() => r'b3b6d6d940b465c60d0c29cd6e81ba2fcccab186';
-
-/// See also [me].
-@ProviderFor(me)
-final meProvider = AutoDisposeFutureProvider<User>.internal(
-  me,
-  name: r'meProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$meHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef MeRef = AutoDisposeFutureProviderRef<User>;
-String _$loginHash() => r'99410c2bed9c8f412c7b47c4e655db64e0054be2';
-
-/// See also [login].
-@ProviderFor(login)
-const loginProvider = LoginFamily();
-
-/// See also [login].
-class LoginFamily extends Family<AsyncValue<LoginResponse?>> {
-  /// See also [login].
-  const LoginFamily();
-
-  /// See also [login].
-  LoginProvider call({
-    AuthenticatedUser? user,
-  }) {
-    return LoginProvider(
-      user: user,
-    );
-  }
-
-  @override
-  LoginProvider getProviderOverride(
-    covariant LoginProvider provider,
-  ) {
-    return call(
-      user: provider.user,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'loginProvider';
-}
-
-/// See also [login].
-class LoginProvider extends AutoDisposeFutureProvider<LoginResponse?> {
-  /// See also [login].
-  LoginProvider({
-    AuthenticatedUser? user,
-  }) : this._internal(
-          (ref) => login(
-            ref as LoginRef,
-            user: user,
-          ),
-          from: loginProvider,
-          name: r'loginProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$loginHash,
-          dependencies: LoginFamily._dependencies,
-          allTransitiveDependencies: LoginFamily._allTransitiveDependencies,
-          user: user,
-        );
-
-  LoginProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.user,
-  }) : super.internal();
-
-  final AuthenticatedUser? user;
-
-  @override
-  Override overrideWith(
-    FutureOr<LoginResponse?> Function(LoginRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: LoginProvider._internal(
-        (ref) => create(ref as LoginRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        user: user,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<LoginResponse?> createElement() {
-    return _LoginProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is LoginProvider && other.user == user;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, user.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin LoginRef on AutoDisposeFutureProviderRef<LoginResponse?> {
-  /// The parameter `user` of this provider.
-  AuthenticatedUser? get user;
-}
-
-class _LoginProviderElement
-    extends AutoDisposeFutureProviderElement<LoginResponse?> with LoginRef {
-  _LoginProviderElement(super.provider);
-
-  @override
-  AuthenticatedUser? get user => (origin as LoginProvider).user;
+  PersonalizedView create() => PersonalizedView();
 }
 
 String _$personalizedViewHash() => r'e3c3e041f925f041db2145e8ca0dbb07268ecc47';
 
 /// fetch the personalized view
-///
-/// Copied from [PersonalizedView].
-@ProviderFor(PersonalizedView)
-final personalizedViewProvider =
-    AutoDisposeStreamNotifierProvider<PersonalizedView, List<Shelf>>.internal(
-  PersonalizedView.new,
-  name: r'personalizedViewProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$personalizedViewHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
 
-typedef _$PersonalizedView = AutoDisposeStreamNotifier<List<Shelf>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$PersonalizedView extends $StreamNotifier<List<Shelf>> {
+  Stream<List<Shelf>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<List<Shelf>>, List<Shelf>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<List<Shelf>>, List<Shelf>>,
+              AsyncValue<List<Shelf>>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
+
+/// fetch continue listening audiobooks
+
+@ProviderFor(fetchContinueListening)
+final fetchContinueListeningProvider = FetchContinueListeningProvider._();
+
+/// fetch continue listening audiobooks
+
+final class FetchContinueListeningProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<GetUserSessionsResponse>,
+          GetUserSessionsResponse,
+          FutureOr<GetUserSessionsResponse>
+        >
+    with
+        $FutureModifier<GetUserSessionsResponse>,
+        $FutureProvider<GetUserSessionsResponse> {
+  /// fetch continue listening audiobooks
+  FetchContinueListeningProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'fetchContinueListeningProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$fetchContinueListeningHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<GetUserSessionsResponse> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<GetUserSessionsResponse> create(Ref ref) {
+    return fetchContinueListening(ref);
+  }
+}
+
+String _$fetchContinueListeningHash() =>
+    r'50aeb77369eda38d496b2f56f3df2aea135dab45';
+
+@ProviderFor(me)
+final meProvider = MeProvider._();
+
+final class MeProvider
+    extends $FunctionalProvider<AsyncValue<User>, User, FutureOr<User>>
+    with $FutureModifier<User>, $FutureProvider<User> {
+  MeProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'meProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$meHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<User> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<User> create(Ref ref) {
+    return me(ref);
+  }
+}
+
+String _$meHash() => r'b3b6d6d940b465c60d0c29cd6e81ba2fcccab186';
+
+@ProviderFor(login)
+final loginProvider = LoginFamily._();
+
+final class LoginProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<LoginResponse?>,
+          LoginResponse?,
+          FutureOr<LoginResponse?>
+        >
+    with $FutureModifier<LoginResponse?>, $FutureProvider<LoginResponse?> {
+  LoginProvider._({
+    required LoginFamily super.from,
+    required AuthenticatedUser? super.argument,
+  }) : super(
+         retry: null,
+         name: r'loginProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$loginHash();
+
+  @override
+  String toString() {
+    return r'loginProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<LoginResponse?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<LoginResponse?> create(Ref ref) {
+    final argument = this.argument as AuthenticatedUser?;
+    return login(ref, user: argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LoginProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$loginHash() => r'99410c2bed9c8f412c7b47c4e655db64e0054be2';
+
+final class LoginFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<LoginResponse?>,
+          AuthenticatedUser?
+        > {
+  LoginFamily._()
+    : super(
+        retry: null,
+        name: r'loginProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  LoginProvider call({AuthenticatedUser? user}) =>
+      LoginProvider._(argument: user, from: this);
+
+  @override
+  String toString() => r'loginProvider';
+}

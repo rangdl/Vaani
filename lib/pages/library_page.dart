@@ -28,7 +28,7 @@ class LibraryPage extends HookConsumerWidget {
   final String? libraryId;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentLibrary = ref.watch(currentLibraryProvider).valueOrNull;
+    final currentLibrary = ref.watch(currentLibraryProvider).value;
 
     // Determine the icon to use, with a fallback
     final IconData libraryIconData =
@@ -66,8 +66,9 @@ class LibraryPage extends HookConsumerWidget {
         ),
         leading: IconButton(
           icon: Icon(libraryIconData),
-          tooltip:
-              S.of(context).librarySwitchTooltip, // Helpful tooltip for users
+          tooltip: S
+              .of(context)
+              .librarySwitchTooltip, // Helpful tooltip for users
           onPressed: () {
             showLibrarySwitcher(context, ref);
           },
@@ -100,8 +101,8 @@ class LibraryPage extends HookConsumerWidget {
           ),
         ],
       ),
-      // drawer: const MyDrawer(),
 
+      // drawer: const MyDrawer(),
       body: EasyRefresh(
         header: Components.easyRefreshHeader(context),
         footer: Components.easyRefreshFooter(context),
@@ -120,10 +121,7 @@ class LibraryPage extends HookConsumerWidget {
               itemCount: items.length,
               controller: scrollController,
               itemBuilder: (context, index) {
-                return LibraryPageItem(
-                  item: items[index],
-                  width: width,
-                );
+                return LibraryPageItem(item: items[index], width: width);
               },
             );
           },
@@ -152,11 +150,7 @@ class LibraryPage extends HookConsumerWidget {
 }
 
 class LibraryPageItem extends HookConsumerWidget {
-  const LibraryPageItem({
-    super.key,
-    required this.item,
-    required this.width,
-  });
+  const LibraryPageItem({super.key, required this.item, required this.width});
   final LibraryItem item;
   final double width;
   @override
@@ -165,19 +159,16 @@ class LibraryPageItem extends HookConsumerWidget {
     final metadata = book.metadata.asBookMetadataMinified;
     final bodyLarge = Theme.of(context).textTheme.bodyLarge;
     final bodySmall = Theme.of(context).textTheme.bodySmall;
-    final height = width +
+    final height =
+        width +
         15 +
         (bodyLarge?.calculateHeight ?? 0) +
         (bodySmall?.calculateHeight ?? 0);
     return InkWell(
       onTap: () => context.pushNamed(
         Routes.libraryItem.name,
-        pathParameters: {
-          Routes.libraryItem.pathParamName!: item.id,
-        },
-        extra: LibraryItemExtras(
-          book: book,
-        ),
+        pathParameters: {Routes.libraryItem.pathParamName!: item.id},
+        extra: LibraryItemExtras(book: book),
       ),
       borderRadius: BorderRadius.circular(10),
       child: SizedBox(
@@ -208,10 +199,7 @@ class LibraryPageItem extends HookConsumerWidget {
 }
 
 class BookCoverWidget extends HookConsumerWidget {
-  const BookCoverWidget({
-    super.key,
-    required this.itemId,
-  });
+  const BookCoverWidget({super.key, required this.itemId});
 
   final String itemId;
 
@@ -227,15 +215,10 @@ class BookCoverWidget extends HookConsumerWidget {
             return const Icon(Icons.error);
           }
 
-          return Image.memory(
-            image,
-            fit: BoxFit.cover,
-          );
+          return Image.memory(image, fit: BoxFit.cover);
         },
         loading: () {
-          return const Center(
-            child: BookCoverSkeleton(),
-          );
+          return const Center(child: BookCoverSkeleton());
         },
         error: (error, stack) {
           return const Center(child: Icon(Icons.error));
@@ -282,20 +265,24 @@ class LibraryItemsSort extends HookConsumerWidget {
           popUpAnimationStyle: AnimationStyle(duration: Duration.zero),
         ),
         constraints: BoxConstraints(
-            minWidth: 180, maxHeight: MediaQuery.of(context).size.height * 0.5),
+          minWidth: 180,
+          maxHeight: MediaQuery.of(context).size.height * 0.5,
+        ),
         itemBuilder: (context, item, isDisabled, isSelected) => ListTile(
           title: Text(state.sortDisplay(item)),
           trailing: selected == item
               ? state.desc
-                  ? const Icon(Icons.keyboard_arrow_down)
-                  : const Icon(Icons.keyboard_arrow_up)
+                    ? const Icon(Icons.keyboard_arrow_down)
+                    : const Icon(Icons.keyboard_arrow_up)
               : null,
         ),
         fit: FlexFit.loose,
       ),
       onChanged: (value) {
         debugPrint(value);
-        ref.read(libraryItemsProvider.notifier).update(
+        ref
+            .read(libraryItemsProvider.notifier)
+            .update(
               state.copyWith(
                 sort: value,
                 desc: state.sort == value ? !state.desc : state.desc,

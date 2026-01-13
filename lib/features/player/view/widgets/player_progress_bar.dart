@@ -17,8 +17,9 @@ class AbsDesktopProgressBar extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final player = ref.watch(absPlayerProvider);
     final currentChapter = ref.watch(currentChapterProvider);
-    final playerSettings =
-        ref.watch(appSettingsProvider.select((v) => v.playerSettings));
+    final playerSettings = ref.watch(
+      appSettingsProvider.select((v) => v.playerSettings),
+    );
     final showChapterProgress =
         playerSettings.expandedPlayerSettings.showChapterProgress;
 
@@ -27,7 +28,7 @@ class AbsDesktopProgressBar extends HookConsumerWidget {
 
     final total = ref.watch(totalProvider);
     return ProgressBar(
-      progress: position.requireValue,
+      progress: position.value ?? Duration.zero,
       total: total,
       onSeek: (duration) {
         player.seekInBook(
@@ -38,7 +39,7 @@ class AbsDesktopProgressBar extends HookConsumerWidget {
         );
       },
       thumbRadius: 8,
-      buffered: buffered.requireValue,
+      buffered: buffered.value,
       bufferedBarColor: Theme.of(context).colorScheme.secondary,
       timeLabelType: TimeLabelType.remainingTime,
       timeLabelLocation: timeLabelLocation,

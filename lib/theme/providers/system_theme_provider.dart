@@ -56,22 +56,15 @@ FutureOr<(ColorScheme light, ColorScheme dark)?> systemTheme(
   }
 
   if (schemeLight == null || schemeDark == null) {
-    _logger
-        .warning('dynamic_color: Dynamic color not detected on this device.');
+    _logger.warning(
+      'dynamic_color: Dynamic color not detected on this device.',
+    );
     return null;
   }
   // set high contrast theme
   if (highContrast) {
-    schemeLight = schemeLight
-        .copyWith(
-          surface: Colors.white,
-        )
-        .harmonized();
-    schemeDark = schemeDark
-        .copyWith(
-          surface: Colors.black,
-        )
-        .harmonized();
+    schemeLight = schemeLight.copyWith(surface: Colors.white).harmonized();
+    schemeDark = schemeDark.copyWith(surface: Colors.black).harmonized();
   }
   return (schemeLight, schemeDark);
 }
@@ -82,28 +75,26 @@ FutureOr<(ColorScheme light, ColorScheme dark)?> systemTheme(
   bool highContrast = false,
   String? id,
 }) {
-  final themeSettings =
-      ref.watch(appSettingsProvider.select((v) => v.themeSettings));
+  final themeSettings = ref.watch(
+    appSettingsProvider.select((v) => v.themeSettings),
+  );
   ColorScheme lightColorScheme = brandLightColorScheme;
   ColorScheme darkColorScheme = brandDarkColorScheme;
 
   final shouldUseHighContrast = themeSettings.highContrast || highContrast;
 
   if (shouldUseHighContrast) {
-    lightColorScheme = lightColorScheme.copyWith(
-      surface: Colors.white,
-    );
-    darkColorScheme = darkColorScheme.copyWith(
-      surface: Colors.black,
-    );
+    lightColorScheme = lightColorScheme.copyWith(surface: Colors.white);
+    darkColorScheme = darkColorScheme.copyWith(surface: Colors.black);
   }
 
   if (themeSettings.useMaterialThemeFromSystem) {
-    var themes =
-        ref.watch(systemThemeProvider(highContrast: shouldUseHighContrast));
-    if (themes.valueOrNull != null) {
-      lightColorScheme = themes.valueOrNull!.$1;
-      darkColorScheme = themes.valueOrNull!.$2;
+    var themes = ref.watch(
+      systemThemeProvider(highContrast: shouldUseHighContrast),
+    );
+    if (themes.value != null) {
+      lightColorScheme = themes.value!.$1;
+      darkColorScheme = themes.value!.$2;
     }
   }
 
@@ -124,9 +115,9 @@ FutureOr<(ColorScheme light, ColorScheme dark)?> systemTheme(
             brightness: Brightness.dark,
           ),
         );
-        if (themeLight.valueOrNull != null && themeDark.valueOrNull != null) {
-          lightColorScheme = themeLight.valueOrNull!;
-          darkColorScheme = themeDark.valueOrNull!;
+        if (themeLight.value != null && themeDark.value != null) {
+          lightColorScheme = themeLight.value!;
+          darkColorScheme = themeDark.value!;
         }
       }
     } catch (e) {
@@ -156,10 +147,10 @@ FutureOr<(ColorScheme light, ColorScheme dark)?> systemTheme(
   );
   return (
     appThemeLight.copyWith(
-        // iconTheme: appThemeLight.iconTheme.copyWith(size: 24),
-        ),
+      // iconTheme: appThemeLight.iconTheme.copyWith(size: 24),
+    ),
     appThemeDark.copyWith(
-        // iconTheme: appThemeLight.iconTheme.copyWith(size: 24),
-        )
+      // iconTheme: appThemeLight.iconTheme.copyWith(size: 24),
+    ),
   );
 }

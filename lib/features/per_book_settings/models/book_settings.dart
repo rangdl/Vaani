@@ -6,7 +6,7 @@ part 'book_settings.g.dart';
 
 /// per book settings
 @freezed
-class BookSettings with _$BookSettings {
+sealed class BookSettings with _$BookSettings {
   const factory BookSettings({
     required String bookId,
     @Default(NullablePlayerSettings()) NullablePlayerSettings playerSettings,
@@ -18,7 +18,7 @@ class BookSettings with _$BookSettings {
 }
 
 @freezed
-class BookProgress with _$BookProgress {
+sealed class BookProgress with _$BookProgress {
   const factory BookProgress({
     required DateTime lastUpdate,
     @Default(Duration.zero) Duration currentTime,

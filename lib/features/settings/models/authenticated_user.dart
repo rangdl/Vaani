@@ -6,7 +6,7 @@ part 'authenticated_user.g.dart';
 
 /// authenticated user with server and credentials
 @freezed
-class AuthenticatedUser with _$AuthenticatedUser {
+sealed class AuthenticatedUser with _$AuthenticatedUser {
   const factory AuthenticatedUser({
     required AudiobookShelfServer server,
     required String authToken,

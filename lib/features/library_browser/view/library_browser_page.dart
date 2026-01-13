@@ -14,7 +14,7 @@ class LibraryBrowserPage extends HookConsumerWidget {
   const LibraryBrowserPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentLibrary = ref.watch(currentLibraryProvider).valueOrNull;
+    final currentLibrary = ref.watch(currentLibraryProvider).value;
 
     // Determine the icon to use, with a fallback
     final IconData libraryIconData =
@@ -44,43 +44,41 @@ class LibraryBrowserPage extends HookConsumerWidget {
             title: Text(appBarTitle),
           ),
           SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                ListTile(
-                  title: Text(S.of(context).bookAuthors),
-                  leading: const Icon(Icons.person),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    showNotImplementedToast(context);
-                  },
-                ),
-                ListTile(
-                  title: Text(S.of(context).bookGenres),
-                  leading: const Icon(Icons.category),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    showNotImplementedToast(context);
-                  },
-                ),
-                ListTile(
-                  title: Text(S.of(context).bookSeries),
-                  leading: const Icon(Icons.list),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    showNotImplementedToast(context);
-                  },
-                ),
-                // Downloads
-                ListTile(
-                  title: Text(S.of(context).bookDownloads),
-                  leading: const Icon(Icons.download),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    GoRouter.of(context).pushNamed(Routes.downloads.name);
-                  },
-                ),
-              ],
-            ),
+            delegate: SliverChildListDelegate([
+              ListTile(
+                title: Text(S.of(context).bookAuthors),
+                leading: const Icon(Icons.person),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  showNotImplementedToast(context);
+                },
+              ),
+              ListTile(
+                title: Text(S.of(context).bookGenres),
+                leading: const Icon(Icons.category),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  showNotImplementedToast(context);
+                },
+              ),
+              ListTile(
+                title: Text(S.of(context).bookSeries),
+                leading: const Icon(Icons.list),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  showNotImplementedToast(context);
+                },
+              ),
+              // Downloads
+              ListTile(
+                title: Text(S.of(context).bookDownloads),
+                leading: const Icon(Icons.download),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  GoRouter.of(context).pushNamed(Routes.downloads.name);
+                },
+              ),
+            ]),
           ),
         ],
       ),

@@ -1,3 +1,4 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaani/db/available_boxes.dart';
@@ -19,9 +20,10 @@ model.BookSettings readFromBoxOrCreate(String bookId) {
   } else {
     // create a new settings object
     final settings = model.BookSettings(
-        bookId: bookId,
-        playerSettings: const NullablePlayerSettings(),
-        progress: model.BookProgress(lastUpdate: DateTime.now()));
+      bookId: bookId,
+      playerSettings: const NullablePlayerSettings(),
+      progress: model.BookProgress(lastUpdate: DateTime.now()),
+    );
     _logger.fine('created new book settings for $bookId: $settings');
     writeToBox(settings);
     return settings;
@@ -61,12 +63,11 @@ class BookSettings extends _$BookSettings {
 class BookProgressSettings extends _$BookProgressSettings {
   @override
   model.BookProgress build(String bookId) {
-    final progress =
-        ref.read(bookSettingsProvider(bookId).select((v) => v.progress));
+    final progress = ref.read(
+      bookSettingsProvider(bookId).select((v) => v.progress),
+    );
     if (progress == null) {
-      return model.BookProgress(
-        lastUpdate: DateTime.now(),
-      );
+      return model.BookProgress(lastUpdate: DateTime.now());
     }
     return progress;
   }

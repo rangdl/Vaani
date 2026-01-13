@@ -6,154 +6,82 @@ part of 'player_new.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$playbackHash() => r'd4f270f9c46d6a52b186bc7271d584f28a5547f5';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [playback].
 @ProviderFor(playback)
-const playbackProvider = PlaybackFamily();
+final playbackProvider = PlaybackFamily._();
 
-/// See also [playback].
-class PlaybackFamily extends Family<AsyncValue<PlaybackSessionExpanded>> {
-  /// See also [playback].
-  const PlaybackFamily();
+final class PlaybackProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<PlaybackSessionExpanded>,
+          PlaybackSessionExpanded,
+          FutureOr<PlaybackSessionExpanded>
+        >
+    with
+        $FutureModifier<PlaybackSessionExpanded>,
+        $FutureProvider<PlaybackSessionExpanded> {
+  PlaybackProvider._({
+    required PlaybackFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'playbackProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [playback].
-  PlaybackProvider call(
-    String id,
-  ) {
-    return PlaybackProvider(
-      id,
-    );
+  @override
+  String debugGetCreateSourceHash() => _$playbackHash();
+
+  @override
+  String toString() {
+    return r'playbackProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  PlaybackProvider getProviderOverride(
-    covariant PlaybackProvider provider,
-  ) {
-    return call(
-      provider.id,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $FutureProviderElement<PlaybackSessionExpanded> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'playbackProvider';
-}
-
-/// See also [playback].
-class PlaybackProvider extends FutureProvider<PlaybackSessionExpanded> {
-  /// See also [playback].
-  PlaybackProvider(
-    String id,
-  ) : this._internal(
-          (ref) => playback(
-            ref as PlaybackRef,
-            id,
-          ),
-          from: playbackProvider,
-          name: r'playbackProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$playbackHash,
-          dependencies: PlaybackFamily._dependencies,
-          allTransitiveDependencies: PlaybackFamily._allTransitiveDependencies,
-          id: id,
-        );
-
-  PlaybackProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.id,
-  }) : super.internal();
-
-  final String id;
-
-  @override
-  Override overrideWith(
-    FutureOr<PlaybackSessionExpanded> Function(PlaybackRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: PlaybackProvider._internal(
-        (ref) => create(ref as PlaybackRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        id: id,
-      ),
-    );
-  }
-
-  @override
-  FutureProviderElement<PlaybackSessionExpanded> createElement() {
-    return _PlaybackProviderElement(this);
+  FutureOr<PlaybackSessionExpanded> create(Ref ref) {
+    final argument = this.argument as String;
+    return playback(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is PlaybackProvider && other.id == id;
+    return other is PlaybackProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, id.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin PlaybackRef on FutureProviderRef<PlaybackSessionExpanded> {
-  /// The parameter `id` of this provider.
-  String get id;
-}
+String _$playbackHash() => r'd4f270f9c46d6a52b186bc7271d584f28a5547f5';
 
-class _PlaybackProviderElement
-    extends FutureProviderElement<PlaybackSessionExpanded> with PlaybackRef {
-  _PlaybackProviderElement(super.provider);
+final class PlaybackFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<PlaybackSessionExpanded>, String> {
+  PlaybackFamily._()
+    : super(
+        retry: null,
+        name: r'playbackProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: false,
+      );
+
+  PlaybackProvider call(String id) =>
+      PlaybackProvider._(argument: id, from: this);
 
   @override
-  String get id => (origin as PlaybackProvider).id;
+  String toString() => r'playbackProvider';
 }
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

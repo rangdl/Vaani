@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:hooks_riverpod/hooks_riverpod.dart' show Ref;
+import 'package:hooks_riverpod/hooks_riverpod.dart'
+    show Ref, ProviderListenableSelect;
 import 'package:logging/logging.dart' show Logger;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart'
@@ -34,8 +35,9 @@ Future<Library?> library(Ref ref, String id) async {
 
 @riverpod
 Future<Library?> currentLibrary(Ref ref) async {
-  final libraryId =
-      ref.watch(apiSettingsProvider.select((s) => s.activeLibraryId));
+  final libraryId = ref.watch(
+    apiSettingsProvider.select((s) => s.activeLibraryId),
+  );
   if (libraryId == null) {
     _logger.warning('No active library id found');
     return null;
@@ -211,8 +213,9 @@ class LibraryItems extends _$LibraryItems {
   // 加载方法
   Future<List<LibraryItem>> _load() async {
     final api = ref.read(authenticatedApiProvider);
-    final libraryId =
-        ref.watch(apiSettingsProvider.select((s) => s.activeLibraryId));
+    final libraryId = ref.watch(
+      apiSettingsProvider.select((s) => s.activeLibraryId),
+    );
     if (libraryId != null) {
       final newItems = await api.libraries.getItems(
         libraryId: libraryId,

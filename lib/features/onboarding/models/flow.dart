@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'flow.freezed.dart';
 
 @freezed
-class Flow with _$Flow {
+sealed class Flow with _$Flow {
   const factory Flow({
     required Uri serverUri,
     required String state,

@@ -5,16 +5,13 @@ import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 
 class LibraryItemMetadata extends HookConsumerWidget {
-  const LibraryItemMetadata({
-    super.key,
-    required this.id,
-  });
+  const LibraryItemMetadata({super.key, required this.id});
 
   final String id;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final item = ref.watch(libraryItemProvider(id)).valueOrNull;
+    final item = ref.watch(libraryItemProvider(id)).value;
 
     /// formats the duration of the book as `10h 30m`
     ///
@@ -76,7 +73,8 @@ class LibraryItemMetadata extends HookConsumerWidget {
       ),
       _MetadataItem(
         title: S.of(context).bookMetadataPublished,
-        value: itemBookMetadata?.publishedDate ??
+        value:
+            itemBookMetadata?.publishedDate ??
             itemBookMetadata?.publishedYear ??
             S.of(context).unknown,
       ),
@@ -91,22 +89,18 @@ class LibraryItemMetadata extends HookConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           // alternate between metadata and vertical divider
-          children: List.generate(
-            children.length * 2 - 1,
-            (index) {
-              if (index.isEven) {
-                return children[index ~/ 2];
-              }
-              return VerticalDivider(
-                indent: 6,
-                endIndent: 6,
-                color: Theme.of(context)
-                    .colorScheme
-                    .onSurface
-                    .withValues(alpha: 0.6),
-              );
-            },
-          ),
+          children: List.generate(children.length * 2 - 1, (index) {
+            if (index.isEven) {
+              return children[index ~/ 2];
+            }
+            return VerticalDivider(
+              indent: 6,
+              endIndent: 6,
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.6),
+            );
+          }),
         ),
       ),
     );
@@ -115,10 +109,7 @@ class LibraryItemMetadata extends HookConsumerWidget {
 
 /// key-value pair to display as column
 class _MetadataItem extends StatelessWidget {
-  const _MetadataItem({
-    required this.title,
-    required this.value,
-  });
+  const _MetadataItem({required this.title, required this.value});
 
   final String title;
   final String value;

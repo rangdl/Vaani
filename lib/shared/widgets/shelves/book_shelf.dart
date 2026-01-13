@@ -41,11 +41,11 @@ class BookHomeShelf extends HookConsumerWidget {
           .map(
             (item) => switch (item.mediaType) {
               MediaType.book => BookOnShelf(
-                  item: item,
-                  key: ValueKey(shelf.id + item.id),
-                  heroTagSuffix: shelf.id,
-                  showPlayButton: showPlayButton,
-                ),
+                item: item,
+                key: ValueKey(shelf.id + item.id),
+                heroTagSuffix: shelf.id,
+                showPlayButton: showPlayButton,
+              ),
               _ => Container(),
             },
           )
@@ -84,13 +84,8 @@ class BookOnShelf extends HookConsumerWidget {
           // open the book
           context.pushNamed(
             Routes.libraryItem.name,
-            pathParameters: {
-              Routes.libraryItem.pathParamName!: item.id,
-            },
-            extra: LibraryItemExtras(
-              book: book,
-              heroTagSuffix: heroTagSuffix,
-            ),
+            pathParameters: {Routes.libraryItem.pathParamName!: item.id},
+            extra: LibraryItemExtras(book: book, heroTagSuffix: heroTagSuffix),
           );
         }
 
@@ -100,8 +95,11 @@ class BookOnShelf extends HookConsumerWidget {
             onTap: handleTapOnBook,
             borderRadius: BorderRadius.circular(10),
             child: Padding(
-              padding:
-                  const EdgeInsets.only(bottom: 8.0, right: 4.0, left: 4.0),
+              padding: const EdgeInsets.only(
+                bottom: 8.0,
+                right: 4.0,
+                left: 4.0,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -113,7 +111,8 @@ class BookOnShelf extends HookConsumerWidget {
                         alignment: Alignment.bottomRight,
                         children: [
                           Hero(
-                            tag: HeroTagPrefixes.bookCover +
+                            tag:
+                                HeroTagPrefixes.bookCover +
                                 item.id +
                                 heroTagSuffix,
                             child: ClipRRect(
@@ -129,17 +128,19 @@ class BookOnShelf extends HookConsumerWidget {
                                     var imageWidget = Image.memory(
                                       image,
                                       fit: BoxFit.fill,
-                                      cacheWidth: (height *
-                                              1.2 *
-                                              MediaQuery.of(context)
-                                                  .devicePixelRatio)
-                                          .round(),
+                                      cacheWidth:
+                                          (height *
+                                                  1.2 *
+                                                  MediaQuery.of(
+                                                    context,
+                                                  ).devicePixelRatio)
+                                              .round(),
                                     );
                                     return Container(
                                       decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onPrimaryContainer,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onPrimaryContainer,
                                       ),
                                       child: imageWidget,
                                     );
@@ -158,9 +159,7 @@ class BookOnShelf extends HookConsumerWidget {
                           ),
                           // a play button on the book cover
                           if (showPlayButton)
-                            _BookOnShelfPlayButton(
-                              libraryItemId: item.id,
-                            ),
+                            _BookOnShelfPlayButton(libraryItemId: item.id),
                         ],
                       ),
                     ),
@@ -203,9 +202,7 @@ class BookOnShelf extends HookConsumerWidget {
 }
 
 class _BookOnShelfPlayButton extends HookConsumerWidget {
-  const _BookOnShelfPlayButton({
-    required this.libraryItemId,
-  });
+  const _BookOnShelfPlayButton({required this.libraryItemId});
 
   /// the id of the library item of the book
   final String libraryItemId;
@@ -221,8 +218,9 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
         currentBook?.libraryItemId == libraryItemId;
     final isPlayingThisBook = playing && isCurrentBookSetInPlayer;
 
-    final userProgress = me.valueOrNull?.mediaProgress
-        ?.firstWhereOrNull((element) => element.libraryItemId == libraryItemId);
+    final userProgress = me.value?.mediaProgress?.firstWhereOrNull(
+      (element) => element.libraryItemId == libraryItemId,
+    );
     final isBookCompleted = userProgress?.isFinished ?? false;
 
     const size = 40.0;
@@ -230,8 +228,10 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
     // if there is user progress for this book show a circular progress indicator around the play button
     var strokeWidth = size / 8;
 
-    final useMaterialThemeOnItemPage =
-        ref.watch(appSettingsProvider).themeSettings.useMaterialThemeOnItemPage;
+    final useMaterialThemeOnItemPage = ref
+        .watch(appSettingsProvider)
+        .themeSettings
+        .useMaterialThemeOnItemPage;
 
     AsyncValue<ColorScheme?> coverColorScheme = const AsyncValue.loading();
     if (useMaterialThemeOnItemPage && isCurrentBookSetInPlayer) {
@@ -246,8 +246,7 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
     return Theme(
       // if current book is set in player, get theme from the cover image
       data: ThemeData(
-        colorScheme:
-            coverColorScheme.valueOrNull ?? Theme.of(context).colorScheme,
+        colorScheme: coverColorScheme.value ?? Theme.of(context).colorScheme,
       ),
       child: Padding(
         padding: EdgeInsets.all(strokeWidth / 2 + 2),
@@ -262,10 +261,9 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
                 child: CircularProgressIndicator(
                   value: userProgress.progress,
                   strokeWidth: strokeWidth,
-                  backgroundColor: Theme.of(context)
-                      .colorScheme
-                      .onPrimary
-                      .withValues(alpha: 0.8),
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.onPrimary.withValues(alpha: 0.8),
                   valueColor: AlwaysStoppedAnimation<Color>(
                     Theme.of(context).colorScheme.primary,
                   ),
@@ -276,17 +274,12 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
             IconButton(
               color: Theme.of(context).colorScheme.primary,
               style: ButtonStyle(
-                padding: WidgetStateProperty.all(
-                  EdgeInsets.zero,
-                ),
-                minimumSize: WidgetStateProperty.all(
-                  const Size(size, size),
-                ),
+                padding: WidgetStateProperty.all(EdgeInsets.zero),
+                minimumSize: WidgetStateProperty.all(const Size(size, size)),
                 backgroundColor: WidgetStateProperty.all(
-                  Theme.of(context)
-                      .colorScheme
-                      .onPrimary
-                      .withValues(alpha: 0.9),
+                  Theme.of(
+                    context,
+                  ).colorScheme.onPrimary.withValues(alpha: 0.9),
                 ),
               ),
               onPressed: () async {
@@ -318,11 +311,7 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
 class BookCoverWidget extends HookConsumerWidget {
   final double width;
   final String? itemId;
-  const BookCoverWidget(
-    this.width, {
-    super.key,
-    this.itemId,
-  });
+  const BookCoverWidget(this.width, {super.key, this.itemId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -330,10 +319,8 @@ class BookCoverWidget extends HookConsumerWidget {
       return SizedBox(width: width, child: const BookCoverSkeleton());
     }
     final itemBeingPlayed = ref.watch(libraryItemProvider(itemId!));
-    final imageOfItemBeingPlayed = itemBeingPlayed.valueOrNull != null
-        ? ref.watch(
-            coverImageProvider(itemBeingPlayed.valueOrNull!.id),
-          )
+    final imageOfItemBeingPlayed = itemBeingPlayed.value != null
+        ? ref.watch(coverImageProvider(itemBeingPlayed.value!.id))
         : null;
     return SizedBox(
       width: width,
@@ -341,11 +328,8 @@ class BookCoverWidget extends HookConsumerWidget {
         borderRadius: BorderRadius.circular(
           AppElementSizes.borderRadiusRegular,
         ),
-        child: imageOfItemBeingPlayed?.valueOrNull != null
-            ? Image.memory(
-                imageOfItemBeingPlayed!.valueOrNull!,
-                fit: BoxFit.cover,
-              )
+        child: imageOfItemBeingPlayed?.value != null
+            ? Image.memory(imageOfItemBeingPlayed!.value!, fit: BoxFit.cover)
             : const BookCoverSkeleton(),
       ),
     );

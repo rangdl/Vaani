@@ -29,18 +29,14 @@ class ExplorePage extends HookConsumerWidget {
     ref.watch(appSettingsProvider);
     // final api = ref.watch(authenticatedApiProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(S.of(context).explore),
-      ),
+      appBar: AppBar(title: Text(S.of(context).explore)),
       body: const MySearchBar(),
     );
   }
 }
 
 class MySearchBar extends HookConsumerWidget {
-  const MySearchBar({
-    super.key,
-  });
+  const MySearchBar({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -62,8 +58,11 @@ class MySearchBar extends HookConsumerWidget {
       currentQuery = query;
 
       // In a real application, there should be some error handling here.
-      final options = await api.libraries
-          .search(libraryId: settings.activeLibraryId!, query: query, limit: 3);
+      final options = await api.libraries.search(
+        libraryId: settings.activeLibraryId!,
+        query: query,
+        limit: 3,
+      );
 
       // If another search happened after this one, throw away these options.
       if (currentQuery != query) {
@@ -83,7 +82,10 @@ class MySearchBar extends HookConsumerWidget {
       builder: (context, controller) {
         return SearchBar(
           constraints: const BoxConstraints(
-              minWidth: 360.0, maxWidth: 1050.0, minHeight: 56.0),
+            minWidth: 360.0,
+            maxWidth: 1050.0,
+            minHeight: 56.0,
+          ),
           controller: controller,
           focusNode: searchBarFocusNode,
           // "What's your next page-turner?"
@@ -100,11 +102,10 @@ class MySearchBar extends HookConsumerWidget {
           // opacity: 0.5 for the hint text
           hintStyle: WidgetStatePropertyAll(
             Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onSurface
-                      .withValues(alpha: 0.5),
-                ),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.5),
+            ),
           ),
           textInputAction: TextInputAction.search,
           onTapOutside: (_) {
@@ -123,12 +124,7 @@ class MySearchBar extends HookConsumerWidget {
         );
       },
       viewOnSubmitted: (value) {
-        context.pushNamed(
-          Routes.search.name,
-          queryParameters: {
-            'q': value,
-          },
-        );
+        context.pushNamed(Routes.search.name, queryParameters: {'q': value});
       },
       suggestionsBuilder: (context, controller) async {
         // check if the search controller is empty
@@ -194,14 +190,12 @@ List<Widget> buildBookSearchResult(
       SearchResultMiniSection(
         // title: 'Books',
         category: SearchResultCategory.books,
-        options: options.book.map(
-          (result) {
-            // convert result to a book object
-            final book = result.libraryItem.media.asBookExpanded;
-            final metadata = book.metadata.asBookMetadataExpanded;
-            return BookSearchResultMini(book: book, metadata: metadata);
-          },
-        ),
+        options: options.book.map((result) {
+          // convert result to a book object
+          final book = result.libraryItem.media.asBookExpanded;
+          final metadata = book.metadata.asBookMetadataExpanded;
+          return BookSearchResultMini(book: book, metadata: metadata);
+        }),
       ),
     );
   }
@@ -210,11 +204,9 @@ List<Widget> buildBookSearchResult(
       SearchResultMiniSection(
         // title: 'Authors',
         category: SearchResultCategory.authors,
-        options: options.authors.map(
-          (result) {
-            return ListTile(title: Text(result.name));
-          },
-        ),
+        options: options.authors.map((result) {
+          return ListTile(title: Text(result.name));
+        }),
       ),
     );
   }
@@ -235,7 +227,7 @@ class BookSearchResultMini extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final item = ref.watch(libraryItemProvider(book.libraryItemId)).valueOrNull;
+    final item = ref.watch(libraryItemProvider(book.libraryItemId)).value;
     final image = item == null
         ? const AsyncValue.loading()
         : ref.watch(coverImageProvider(item.id));
@@ -248,10 +240,7 @@ class BookSearchResultMini extends HookConsumerWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
             child: image.when(
-              data: (bytes) => Image.memory(
-                bytes,
-                fit: BoxFit.cover,
-              ),
+              data: (bytes) => Image.memory(bytes, fit: BoxFit.cover),
               loading: () => const BookCoverSkeleton(),
               error: (error, _) => const Icon(Icons.error),
             ),
@@ -262,11 +251,7 @@ class BookSearchResultMini extends HookConsumerWidget {
       subtitle: Text(
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        metadata.authors
-            .map(
-              (author) => author.name,
-            )
-            .join(', '),
+        metadata.authors.map((author) => author.name).join(', '),
       ),
       onTap: () {
         // navigate to the book details page

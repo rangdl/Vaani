@@ -7,7 +7,7 @@ typedef AudiobookShelfUri = Uri;
 
 /// Represents a audiobookshelf server
 @freezed
-class AudiobookShelfServer with _$AudiobookShelfServer {
+sealed class AudiobookShelfServer with _$AudiobookShelfServer {
   const factory AudiobookShelfServer({
     required AudiobookShelfUri serverUrl,
     // String? serverName,

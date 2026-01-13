@@ -22,10 +22,8 @@ const bottomBarHeight = 64;
 /// BottomNavigationBar, where [child] is placed in the body of the Scaffold.
 class ScaffoldWithNavBar extends HookConsumerWidget {
   /// Constructs an [ScaffoldWithNavBar].
-  const ScaffoldWithNavBar({
-    required this.navigationShell,
-    Key? key,
-  }) : super(key: key ?? const ValueKey<String>('ScaffoldWithNavBar'));
+  const ScaffoldWithNavBar({required this.navigationShell, Key? key})
+    : super(key: key ?? const ValueKey<String>('ScaffoldWithNavBar'));
 
   /// The navigation shell and container for the branch Navigators.
   final StatefulNavigationShell navigationShell;
@@ -65,11 +63,8 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
             // extended: false,
             destinations: _navigationItems(context).map((item) {
               final isDestinationLibrary = item.name == S.of(context).library;
-              var currentLibrary =
-                  ref.watch(currentLibraryProvider).valueOrNull;
-              final libraryIcon = AbsIcons.getIconByName(
-                currentLibrary?.icon,
-              );
+              var currentLibrary = ref.watch(currentLibraryProvider).value;
+              final libraryIcon = AbsIcons.getIconByName(currentLibrary?.icon);
               final destinationWidget = NavigationRailDestination(
                 icon: Icon(
                   isDestinationLibrary ? libraryIcon ?? item.icon : item.icon,
@@ -107,9 +102,7 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
           ),
         ),
         VerticalDivider(width: 0.5, thickness: 0.5),
-        Expanded(
-          child: navigationShell,
-        ),
+        Expanded(child: navigationShell),
       ],
     );
   }
@@ -133,10 +126,8 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
       // `navigationShell.route.branches`.
       destinations: _navigationItems(context).map((item) {
         final isDestinationLibrary = item.name == S.of(context).library;
-        var currentLibrary = ref.watch(currentLibraryProvider).valueOrNull;
-        final libraryIcon = AbsIcons.getIconByName(
-          currentLibrary?.icon,
-        );
+        var currentLibrary = ref.watch(currentLibraryProvider).value;
+        final libraryIcon = AbsIcons.getIconByName(currentLibrary?.icon);
         final destinationWidget = NavigationDestination(
           icon: Icon(
             isDestinationLibrary ? libraryIcon ?? item.icon : item.icon,

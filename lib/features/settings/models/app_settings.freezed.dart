@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,3161 +9,2957 @@ part of 'app_settings.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-AppSettings _$AppSettingsFromJson(Map<String, dynamic> json) {
-  return _AppSettings.fromJson(json);
-}
 
 /// @nodoc
 mixin _$AppSettings {
-  String get language => throw _privateConstructorUsedError;
-  ThemeSettings get themeSettings => throw _privateConstructorUsedError;
-  PlayerSettings get playerSettings => throw _privateConstructorUsedError;
-  SleepTimerSettings get sleepTimerSettings =>
-      throw _privateConstructorUsedError;
-  DownloadSettings get downloadSettings => throw _privateConstructorUsedError;
-  NotificationSettings get notificationSettings =>
-      throw _privateConstructorUsedError;
-  ShakeDetectionSettings get shakeDetectionSettings =>
-      throw _privateConstructorUsedError;
-  HomePageSettings get homePageSettings => throw _privateConstructorUsedError;
+
+ String get language; ThemeSettings get themeSettings; PlayerSettings get playerSettings; SleepTimerSettings get sleepTimerSettings; DownloadSettings get downloadSettings; NotificationSettings get notificationSettings; ShakeDetectionSettings get shakeDetectionSettings; HomePageSettings get homePageSettings;
+/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AppSettingsCopyWith<AppSettings> get copyWith => _$AppSettingsCopyWithImpl<AppSettings>(this as AppSettings, _$identity);
 
   /// Serializes this AppSettings to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of AppSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $AppSettingsCopyWith<AppSettings> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.language, language) || other.language == language)&&(identical(other.themeSettings, themeSettings) || other.themeSettings == themeSettings)&&(identical(other.playerSettings, playerSettings) || other.playerSettings == playerSettings)&&(identical(other.sleepTimerSettings, sleepTimerSettings) || other.sleepTimerSettings == sleepTimerSettings)&&(identical(other.downloadSettings, downloadSettings) || other.downloadSettings == downloadSettings)&&(identical(other.notificationSettings, notificationSettings) || other.notificationSettings == notificationSettings)&&(identical(other.shakeDetectionSettings, shakeDetectionSettings) || other.shakeDetectionSettings == shakeDetectionSettings)&&(identical(other.homePageSettings, homePageSettings) || other.homePageSettings == homePageSettings));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,language,themeSettings,playerSettings,sleepTimerSettings,downloadSettings,notificationSettings,shakeDetectionSettings,homePageSettings);
+
+@override
+String toString() {
+  return 'AppSettings(language: $language, themeSettings: $themeSettings, playerSettings: $playerSettings, sleepTimerSettings: $sleepTimerSettings, downloadSettings: $downloadSettings, notificationSettings: $notificationSettings, shakeDetectionSettings: $shakeDetectionSettings, homePageSettings: $homePageSettings)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $AppSettingsCopyWith<$Res> {
-  factory $AppSettingsCopyWith(
-          AppSettings value, $Res Function(AppSettings) then) =
-      _$AppSettingsCopyWithImpl<$Res, AppSettings>;
-  @useResult
-  $Res call(
-      {String language,
-      ThemeSettings themeSettings,
-      PlayerSettings playerSettings,
-      SleepTimerSettings sleepTimerSettings,
-      DownloadSettings downloadSettings,
-      NotificationSettings notificationSettings,
-      ShakeDetectionSettings shakeDetectionSettings,
-      HomePageSettings homePageSettings});
+abstract mixin class $AppSettingsCopyWith<$Res>  {
+  factory $AppSettingsCopyWith(AppSettings value, $Res Function(AppSettings) _then) = _$AppSettingsCopyWithImpl;
+@useResult
+$Res call({
+ String language, ThemeSettings themeSettings, PlayerSettings playerSettings, SleepTimerSettings sleepTimerSettings, DownloadSettings downloadSettings, NotificationSettings notificationSettings, ShakeDetectionSettings shakeDetectionSettings, HomePageSettings homePageSettings
+});
 
-  $ThemeSettingsCopyWith<$Res> get themeSettings;
-  $PlayerSettingsCopyWith<$Res> get playerSettings;
-  $SleepTimerSettingsCopyWith<$Res> get sleepTimerSettings;
-  $DownloadSettingsCopyWith<$Res> get downloadSettings;
-  $NotificationSettingsCopyWith<$Res> get notificationSettings;
-  $ShakeDetectionSettingsCopyWith<$Res> get shakeDetectionSettings;
-  $HomePageSettingsCopyWith<$Res> get homePageSettings;
+
+$ThemeSettingsCopyWith<$Res> get themeSettings;$PlayerSettingsCopyWith<$Res> get playerSettings;$SleepTimerSettingsCopyWith<$Res> get sleepTimerSettings;$DownloadSettingsCopyWith<$Res> get downloadSettings;$NotificationSettingsCopyWith<$Res> get notificationSettings;$ShakeDetectionSettingsCopyWith<$Res> get shakeDetectionSettings;$HomePageSettingsCopyWith<$Res> get homePageSettings;
+
 }
-
 /// @nodoc
-class _$AppSettingsCopyWithImpl<$Res, $Val extends AppSettings>
+class _$AppSettingsCopyWithImpl<$Res>
     implements $AppSettingsCopyWith<$Res> {
-  _$AppSettingsCopyWithImpl(this._value, this._then);
+  _$AppSettingsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final AppSettings _self;
+  final $Res Function(AppSettings) _then;
 
-  /// Create a copy of AppSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? language = null,
-    Object? themeSettings = null,
-    Object? playerSettings = null,
-    Object? sleepTimerSettings = null,
-    Object? downloadSettings = null,
-    Object? notificationSettings = null,
-    Object? shakeDetectionSettings = null,
-    Object? homePageSettings = null,
-  }) {
-    return _then(_value.copyWith(
-      language: null == language
-          ? _value.language
-          : language // ignore: cast_nullable_to_non_nullable
-              as String,
-      themeSettings: null == themeSettings
-          ? _value.themeSettings
-          : themeSettings // ignore: cast_nullable_to_non_nullable
-              as ThemeSettings,
-      playerSettings: null == playerSettings
-          ? _value.playerSettings
-          : playerSettings // ignore: cast_nullable_to_non_nullable
-              as PlayerSettings,
-      sleepTimerSettings: null == sleepTimerSettings
-          ? _value.sleepTimerSettings
-          : sleepTimerSettings // ignore: cast_nullable_to_non_nullable
-              as SleepTimerSettings,
-      downloadSettings: null == downloadSettings
-          ? _value.downloadSettings
-          : downloadSettings // ignore: cast_nullable_to_non_nullable
-              as DownloadSettings,
-      notificationSettings: null == notificationSettings
-          ? _value.notificationSettings
-          : notificationSettings // ignore: cast_nullable_to_non_nullable
-              as NotificationSettings,
-      shakeDetectionSettings: null == shakeDetectionSettings
-          ? _value.shakeDetectionSettings
-          : shakeDetectionSettings // ignore: cast_nullable_to_non_nullable
-              as ShakeDetectionSettings,
-      homePageSettings: null == homePageSettings
-          ? _value.homePageSettings
-          : homePageSettings // ignore: cast_nullable_to_non_nullable
-              as HomePageSettings,
-    ) as $Val);
-  }
-
-  /// Create a copy of AppSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ThemeSettingsCopyWith<$Res> get themeSettings {
-    return $ThemeSettingsCopyWith<$Res>(_value.themeSettings, (value) {
-      return _then(_value.copyWith(themeSettings: value) as $Val);
-    });
-  }
-
-  /// Create a copy of AppSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $PlayerSettingsCopyWith<$Res> get playerSettings {
-    return $PlayerSettingsCopyWith<$Res>(_value.playerSettings, (value) {
-      return _then(_value.copyWith(playerSettings: value) as $Val);
-    });
-  }
-
-  /// Create a copy of AppSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $SleepTimerSettingsCopyWith<$Res> get sleepTimerSettings {
-    return $SleepTimerSettingsCopyWith<$Res>(_value.sleepTimerSettings,
-        (value) {
-      return _then(_value.copyWith(sleepTimerSettings: value) as $Val);
-    });
-  }
-
-  /// Create a copy of AppSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $DownloadSettingsCopyWith<$Res> get downloadSettings {
-    return $DownloadSettingsCopyWith<$Res>(_value.downloadSettings, (value) {
-      return _then(_value.copyWith(downloadSettings: value) as $Val);
-    });
-  }
-
-  /// Create a copy of AppSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $NotificationSettingsCopyWith<$Res> get notificationSettings {
-    return $NotificationSettingsCopyWith<$Res>(_value.notificationSettings,
-        (value) {
-      return _then(_value.copyWith(notificationSettings: value) as $Val);
-    });
-  }
-
-  /// Create a copy of AppSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ShakeDetectionSettingsCopyWith<$Res> get shakeDetectionSettings {
-    return $ShakeDetectionSettingsCopyWith<$Res>(_value.shakeDetectionSettings,
-        (value) {
-      return _then(_value.copyWith(shakeDetectionSettings: value) as $Val);
-    });
-  }
-
-  /// Create a copy of AppSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $HomePageSettingsCopyWith<$Res> get homePageSettings {
-    return $HomePageSettingsCopyWith<$Res>(_value.homePageSettings, (value) {
-      return _then(_value.copyWith(homePageSettings: value) as $Val);
-    });
-  }
+/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? language = null,Object? themeSettings = null,Object? playerSettings = null,Object? sleepTimerSettings = null,Object? downloadSettings = null,Object? notificationSettings = null,Object? shakeDetectionSettings = null,Object? homePageSettings = null,}) {
+  return _then(_self.copyWith(
+language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
+as String,themeSettings: null == themeSettings ? _self.themeSettings : themeSettings // ignore: cast_nullable_to_non_nullable
+as ThemeSettings,playerSettings: null == playerSettings ? _self.playerSettings : playerSettings // ignore: cast_nullable_to_non_nullable
+as PlayerSettings,sleepTimerSettings: null == sleepTimerSettings ? _self.sleepTimerSettings : sleepTimerSettings // ignore: cast_nullable_to_non_nullable
+as SleepTimerSettings,downloadSettings: null == downloadSettings ? _self.downloadSettings : downloadSettings // ignore: cast_nullable_to_non_nullable
+as DownloadSettings,notificationSettings: null == notificationSettings ? _self.notificationSettings : notificationSettings // ignore: cast_nullable_to_non_nullable
+as NotificationSettings,shakeDetectionSettings: null == shakeDetectionSettings ? _self.shakeDetectionSettings : shakeDetectionSettings // ignore: cast_nullable_to_non_nullable
+as ShakeDetectionSettings,homePageSettings: null == homePageSettings ? _self.homePageSettings : homePageSettings // ignore: cast_nullable_to_non_nullable
+as HomePageSettings,
+  ));
+}
+/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ThemeSettingsCopyWith<$Res> get themeSettings {
+  
+  return $ThemeSettingsCopyWith<$Res>(_self.themeSettings, (value) {
+    return _then(_self.copyWith(themeSettings: value));
+  });
+}/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PlayerSettingsCopyWith<$Res> get playerSettings {
+  
+  return $PlayerSettingsCopyWith<$Res>(_self.playerSettings, (value) {
+    return _then(_self.copyWith(playerSettings: value));
+  });
+}/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SleepTimerSettingsCopyWith<$Res> get sleepTimerSettings {
+  
+  return $SleepTimerSettingsCopyWith<$Res>(_self.sleepTimerSettings, (value) {
+    return _then(_self.copyWith(sleepTimerSettings: value));
+  });
+}/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$DownloadSettingsCopyWith<$Res> get downloadSettings {
+  
+  return $DownloadSettingsCopyWith<$Res>(_self.downloadSettings, (value) {
+    return _then(_self.copyWith(downloadSettings: value));
+  });
+}/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$NotificationSettingsCopyWith<$Res> get notificationSettings {
+  
+  return $NotificationSettingsCopyWith<$Res>(_self.notificationSettings, (value) {
+    return _then(_self.copyWith(notificationSettings: value));
+  });
+}/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ShakeDetectionSettingsCopyWith<$Res> get shakeDetectionSettings {
+  
+  return $ShakeDetectionSettingsCopyWith<$Res>(_self.shakeDetectionSettings, (value) {
+    return _then(_self.copyWith(shakeDetectionSettings: value));
+  });
+}/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$HomePageSettingsCopyWith<$Res> get homePageSettings {
+  
+  return $HomePageSettingsCopyWith<$Res>(_self.homePageSettings, (value) {
+    return _then(_self.copyWith(homePageSettings: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$AppSettingsImplCopyWith<$Res>
-    implements $AppSettingsCopyWith<$Res> {
-  factory _$$AppSettingsImplCopyWith(
-          _$AppSettingsImpl value, $Res Function(_$AppSettingsImpl) then) =
-      __$$AppSettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String language,
-      ThemeSettings themeSettings,
-      PlayerSettings playerSettings,
-      SleepTimerSettings sleepTimerSettings,
-      DownloadSettings downloadSettings,
-      NotificationSettings notificationSettings,
-      ShakeDetectionSettings shakeDetectionSettings,
-      HomePageSettings homePageSettings});
 
-  @override
-  $ThemeSettingsCopyWith<$Res> get themeSettings;
-  @override
-  $PlayerSettingsCopyWith<$Res> get playerSettings;
-  @override
-  $SleepTimerSettingsCopyWith<$Res> get sleepTimerSettings;
-  @override
-  $DownloadSettingsCopyWith<$Res> get downloadSettings;
-  @override
-  $NotificationSettingsCopyWith<$Res> get notificationSettings;
-  @override
-  $ShakeDetectionSettingsCopyWith<$Res> get shakeDetectionSettings;
-  @override
-  $HomePageSettingsCopyWith<$Res> get homePageSettings;
+/// Adds pattern-matching-related methods to [AppSettings].
+extension AppSettingsPatterns on AppSettings {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AppSettings value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AppSettings() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AppSettings value)  $default,){
+final _that = this;
+switch (_that) {
+case _AppSettings():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AppSettings value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AppSettings() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String language,  ThemeSettings themeSettings,  PlayerSettings playerSettings,  SleepTimerSettings sleepTimerSettings,  DownloadSettings downloadSettings,  NotificationSettings notificationSettings,  ShakeDetectionSettings shakeDetectionSettings,  HomePageSettings homePageSettings)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AppSettings() when $default != null:
+return $default(_that.language,_that.themeSettings,_that.playerSettings,_that.sleepTimerSettings,_that.downloadSettings,_that.notificationSettings,_that.shakeDetectionSettings,_that.homePageSettings);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String language,  ThemeSettings themeSettings,  PlayerSettings playerSettings,  SleepTimerSettings sleepTimerSettings,  DownloadSettings downloadSettings,  NotificationSettings notificationSettings,  ShakeDetectionSettings shakeDetectionSettings,  HomePageSettings homePageSettings)  $default,) {final _that = this;
+switch (_that) {
+case _AppSettings():
+return $default(_that.language,_that.themeSettings,_that.playerSettings,_that.sleepTimerSettings,_that.downloadSettings,_that.notificationSettings,_that.shakeDetectionSettings,_that.homePageSettings);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String language,  ThemeSettings themeSettings,  PlayerSettings playerSettings,  SleepTimerSettings sleepTimerSettings,  DownloadSettings downloadSettings,  NotificationSettings notificationSettings,  ShakeDetectionSettings shakeDetectionSettings,  HomePageSettings homePageSettings)?  $default,) {final _that = this;
+switch (_that) {
+case _AppSettings() when $default != null:
+return $default(_that.language,_that.themeSettings,_that.playerSettings,_that.sleepTimerSettings,_that.downloadSettings,_that.notificationSettings,_that.shakeDetectionSettings,_that.homePageSettings);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$AppSettingsImplCopyWithImpl<$Res>
-    extends _$AppSettingsCopyWithImpl<$Res, _$AppSettingsImpl>
-    implements _$$AppSettingsImplCopyWith<$Res> {
-  __$$AppSettingsImplCopyWithImpl(
-      _$AppSettingsImpl _value, $Res Function(_$AppSettingsImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of AppSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? language = null,
-    Object? themeSettings = null,
-    Object? playerSettings = null,
-    Object? sleepTimerSettings = null,
-    Object? downloadSettings = null,
-    Object? notificationSettings = null,
-    Object? shakeDetectionSettings = null,
-    Object? homePageSettings = null,
-  }) {
-    return _then(_$AppSettingsImpl(
-      language: null == language
-          ? _value.language
-          : language // ignore: cast_nullable_to_non_nullable
-              as String,
-      themeSettings: null == themeSettings
-          ? _value.themeSettings
-          : themeSettings // ignore: cast_nullable_to_non_nullable
-              as ThemeSettings,
-      playerSettings: null == playerSettings
-          ? _value.playerSettings
-          : playerSettings // ignore: cast_nullable_to_non_nullable
-              as PlayerSettings,
-      sleepTimerSettings: null == sleepTimerSettings
-          ? _value.sleepTimerSettings
-          : sleepTimerSettings // ignore: cast_nullable_to_non_nullable
-              as SleepTimerSettings,
-      downloadSettings: null == downloadSettings
-          ? _value.downloadSettings
-          : downloadSettings // ignore: cast_nullable_to_non_nullable
-              as DownloadSettings,
-      notificationSettings: null == notificationSettings
-          ? _value.notificationSettings
-          : notificationSettings // ignore: cast_nullable_to_non_nullable
-              as NotificationSettings,
-      shakeDetectionSettings: null == shakeDetectionSettings
-          ? _value.shakeDetectionSettings
-          : shakeDetectionSettings // ignore: cast_nullable_to_non_nullable
-              as ShakeDetectionSettings,
-      homePageSettings: null == homePageSettings
-          ? _value.homePageSettings
-          : homePageSettings // ignore: cast_nullable_to_non_nullable
-              as HomePageSettings,
-    ));
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AppSettingsImpl implements _AppSettings {
-  const _$AppSettingsImpl(
-      {this.language = 'zh',
-      this.themeSettings = const ThemeSettings(),
-      this.playerSettings = const PlayerSettings(),
-      this.sleepTimerSettings = const SleepTimerSettings(),
-      this.downloadSettings = const DownloadSettings(),
-      this.notificationSettings = const NotificationSettings(),
-      this.shakeDetectionSettings = const ShakeDetectionSettings(),
-      this.homePageSettings = const HomePageSettings()});
 
-  factory _$AppSettingsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AppSettingsImplFromJson(json);
+class _AppSettings implements AppSettings {
+  const _AppSettings({this.language = 'zh', this.themeSettings = const ThemeSettings(), this.playerSettings = const PlayerSettings(), this.sleepTimerSettings = const SleepTimerSettings(), this.downloadSettings = const DownloadSettings(), this.notificationSettings = const NotificationSettings(), this.shakeDetectionSettings = const ShakeDetectionSettings(), this.homePageSettings = const HomePageSettings()});
+  factory _AppSettings.fromJson(Map<String, dynamic> json) => _$AppSettingsFromJson(json);
 
-  @override
-  @JsonKey()
-  final String language;
-  @override
-  @JsonKey()
-  final ThemeSettings themeSettings;
-  @override
-  @JsonKey()
-  final PlayerSettings playerSettings;
-  @override
-  @JsonKey()
-  final SleepTimerSettings sleepTimerSettings;
-  @override
-  @JsonKey()
-  final DownloadSettings downloadSettings;
-  @override
-  @JsonKey()
-  final NotificationSettings notificationSettings;
-  @override
-  @JsonKey()
-  final ShakeDetectionSettings shakeDetectionSettings;
-  @override
-  @JsonKey()
-  final HomePageSettings homePageSettings;
+@override@JsonKey() final  String language;
+@override@JsonKey() final  ThemeSettings themeSettings;
+@override@JsonKey() final  PlayerSettings playerSettings;
+@override@JsonKey() final  SleepTimerSettings sleepTimerSettings;
+@override@JsonKey() final  DownloadSettings downloadSettings;
+@override@JsonKey() final  NotificationSettings notificationSettings;
+@override@JsonKey() final  ShakeDetectionSettings shakeDetectionSettings;
+@override@JsonKey() final  HomePageSettings homePageSettings;
 
-  @override
-  String toString() {
-    return 'AppSettings(language: $language, themeSettings: $themeSettings, playerSettings: $playerSettings, sleepTimerSettings: $sleepTimerSettings, downloadSettings: $downloadSettings, notificationSettings: $notificationSettings, shakeDetectionSettings: $shakeDetectionSettings, homePageSettings: $homePageSettings)';
-  }
+/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AppSettingsCopyWith<_AppSettings> get copyWith => __$AppSettingsCopyWithImpl<_AppSettings>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AppSettingsImpl &&
-            (identical(other.language, language) ||
-                other.language == language) &&
-            (identical(other.themeSettings, themeSettings) ||
-                other.themeSettings == themeSettings) &&
-            (identical(other.playerSettings, playerSettings) ||
-                other.playerSettings == playerSettings) &&
-            (identical(other.sleepTimerSettings, sleepTimerSettings) ||
-                other.sleepTimerSettings == sleepTimerSettings) &&
-            (identical(other.downloadSettings, downloadSettings) ||
-                other.downloadSettings == downloadSettings) &&
-            (identical(other.notificationSettings, notificationSettings) ||
-                other.notificationSettings == notificationSettings) &&
-            (identical(other.shakeDetectionSettings, shakeDetectionSettings) ||
-                other.shakeDetectionSettings == shakeDetectionSettings) &&
-            (identical(other.homePageSettings, homePageSettings) ||
-                other.homePageSettings == homePageSettings));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      language,
-      themeSettings,
-      playerSettings,
-      sleepTimerSettings,
-      downloadSettings,
-      notificationSettings,
-      shakeDetectionSettings,
-      homePageSettings);
-
-  /// Create a copy of AppSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AppSettingsImplCopyWith<_$AppSettingsImpl> get copyWith =>
-      __$$AppSettingsImplCopyWithImpl<_$AppSettingsImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AppSettingsImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$AppSettingsToJson(this, );
 }
 
-abstract class _AppSettings implements AppSettings {
-  const factory _AppSettings(
-      {final String language,
-      final ThemeSettings themeSettings,
-      final PlayerSettings playerSettings,
-      final SleepTimerSettings sleepTimerSettings,
-      final DownloadSettings downloadSettings,
-      final NotificationSettings notificationSettings,
-      final ShakeDetectionSettings shakeDetectionSettings,
-      final HomePageSettings homePageSettings}) = _$AppSettingsImpl;
-
-  factory _AppSettings.fromJson(Map<String, dynamic> json) =
-      _$AppSettingsImpl.fromJson;
-
-  @override
-  String get language;
-  @override
-  ThemeSettings get themeSettings;
-  @override
-  PlayerSettings get playerSettings;
-  @override
-  SleepTimerSettings get sleepTimerSettings;
-  @override
-  DownloadSettings get downloadSettings;
-  @override
-  NotificationSettings get notificationSettings;
-  @override
-  ShakeDetectionSettings get shakeDetectionSettings;
-  @override
-  HomePageSettings get homePageSettings;
-
-  /// Create a copy of AppSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AppSettingsImplCopyWith<_$AppSettingsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.language, language) || other.language == language)&&(identical(other.themeSettings, themeSettings) || other.themeSettings == themeSettings)&&(identical(other.playerSettings, playerSettings) || other.playerSettings == playerSettings)&&(identical(other.sleepTimerSettings, sleepTimerSettings) || other.sleepTimerSettings == sleepTimerSettings)&&(identical(other.downloadSettings, downloadSettings) || other.downloadSettings == downloadSettings)&&(identical(other.notificationSettings, notificationSettings) || other.notificationSettings == notificationSettings)&&(identical(other.shakeDetectionSettings, shakeDetectionSettings) || other.shakeDetectionSettings == shakeDetectionSettings)&&(identical(other.homePageSettings, homePageSettings) || other.homePageSettings == homePageSettings));
 }
 
-ThemeSettings _$ThemeSettingsFromJson(Map<String, dynamic> json) {
-  return _ThemeSettings.fromJson(json);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,language,themeSettings,playerSettings,sleepTimerSettings,downloadSettings,notificationSettings,shakeDetectionSettings,homePageSettings);
+
+@override
+String toString() {
+  return 'AppSettings(language: $language, themeSettings: $themeSettings, playerSettings: $playerSettings, sleepTimerSettings: $sleepTimerSettings, downloadSettings: $downloadSettings, notificationSettings: $notificationSettings, shakeDetectionSettings: $shakeDetectionSettings, homePageSettings: $homePageSettings)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AppSettingsCopyWith<$Res> implements $AppSettingsCopyWith<$Res> {
+  factory _$AppSettingsCopyWith(_AppSettings value, $Res Function(_AppSettings) _then) = __$AppSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ String language, ThemeSettings themeSettings, PlayerSettings playerSettings, SleepTimerSettings sleepTimerSettings, DownloadSettings downloadSettings, NotificationSettings notificationSettings, ShakeDetectionSettings shakeDetectionSettings, HomePageSettings homePageSettings
+});
+
+
+@override $ThemeSettingsCopyWith<$Res> get themeSettings;@override $PlayerSettingsCopyWith<$Res> get playerSettings;@override $SleepTimerSettingsCopyWith<$Res> get sleepTimerSettings;@override $DownloadSettingsCopyWith<$Res> get downloadSettings;@override $NotificationSettingsCopyWith<$Res> get notificationSettings;@override $ShakeDetectionSettingsCopyWith<$Res> get shakeDetectionSettings;@override $HomePageSettingsCopyWith<$Res> get homePageSettings;
+
+}
+/// @nodoc
+class __$AppSettingsCopyWithImpl<$Res>
+    implements _$AppSettingsCopyWith<$Res> {
+  __$AppSettingsCopyWithImpl(this._self, this._then);
+
+  final _AppSettings _self;
+  final $Res Function(_AppSettings) _then;
+
+/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? language = null,Object? themeSettings = null,Object? playerSettings = null,Object? sleepTimerSettings = null,Object? downloadSettings = null,Object? notificationSettings = null,Object? shakeDetectionSettings = null,Object? homePageSettings = null,}) {
+  return _then(_AppSettings(
+language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
+as String,themeSettings: null == themeSettings ? _self.themeSettings : themeSettings // ignore: cast_nullable_to_non_nullable
+as ThemeSettings,playerSettings: null == playerSettings ? _self.playerSettings : playerSettings // ignore: cast_nullable_to_non_nullable
+as PlayerSettings,sleepTimerSettings: null == sleepTimerSettings ? _self.sleepTimerSettings : sleepTimerSettings // ignore: cast_nullable_to_non_nullable
+as SleepTimerSettings,downloadSettings: null == downloadSettings ? _self.downloadSettings : downloadSettings // ignore: cast_nullable_to_non_nullable
+as DownloadSettings,notificationSettings: null == notificationSettings ? _self.notificationSettings : notificationSettings // ignore: cast_nullable_to_non_nullable
+as NotificationSettings,shakeDetectionSettings: null == shakeDetectionSettings ? _self.shakeDetectionSettings : shakeDetectionSettings // ignore: cast_nullable_to_non_nullable
+as ShakeDetectionSettings,homePageSettings: null == homePageSettings ? _self.homePageSettings : homePageSettings // ignore: cast_nullable_to_non_nullable
+as HomePageSettings,
+  ));
+}
+
+/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ThemeSettingsCopyWith<$Res> get themeSettings {
+  
+  return $ThemeSettingsCopyWith<$Res>(_self.themeSettings, (value) {
+    return _then(_self.copyWith(themeSettings: value));
+  });
+}/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PlayerSettingsCopyWith<$Res> get playerSettings {
+  
+  return $PlayerSettingsCopyWith<$Res>(_self.playerSettings, (value) {
+    return _then(_self.copyWith(playerSettings: value));
+  });
+}/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SleepTimerSettingsCopyWith<$Res> get sleepTimerSettings {
+  
+  return $SleepTimerSettingsCopyWith<$Res>(_self.sleepTimerSettings, (value) {
+    return _then(_self.copyWith(sleepTimerSettings: value));
+  });
+}/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$DownloadSettingsCopyWith<$Res> get downloadSettings {
+  
+  return $DownloadSettingsCopyWith<$Res>(_self.downloadSettings, (value) {
+    return _then(_self.copyWith(downloadSettings: value));
+  });
+}/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$NotificationSettingsCopyWith<$Res> get notificationSettings {
+  
+  return $NotificationSettingsCopyWith<$Res>(_self.notificationSettings, (value) {
+    return _then(_self.copyWith(notificationSettings: value));
+  });
+}/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ShakeDetectionSettingsCopyWith<$Res> get shakeDetectionSettings {
+  
+  return $ShakeDetectionSettingsCopyWith<$Res>(_self.shakeDetectionSettings, (value) {
+    return _then(_self.copyWith(shakeDetectionSettings: value));
+  });
+}/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$HomePageSettingsCopyWith<$Res> get homePageSettings {
+  
+  return $HomePageSettingsCopyWith<$Res>(_self.homePageSettings, (value) {
+    return _then(_self.copyWith(homePageSettings: value));
+  });
+}
+}
+
 
 /// @nodoc
 mixin _$ThemeSettings {
-  ThemeMode get themeMode => throw _privateConstructorUsedError;
-  bool get highContrast => throw _privateConstructorUsedError;
-  bool get useMaterialThemeFromSystem => throw _privateConstructorUsedError;
-  String get customThemeColor => throw _privateConstructorUsedError;
-  bool get useMaterialThemeOnItemPage => throw _privateConstructorUsedError;
-  bool get useCurrentPlayerThemeThroughoutApp =>
-      throw _privateConstructorUsedError;
+
+ ThemeMode get themeMode; bool get highContrast; bool get useMaterialThemeFromSystem; String get customThemeColor; bool get useMaterialThemeOnItemPage; bool get useCurrentPlayerThemeThroughoutApp;
+/// Create a copy of ThemeSettings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ThemeSettingsCopyWith<ThemeSettings> get copyWith => _$ThemeSettingsCopyWithImpl<ThemeSettings>(this as ThemeSettings, _$identity);
 
   /// Serializes this ThemeSettings to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of ThemeSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ThemeSettingsCopyWith<ThemeSettings> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThemeSettings&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.highContrast, highContrast) || other.highContrast == highContrast)&&(identical(other.useMaterialThemeFromSystem, useMaterialThemeFromSystem) || other.useMaterialThemeFromSystem == useMaterialThemeFromSystem)&&(identical(other.customThemeColor, customThemeColor) || other.customThemeColor == customThemeColor)&&(identical(other.useMaterialThemeOnItemPage, useMaterialThemeOnItemPage) || other.useMaterialThemeOnItemPage == useMaterialThemeOnItemPage)&&(identical(other.useCurrentPlayerThemeThroughoutApp, useCurrentPlayerThemeThroughoutApp) || other.useCurrentPlayerThemeThroughoutApp == useCurrentPlayerThemeThroughoutApp));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,themeMode,highContrast,useMaterialThemeFromSystem,customThemeColor,useMaterialThemeOnItemPage,useCurrentPlayerThemeThroughoutApp);
+
+@override
+String toString() {
+  return 'ThemeSettings(themeMode: $themeMode, highContrast: $highContrast, useMaterialThemeFromSystem: $useMaterialThemeFromSystem, customThemeColor: $customThemeColor, useMaterialThemeOnItemPage: $useMaterialThemeOnItemPage, useCurrentPlayerThemeThroughoutApp: $useCurrentPlayerThemeThroughoutApp)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $ThemeSettingsCopyWith<$Res> {
-  factory $ThemeSettingsCopyWith(
-          ThemeSettings value, $Res Function(ThemeSettings) then) =
-      _$ThemeSettingsCopyWithImpl<$Res, ThemeSettings>;
-  @useResult
-  $Res call(
-      {ThemeMode themeMode,
-      bool highContrast,
-      bool useMaterialThemeFromSystem,
-      String customThemeColor,
-      bool useMaterialThemeOnItemPage,
-      bool useCurrentPlayerThemeThroughoutApp});
-}
+abstract mixin class $ThemeSettingsCopyWith<$Res>  {
+  factory $ThemeSettingsCopyWith(ThemeSettings value, $Res Function(ThemeSettings) _then) = _$ThemeSettingsCopyWithImpl;
+@useResult
+$Res call({
+ ThemeMode themeMode, bool highContrast, bool useMaterialThemeFromSystem, String customThemeColor, bool useMaterialThemeOnItemPage, bool useCurrentPlayerThemeThroughoutApp
+});
 
+
+
+
+}
 /// @nodoc
-class _$ThemeSettingsCopyWithImpl<$Res, $Val extends ThemeSettings>
+class _$ThemeSettingsCopyWithImpl<$Res>
     implements $ThemeSettingsCopyWith<$Res> {
-  _$ThemeSettingsCopyWithImpl(this._value, this._then);
+  _$ThemeSettingsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final ThemeSettings _self;
+  final $Res Function(ThemeSettings) _then;
 
-  /// Create a copy of ThemeSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? themeMode = null,
-    Object? highContrast = null,
-    Object? useMaterialThemeFromSystem = null,
-    Object? customThemeColor = null,
-    Object? useMaterialThemeOnItemPage = null,
-    Object? useCurrentPlayerThemeThroughoutApp = null,
-  }) {
-    return _then(_value.copyWith(
-      themeMode: null == themeMode
-          ? _value.themeMode
-          : themeMode // ignore: cast_nullable_to_non_nullable
-              as ThemeMode,
-      highContrast: null == highContrast
-          ? _value.highContrast
-          : highContrast // ignore: cast_nullable_to_non_nullable
-              as bool,
-      useMaterialThemeFromSystem: null == useMaterialThemeFromSystem
-          ? _value.useMaterialThemeFromSystem
-          : useMaterialThemeFromSystem // ignore: cast_nullable_to_non_nullable
-              as bool,
-      customThemeColor: null == customThemeColor
-          ? _value.customThemeColor
-          : customThemeColor // ignore: cast_nullable_to_non_nullable
-              as String,
-      useMaterialThemeOnItemPage: null == useMaterialThemeOnItemPage
-          ? _value.useMaterialThemeOnItemPage
-          : useMaterialThemeOnItemPage // ignore: cast_nullable_to_non_nullable
-              as bool,
-      useCurrentPlayerThemeThroughoutApp: null ==
-              useCurrentPlayerThemeThroughoutApp
-          ? _value.useCurrentPlayerThemeThroughoutApp
-          : useCurrentPlayerThemeThroughoutApp // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
-  }
+/// Create a copy of ThemeSettings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? themeMode = null,Object? highContrast = null,Object? useMaterialThemeFromSystem = null,Object? customThemeColor = null,Object? useMaterialThemeOnItemPage = null,Object? useCurrentPlayerThemeThroughoutApp = null,}) {
+  return _then(_self.copyWith(
+themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
+as ThemeMode,highContrast: null == highContrast ? _self.highContrast : highContrast // ignore: cast_nullable_to_non_nullable
+as bool,useMaterialThemeFromSystem: null == useMaterialThemeFromSystem ? _self.useMaterialThemeFromSystem : useMaterialThemeFromSystem // ignore: cast_nullable_to_non_nullable
+as bool,customThemeColor: null == customThemeColor ? _self.customThemeColor : customThemeColor // ignore: cast_nullable_to_non_nullable
+as String,useMaterialThemeOnItemPage: null == useMaterialThemeOnItemPage ? _self.useMaterialThemeOnItemPage : useMaterialThemeOnItemPage // ignore: cast_nullable_to_non_nullable
+as bool,useCurrentPlayerThemeThroughoutApp: null == useCurrentPlayerThemeThroughoutApp ? _self.useCurrentPlayerThemeThroughoutApp : useCurrentPlayerThemeThroughoutApp // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
 }
 
-/// @nodoc
-abstract class _$$ThemeSettingsImplCopyWith<$Res>
-    implements $ThemeSettingsCopyWith<$Res> {
-  factory _$$ThemeSettingsImplCopyWith(
-          _$ThemeSettingsImpl value, $Res Function(_$ThemeSettingsImpl) then) =
-      __$$ThemeSettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {ThemeMode themeMode,
-      bool highContrast,
-      bool useMaterialThemeFromSystem,
-      String customThemeColor,
-      bool useMaterialThemeOnItemPage,
-      bool useCurrentPlayerThemeThroughoutApp});
 }
 
-/// @nodoc
-class __$$ThemeSettingsImplCopyWithImpl<$Res>
-    extends _$ThemeSettingsCopyWithImpl<$Res, _$ThemeSettingsImpl>
-    implements _$$ThemeSettingsImplCopyWith<$Res> {
-  __$$ThemeSettingsImplCopyWithImpl(
-      _$ThemeSettingsImpl _value, $Res Function(_$ThemeSettingsImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of ThemeSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? themeMode = null,
-    Object? highContrast = null,
-    Object? useMaterialThemeFromSystem = null,
-    Object? customThemeColor = null,
-    Object? useMaterialThemeOnItemPage = null,
-    Object? useCurrentPlayerThemeThroughoutApp = null,
-  }) {
-    return _then(_$ThemeSettingsImpl(
-      themeMode: null == themeMode
-          ? _value.themeMode
-          : themeMode // ignore: cast_nullable_to_non_nullable
-              as ThemeMode,
-      highContrast: null == highContrast
-          ? _value.highContrast
-          : highContrast // ignore: cast_nullable_to_non_nullable
-              as bool,
-      useMaterialThemeFromSystem: null == useMaterialThemeFromSystem
-          ? _value.useMaterialThemeFromSystem
-          : useMaterialThemeFromSystem // ignore: cast_nullable_to_non_nullable
-              as bool,
-      customThemeColor: null == customThemeColor
-          ? _value.customThemeColor
-          : customThemeColor // ignore: cast_nullable_to_non_nullable
-              as String,
-      useMaterialThemeOnItemPage: null == useMaterialThemeOnItemPage
-          ? _value.useMaterialThemeOnItemPage
-          : useMaterialThemeOnItemPage // ignore: cast_nullable_to_non_nullable
-              as bool,
-      useCurrentPlayerThemeThroughoutApp: null ==
-              useCurrentPlayerThemeThroughoutApp
-          ? _value.useCurrentPlayerThemeThroughoutApp
-          : useCurrentPlayerThemeThroughoutApp // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
+/// Adds pattern-matching-related methods to [ThemeSettings].
+extension ThemeSettingsPatterns on ThemeSettings {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ThemeSettings value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ThemeSettings() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ThemeSettings value)  $default,){
+final _that = this;
+switch (_that) {
+case _ThemeSettings():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ThemeSettings value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ThemeSettings() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ThemeMode themeMode,  bool highContrast,  bool useMaterialThemeFromSystem,  String customThemeColor,  bool useMaterialThemeOnItemPage,  bool useCurrentPlayerThemeThroughoutApp)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ThemeSettings() when $default != null:
+return $default(_that.themeMode,_that.highContrast,_that.useMaterialThemeFromSystem,_that.customThemeColor,_that.useMaterialThemeOnItemPage,_that.useCurrentPlayerThemeThroughoutApp);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ThemeMode themeMode,  bool highContrast,  bool useMaterialThemeFromSystem,  String customThemeColor,  bool useMaterialThemeOnItemPage,  bool useCurrentPlayerThemeThroughoutApp)  $default,) {final _that = this;
+switch (_that) {
+case _ThemeSettings():
+return $default(_that.themeMode,_that.highContrast,_that.useMaterialThemeFromSystem,_that.customThemeColor,_that.useMaterialThemeOnItemPage,_that.useCurrentPlayerThemeThroughoutApp);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ThemeMode themeMode,  bool highContrast,  bool useMaterialThemeFromSystem,  String customThemeColor,  bool useMaterialThemeOnItemPage,  bool useCurrentPlayerThemeThroughoutApp)?  $default,) {final _that = this;
+switch (_that) {
+case _ThemeSettings() when $default != null:
+return $default(_that.themeMode,_that.highContrast,_that.useMaterialThemeFromSystem,_that.customThemeColor,_that.useMaterialThemeOnItemPage,_that.useCurrentPlayerThemeThroughoutApp);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ThemeSettingsImpl implements _ThemeSettings {
-  const _$ThemeSettingsImpl(
-      {this.themeMode = ThemeMode.system,
-      this.highContrast = false,
-      this.useMaterialThemeFromSystem = false,
-      this.customThemeColor = '#FF311B92',
-      this.useMaterialThemeOnItemPage = true,
-      this.useCurrentPlayerThemeThroughoutApp = true});
 
-  factory _$ThemeSettingsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ThemeSettingsImplFromJson(json);
+class _ThemeSettings implements ThemeSettings {
+  const _ThemeSettings({this.themeMode = ThemeMode.system, this.highContrast = false, this.useMaterialThemeFromSystem = false, this.customThemeColor = '#FF311B92', this.useMaterialThemeOnItemPage = true, this.useCurrentPlayerThemeThroughoutApp = true});
+  factory _ThemeSettings.fromJson(Map<String, dynamic> json) => _$ThemeSettingsFromJson(json);
 
-  @override
-  @JsonKey()
-  final ThemeMode themeMode;
-  @override
-  @JsonKey()
-  final bool highContrast;
-  @override
-  @JsonKey()
-  final bool useMaterialThemeFromSystem;
-  @override
-  @JsonKey()
-  final String customThemeColor;
-  @override
-  @JsonKey()
-  final bool useMaterialThemeOnItemPage;
-  @override
-  @JsonKey()
-  final bool useCurrentPlayerThemeThroughoutApp;
+@override@JsonKey() final  ThemeMode themeMode;
+@override@JsonKey() final  bool highContrast;
+@override@JsonKey() final  bool useMaterialThemeFromSystem;
+@override@JsonKey() final  String customThemeColor;
+@override@JsonKey() final  bool useMaterialThemeOnItemPage;
+@override@JsonKey() final  bool useCurrentPlayerThemeThroughoutApp;
 
-  @override
-  String toString() {
-    return 'ThemeSettings(themeMode: $themeMode, highContrast: $highContrast, useMaterialThemeFromSystem: $useMaterialThemeFromSystem, customThemeColor: $customThemeColor, useMaterialThemeOnItemPage: $useMaterialThemeOnItemPage, useCurrentPlayerThemeThroughoutApp: $useCurrentPlayerThemeThroughoutApp)';
-  }
+/// Create a copy of ThemeSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ThemeSettingsCopyWith<_ThemeSettings> get copyWith => __$ThemeSettingsCopyWithImpl<_ThemeSettings>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ThemeSettingsImpl &&
-            (identical(other.themeMode, themeMode) ||
-                other.themeMode == themeMode) &&
-            (identical(other.highContrast, highContrast) ||
-                other.highContrast == highContrast) &&
-            (identical(other.useMaterialThemeFromSystem,
-                    useMaterialThemeFromSystem) ||
-                other.useMaterialThemeFromSystem ==
-                    useMaterialThemeFromSystem) &&
-            (identical(other.customThemeColor, customThemeColor) ||
-                other.customThemeColor == customThemeColor) &&
-            (identical(other.useMaterialThemeOnItemPage,
-                    useMaterialThemeOnItemPage) ||
-                other.useMaterialThemeOnItemPage ==
-                    useMaterialThemeOnItemPage) &&
-            (identical(other.useCurrentPlayerThemeThroughoutApp,
-                    useCurrentPlayerThemeThroughoutApp) ||
-                other.useCurrentPlayerThemeThroughoutApp ==
-                    useCurrentPlayerThemeThroughoutApp));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      themeMode,
-      highContrast,
-      useMaterialThemeFromSystem,
-      customThemeColor,
-      useMaterialThemeOnItemPage,
-      useCurrentPlayerThemeThroughoutApp);
-
-  /// Create a copy of ThemeSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ThemeSettingsImplCopyWith<_$ThemeSettingsImpl> get copyWith =>
-      __$$ThemeSettingsImplCopyWithImpl<_$ThemeSettingsImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ThemeSettingsImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$ThemeSettingsToJson(this, );
 }
 
-abstract class _ThemeSettings implements ThemeSettings {
-  const factory _ThemeSettings(
-      {final ThemeMode themeMode,
-      final bool highContrast,
-      final bool useMaterialThemeFromSystem,
-      final String customThemeColor,
-      final bool useMaterialThemeOnItemPage,
-      final bool useCurrentPlayerThemeThroughoutApp}) = _$ThemeSettingsImpl;
-
-  factory _ThemeSettings.fromJson(Map<String, dynamic> json) =
-      _$ThemeSettingsImpl.fromJson;
-
-  @override
-  ThemeMode get themeMode;
-  @override
-  bool get highContrast;
-  @override
-  bool get useMaterialThemeFromSystem;
-  @override
-  String get customThemeColor;
-  @override
-  bool get useMaterialThemeOnItemPage;
-  @override
-  bool get useCurrentPlayerThemeThroughoutApp;
-
-  /// Create a copy of ThemeSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ThemeSettingsImplCopyWith<_$ThemeSettingsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ThemeSettings&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.highContrast, highContrast) || other.highContrast == highContrast)&&(identical(other.useMaterialThemeFromSystem, useMaterialThemeFromSystem) || other.useMaterialThemeFromSystem == useMaterialThemeFromSystem)&&(identical(other.customThemeColor, customThemeColor) || other.customThemeColor == customThemeColor)&&(identical(other.useMaterialThemeOnItemPage, useMaterialThemeOnItemPage) || other.useMaterialThemeOnItemPage == useMaterialThemeOnItemPage)&&(identical(other.useCurrentPlayerThemeThroughoutApp, useCurrentPlayerThemeThroughoutApp) || other.useCurrentPlayerThemeThroughoutApp == useCurrentPlayerThemeThroughoutApp));
 }
 
-PlayerSettings _$PlayerSettingsFromJson(Map<String, dynamic> json) {
-  return _PlayerSettings.fromJson(json);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,themeMode,highContrast,useMaterialThemeFromSystem,customThemeColor,useMaterialThemeOnItemPage,useCurrentPlayerThemeThroughoutApp);
+
+@override
+String toString() {
+  return 'ThemeSettings(themeMode: $themeMode, highContrast: $highContrast, useMaterialThemeFromSystem: $useMaterialThemeFromSystem, customThemeColor: $customThemeColor, useMaterialThemeOnItemPage: $useMaterialThemeOnItemPage, useCurrentPlayerThemeThroughoutApp: $useCurrentPlayerThemeThroughoutApp)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ThemeSettingsCopyWith<$Res> implements $ThemeSettingsCopyWith<$Res> {
+  factory _$ThemeSettingsCopyWith(_ThemeSettings value, $Res Function(_ThemeSettings) _then) = __$ThemeSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ ThemeMode themeMode, bool highContrast, bool useMaterialThemeFromSystem, String customThemeColor, bool useMaterialThemeOnItemPage, bool useCurrentPlayerThemeThroughoutApp
+});
+
+
+
+
+}
+/// @nodoc
+class __$ThemeSettingsCopyWithImpl<$Res>
+    implements _$ThemeSettingsCopyWith<$Res> {
+  __$ThemeSettingsCopyWithImpl(this._self, this._then);
+
+  final _ThemeSettings _self;
+  final $Res Function(_ThemeSettings) _then;
+
+/// Create a copy of ThemeSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? themeMode = null,Object? highContrast = null,Object? useMaterialThemeFromSystem = null,Object? customThemeColor = null,Object? useMaterialThemeOnItemPage = null,Object? useCurrentPlayerThemeThroughoutApp = null,}) {
+  return _then(_ThemeSettings(
+themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
+as ThemeMode,highContrast: null == highContrast ? _self.highContrast : highContrast // ignore: cast_nullable_to_non_nullable
+as bool,useMaterialThemeFromSystem: null == useMaterialThemeFromSystem ? _self.useMaterialThemeFromSystem : useMaterialThemeFromSystem // ignore: cast_nullable_to_non_nullable
+as bool,customThemeColor: null == customThemeColor ? _self.customThemeColor : customThemeColor // ignore: cast_nullable_to_non_nullable
+as String,useMaterialThemeOnItemPage: null == useMaterialThemeOnItemPage ? _self.useMaterialThemeOnItemPage : useMaterialThemeOnItemPage // ignore: cast_nullable_to_non_nullable
+as bool,useCurrentPlayerThemeThroughoutApp: null == useCurrentPlayerThemeThroughoutApp ? _self.useCurrentPlayerThemeThroughoutApp : useCurrentPlayerThemeThroughoutApp // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$PlayerSettings {
-  MinimizedPlayerSettings get miniPlayerSettings =>
-      throw _privateConstructorUsedError;
-  ExpandedPlayerSettings get expandedPlayerSettings =>
-      throw _privateConstructorUsedError;
-  double get preferredDefaultVolume => throw _privateConstructorUsedError;
-  double get preferredDefaultSpeed => throw _privateConstructorUsedError;
-  List<double> get speedOptions => throw _privateConstructorUsedError;
-  double get speedIncrement => throw _privateConstructorUsedError;
-  double get minSpeed => throw _privateConstructorUsedError;
-  double get maxSpeed => throw _privateConstructorUsedError;
-  Duration get minimumPositionForReporting =>
-      throw _privateConstructorUsedError;
-  Duration get playbackReportInterval => throw _privateConstructorUsedError;
-  Duration get markCompleteWhenTimeLeft => throw _privateConstructorUsedError;
-  bool get configurePlayerForEveryBook => throw _privateConstructorUsedError;
+
+ MinimizedPlayerSettings get miniPlayerSettings; ExpandedPlayerSettings get expandedPlayerSettings; double get preferredDefaultVolume; double get preferredDefaultSpeed; List<double> get speedOptions; double get speedIncrement; double get minSpeed; double get maxSpeed; Duration get minimumPositionForReporting; Duration get playbackReportInterval; Duration get markCompleteWhenTimeLeft; bool get configurePlayerForEveryBook;
+/// Create a copy of PlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PlayerSettingsCopyWith<PlayerSettings> get copyWith => _$PlayerSettingsCopyWithImpl<PlayerSettings>(this as PlayerSettings, _$identity);
 
   /// Serializes this PlayerSettings to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of PlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $PlayerSettingsCopyWith<PlayerSettings> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PlayerSettings&&(identical(other.miniPlayerSettings, miniPlayerSettings) || other.miniPlayerSettings == miniPlayerSettings)&&(identical(other.expandedPlayerSettings, expandedPlayerSettings) || other.expandedPlayerSettings == expandedPlayerSettings)&&(identical(other.preferredDefaultVolume, preferredDefaultVolume) || other.preferredDefaultVolume == preferredDefaultVolume)&&(identical(other.preferredDefaultSpeed, preferredDefaultSpeed) || other.preferredDefaultSpeed == preferredDefaultSpeed)&&const DeepCollectionEquality().equals(other.speedOptions, speedOptions)&&(identical(other.speedIncrement, speedIncrement) || other.speedIncrement == speedIncrement)&&(identical(other.minSpeed, minSpeed) || other.minSpeed == minSpeed)&&(identical(other.maxSpeed, maxSpeed) || other.maxSpeed == maxSpeed)&&(identical(other.minimumPositionForReporting, minimumPositionForReporting) || other.minimumPositionForReporting == minimumPositionForReporting)&&(identical(other.playbackReportInterval, playbackReportInterval) || other.playbackReportInterval == playbackReportInterval)&&(identical(other.markCompleteWhenTimeLeft, markCompleteWhenTimeLeft) || other.markCompleteWhenTimeLeft == markCompleteWhenTimeLeft)&&(identical(other.configurePlayerForEveryBook, configurePlayerForEveryBook) || other.configurePlayerForEveryBook == configurePlayerForEveryBook));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,miniPlayerSettings,expandedPlayerSettings,preferredDefaultVolume,preferredDefaultSpeed,const DeepCollectionEquality().hash(speedOptions),speedIncrement,minSpeed,maxSpeed,minimumPositionForReporting,playbackReportInterval,markCompleteWhenTimeLeft,configurePlayerForEveryBook);
+
+@override
+String toString() {
+  return 'PlayerSettings(miniPlayerSettings: $miniPlayerSettings, expandedPlayerSettings: $expandedPlayerSettings, preferredDefaultVolume: $preferredDefaultVolume, preferredDefaultSpeed: $preferredDefaultSpeed, speedOptions: $speedOptions, speedIncrement: $speedIncrement, minSpeed: $minSpeed, maxSpeed: $maxSpeed, minimumPositionForReporting: $minimumPositionForReporting, playbackReportInterval: $playbackReportInterval, markCompleteWhenTimeLeft: $markCompleteWhenTimeLeft, configurePlayerForEveryBook: $configurePlayerForEveryBook)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PlayerSettingsCopyWith<$Res> {
-  factory $PlayerSettingsCopyWith(
-          PlayerSettings value, $Res Function(PlayerSettings) then) =
-      _$PlayerSettingsCopyWithImpl<$Res, PlayerSettings>;
-  @useResult
-  $Res call(
-      {MinimizedPlayerSettings miniPlayerSettings,
-      ExpandedPlayerSettings expandedPlayerSettings,
-      double preferredDefaultVolume,
-      double preferredDefaultSpeed,
-      List<double> speedOptions,
-      double speedIncrement,
-      double minSpeed,
-      double maxSpeed,
-      Duration minimumPositionForReporting,
-      Duration playbackReportInterval,
-      Duration markCompleteWhenTimeLeft,
-      bool configurePlayerForEveryBook});
+abstract mixin class $PlayerSettingsCopyWith<$Res>  {
+  factory $PlayerSettingsCopyWith(PlayerSettings value, $Res Function(PlayerSettings) _then) = _$PlayerSettingsCopyWithImpl;
+@useResult
+$Res call({
+ MinimizedPlayerSettings miniPlayerSettings, ExpandedPlayerSettings expandedPlayerSettings, double preferredDefaultVolume, double preferredDefaultSpeed, List<double> speedOptions, double speedIncrement, double minSpeed, double maxSpeed, Duration minimumPositionForReporting, Duration playbackReportInterval, Duration markCompleteWhenTimeLeft, bool configurePlayerForEveryBook
+});
 
-  $MinimizedPlayerSettingsCopyWith<$Res> get miniPlayerSettings;
-  $ExpandedPlayerSettingsCopyWith<$Res> get expandedPlayerSettings;
+
+$MinimizedPlayerSettingsCopyWith<$Res> get miniPlayerSettings;$ExpandedPlayerSettingsCopyWith<$Res> get expandedPlayerSettings;
+
 }
-
 /// @nodoc
-class _$PlayerSettingsCopyWithImpl<$Res, $Val extends PlayerSettings>
+class _$PlayerSettingsCopyWithImpl<$Res>
     implements $PlayerSettingsCopyWith<$Res> {
-  _$PlayerSettingsCopyWithImpl(this._value, this._then);
+  _$PlayerSettingsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final PlayerSettings _self;
+  final $Res Function(PlayerSettings) _then;
 
-  /// Create a copy of PlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? miniPlayerSettings = null,
-    Object? expandedPlayerSettings = null,
-    Object? preferredDefaultVolume = null,
-    Object? preferredDefaultSpeed = null,
-    Object? speedOptions = null,
-    Object? speedIncrement = null,
-    Object? minSpeed = null,
-    Object? maxSpeed = null,
-    Object? minimumPositionForReporting = null,
-    Object? playbackReportInterval = null,
-    Object? markCompleteWhenTimeLeft = null,
-    Object? configurePlayerForEveryBook = null,
-  }) {
-    return _then(_value.copyWith(
-      miniPlayerSettings: null == miniPlayerSettings
-          ? _value.miniPlayerSettings
-          : miniPlayerSettings // ignore: cast_nullable_to_non_nullable
-              as MinimizedPlayerSettings,
-      expandedPlayerSettings: null == expandedPlayerSettings
-          ? _value.expandedPlayerSettings
-          : expandedPlayerSettings // ignore: cast_nullable_to_non_nullable
-              as ExpandedPlayerSettings,
-      preferredDefaultVolume: null == preferredDefaultVolume
-          ? _value.preferredDefaultVolume
-          : preferredDefaultVolume // ignore: cast_nullable_to_non_nullable
-              as double,
-      preferredDefaultSpeed: null == preferredDefaultSpeed
-          ? _value.preferredDefaultSpeed
-          : preferredDefaultSpeed // ignore: cast_nullable_to_non_nullable
-              as double,
-      speedOptions: null == speedOptions
-          ? _value.speedOptions
-          : speedOptions // ignore: cast_nullable_to_non_nullable
-              as List<double>,
-      speedIncrement: null == speedIncrement
-          ? _value.speedIncrement
-          : speedIncrement // ignore: cast_nullable_to_non_nullable
-              as double,
-      minSpeed: null == minSpeed
-          ? _value.minSpeed
-          : minSpeed // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxSpeed: null == maxSpeed
-          ? _value.maxSpeed
-          : maxSpeed // ignore: cast_nullable_to_non_nullable
-              as double,
-      minimumPositionForReporting: null == minimumPositionForReporting
-          ? _value.minimumPositionForReporting
-          : minimumPositionForReporting // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      playbackReportInterval: null == playbackReportInterval
-          ? _value.playbackReportInterval
-          : playbackReportInterval // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      markCompleteWhenTimeLeft: null == markCompleteWhenTimeLeft
-          ? _value.markCompleteWhenTimeLeft
-          : markCompleteWhenTimeLeft // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      configurePlayerForEveryBook: null == configurePlayerForEveryBook
-          ? _value.configurePlayerForEveryBook
-          : configurePlayerForEveryBook // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
-  }
-
-  /// Create a copy of PlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $MinimizedPlayerSettingsCopyWith<$Res> get miniPlayerSettings {
-    return $MinimizedPlayerSettingsCopyWith<$Res>(_value.miniPlayerSettings,
-        (value) {
-      return _then(_value.copyWith(miniPlayerSettings: value) as $Val);
-    });
-  }
-
-  /// Create a copy of PlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ExpandedPlayerSettingsCopyWith<$Res> get expandedPlayerSettings {
-    return $ExpandedPlayerSettingsCopyWith<$Res>(_value.expandedPlayerSettings,
-        (value) {
-      return _then(_value.copyWith(expandedPlayerSettings: value) as $Val);
-    });
-  }
+/// Create a copy of PlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? miniPlayerSettings = null,Object? expandedPlayerSettings = null,Object? preferredDefaultVolume = null,Object? preferredDefaultSpeed = null,Object? speedOptions = null,Object? speedIncrement = null,Object? minSpeed = null,Object? maxSpeed = null,Object? minimumPositionForReporting = null,Object? playbackReportInterval = null,Object? markCompleteWhenTimeLeft = null,Object? configurePlayerForEveryBook = null,}) {
+  return _then(_self.copyWith(
+miniPlayerSettings: null == miniPlayerSettings ? _self.miniPlayerSettings : miniPlayerSettings // ignore: cast_nullable_to_non_nullable
+as MinimizedPlayerSettings,expandedPlayerSettings: null == expandedPlayerSettings ? _self.expandedPlayerSettings : expandedPlayerSettings // ignore: cast_nullable_to_non_nullable
+as ExpandedPlayerSettings,preferredDefaultVolume: null == preferredDefaultVolume ? _self.preferredDefaultVolume : preferredDefaultVolume // ignore: cast_nullable_to_non_nullable
+as double,preferredDefaultSpeed: null == preferredDefaultSpeed ? _self.preferredDefaultSpeed : preferredDefaultSpeed // ignore: cast_nullable_to_non_nullable
+as double,speedOptions: null == speedOptions ? _self.speedOptions : speedOptions // ignore: cast_nullable_to_non_nullable
+as List<double>,speedIncrement: null == speedIncrement ? _self.speedIncrement : speedIncrement // ignore: cast_nullable_to_non_nullable
+as double,minSpeed: null == minSpeed ? _self.minSpeed : minSpeed // ignore: cast_nullable_to_non_nullable
+as double,maxSpeed: null == maxSpeed ? _self.maxSpeed : maxSpeed // ignore: cast_nullable_to_non_nullable
+as double,minimumPositionForReporting: null == minimumPositionForReporting ? _self.minimumPositionForReporting : minimumPositionForReporting // ignore: cast_nullable_to_non_nullable
+as Duration,playbackReportInterval: null == playbackReportInterval ? _self.playbackReportInterval : playbackReportInterval // ignore: cast_nullable_to_non_nullable
+as Duration,markCompleteWhenTimeLeft: null == markCompleteWhenTimeLeft ? _self.markCompleteWhenTimeLeft : markCompleteWhenTimeLeft // ignore: cast_nullable_to_non_nullable
+as Duration,configurePlayerForEveryBook: null == configurePlayerForEveryBook ? _self.configurePlayerForEveryBook : configurePlayerForEveryBook // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+/// Create a copy of PlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MinimizedPlayerSettingsCopyWith<$Res> get miniPlayerSettings {
+  
+  return $MinimizedPlayerSettingsCopyWith<$Res>(_self.miniPlayerSettings, (value) {
+    return _then(_self.copyWith(miniPlayerSettings: value));
+  });
+}/// Create a copy of PlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ExpandedPlayerSettingsCopyWith<$Res> get expandedPlayerSettings {
+  
+  return $ExpandedPlayerSettingsCopyWith<$Res>(_self.expandedPlayerSettings, (value) {
+    return _then(_self.copyWith(expandedPlayerSettings: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$PlayerSettingsImplCopyWith<$Res>
-    implements $PlayerSettingsCopyWith<$Res> {
-  factory _$$PlayerSettingsImplCopyWith(_$PlayerSettingsImpl value,
-          $Res Function(_$PlayerSettingsImpl) then) =
-      __$$PlayerSettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {MinimizedPlayerSettings miniPlayerSettings,
-      ExpandedPlayerSettings expandedPlayerSettings,
-      double preferredDefaultVolume,
-      double preferredDefaultSpeed,
-      List<double> speedOptions,
-      double speedIncrement,
-      double minSpeed,
-      double maxSpeed,
-      Duration minimumPositionForReporting,
-      Duration playbackReportInterval,
-      Duration markCompleteWhenTimeLeft,
-      bool configurePlayerForEveryBook});
 
-  @override
-  $MinimizedPlayerSettingsCopyWith<$Res> get miniPlayerSettings;
-  @override
-  $ExpandedPlayerSettingsCopyWith<$Res> get expandedPlayerSettings;
+/// Adds pattern-matching-related methods to [PlayerSettings].
+extension PlayerSettingsPatterns on PlayerSettings {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PlayerSettings value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _PlayerSettings() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PlayerSettings value)  $default,){
+final _that = this;
+switch (_that) {
+case _PlayerSettings():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PlayerSettings value)?  $default,){
+final _that = this;
+switch (_that) {
+case _PlayerSettings() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MinimizedPlayerSettings miniPlayerSettings,  ExpandedPlayerSettings expandedPlayerSettings,  double preferredDefaultVolume,  double preferredDefaultSpeed,  List<double> speedOptions,  double speedIncrement,  double minSpeed,  double maxSpeed,  Duration minimumPositionForReporting,  Duration playbackReportInterval,  Duration markCompleteWhenTimeLeft,  bool configurePlayerForEveryBook)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _PlayerSettings() when $default != null:
+return $default(_that.miniPlayerSettings,_that.expandedPlayerSettings,_that.preferredDefaultVolume,_that.preferredDefaultSpeed,_that.speedOptions,_that.speedIncrement,_that.minSpeed,_that.maxSpeed,_that.minimumPositionForReporting,_that.playbackReportInterval,_that.markCompleteWhenTimeLeft,_that.configurePlayerForEveryBook);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MinimizedPlayerSettings miniPlayerSettings,  ExpandedPlayerSettings expandedPlayerSettings,  double preferredDefaultVolume,  double preferredDefaultSpeed,  List<double> speedOptions,  double speedIncrement,  double minSpeed,  double maxSpeed,  Duration minimumPositionForReporting,  Duration playbackReportInterval,  Duration markCompleteWhenTimeLeft,  bool configurePlayerForEveryBook)  $default,) {final _that = this;
+switch (_that) {
+case _PlayerSettings():
+return $default(_that.miniPlayerSettings,_that.expandedPlayerSettings,_that.preferredDefaultVolume,_that.preferredDefaultSpeed,_that.speedOptions,_that.speedIncrement,_that.minSpeed,_that.maxSpeed,_that.minimumPositionForReporting,_that.playbackReportInterval,_that.markCompleteWhenTimeLeft,_that.configurePlayerForEveryBook);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MinimizedPlayerSettings miniPlayerSettings,  ExpandedPlayerSettings expandedPlayerSettings,  double preferredDefaultVolume,  double preferredDefaultSpeed,  List<double> speedOptions,  double speedIncrement,  double minSpeed,  double maxSpeed,  Duration minimumPositionForReporting,  Duration playbackReportInterval,  Duration markCompleteWhenTimeLeft,  bool configurePlayerForEveryBook)?  $default,) {final _that = this;
+switch (_that) {
+case _PlayerSettings() when $default != null:
+return $default(_that.miniPlayerSettings,_that.expandedPlayerSettings,_that.preferredDefaultVolume,_that.preferredDefaultSpeed,_that.speedOptions,_that.speedIncrement,_that.minSpeed,_that.maxSpeed,_that.minimumPositionForReporting,_that.playbackReportInterval,_that.markCompleteWhenTimeLeft,_that.configurePlayerForEveryBook);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$PlayerSettingsImplCopyWithImpl<$Res>
-    extends _$PlayerSettingsCopyWithImpl<$Res, _$PlayerSettingsImpl>
-    implements _$$PlayerSettingsImplCopyWith<$Res> {
-  __$$PlayerSettingsImplCopyWithImpl(
-      _$PlayerSettingsImpl _value, $Res Function(_$PlayerSettingsImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of PlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? miniPlayerSettings = null,
-    Object? expandedPlayerSettings = null,
-    Object? preferredDefaultVolume = null,
-    Object? preferredDefaultSpeed = null,
-    Object? speedOptions = null,
-    Object? speedIncrement = null,
-    Object? minSpeed = null,
-    Object? maxSpeed = null,
-    Object? minimumPositionForReporting = null,
-    Object? playbackReportInterval = null,
-    Object? markCompleteWhenTimeLeft = null,
-    Object? configurePlayerForEveryBook = null,
-  }) {
-    return _then(_$PlayerSettingsImpl(
-      miniPlayerSettings: null == miniPlayerSettings
-          ? _value.miniPlayerSettings
-          : miniPlayerSettings // ignore: cast_nullable_to_non_nullable
-              as MinimizedPlayerSettings,
-      expandedPlayerSettings: null == expandedPlayerSettings
-          ? _value.expandedPlayerSettings
-          : expandedPlayerSettings // ignore: cast_nullable_to_non_nullable
-              as ExpandedPlayerSettings,
-      preferredDefaultVolume: null == preferredDefaultVolume
-          ? _value.preferredDefaultVolume
-          : preferredDefaultVolume // ignore: cast_nullable_to_non_nullable
-              as double,
-      preferredDefaultSpeed: null == preferredDefaultSpeed
-          ? _value.preferredDefaultSpeed
-          : preferredDefaultSpeed // ignore: cast_nullable_to_non_nullable
-              as double,
-      speedOptions: null == speedOptions
-          ? _value._speedOptions
-          : speedOptions // ignore: cast_nullable_to_non_nullable
-              as List<double>,
-      speedIncrement: null == speedIncrement
-          ? _value.speedIncrement
-          : speedIncrement // ignore: cast_nullable_to_non_nullable
-              as double,
-      minSpeed: null == minSpeed
-          ? _value.minSpeed
-          : minSpeed // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxSpeed: null == maxSpeed
-          ? _value.maxSpeed
-          : maxSpeed // ignore: cast_nullable_to_non_nullable
-              as double,
-      minimumPositionForReporting: null == minimumPositionForReporting
-          ? _value.minimumPositionForReporting
-          : minimumPositionForReporting // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      playbackReportInterval: null == playbackReportInterval
-          ? _value.playbackReportInterval
-          : playbackReportInterval // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      markCompleteWhenTimeLeft: null == markCompleteWhenTimeLeft
-          ? _value.markCompleteWhenTimeLeft
-          : markCompleteWhenTimeLeft // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      configurePlayerForEveryBook: null == configurePlayerForEveryBook
-          ? _value.configurePlayerForEveryBook
-          : configurePlayerForEveryBook // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PlayerSettingsImpl implements _PlayerSettings {
-  const _$PlayerSettingsImpl(
-      {this.miniPlayerSettings = const MinimizedPlayerSettings(),
-      this.expandedPlayerSettings = const ExpandedPlayerSettings(),
-      this.preferredDefaultVolume = 1,
-      this.preferredDefaultSpeed = 1,
-      final List<double> speedOptions = const [
-        0.5,
-        0.75,
-        1,
-        1.25,
-        1.5,
-        1.75,
-        2
-      ],
-      this.speedIncrement = 0.05,
-      this.minSpeed = 0.1,
-      this.maxSpeed = 4,
-      this.minimumPositionForReporting = const Duration(seconds: 10),
-      this.playbackReportInterval = const Duration(seconds: 10),
-      this.markCompleteWhenTimeLeft = const Duration(seconds: 15),
-      this.configurePlayerForEveryBook = true})
-      : _speedOptions = speedOptions;
 
-  factory _$PlayerSettingsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PlayerSettingsImplFromJson(json);
+class _PlayerSettings implements PlayerSettings {
+  const _PlayerSettings({this.miniPlayerSettings = const MinimizedPlayerSettings(), this.expandedPlayerSettings = const ExpandedPlayerSettings(), this.preferredDefaultVolume = 1, this.preferredDefaultSpeed = 1, final  List<double> speedOptions = const [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2], this.speedIncrement = 0.05, this.minSpeed = 0.1, this.maxSpeed = 4, this.minimumPositionForReporting = const Duration(seconds: 10), this.playbackReportInterval = const Duration(seconds: 10), this.markCompleteWhenTimeLeft = const Duration(seconds: 15), this.configurePlayerForEveryBook = true}): _speedOptions = speedOptions;
+  factory _PlayerSettings.fromJson(Map<String, dynamic> json) => _$PlayerSettingsFromJson(json);
 
-  @override
-  @JsonKey()
-  final MinimizedPlayerSettings miniPlayerSettings;
-  @override
-  @JsonKey()
-  final ExpandedPlayerSettings expandedPlayerSettings;
-  @override
-  @JsonKey()
-  final double preferredDefaultVolume;
-  @override
-  @JsonKey()
-  final double preferredDefaultSpeed;
-  final List<double> _speedOptions;
-  @override
-  @JsonKey()
-  List<double> get speedOptions {
-    if (_speedOptions is EqualUnmodifiableListView) return _speedOptions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_speedOptions);
-  }
-
-  @override
-  @JsonKey()
-  final double speedIncrement;
-  @override
-  @JsonKey()
-  final double minSpeed;
-  @override
-  @JsonKey()
-  final double maxSpeed;
-  @override
-  @JsonKey()
-  final Duration minimumPositionForReporting;
-  @override
-  @JsonKey()
-  final Duration playbackReportInterval;
-  @override
-  @JsonKey()
-  final Duration markCompleteWhenTimeLeft;
-  @override
-  @JsonKey()
-  final bool configurePlayerForEveryBook;
-
-  @override
-  String toString() {
-    return 'PlayerSettings(miniPlayerSettings: $miniPlayerSettings, expandedPlayerSettings: $expandedPlayerSettings, preferredDefaultVolume: $preferredDefaultVolume, preferredDefaultSpeed: $preferredDefaultSpeed, speedOptions: $speedOptions, speedIncrement: $speedIncrement, minSpeed: $minSpeed, maxSpeed: $maxSpeed, minimumPositionForReporting: $minimumPositionForReporting, playbackReportInterval: $playbackReportInterval, markCompleteWhenTimeLeft: $markCompleteWhenTimeLeft, configurePlayerForEveryBook: $configurePlayerForEveryBook)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PlayerSettingsImpl &&
-            (identical(other.miniPlayerSettings, miniPlayerSettings) ||
-                other.miniPlayerSettings == miniPlayerSettings) &&
-            (identical(other.expandedPlayerSettings, expandedPlayerSettings) ||
-                other.expandedPlayerSettings == expandedPlayerSettings) &&
-            (identical(other.preferredDefaultVolume, preferredDefaultVolume) ||
-                other.preferredDefaultVolume == preferredDefaultVolume) &&
-            (identical(other.preferredDefaultSpeed, preferredDefaultSpeed) ||
-                other.preferredDefaultSpeed == preferredDefaultSpeed) &&
-            const DeepCollectionEquality()
-                .equals(other._speedOptions, _speedOptions) &&
-            (identical(other.speedIncrement, speedIncrement) ||
-                other.speedIncrement == speedIncrement) &&
-            (identical(other.minSpeed, minSpeed) ||
-                other.minSpeed == minSpeed) &&
-            (identical(other.maxSpeed, maxSpeed) ||
-                other.maxSpeed == maxSpeed) &&
-            (identical(other.minimumPositionForReporting,
-                    minimumPositionForReporting) ||
-                other.minimumPositionForReporting ==
-                    minimumPositionForReporting) &&
-            (identical(other.playbackReportInterval, playbackReportInterval) ||
-                other.playbackReportInterval == playbackReportInterval) &&
-            (identical(
-                    other.markCompleteWhenTimeLeft, markCompleteWhenTimeLeft) ||
-                other.markCompleteWhenTimeLeft == markCompleteWhenTimeLeft) &&
-            (identical(other.configurePlayerForEveryBook,
-                    configurePlayerForEveryBook) ||
-                other.configurePlayerForEveryBook ==
-                    configurePlayerForEveryBook));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      miniPlayerSettings,
-      expandedPlayerSettings,
-      preferredDefaultVolume,
-      preferredDefaultSpeed,
-      const DeepCollectionEquality().hash(_speedOptions),
-      speedIncrement,
-      minSpeed,
-      maxSpeed,
-      minimumPositionForReporting,
-      playbackReportInterval,
-      markCompleteWhenTimeLeft,
-      configurePlayerForEveryBook);
-
-  /// Create a copy of PlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PlayerSettingsImplCopyWith<_$PlayerSettingsImpl> get copyWith =>
-      __$$PlayerSettingsImplCopyWithImpl<_$PlayerSettingsImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PlayerSettingsImplToJson(
-      this,
-    );
-  }
+@override@JsonKey() final  MinimizedPlayerSettings miniPlayerSettings;
+@override@JsonKey() final  ExpandedPlayerSettings expandedPlayerSettings;
+@override@JsonKey() final  double preferredDefaultVolume;
+@override@JsonKey() final  double preferredDefaultSpeed;
+ final  List<double> _speedOptions;
+@override@JsonKey() List<double> get speedOptions {
+  if (_speedOptions is EqualUnmodifiableListView) return _speedOptions;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_speedOptions);
 }
 
-abstract class _PlayerSettings implements PlayerSettings {
-  const factory _PlayerSettings(
-      {final MinimizedPlayerSettings miniPlayerSettings,
-      final ExpandedPlayerSettings expandedPlayerSettings,
-      final double preferredDefaultVolume,
-      final double preferredDefaultSpeed,
-      final List<double> speedOptions,
-      final double speedIncrement,
-      final double minSpeed,
-      final double maxSpeed,
-      final Duration minimumPositionForReporting,
-      final Duration playbackReportInterval,
-      final Duration markCompleteWhenTimeLeft,
-      final bool configurePlayerForEveryBook}) = _$PlayerSettingsImpl;
+@override@JsonKey() final  double speedIncrement;
+@override@JsonKey() final  double minSpeed;
+@override@JsonKey() final  double maxSpeed;
+@override@JsonKey() final  Duration minimumPositionForReporting;
+@override@JsonKey() final  Duration playbackReportInterval;
+@override@JsonKey() final  Duration markCompleteWhenTimeLeft;
+@override@JsonKey() final  bool configurePlayerForEveryBook;
 
-  factory _PlayerSettings.fromJson(Map<String, dynamic> json) =
-      _$PlayerSettingsImpl.fromJson;
+/// Create a copy of PlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PlayerSettingsCopyWith<_PlayerSettings> get copyWith => __$PlayerSettingsCopyWithImpl<_PlayerSettings>(this, _$identity);
 
-  @override
-  MinimizedPlayerSettings get miniPlayerSettings;
-  @override
-  ExpandedPlayerSettings get expandedPlayerSettings;
-  @override
-  double get preferredDefaultVolume;
-  @override
-  double get preferredDefaultSpeed;
-  @override
-  List<double> get speedOptions;
-  @override
-  double get speedIncrement;
-  @override
-  double get minSpeed;
-  @override
-  double get maxSpeed;
-  @override
-  Duration get minimumPositionForReporting;
-  @override
-  Duration get playbackReportInterval;
-  @override
-  Duration get markCompleteWhenTimeLeft;
-  @override
-  bool get configurePlayerForEveryBook;
-
-  /// Create a copy of PlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PlayerSettingsImplCopyWith<_$PlayerSettingsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$PlayerSettingsToJson(this, );
 }
 
-ExpandedPlayerSettings _$ExpandedPlayerSettingsFromJson(
-    Map<String, dynamic> json) {
-  return _ExpandedPlayerSettings.fromJson(json);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PlayerSettings&&(identical(other.miniPlayerSettings, miniPlayerSettings) || other.miniPlayerSettings == miniPlayerSettings)&&(identical(other.expandedPlayerSettings, expandedPlayerSettings) || other.expandedPlayerSettings == expandedPlayerSettings)&&(identical(other.preferredDefaultVolume, preferredDefaultVolume) || other.preferredDefaultVolume == preferredDefaultVolume)&&(identical(other.preferredDefaultSpeed, preferredDefaultSpeed) || other.preferredDefaultSpeed == preferredDefaultSpeed)&&const DeepCollectionEquality().equals(other._speedOptions, _speedOptions)&&(identical(other.speedIncrement, speedIncrement) || other.speedIncrement == speedIncrement)&&(identical(other.minSpeed, minSpeed) || other.minSpeed == minSpeed)&&(identical(other.maxSpeed, maxSpeed) || other.maxSpeed == maxSpeed)&&(identical(other.minimumPositionForReporting, minimumPositionForReporting) || other.minimumPositionForReporting == minimumPositionForReporting)&&(identical(other.playbackReportInterval, playbackReportInterval) || other.playbackReportInterval == playbackReportInterval)&&(identical(other.markCompleteWhenTimeLeft, markCompleteWhenTimeLeft) || other.markCompleteWhenTimeLeft == markCompleteWhenTimeLeft)&&(identical(other.configurePlayerForEveryBook, configurePlayerForEveryBook) || other.configurePlayerForEveryBook == configurePlayerForEveryBook));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,miniPlayerSettings,expandedPlayerSettings,preferredDefaultVolume,preferredDefaultSpeed,const DeepCollectionEquality().hash(_speedOptions),speedIncrement,minSpeed,maxSpeed,minimumPositionForReporting,playbackReportInterval,markCompleteWhenTimeLeft,configurePlayerForEveryBook);
+
+@override
+String toString() {
+  return 'PlayerSettings(miniPlayerSettings: $miniPlayerSettings, expandedPlayerSettings: $expandedPlayerSettings, preferredDefaultVolume: $preferredDefaultVolume, preferredDefaultSpeed: $preferredDefaultSpeed, speedOptions: $speedOptions, speedIncrement: $speedIncrement, minSpeed: $minSpeed, maxSpeed: $maxSpeed, minimumPositionForReporting: $minimumPositionForReporting, playbackReportInterval: $playbackReportInterval, markCompleteWhenTimeLeft: $markCompleteWhenTimeLeft, configurePlayerForEveryBook: $configurePlayerForEveryBook)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PlayerSettingsCopyWith<$Res> implements $PlayerSettingsCopyWith<$Res> {
+  factory _$PlayerSettingsCopyWith(_PlayerSettings value, $Res Function(_PlayerSettings) _then) = __$PlayerSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ MinimizedPlayerSettings miniPlayerSettings, ExpandedPlayerSettings expandedPlayerSettings, double preferredDefaultVolume, double preferredDefaultSpeed, List<double> speedOptions, double speedIncrement, double minSpeed, double maxSpeed, Duration minimumPositionForReporting, Duration playbackReportInterval, Duration markCompleteWhenTimeLeft, bool configurePlayerForEveryBook
+});
+
+
+@override $MinimizedPlayerSettingsCopyWith<$Res> get miniPlayerSettings;@override $ExpandedPlayerSettingsCopyWith<$Res> get expandedPlayerSettings;
+
+}
+/// @nodoc
+class __$PlayerSettingsCopyWithImpl<$Res>
+    implements _$PlayerSettingsCopyWith<$Res> {
+  __$PlayerSettingsCopyWithImpl(this._self, this._then);
+
+  final _PlayerSettings _self;
+  final $Res Function(_PlayerSettings) _then;
+
+/// Create a copy of PlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? miniPlayerSettings = null,Object? expandedPlayerSettings = null,Object? preferredDefaultVolume = null,Object? preferredDefaultSpeed = null,Object? speedOptions = null,Object? speedIncrement = null,Object? minSpeed = null,Object? maxSpeed = null,Object? minimumPositionForReporting = null,Object? playbackReportInterval = null,Object? markCompleteWhenTimeLeft = null,Object? configurePlayerForEveryBook = null,}) {
+  return _then(_PlayerSettings(
+miniPlayerSettings: null == miniPlayerSettings ? _self.miniPlayerSettings : miniPlayerSettings // ignore: cast_nullable_to_non_nullable
+as MinimizedPlayerSettings,expandedPlayerSettings: null == expandedPlayerSettings ? _self.expandedPlayerSettings : expandedPlayerSettings // ignore: cast_nullable_to_non_nullable
+as ExpandedPlayerSettings,preferredDefaultVolume: null == preferredDefaultVolume ? _self.preferredDefaultVolume : preferredDefaultVolume // ignore: cast_nullable_to_non_nullable
+as double,preferredDefaultSpeed: null == preferredDefaultSpeed ? _self.preferredDefaultSpeed : preferredDefaultSpeed // ignore: cast_nullable_to_non_nullable
+as double,speedOptions: null == speedOptions ? _self._speedOptions : speedOptions // ignore: cast_nullable_to_non_nullable
+as List<double>,speedIncrement: null == speedIncrement ? _self.speedIncrement : speedIncrement // ignore: cast_nullable_to_non_nullable
+as double,minSpeed: null == minSpeed ? _self.minSpeed : minSpeed // ignore: cast_nullable_to_non_nullable
+as double,maxSpeed: null == maxSpeed ? _self.maxSpeed : maxSpeed // ignore: cast_nullable_to_non_nullable
+as double,minimumPositionForReporting: null == minimumPositionForReporting ? _self.minimumPositionForReporting : minimumPositionForReporting // ignore: cast_nullable_to_non_nullable
+as Duration,playbackReportInterval: null == playbackReportInterval ? _self.playbackReportInterval : playbackReportInterval // ignore: cast_nullable_to_non_nullable
+as Duration,markCompleteWhenTimeLeft: null == markCompleteWhenTimeLeft ? _self.markCompleteWhenTimeLeft : markCompleteWhenTimeLeft // ignore: cast_nullable_to_non_nullable
+as Duration,configurePlayerForEveryBook: null == configurePlayerForEveryBook ? _self.configurePlayerForEveryBook : configurePlayerForEveryBook // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+/// Create a copy of PlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MinimizedPlayerSettingsCopyWith<$Res> get miniPlayerSettings {
+  
+  return $MinimizedPlayerSettingsCopyWith<$Res>(_self.miniPlayerSettings, (value) {
+    return _then(_self.copyWith(miniPlayerSettings: value));
+  });
+}/// Create a copy of PlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ExpandedPlayerSettingsCopyWith<$Res> get expandedPlayerSettings {
+  
+  return $ExpandedPlayerSettingsCopyWith<$Res>(_self.expandedPlayerSettings, (value) {
+    return _then(_self.copyWith(expandedPlayerSettings: value));
+  });
+}
+}
+
 
 /// @nodoc
 mixin _$ExpandedPlayerSettings {
-  bool get showTotalProgress => throw _privateConstructorUsedError;
-  bool get showChapterProgress => throw _privateConstructorUsedError;
+
+ bool get showTotalProgress; bool get showChapterProgress;
+/// Create a copy of ExpandedPlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ExpandedPlayerSettingsCopyWith<ExpandedPlayerSettings> get copyWith => _$ExpandedPlayerSettingsCopyWithImpl<ExpandedPlayerSettings>(this as ExpandedPlayerSettings, _$identity);
 
   /// Serializes this ExpandedPlayerSettings to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of ExpandedPlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ExpandedPlayerSettingsCopyWith<ExpandedPlayerSettings> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpandedPlayerSettings&&(identical(other.showTotalProgress, showTotalProgress) || other.showTotalProgress == showTotalProgress)&&(identical(other.showChapterProgress, showChapterProgress) || other.showChapterProgress == showChapterProgress));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,showTotalProgress,showChapterProgress);
+
+@override
+String toString() {
+  return 'ExpandedPlayerSettings(showTotalProgress: $showTotalProgress, showChapterProgress: $showChapterProgress)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $ExpandedPlayerSettingsCopyWith<$Res> {
-  factory $ExpandedPlayerSettingsCopyWith(ExpandedPlayerSettings value,
-          $Res Function(ExpandedPlayerSettings) then) =
-      _$ExpandedPlayerSettingsCopyWithImpl<$Res, ExpandedPlayerSettings>;
-  @useResult
-  $Res call({bool showTotalProgress, bool showChapterProgress});
-}
+abstract mixin class $ExpandedPlayerSettingsCopyWith<$Res>  {
+  factory $ExpandedPlayerSettingsCopyWith(ExpandedPlayerSettings value, $Res Function(ExpandedPlayerSettings) _then) = _$ExpandedPlayerSettingsCopyWithImpl;
+@useResult
+$Res call({
+ bool showTotalProgress, bool showChapterProgress
+});
 
+
+
+
+}
 /// @nodoc
-class _$ExpandedPlayerSettingsCopyWithImpl<$Res,
-        $Val extends ExpandedPlayerSettings>
+class _$ExpandedPlayerSettingsCopyWithImpl<$Res>
     implements $ExpandedPlayerSettingsCopyWith<$Res> {
-  _$ExpandedPlayerSettingsCopyWithImpl(this._value, this._then);
+  _$ExpandedPlayerSettingsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final ExpandedPlayerSettings _self;
+  final $Res Function(ExpandedPlayerSettings) _then;
 
-  /// Create a copy of ExpandedPlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? showTotalProgress = null,
-    Object? showChapterProgress = null,
-  }) {
-    return _then(_value.copyWith(
-      showTotalProgress: null == showTotalProgress
-          ? _value.showTotalProgress
-          : showTotalProgress // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showChapterProgress: null == showChapterProgress
-          ? _value.showChapterProgress
-          : showChapterProgress // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
-  }
+/// Create a copy of ExpandedPlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? showTotalProgress = null,Object? showChapterProgress = null,}) {
+  return _then(_self.copyWith(
+showTotalProgress: null == showTotalProgress ? _self.showTotalProgress : showTotalProgress // ignore: cast_nullable_to_non_nullable
+as bool,showChapterProgress: null == showChapterProgress ? _self.showChapterProgress : showChapterProgress // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
 }
 
-/// @nodoc
-abstract class _$$ExpandedPlayerSettingsImplCopyWith<$Res>
-    implements $ExpandedPlayerSettingsCopyWith<$Res> {
-  factory _$$ExpandedPlayerSettingsImplCopyWith(
-          _$ExpandedPlayerSettingsImpl value,
-          $Res Function(_$ExpandedPlayerSettingsImpl) then) =
-      __$$ExpandedPlayerSettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({bool showTotalProgress, bool showChapterProgress});
 }
 
-/// @nodoc
-class __$$ExpandedPlayerSettingsImplCopyWithImpl<$Res>
-    extends _$ExpandedPlayerSettingsCopyWithImpl<$Res,
-        _$ExpandedPlayerSettingsImpl>
-    implements _$$ExpandedPlayerSettingsImplCopyWith<$Res> {
-  __$$ExpandedPlayerSettingsImplCopyWithImpl(
-      _$ExpandedPlayerSettingsImpl _value,
-      $Res Function(_$ExpandedPlayerSettingsImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of ExpandedPlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? showTotalProgress = null,
-    Object? showChapterProgress = null,
-  }) {
-    return _then(_$ExpandedPlayerSettingsImpl(
-      showTotalProgress: null == showTotalProgress
-          ? _value.showTotalProgress
-          : showTotalProgress // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showChapterProgress: null == showChapterProgress
-          ? _value.showChapterProgress
-          : showChapterProgress // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
+/// Adds pattern-matching-related methods to [ExpandedPlayerSettings].
+extension ExpandedPlayerSettingsPatterns on ExpandedPlayerSettings {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ExpandedPlayerSettings value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ExpandedPlayerSettings() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ExpandedPlayerSettings value)  $default,){
+final _that = this;
+switch (_that) {
+case _ExpandedPlayerSettings():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ExpandedPlayerSettings value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ExpandedPlayerSettings() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool showTotalProgress,  bool showChapterProgress)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ExpandedPlayerSettings() when $default != null:
+return $default(_that.showTotalProgress,_that.showChapterProgress);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool showTotalProgress,  bool showChapterProgress)  $default,) {final _that = this;
+switch (_that) {
+case _ExpandedPlayerSettings():
+return $default(_that.showTotalProgress,_that.showChapterProgress);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool showTotalProgress,  bool showChapterProgress)?  $default,) {final _that = this;
+switch (_that) {
+case _ExpandedPlayerSettings() when $default != null:
+return $default(_that.showTotalProgress,_that.showChapterProgress);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ExpandedPlayerSettingsImpl implements _ExpandedPlayerSettings {
-  const _$ExpandedPlayerSettingsImpl(
-      {this.showTotalProgress = false, this.showChapterProgress = true});
 
-  factory _$ExpandedPlayerSettingsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ExpandedPlayerSettingsImplFromJson(json);
+class _ExpandedPlayerSettings implements ExpandedPlayerSettings {
+  const _ExpandedPlayerSettings({this.showTotalProgress = false, this.showChapterProgress = true});
+  factory _ExpandedPlayerSettings.fromJson(Map<String, dynamic> json) => _$ExpandedPlayerSettingsFromJson(json);
 
-  @override
-  @JsonKey()
-  final bool showTotalProgress;
-  @override
-  @JsonKey()
-  final bool showChapterProgress;
+@override@JsonKey() final  bool showTotalProgress;
+@override@JsonKey() final  bool showChapterProgress;
 
-  @override
-  String toString() {
-    return 'ExpandedPlayerSettings(showTotalProgress: $showTotalProgress, showChapterProgress: $showChapterProgress)';
-  }
+/// Create a copy of ExpandedPlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ExpandedPlayerSettingsCopyWith<_ExpandedPlayerSettings> get copyWith => __$ExpandedPlayerSettingsCopyWithImpl<_ExpandedPlayerSettings>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ExpandedPlayerSettingsImpl &&
-            (identical(other.showTotalProgress, showTotalProgress) ||
-                other.showTotalProgress == showTotalProgress) &&
-            (identical(other.showChapterProgress, showChapterProgress) ||
-                other.showChapterProgress == showChapterProgress));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, showTotalProgress, showChapterProgress);
-
-  /// Create a copy of ExpandedPlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ExpandedPlayerSettingsImplCopyWith<_$ExpandedPlayerSettingsImpl>
-      get copyWith => __$$ExpandedPlayerSettingsImplCopyWithImpl<
-          _$ExpandedPlayerSettingsImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ExpandedPlayerSettingsImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$ExpandedPlayerSettingsToJson(this, );
 }
 
-abstract class _ExpandedPlayerSettings implements ExpandedPlayerSettings {
-  const factory _ExpandedPlayerSettings(
-      {final bool showTotalProgress,
-      final bool showChapterProgress}) = _$ExpandedPlayerSettingsImpl;
-
-  factory _ExpandedPlayerSettings.fromJson(Map<String, dynamic> json) =
-      _$ExpandedPlayerSettingsImpl.fromJson;
-
-  @override
-  bool get showTotalProgress;
-  @override
-  bool get showChapterProgress;
-
-  /// Create a copy of ExpandedPlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ExpandedPlayerSettingsImplCopyWith<_$ExpandedPlayerSettingsImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExpandedPlayerSettings&&(identical(other.showTotalProgress, showTotalProgress) || other.showTotalProgress == showTotalProgress)&&(identical(other.showChapterProgress, showChapterProgress) || other.showChapterProgress == showChapterProgress));
 }
 
-MinimizedPlayerSettings _$MinimizedPlayerSettingsFromJson(
-    Map<String, dynamic> json) {
-  return _MinimizedPlayerSettings.fromJson(json);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,showTotalProgress,showChapterProgress);
+
+@override
+String toString() {
+  return 'ExpandedPlayerSettings(showTotalProgress: $showTotalProgress, showChapterProgress: $showChapterProgress)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ExpandedPlayerSettingsCopyWith<$Res> implements $ExpandedPlayerSettingsCopyWith<$Res> {
+  factory _$ExpandedPlayerSettingsCopyWith(_ExpandedPlayerSettings value, $Res Function(_ExpandedPlayerSettings) _then) = __$ExpandedPlayerSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ bool showTotalProgress, bool showChapterProgress
+});
+
+
+
+
+}
+/// @nodoc
+class __$ExpandedPlayerSettingsCopyWithImpl<$Res>
+    implements _$ExpandedPlayerSettingsCopyWith<$Res> {
+  __$ExpandedPlayerSettingsCopyWithImpl(this._self, this._then);
+
+  final _ExpandedPlayerSettings _self;
+  final $Res Function(_ExpandedPlayerSettings) _then;
+
+/// Create a copy of ExpandedPlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? showTotalProgress = null,Object? showChapterProgress = null,}) {
+  return _then(_ExpandedPlayerSettings(
+showTotalProgress: null == showTotalProgress ? _self.showTotalProgress : showTotalProgress // ignore: cast_nullable_to_non_nullable
+as bool,showChapterProgress: null == showChapterProgress ? _self.showChapterProgress : showChapterProgress // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$MinimizedPlayerSettings {
-  bool get useChapterInfo => throw _privateConstructorUsedError;
+
+ bool get useChapterInfo;
+/// Create a copy of MinimizedPlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$MinimizedPlayerSettingsCopyWith<MinimizedPlayerSettings> get copyWith => _$MinimizedPlayerSettingsCopyWithImpl<MinimizedPlayerSettings>(this as MinimizedPlayerSettings, _$identity);
 
   /// Serializes this MinimizedPlayerSettings to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of MinimizedPlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $MinimizedPlayerSettingsCopyWith<MinimizedPlayerSettings> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MinimizedPlayerSettings&&(identical(other.useChapterInfo, useChapterInfo) || other.useChapterInfo == useChapterInfo));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,useChapterInfo);
+
+@override
+String toString() {
+  return 'MinimizedPlayerSettings(useChapterInfo: $useChapterInfo)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $MinimizedPlayerSettingsCopyWith<$Res> {
-  factory $MinimizedPlayerSettingsCopyWith(MinimizedPlayerSettings value,
-          $Res Function(MinimizedPlayerSettings) then) =
-      _$MinimizedPlayerSettingsCopyWithImpl<$Res, MinimizedPlayerSettings>;
-  @useResult
-  $Res call({bool useChapterInfo});
-}
+abstract mixin class $MinimizedPlayerSettingsCopyWith<$Res>  {
+  factory $MinimizedPlayerSettingsCopyWith(MinimizedPlayerSettings value, $Res Function(MinimizedPlayerSettings) _then) = _$MinimizedPlayerSettingsCopyWithImpl;
+@useResult
+$Res call({
+ bool useChapterInfo
+});
 
+
+
+
+}
 /// @nodoc
-class _$MinimizedPlayerSettingsCopyWithImpl<$Res,
-        $Val extends MinimizedPlayerSettings>
+class _$MinimizedPlayerSettingsCopyWithImpl<$Res>
     implements $MinimizedPlayerSettingsCopyWith<$Res> {
-  _$MinimizedPlayerSettingsCopyWithImpl(this._value, this._then);
+  _$MinimizedPlayerSettingsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final MinimizedPlayerSettings _self;
+  final $Res Function(MinimizedPlayerSettings) _then;
 
-  /// Create a copy of MinimizedPlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? useChapterInfo = null,
-  }) {
-    return _then(_value.copyWith(
-      useChapterInfo: null == useChapterInfo
-          ? _value.useChapterInfo
-          : useChapterInfo // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
-  }
+/// Create a copy of MinimizedPlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? useChapterInfo = null,}) {
+  return _then(_self.copyWith(
+useChapterInfo: null == useChapterInfo ? _self.useChapterInfo : useChapterInfo // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
 }
 
-/// @nodoc
-abstract class _$$MinimizedPlayerSettingsImplCopyWith<$Res>
-    implements $MinimizedPlayerSettingsCopyWith<$Res> {
-  factory _$$MinimizedPlayerSettingsImplCopyWith(
-          _$MinimizedPlayerSettingsImpl value,
-          $Res Function(_$MinimizedPlayerSettingsImpl) then) =
-      __$$MinimizedPlayerSettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({bool useChapterInfo});
 }
 
-/// @nodoc
-class __$$MinimizedPlayerSettingsImplCopyWithImpl<$Res>
-    extends _$MinimizedPlayerSettingsCopyWithImpl<$Res,
-        _$MinimizedPlayerSettingsImpl>
-    implements _$$MinimizedPlayerSettingsImplCopyWith<$Res> {
-  __$$MinimizedPlayerSettingsImplCopyWithImpl(
-      _$MinimizedPlayerSettingsImpl _value,
-      $Res Function(_$MinimizedPlayerSettingsImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of MinimizedPlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? useChapterInfo = null,
-  }) {
-    return _then(_$MinimizedPlayerSettingsImpl(
-      useChapterInfo: null == useChapterInfo
-          ? _value.useChapterInfo
-          : useChapterInfo // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
+/// Adds pattern-matching-related methods to [MinimizedPlayerSettings].
+extension MinimizedPlayerSettingsPatterns on MinimizedPlayerSettings {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MinimizedPlayerSettings value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _MinimizedPlayerSettings() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MinimizedPlayerSettings value)  $default,){
+final _that = this;
+switch (_that) {
+case _MinimizedPlayerSettings():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MinimizedPlayerSettings value)?  $default,){
+final _that = this;
+switch (_that) {
+case _MinimizedPlayerSettings() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool useChapterInfo)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _MinimizedPlayerSettings() when $default != null:
+return $default(_that.useChapterInfo);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool useChapterInfo)  $default,) {final _that = this;
+switch (_that) {
+case _MinimizedPlayerSettings():
+return $default(_that.useChapterInfo);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool useChapterInfo)?  $default,) {final _that = this;
+switch (_that) {
+case _MinimizedPlayerSettings() when $default != null:
+return $default(_that.useChapterInfo);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$MinimizedPlayerSettingsImpl implements _MinimizedPlayerSettings {
-  const _$MinimizedPlayerSettingsImpl({this.useChapterInfo = false});
 
-  factory _$MinimizedPlayerSettingsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MinimizedPlayerSettingsImplFromJson(json);
+class _MinimizedPlayerSettings implements MinimizedPlayerSettings {
+  const _MinimizedPlayerSettings({this.useChapterInfo = false});
+  factory _MinimizedPlayerSettings.fromJson(Map<String, dynamic> json) => _$MinimizedPlayerSettingsFromJson(json);
 
-  @override
-  @JsonKey()
-  final bool useChapterInfo;
+@override@JsonKey() final  bool useChapterInfo;
 
-  @override
-  String toString() {
-    return 'MinimizedPlayerSettings(useChapterInfo: $useChapterInfo)';
-  }
+/// Create a copy of MinimizedPlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$MinimizedPlayerSettingsCopyWith<_MinimizedPlayerSettings> get copyWith => __$MinimizedPlayerSettingsCopyWithImpl<_MinimizedPlayerSettings>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$MinimizedPlayerSettingsImpl &&
-            (identical(other.useChapterInfo, useChapterInfo) ||
-                other.useChapterInfo == useChapterInfo));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, useChapterInfo);
-
-  /// Create a copy of MinimizedPlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$MinimizedPlayerSettingsImplCopyWith<_$MinimizedPlayerSettingsImpl>
-      get copyWith => __$$MinimizedPlayerSettingsImplCopyWithImpl<
-          _$MinimizedPlayerSettingsImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$MinimizedPlayerSettingsImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$MinimizedPlayerSettingsToJson(this, );
 }
 
-abstract class _MinimizedPlayerSettings implements MinimizedPlayerSettings {
-  const factory _MinimizedPlayerSettings({final bool useChapterInfo}) =
-      _$MinimizedPlayerSettingsImpl;
-
-  factory _MinimizedPlayerSettings.fromJson(Map<String, dynamic> json) =
-      _$MinimizedPlayerSettingsImpl.fromJson;
-
-  @override
-  bool get useChapterInfo;
-
-  /// Create a copy of MinimizedPlayerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MinimizedPlayerSettingsImplCopyWith<_$MinimizedPlayerSettingsImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MinimizedPlayerSettings&&(identical(other.useChapterInfo, useChapterInfo) || other.useChapterInfo == useChapterInfo));
 }
 
-SleepTimerSettings _$SleepTimerSettingsFromJson(Map<String, dynamic> json) {
-  return _SleepTimerSettings.fromJson(json);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,useChapterInfo);
+
+@override
+String toString() {
+  return 'MinimizedPlayerSettings(useChapterInfo: $useChapterInfo)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$MinimizedPlayerSettingsCopyWith<$Res> implements $MinimizedPlayerSettingsCopyWith<$Res> {
+  factory _$MinimizedPlayerSettingsCopyWith(_MinimizedPlayerSettings value, $Res Function(_MinimizedPlayerSettings) _then) = __$MinimizedPlayerSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ bool useChapterInfo
+});
+
+
+
+
+}
+/// @nodoc
+class __$MinimizedPlayerSettingsCopyWithImpl<$Res>
+    implements _$MinimizedPlayerSettingsCopyWith<$Res> {
+  __$MinimizedPlayerSettingsCopyWithImpl(this._self, this._then);
+
+  final _MinimizedPlayerSettings _self;
+  final $Res Function(_MinimizedPlayerSettings) _then;
+
+/// Create a copy of MinimizedPlayerSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? useChapterInfo = null,}) {
+  return _then(_MinimizedPlayerSettings(
+useChapterInfo: null == useChapterInfo ? _self.useChapterInfo : useChapterInfo // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$SleepTimerSettings {
-  Duration get defaultDuration => throw _privateConstructorUsedError;
-  List<Duration> get presetDurations => throw _privateConstructorUsedError;
-  Duration get maxDuration => throw _privateConstructorUsedError;
-  bool get fadeOutAudio => throw _privateConstructorUsedError;
-  Duration get fadeOutDuration => throw _privateConstructorUsedError;
 
-  /// if true, the player will automatically rewind the audio when the sleep timer is stopped
-  bool get autoRewindWhenStopped => throw _privateConstructorUsedError;
-
-  /// the key is the duration in minutes
-  Map<int, Duration> get autoRewindDurations =>
-      throw _privateConstructorUsedError;
-
-  /// auto turn on timer settings
-  bool get autoTurnOnTimer => throw _privateConstructorUsedError;
-
-  /// always auto turn on timer settings or during specific times
-  bool get alwaysAutoTurnOnTimer => throw _privateConstructorUsedError;
-
-  /// auto timer settings, only used if [alwaysAutoTurnOnTimer] is false
-  ///
-  /// duration is the time from 00:00
-  Duration get autoTurnOnTime => throw _privateConstructorUsedError;
-  Duration get autoTurnOffTime => throw _privateConstructorUsedError;
+ Duration get defaultDuration; List<Duration> get presetDurations; Duration get maxDuration; bool get fadeOutAudio; Duration get fadeOutDuration;/// if true, the player will automatically rewind the audio when the sleep timer is stopped
+ bool get autoRewindWhenStopped;/// the key is the duration in minutes
+ Map<int, Duration> get autoRewindDurations;/// auto turn on timer settings
+ bool get autoTurnOnTimer;/// always auto turn on timer settings or during specific times
+ bool get alwaysAutoTurnOnTimer;/// auto timer settings, only used if [alwaysAutoTurnOnTimer] is false
+///
+/// duration is the time from 00:00
+ Duration get autoTurnOnTime; Duration get autoTurnOffTime;
+/// Create a copy of SleepTimerSettings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SleepTimerSettingsCopyWith<SleepTimerSettings> get copyWith => _$SleepTimerSettingsCopyWithImpl<SleepTimerSettings>(this as SleepTimerSettings, _$identity);
 
   /// Serializes this SleepTimerSettings to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of SleepTimerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $SleepTimerSettingsCopyWith<SleepTimerSettings> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SleepTimerSettings&&(identical(other.defaultDuration, defaultDuration) || other.defaultDuration == defaultDuration)&&const DeepCollectionEquality().equals(other.presetDurations, presetDurations)&&(identical(other.maxDuration, maxDuration) || other.maxDuration == maxDuration)&&(identical(other.fadeOutAudio, fadeOutAudio) || other.fadeOutAudio == fadeOutAudio)&&(identical(other.fadeOutDuration, fadeOutDuration) || other.fadeOutDuration == fadeOutDuration)&&(identical(other.autoRewindWhenStopped, autoRewindWhenStopped) || other.autoRewindWhenStopped == autoRewindWhenStopped)&&const DeepCollectionEquality().equals(other.autoRewindDurations, autoRewindDurations)&&(identical(other.autoTurnOnTimer, autoTurnOnTimer) || other.autoTurnOnTimer == autoTurnOnTimer)&&(identical(other.alwaysAutoTurnOnTimer, alwaysAutoTurnOnTimer) || other.alwaysAutoTurnOnTimer == alwaysAutoTurnOnTimer)&&(identical(other.autoTurnOnTime, autoTurnOnTime) || other.autoTurnOnTime == autoTurnOnTime)&&(identical(other.autoTurnOffTime, autoTurnOffTime) || other.autoTurnOffTime == autoTurnOffTime));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,defaultDuration,const DeepCollectionEquality().hash(presetDurations),maxDuration,fadeOutAudio,fadeOutDuration,autoRewindWhenStopped,const DeepCollectionEquality().hash(autoRewindDurations),autoTurnOnTimer,alwaysAutoTurnOnTimer,autoTurnOnTime,autoTurnOffTime);
+
+@override
+String toString() {
+  return 'SleepTimerSettings(defaultDuration: $defaultDuration, presetDurations: $presetDurations, maxDuration: $maxDuration, fadeOutAudio: $fadeOutAudio, fadeOutDuration: $fadeOutDuration, autoRewindWhenStopped: $autoRewindWhenStopped, autoRewindDurations: $autoRewindDurations, autoTurnOnTimer: $autoTurnOnTimer, alwaysAutoTurnOnTimer: $alwaysAutoTurnOnTimer, autoTurnOnTime: $autoTurnOnTime, autoTurnOffTime: $autoTurnOffTime)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $SleepTimerSettingsCopyWith<$Res> {
-  factory $SleepTimerSettingsCopyWith(
-          SleepTimerSettings value, $Res Function(SleepTimerSettings) then) =
-      _$SleepTimerSettingsCopyWithImpl<$Res, SleepTimerSettings>;
-  @useResult
-  $Res call(
-      {Duration defaultDuration,
-      List<Duration> presetDurations,
-      Duration maxDuration,
-      bool fadeOutAudio,
-      Duration fadeOutDuration,
-      bool autoRewindWhenStopped,
-      Map<int, Duration> autoRewindDurations,
-      bool autoTurnOnTimer,
-      bool alwaysAutoTurnOnTimer,
-      Duration autoTurnOnTime,
-      Duration autoTurnOffTime});
-}
+abstract mixin class $SleepTimerSettingsCopyWith<$Res>  {
+  factory $SleepTimerSettingsCopyWith(SleepTimerSettings value, $Res Function(SleepTimerSettings) _then) = _$SleepTimerSettingsCopyWithImpl;
+@useResult
+$Res call({
+ Duration defaultDuration, List<Duration> presetDurations, Duration maxDuration, bool fadeOutAudio, Duration fadeOutDuration, bool autoRewindWhenStopped, Map<int, Duration> autoRewindDurations, bool autoTurnOnTimer, bool alwaysAutoTurnOnTimer, Duration autoTurnOnTime, Duration autoTurnOffTime
+});
 
+
+
+
+}
 /// @nodoc
-class _$SleepTimerSettingsCopyWithImpl<$Res, $Val extends SleepTimerSettings>
+class _$SleepTimerSettingsCopyWithImpl<$Res>
     implements $SleepTimerSettingsCopyWith<$Res> {
-  _$SleepTimerSettingsCopyWithImpl(this._value, this._then);
+  _$SleepTimerSettingsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final SleepTimerSettings _self;
+  final $Res Function(SleepTimerSettings) _then;
 
-  /// Create a copy of SleepTimerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? defaultDuration = null,
-    Object? presetDurations = null,
-    Object? maxDuration = null,
-    Object? fadeOutAudio = null,
-    Object? fadeOutDuration = null,
-    Object? autoRewindWhenStopped = null,
-    Object? autoRewindDurations = null,
-    Object? autoTurnOnTimer = null,
-    Object? alwaysAutoTurnOnTimer = null,
-    Object? autoTurnOnTime = null,
-    Object? autoTurnOffTime = null,
-  }) {
-    return _then(_value.copyWith(
-      defaultDuration: null == defaultDuration
-          ? _value.defaultDuration
-          : defaultDuration // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      presetDurations: null == presetDurations
-          ? _value.presetDurations
-          : presetDurations // ignore: cast_nullable_to_non_nullable
-              as List<Duration>,
-      maxDuration: null == maxDuration
-          ? _value.maxDuration
-          : maxDuration // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      fadeOutAudio: null == fadeOutAudio
-          ? _value.fadeOutAudio
-          : fadeOutAudio // ignore: cast_nullable_to_non_nullable
-              as bool,
-      fadeOutDuration: null == fadeOutDuration
-          ? _value.fadeOutDuration
-          : fadeOutDuration // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      autoRewindWhenStopped: null == autoRewindWhenStopped
-          ? _value.autoRewindWhenStopped
-          : autoRewindWhenStopped // ignore: cast_nullable_to_non_nullable
-              as bool,
-      autoRewindDurations: null == autoRewindDurations
-          ? _value.autoRewindDurations
-          : autoRewindDurations // ignore: cast_nullable_to_non_nullable
-              as Map<int, Duration>,
-      autoTurnOnTimer: null == autoTurnOnTimer
-          ? _value.autoTurnOnTimer
-          : autoTurnOnTimer // ignore: cast_nullable_to_non_nullable
-              as bool,
-      alwaysAutoTurnOnTimer: null == alwaysAutoTurnOnTimer
-          ? _value.alwaysAutoTurnOnTimer
-          : alwaysAutoTurnOnTimer // ignore: cast_nullable_to_non_nullable
-              as bool,
-      autoTurnOnTime: null == autoTurnOnTime
-          ? _value.autoTurnOnTime
-          : autoTurnOnTime // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      autoTurnOffTime: null == autoTurnOffTime
-          ? _value.autoTurnOffTime
-          : autoTurnOffTime // ignore: cast_nullable_to_non_nullable
-              as Duration,
-    ) as $Val);
-  }
+/// Create a copy of SleepTimerSettings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? defaultDuration = null,Object? presetDurations = null,Object? maxDuration = null,Object? fadeOutAudio = null,Object? fadeOutDuration = null,Object? autoRewindWhenStopped = null,Object? autoRewindDurations = null,Object? autoTurnOnTimer = null,Object? alwaysAutoTurnOnTimer = null,Object? autoTurnOnTime = null,Object? autoTurnOffTime = null,}) {
+  return _then(_self.copyWith(
+defaultDuration: null == defaultDuration ? _self.defaultDuration : defaultDuration // ignore: cast_nullable_to_non_nullable
+as Duration,presetDurations: null == presetDurations ? _self.presetDurations : presetDurations // ignore: cast_nullable_to_non_nullable
+as List<Duration>,maxDuration: null == maxDuration ? _self.maxDuration : maxDuration // ignore: cast_nullable_to_non_nullable
+as Duration,fadeOutAudio: null == fadeOutAudio ? _self.fadeOutAudio : fadeOutAudio // ignore: cast_nullable_to_non_nullable
+as bool,fadeOutDuration: null == fadeOutDuration ? _self.fadeOutDuration : fadeOutDuration // ignore: cast_nullable_to_non_nullable
+as Duration,autoRewindWhenStopped: null == autoRewindWhenStopped ? _self.autoRewindWhenStopped : autoRewindWhenStopped // ignore: cast_nullable_to_non_nullable
+as bool,autoRewindDurations: null == autoRewindDurations ? _self.autoRewindDurations : autoRewindDurations // ignore: cast_nullable_to_non_nullable
+as Map<int, Duration>,autoTurnOnTimer: null == autoTurnOnTimer ? _self.autoTurnOnTimer : autoTurnOnTimer // ignore: cast_nullable_to_non_nullable
+as bool,alwaysAutoTurnOnTimer: null == alwaysAutoTurnOnTimer ? _self.alwaysAutoTurnOnTimer : alwaysAutoTurnOnTimer // ignore: cast_nullable_to_non_nullable
+as bool,autoTurnOnTime: null == autoTurnOnTime ? _self.autoTurnOnTime : autoTurnOnTime // ignore: cast_nullable_to_non_nullable
+as Duration,autoTurnOffTime: null == autoTurnOffTime ? _self.autoTurnOffTime : autoTurnOffTime // ignore: cast_nullable_to_non_nullable
+as Duration,
+  ));
 }
 
-/// @nodoc
-abstract class _$$SleepTimerSettingsImplCopyWith<$Res>
-    implements $SleepTimerSettingsCopyWith<$Res> {
-  factory _$$SleepTimerSettingsImplCopyWith(_$SleepTimerSettingsImpl value,
-          $Res Function(_$SleepTimerSettingsImpl) then) =
-      __$$SleepTimerSettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {Duration defaultDuration,
-      List<Duration> presetDurations,
-      Duration maxDuration,
-      bool fadeOutAudio,
-      Duration fadeOutDuration,
-      bool autoRewindWhenStopped,
-      Map<int, Duration> autoRewindDurations,
-      bool autoTurnOnTimer,
-      bool alwaysAutoTurnOnTimer,
-      Duration autoTurnOnTime,
-      Duration autoTurnOffTime});
 }
 
-/// @nodoc
-class __$$SleepTimerSettingsImplCopyWithImpl<$Res>
-    extends _$SleepTimerSettingsCopyWithImpl<$Res, _$SleepTimerSettingsImpl>
-    implements _$$SleepTimerSettingsImplCopyWith<$Res> {
-  __$$SleepTimerSettingsImplCopyWithImpl(_$SleepTimerSettingsImpl _value,
-      $Res Function(_$SleepTimerSettingsImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of SleepTimerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? defaultDuration = null,
-    Object? presetDurations = null,
-    Object? maxDuration = null,
-    Object? fadeOutAudio = null,
-    Object? fadeOutDuration = null,
-    Object? autoRewindWhenStopped = null,
-    Object? autoRewindDurations = null,
-    Object? autoTurnOnTimer = null,
-    Object? alwaysAutoTurnOnTimer = null,
-    Object? autoTurnOnTime = null,
-    Object? autoTurnOffTime = null,
-  }) {
-    return _then(_$SleepTimerSettingsImpl(
-      defaultDuration: null == defaultDuration
-          ? _value.defaultDuration
-          : defaultDuration // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      presetDurations: null == presetDurations
-          ? _value._presetDurations
-          : presetDurations // ignore: cast_nullable_to_non_nullable
-              as List<Duration>,
-      maxDuration: null == maxDuration
-          ? _value.maxDuration
-          : maxDuration // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      fadeOutAudio: null == fadeOutAudio
-          ? _value.fadeOutAudio
-          : fadeOutAudio // ignore: cast_nullable_to_non_nullable
-              as bool,
-      fadeOutDuration: null == fadeOutDuration
-          ? _value.fadeOutDuration
-          : fadeOutDuration // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      autoRewindWhenStopped: null == autoRewindWhenStopped
-          ? _value.autoRewindWhenStopped
-          : autoRewindWhenStopped // ignore: cast_nullable_to_non_nullable
-              as bool,
-      autoRewindDurations: null == autoRewindDurations
-          ? _value._autoRewindDurations
-          : autoRewindDurations // ignore: cast_nullable_to_non_nullable
-              as Map<int, Duration>,
-      autoTurnOnTimer: null == autoTurnOnTimer
-          ? _value.autoTurnOnTimer
-          : autoTurnOnTimer // ignore: cast_nullable_to_non_nullable
-              as bool,
-      alwaysAutoTurnOnTimer: null == alwaysAutoTurnOnTimer
-          ? _value.alwaysAutoTurnOnTimer
-          : alwaysAutoTurnOnTimer // ignore: cast_nullable_to_non_nullable
-              as bool,
-      autoTurnOnTime: null == autoTurnOnTime
-          ? _value.autoTurnOnTime
-          : autoTurnOnTime // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      autoTurnOffTime: null == autoTurnOffTime
-          ? _value.autoTurnOffTime
-          : autoTurnOffTime // ignore: cast_nullable_to_non_nullable
-              as Duration,
-    ));
-  }
+/// Adds pattern-matching-related methods to [SleepTimerSettings].
+extension SleepTimerSettingsPatterns on SleepTimerSettings {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SleepTimerSettings value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SleepTimerSettings() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SleepTimerSettings value)  $default,){
+final _that = this;
+switch (_that) {
+case _SleepTimerSettings():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SleepTimerSettings value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SleepTimerSettings() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Duration defaultDuration,  List<Duration> presetDurations,  Duration maxDuration,  bool fadeOutAudio,  Duration fadeOutDuration,  bool autoRewindWhenStopped,  Map<int, Duration> autoRewindDurations,  bool autoTurnOnTimer,  bool alwaysAutoTurnOnTimer,  Duration autoTurnOnTime,  Duration autoTurnOffTime)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SleepTimerSettings() when $default != null:
+return $default(_that.defaultDuration,_that.presetDurations,_that.maxDuration,_that.fadeOutAudio,_that.fadeOutDuration,_that.autoRewindWhenStopped,_that.autoRewindDurations,_that.autoTurnOnTimer,_that.alwaysAutoTurnOnTimer,_that.autoTurnOnTime,_that.autoTurnOffTime);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Duration defaultDuration,  List<Duration> presetDurations,  Duration maxDuration,  bool fadeOutAudio,  Duration fadeOutDuration,  bool autoRewindWhenStopped,  Map<int, Duration> autoRewindDurations,  bool autoTurnOnTimer,  bool alwaysAutoTurnOnTimer,  Duration autoTurnOnTime,  Duration autoTurnOffTime)  $default,) {final _that = this;
+switch (_that) {
+case _SleepTimerSettings():
+return $default(_that.defaultDuration,_that.presetDurations,_that.maxDuration,_that.fadeOutAudio,_that.fadeOutDuration,_that.autoRewindWhenStopped,_that.autoRewindDurations,_that.autoTurnOnTimer,_that.alwaysAutoTurnOnTimer,_that.autoTurnOnTime,_that.autoTurnOffTime);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Duration defaultDuration,  List<Duration> presetDurations,  Duration maxDuration,  bool fadeOutAudio,  Duration fadeOutDuration,  bool autoRewindWhenStopped,  Map<int, Duration> autoRewindDurations,  bool autoTurnOnTimer,  bool alwaysAutoTurnOnTimer,  Duration autoTurnOnTime,  Duration autoTurnOffTime)?  $default,) {final _that = this;
+switch (_that) {
+case _SleepTimerSettings() when $default != null:
+return $default(_that.defaultDuration,_that.presetDurations,_that.maxDuration,_that.fadeOutAudio,_that.fadeOutDuration,_that.autoRewindWhenStopped,_that.autoRewindDurations,_that.autoTurnOnTimer,_that.alwaysAutoTurnOnTimer,_that.autoTurnOnTime,_that.autoTurnOffTime);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$SleepTimerSettingsImpl implements _SleepTimerSettings {
-  const _$SleepTimerSettingsImpl(
-      {this.defaultDuration = const Duration(minutes: 15),
-      final List<Duration> presetDurations = const [
-        Duration(minutes: 5),
-        Duration(minutes: 10),
-        Duration(minutes: 15),
-        Duration(minutes: 20),
-        Duration(minutes: 30)
-      ],
-      this.maxDuration = const Duration(minutes: 100),
-      this.fadeOutAudio = false,
-      this.fadeOutDuration = const Duration(seconds: 20),
-      this.autoRewindWhenStopped = false,
-      final Map<int, Duration> autoRewindDurations = const {
-        5: Duration(seconds: 10),
-        15: Duration(seconds: 30),
-        45: Duration(seconds: 45),
-        60: Duration(minutes: 1),
-        120: Duration(minutes: 2)
-      },
-      this.autoTurnOnTimer = false,
-      this.alwaysAutoTurnOnTimer = false,
-      this.autoTurnOnTime = const Duration(hours: 22, minutes: 0),
-      this.autoTurnOffTime = const Duration(hours: 6, minutes: 0)})
-      : _presetDurations = presetDurations,
-        _autoRewindDurations = autoRewindDurations;
 
-  factory _$SleepTimerSettingsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SleepTimerSettingsImplFromJson(json);
+class _SleepTimerSettings implements SleepTimerSettings {
+  const _SleepTimerSettings({this.defaultDuration = const Duration(minutes: 15), final  List<Duration> presetDurations = const [Duration(minutes: 5), Duration(minutes: 10), Duration(minutes: 15), Duration(minutes: 20), Duration(minutes: 30)], this.maxDuration = const Duration(minutes: 100), this.fadeOutAudio = false, this.fadeOutDuration = const Duration(seconds: 20), this.autoRewindWhenStopped = false, final  Map<int, Duration> autoRewindDurations = const {5 : Duration(seconds: 10), 15 : Duration(seconds: 30), 45 : Duration(seconds: 45), 60 : Duration(minutes: 1), 120 : Duration(minutes: 2)}, this.autoTurnOnTimer = false, this.alwaysAutoTurnOnTimer = false, this.autoTurnOnTime = const Duration(hours: 22, minutes: 0), this.autoTurnOffTime = const Duration(hours: 6, minutes: 0)}): _presetDurations = presetDurations,_autoRewindDurations = autoRewindDurations;
+  factory _SleepTimerSettings.fromJson(Map<String, dynamic> json) => _$SleepTimerSettingsFromJson(json);
 
-  @override
-  @JsonKey()
-  final Duration defaultDuration;
-  final List<Duration> _presetDurations;
-  @override
-  @JsonKey()
-  List<Duration> get presetDurations {
-    if (_presetDurations is EqualUnmodifiableListView) return _presetDurations;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_presetDurations);
-  }
-
-  @override
-  @JsonKey()
-  final Duration maxDuration;
-  @override
-  @JsonKey()
-  final bool fadeOutAudio;
-  @override
-  @JsonKey()
-  final Duration fadeOutDuration;
-
-  /// if true, the player will automatically rewind the audio when the sleep timer is stopped
-  @override
-  @JsonKey()
-  final bool autoRewindWhenStopped;
-
-  /// the key is the duration in minutes
-  final Map<int, Duration> _autoRewindDurations;
-
-  /// the key is the duration in minutes
-  @override
-  @JsonKey()
-  Map<int, Duration> get autoRewindDurations {
-    if (_autoRewindDurations is EqualUnmodifiableMapView)
-      return _autoRewindDurations;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_autoRewindDurations);
-  }
-
-  /// auto turn on timer settings
-  @override
-  @JsonKey()
-  final bool autoTurnOnTimer;
-
-  /// always auto turn on timer settings or during specific times
-  @override
-  @JsonKey()
-  final bool alwaysAutoTurnOnTimer;
-
-  /// auto timer settings, only used if [alwaysAutoTurnOnTimer] is false
-  ///
-  /// duration is the time from 00:00
-  @override
-  @JsonKey()
-  final Duration autoTurnOnTime;
-  @override
-  @JsonKey()
-  final Duration autoTurnOffTime;
-
-  @override
-  String toString() {
-    return 'SleepTimerSettings(defaultDuration: $defaultDuration, presetDurations: $presetDurations, maxDuration: $maxDuration, fadeOutAudio: $fadeOutAudio, fadeOutDuration: $fadeOutDuration, autoRewindWhenStopped: $autoRewindWhenStopped, autoRewindDurations: $autoRewindDurations, autoTurnOnTimer: $autoTurnOnTimer, alwaysAutoTurnOnTimer: $alwaysAutoTurnOnTimer, autoTurnOnTime: $autoTurnOnTime, autoTurnOffTime: $autoTurnOffTime)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SleepTimerSettingsImpl &&
-            (identical(other.defaultDuration, defaultDuration) ||
-                other.defaultDuration == defaultDuration) &&
-            const DeepCollectionEquality()
-                .equals(other._presetDurations, _presetDurations) &&
-            (identical(other.maxDuration, maxDuration) ||
-                other.maxDuration == maxDuration) &&
-            (identical(other.fadeOutAudio, fadeOutAudio) ||
-                other.fadeOutAudio == fadeOutAudio) &&
-            (identical(other.fadeOutDuration, fadeOutDuration) ||
-                other.fadeOutDuration == fadeOutDuration) &&
-            (identical(other.autoRewindWhenStopped, autoRewindWhenStopped) ||
-                other.autoRewindWhenStopped == autoRewindWhenStopped) &&
-            const DeepCollectionEquality()
-                .equals(other._autoRewindDurations, _autoRewindDurations) &&
-            (identical(other.autoTurnOnTimer, autoTurnOnTimer) ||
-                other.autoTurnOnTimer == autoTurnOnTimer) &&
-            (identical(other.alwaysAutoTurnOnTimer, alwaysAutoTurnOnTimer) ||
-                other.alwaysAutoTurnOnTimer == alwaysAutoTurnOnTimer) &&
-            (identical(other.autoTurnOnTime, autoTurnOnTime) ||
-                other.autoTurnOnTime == autoTurnOnTime) &&
-            (identical(other.autoTurnOffTime, autoTurnOffTime) ||
-                other.autoTurnOffTime == autoTurnOffTime));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      defaultDuration,
-      const DeepCollectionEquality().hash(_presetDurations),
-      maxDuration,
-      fadeOutAudio,
-      fadeOutDuration,
-      autoRewindWhenStopped,
-      const DeepCollectionEquality().hash(_autoRewindDurations),
-      autoTurnOnTimer,
-      alwaysAutoTurnOnTimer,
-      autoTurnOnTime,
-      autoTurnOffTime);
-
-  /// Create a copy of SleepTimerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SleepTimerSettingsImplCopyWith<_$SleepTimerSettingsImpl> get copyWith =>
-      __$$SleepTimerSettingsImplCopyWithImpl<_$SleepTimerSettingsImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SleepTimerSettingsImplToJson(
-      this,
-    );
-  }
+@override@JsonKey() final  Duration defaultDuration;
+ final  List<Duration> _presetDurations;
+@override@JsonKey() List<Duration> get presetDurations {
+  if (_presetDurations is EqualUnmodifiableListView) return _presetDurations;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_presetDurations);
 }
 
-abstract class _SleepTimerSettings implements SleepTimerSettings {
-  const factory _SleepTimerSettings(
-      {final Duration defaultDuration,
-      final List<Duration> presetDurations,
-      final Duration maxDuration,
-      final bool fadeOutAudio,
-      final Duration fadeOutDuration,
-      final bool autoRewindWhenStopped,
-      final Map<int, Duration> autoRewindDurations,
-      final bool autoTurnOnTimer,
-      final bool alwaysAutoTurnOnTimer,
-      final Duration autoTurnOnTime,
-      final Duration autoTurnOffTime}) = _$SleepTimerSettingsImpl;
-
-  factory _SleepTimerSettings.fromJson(Map<String, dynamic> json) =
-      _$SleepTimerSettingsImpl.fromJson;
-
-  @override
-  Duration get defaultDuration;
-  @override
-  List<Duration> get presetDurations;
-  @override
-  Duration get maxDuration;
-  @override
-  bool get fadeOutAudio;
-  @override
-  Duration get fadeOutDuration;
-
-  /// if true, the player will automatically rewind the audio when the sleep timer is stopped
-  @override
-  bool get autoRewindWhenStopped;
-
-  /// the key is the duration in minutes
-  @override
-  Map<int, Duration> get autoRewindDurations;
-
-  /// auto turn on timer settings
-  @override
-  bool get autoTurnOnTimer;
-
-  /// always auto turn on timer settings or during specific times
-  @override
-  bool get alwaysAutoTurnOnTimer;
-
-  /// auto timer settings, only used if [alwaysAutoTurnOnTimer] is false
-  ///
-  /// duration is the time from 00:00
-  @override
-  Duration get autoTurnOnTime;
-  @override
-  Duration get autoTurnOffTime;
-
-  /// Create a copy of SleepTimerSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SleepTimerSettingsImplCopyWith<_$SleepTimerSettingsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override@JsonKey() final  Duration maxDuration;
+@override@JsonKey() final  bool fadeOutAudio;
+@override@JsonKey() final  Duration fadeOutDuration;
+/// if true, the player will automatically rewind the audio when the sleep timer is stopped
+@override@JsonKey() final  bool autoRewindWhenStopped;
+/// the key is the duration in minutes
+ final  Map<int, Duration> _autoRewindDurations;
+/// the key is the duration in minutes
+@override@JsonKey() Map<int, Duration> get autoRewindDurations {
+  if (_autoRewindDurations is EqualUnmodifiableMapView) return _autoRewindDurations;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_autoRewindDurations);
 }
 
-DownloadSettings _$DownloadSettingsFromJson(Map<String, dynamic> json) {
-  return _DownloadSettings.fromJson(json);
+/// auto turn on timer settings
+@override@JsonKey() final  bool autoTurnOnTimer;
+/// always auto turn on timer settings or during specific times
+@override@JsonKey() final  bool alwaysAutoTurnOnTimer;
+/// auto timer settings, only used if [alwaysAutoTurnOnTimer] is false
+///
+/// duration is the time from 00:00
+@override@JsonKey() final  Duration autoTurnOnTime;
+@override@JsonKey() final  Duration autoTurnOffTime;
+
+/// Create a copy of SleepTimerSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SleepTimerSettingsCopyWith<_SleepTimerSettings> get copyWith => __$SleepTimerSettingsCopyWithImpl<_SleepTimerSettings>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SleepTimerSettingsToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SleepTimerSettings&&(identical(other.defaultDuration, defaultDuration) || other.defaultDuration == defaultDuration)&&const DeepCollectionEquality().equals(other._presetDurations, _presetDurations)&&(identical(other.maxDuration, maxDuration) || other.maxDuration == maxDuration)&&(identical(other.fadeOutAudio, fadeOutAudio) || other.fadeOutAudio == fadeOutAudio)&&(identical(other.fadeOutDuration, fadeOutDuration) || other.fadeOutDuration == fadeOutDuration)&&(identical(other.autoRewindWhenStopped, autoRewindWhenStopped) || other.autoRewindWhenStopped == autoRewindWhenStopped)&&const DeepCollectionEquality().equals(other._autoRewindDurations, _autoRewindDurations)&&(identical(other.autoTurnOnTimer, autoTurnOnTimer) || other.autoTurnOnTimer == autoTurnOnTimer)&&(identical(other.alwaysAutoTurnOnTimer, alwaysAutoTurnOnTimer) || other.alwaysAutoTurnOnTimer == alwaysAutoTurnOnTimer)&&(identical(other.autoTurnOnTime, autoTurnOnTime) || other.autoTurnOnTime == autoTurnOnTime)&&(identical(other.autoTurnOffTime, autoTurnOffTime) || other.autoTurnOffTime == autoTurnOffTime));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,defaultDuration,const DeepCollectionEquality().hash(_presetDurations),maxDuration,fadeOutAudio,fadeOutDuration,autoRewindWhenStopped,const DeepCollectionEquality().hash(_autoRewindDurations),autoTurnOnTimer,alwaysAutoTurnOnTimer,autoTurnOnTime,autoTurnOffTime);
+
+@override
+String toString() {
+  return 'SleepTimerSettings(defaultDuration: $defaultDuration, presetDurations: $presetDurations, maxDuration: $maxDuration, fadeOutAudio: $fadeOutAudio, fadeOutDuration: $fadeOutDuration, autoRewindWhenStopped: $autoRewindWhenStopped, autoRewindDurations: $autoRewindDurations, autoTurnOnTimer: $autoTurnOnTimer, alwaysAutoTurnOnTimer: $alwaysAutoTurnOnTimer, autoTurnOnTime: $autoTurnOnTime, autoTurnOffTime: $autoTurnOffTime)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SleepTimerSettingsCopyWith<$Res> implements $SleepTimerSettingsCopyWith<$Res> {
+  factory _$SleepTimerSettingsCopyWith(_SleepTimerSettings value, $Res Function(_SleepTimerSettings) _then) = __$SleepTimerSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ Duration defaultDuration, List<Duration> presetDurations, Duration maxDuration, bool fadeOutAudio, Duration fadeOutDuration, bool autoRewindWhenStopped, Map<int, Duration> autoRewindDurations, bool autoTurnOnTimer, bool alwaysAutoTurnOnTimer, Duration autoTurnOnTime, Duration autoTurnOffTime
+});
+
+
+
+
+}
+/// @nodoc
+class __$SleepTimerSettingsCopyWithImpl<$Res>
+    implements _$SleepTimerSettingsCopyWith<$Res> {
+  __$SleepTimerSettingsCopyWithImpl(this._self, this._then);
+
+  final _SleepTimerSettings _self;
+  final $Res Function(_SleepTimerSettings) _then;
+
+/// Create a copy of SleepTimerSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? defaultDuration = null,Object? presetDurations = null,Object? maxDuration = null,Object? fadeOutAudio = null,Object? fadeOutDuration = null,Object? autoRewindWhenStopped = null,Object? autoRewindDurations = null,Object? autoTurnOnTimer = null,Object? alwaysAutoTurnOnTimer = null,Object? autoTurnOnTime = null,Object? autoTurnOffTime = null,}) {
+  return _then(_SleepTimerSettings(
+defaultDuration: null == defaultDuration ? _self.defaultDuration : defaultDuration // ignore: cast_nullable_to_non_nullable
+as Duration,presetDurations: null == presetDurations ? _self._presetDurations : presetDurations // ignore: cast_nullable_to_non_nullable
+as List<Duration>,maxDuration: null == maxDuration ? _self.maxDuration : maxDuration // ignore: cast_nullable_to_non_nullable
+as Duration,fadeOutAudio: null == fadeOutAudio ? _self.fadeOutAudio : fadeOutAudio // ignore: cast_nullable_to_non_nullable
+as bool,fadeOutDuration: null == fadeOutDuration ? _self.fadeOutDuration : fadeOutDuration // ignore: cast_nullable_to_non_nullable
+as Duration,autoRewindWhenStopped: null == autoRewindWhenStopped ? _self.autoRewindWhenStopped : autoRewindWhenStopped // ignore: cast_nullable_to_non_nullable
+as bool,autoRewindDurations: null == autoRewindDurations ? _self._autoRewindDurations : autoRewindDurations // ignore: cast_nullable_to_non_nullable
+as Map<int, Duration>,autoTurnOnTimer: null == autoTurnOnTimer ? _self.autoTurnOnTimer : autoTurnOnTimer // ignore: cast_nullable_to_non_nullable
+as bool,alwaysAutoTurnOnTimer: null == alwaysAutoTurnOnTimer ? _self.alwaysAutoTurnOnTimer : alwaysAutoTurnOnTimer // ignore: cast_nullable_to_non_nullable
+as bool,autoTurnOnTime: null == autoTurnOnTime ? _self.autoTurnOnTime : autoTurnOnTime // ignore: cast_nullable_to_non_nullable
+as Duration,autoTurnOffTime: null == autoTurnOffTime ? _self.autoTurnOffTime : autoTurnOffTime // ignore: cast_nullable_to_non_nullable
+as Duration,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$DownloadSettings {
-  bool get requiresWiFi => throw _privateConstructorUsedError;
-  int get retries => throw _privateConstructorUsedError;
-  bool get allowPause => throw _privateConstructorUsedError;
-  int get maxConcurrent => throw _privateConstructorUsedError;
-  int get maxConcurrentByHost => throw _privateConstructorUsedError;
-  int get maxConcurrentByGroup => throw _privateConstructorUsedError;
-  String get path => throw _privateConstructorUsedError;
+
+ bool get requiresWiFi; int get retries; bool get allowPause; int get maxConcurrent; int get maxConcurrentByHost; int get maxConcurrentByGroup; String get path;
+/// Create a copy of DownloadSettings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DownloadSettingsCopyWith<DownloadSettings> get copyWith => _$DownloadSettingsCopyWithImpl<DownloadSettings>(this as DownloadSettings, _$identity);
 
   /// Serializes this DownloadSettings to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of DownloadSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $DownloadSettingsCopyWith<DownloadSettings> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DownloadSettings&&(identical(other.requiresWiFi, requiresWiFi) || other.requiresWiFi == requiresWiFi)&&(identical(other.retries, retries) || other.retries == retries)&&(identical(other.allowPause, allowPause) || other.allowPause == allowPause)&&(identical(other.maxConcurrent, maxConcurrent) || other.maxConcurrent == maxConcurrent)&&(identical(other.maxConcurrentByHost, maxConcurrentByHost) || other.maxConcurrentByHost == maxConcurrentByHost)&&(identical(other.maxConcurrentByGroup, maxConcurrentByGroup) || other.maxConcurrentByGroup == maxConcurrentByGroup)&&(identical(other.path, path) || other.path == path));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,requiresWiFi,retries,allowPause,maxConcurrent,maxConcurrentByHost,maxConcurrentByGroup,path);
+
+@override
+String toString() {
+  return 'DownloadSettings(requiresWiFi: $requiresWiFi, retries: $retries, allowPause: $allowPause, maxConcurrent: $maxConcurrent, maxConcurrentByHost: $maxConcurrentByHost, maxConcurrentByGroup: $maxConcurrentByGroup, path: $path)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $DownloadSettingsCopyWith<$Res> {
-  factory $DownloadSettingsCopyWith(
-          DownloadSettings value, $Res Function(DownloadSettings) then) =
-      _$DownloadSettingsCopyWithImpl<$Res, DownloadSettings>;
-  @useResult
-  $Res call(
-      {bool requiresWiFi,
-      int retries,
-      bool allowPause,
-      int maxConcurrent,
-      int maxConcurrentByHost,
-      int maxConcurrentByGroup,
-      String path});
-}
+abstract mixin class $DownloadSettingsCopyWith<$Res>  {
+  factory $DownloadSettingsCopyWith(DownloadSettings value, $Res Function(DownloadSettings) _then) = _$DownloadSettingsCopyWithImpl;
+@useResult
+$Res call({
+ bool requiresWiFi, int retries, bool allowPause, int maxConcurrent, int maxConcurrentByHost, int maxConcurrentByGroup, String path
+});
 
+
+
+
+}
 /// @nodoc
-class _$DownloadSettingsCopyWithImpl<$Res, $Val extends DownloadSettings>
+class _$DownloadSettingsCopyWithImpl<$Res>
     implements $DownloadSettingsCopyWith<$Res> {
-  _$DownloadSettingsCopyWithImpl(this._value, this._then);
+  _$DownloadSettingsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final DownloadSettings _self;
+  final $Res Function(DownloadSettings) _then;
 
-  /// Create a copy of DownloadSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? requiresWiFi = null,
-    Object? retries = null,
-    Object? allowPause = null,
-    Object? maxConcurrent = null,
-    Object? maxConcurrentByHost = null,
-    Object? maxConcurrentByGroup = null,
-    Object? path = null,
-  }) {
-    return _then(_value.copyWith(
-      requiresWiFi: null == requiresWiFi
-          ? _value.requiresWiFi
-          : requiresWiFi // ignore: cast_nullable_to_non_nullable
-              as bool,
-      retries: null == retries
-          ? _value.retries
-          : retries // ignore: cast_nullable_to_non_nullable
-              as int,
-      allowPause: null == allowPause
-          ? _value.allowPause
-          : allowPause // ignore: cast_nullable_to_non_nullable
-              as bool,
-      maxConcurrent: null == maxConcurrent
-          ? _value.maxConcurrent
-          : maxConcurrent // ignore: cast_nullable_to_non_nullable
-              as int,
-      maxConcurrentByHost: null == maxConcurrentByHost
-          ? _value.maxConcurrentByHost
-          : maxConcurrentByHost // ignore: cast_nullable_to_non_nullable
-              as int,
-      maxConcurrentByGroup: null == maxConcurrentByGroup
-          ? _value.maxConcurrentByGroup
-          : maxConcurrentByGroup // ignore: cast_nullable_to_non_nullable
-              as int,
-      path: null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
+/// Create a copy of DownloadSettings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? requiresWiFi = null,Object? retries = null,Object? allowPause = null,Object? maxConcurrent = null,Object? maxConcurrentByHost = null,Object? maxConcurrentByGroup = null,Object? path = null,}) {
+  return _then(_self.copyWith(
+requiresWiFi: null == requiresWiFi ? _self.requiresWiFi : requiresWiFi // ignore: cast_nullable_to_non_nullable
+as bool,retries: null == retries ? _self.retries : retries // ignore: cast_nullable_to_non_nullable
+as int,allowPause: null == allowPause ? _self.allowPause : allowPause // ignore: cast_nullable_to_non_nullable
+as bool,maxConcurrent: null == maxConcurrent ? _self.maxConcurrent : maxConcurrent // ignore: cast_nullable_to_non_nullable
+as int,maxConcurrentByHost: null == maxConcurrentByHost ? _self.maxConcurrentByHost : maxConcurrentByHost // ignore: cast_nullable_to_non_nullable
+as int,maxConcurrentByGroup: null == maxConcurrentByGroup ? _self.maxConcurrentByGroup : maxConcurrentByGroup // ignore: cast_nullable_to_non_nullable
+as int,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-abstract class _$$DownloadSettingsImplCopyWith<$Res>
-    implements $DownloadSettingsCopyWith<$Res> {
-  factory _$$DownloadSettingsImplCopyWith(_$DownloadSettingsImpl value,
-          $Res Function(_$DownloadSettingsImpl) then) =
-      __$$DownloadSettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {bool requiresWiFi,
-      int retries,
-      bool allowPause,
-      int maxConcurrent,
-      int maxConcurrentByHost,
-      int maxConcurrentByGroup,
-      String path});
 }
 
-/// @nodoc
-class __$$DownloadSettingsImplCopyWithImpl<$Res>
-    extends _$DownloadSettingsCopyWithImpl<$Res, _$DownloadSettingsImpl>
-    implements _$$DownloadSettingsImplCopyWith<$Res> {
-  __$$DownloadSettingsImplCopyWithImpl(_$DownloadSettingsImpl _value,
-      $Res Function(_$DownloadSettingsImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of DownloadSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? requiresWiFi = null,
-    Object? retries = null,
-    Object? allowPause = null,
-    Object? maxConcurrent = null,
-    Object? maxConcurrentByHost = null,
-    Object? maxConcurrentByGroup = null,
-    Object? path = null,
-  }) {
-    return _then(_$DownloadSettingsImpl(
-      requiresWiFi: null == requiresWiFi
-          ? _value.requiresWiFi
-          : requiresWiFi // ignore: cast_nullable_to_non_nullable
-              as bool,
-      retries: null == retries
-          ? _value.retries
-          : retries // ignore: cast_nullable_to_non_nullable
-              as int,
-      allowPause: null == allowPause
-          ? _value.allowPause
-          : allowPause // ignore: cast_nullable_to_non_nullable
-              as bool,
-      maxConcurrent: null == maxConcurrent
-          ? _value.maxConcurrent
-          : maxConcurrent // ignore: cast_nullable_to_non_nullable
-              as int,
-      maxConcurrentByHost: null == maxConcurrentByHost
-          ? _value.maxConcurrentByHost
-          : maxConcurrentByHost // ignore: cast_nullable_to_non_nullable
-              as int,
-      maxConcurrentByGroup: null == maxConcurrentByGroup
-          ? _value.maxConcurrentByGroup
-          : maxConcurrentByGroup // ignore: cast_nullable_to_non_nullable
-              as int,
-      path: null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
+/// Adds pattern-matching-related methods to [DownloadSettings].
+extension DownloadSettingsPatterns on DownloadSettings {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _DownloadSettings value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _DownloadSettings() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _DownloadSettings value)  $default,){
+final _that = this;
+switch (_that) {
+case _DownloadSettings():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _DownloadSettings value)?  $default,){
+final _that = this;
+switch (_that) {
+case _DownloadSettings() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool requiresWiFi,  int retries,  bool allowPause,  int maxConcurrent,  int maxConcurrentByHost,  int maxConcurrentByGroup,  String path)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _DownloadSettings() when $default != null:
+return $default(_that.requiresWiFi,_that.retries,_that.allowPause,_that.maxConcurrent,_that.maxConcurrentByHost,_that.maxConcurrentByGroup,_that.path);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool requiresWiFi,  int retries,  bool allowPause,  int maxConcurrent,  int maxConcurrentByHost,  int maxConcurrentByGroup,  String path)  $default,) {final _that = this;
+switch (_that) {
+case _DownloadSettings():
+return $default(_that.requiresWiFi,_that.retries,_that.allowPause,_that.maxConcurrent,_that.maxConcurrentByHost,_that.maxConcurrentByGroup,_that.path);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool requiresWiFi,  int retries,  bool allowPause,  int maxConcurrent,  int maxConcurrentByHost,  int maxConcurrentByGroup,  String path)?  $default,) {final _that = this;
+switch (_that) {
+case _DownloadSettings() when $default != null:
+return $default(_that.requiresWiFi,_that.retries,_that.allowPause,_that.maxConcurrent,_that.maxConcurrentByHost,_that.maxConcurrentByGroup,_that.path);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DownloadSettingsImpl implements _DownloadSettings {
-  const _$DownloadSettingsImpl(
-      {this.requiresWiFi = true,
-      this.retries = 3,
-      this.allowPause = true,
-      this.maxConcurrent = 3,
-      this.maxConcurrentByHost = 3,
-      this.maxConcurrentByGroup = 3,
-      this.path = ''});
 
-  factory _$DownloadSettingsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DownloadSettingsImplFromJson(json);
+class _DownloadSettings implements DownloadSettings {
+  const _DownloadSettings({this.requiresWiFi = true, this.retries = 3, this.allowPause = true, this.maxConcurrent = 3, this.maxConcurrentByHost = 3, this.maxConcurrentByGroup = 3, this.path = ''});
+  factory _DownloadSettings.fromJson(Map<String, dynamic> json) => _$DownloadSettingsFromJson(json);
 
-  @override
-  @JsonKey()
-  final bool requiresWiFi;
-  @override
-  @JsonKey()
-  final int retries;
-  @override
-  @JsonKey()
-  final bool allowPause;
-  @override
-  @JsonKey()
-  final int maxConcurrent;
-  @override
-  @JsonKey()
-  final int maxConcurrentByHost;
-  @override
-  @JsonKey()
-  final int maxConcurrentByGroup;
-  @override
-  @JsonKey()
-  final String path;
+@override@JsonKey() final  bool requiresWiFi;
+@override@JsonKey() final  int retries;
+@override@JsonKey() final  bool allowPause;
+@override@JsonKey() final  int maxConcurrent;
+@override@JsonKey() final  int maxConcurrentByHost;
+@override@JsonKey() final  int maxConcurrentByGroup;
+@override@JsonKey() final  String path;
 
-  @override
-  String toString() {
-    return 'DownloadSettings(requiresWiFi: $requiresWiFi, retries: $retries, allowPause: $allowPause, maxConcurrent: $maxConcurrent, maxConcurrentByHost: $maxConcurrentByHost, maxConcurrentByGroup: $maxConcurrentByGroup, path: $path)';
-  }
+/// Create a copy of DownloadSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DownloadSettingsCopyWith<_DownloadSettings> get copyWith => __$DownloadSettingsCopyWithImpl<_DownloadSettings>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DownloadSettingsImpl &&
-            (identical(other.requiresWiFi, requiresWiFi) ||
-                other.requiresWiFi == requiresWiFi) &&
-            (identical(other.retries, retries) || other.retries == retries) &&
-            (identical(other.allowPause, allowPause) ||
-                other.allowPause == allowPause) &&
-            (identical(other.maxConcurrent, maxConcurrent) ||
-                other.maxConcurrent == maxConcurrent) &&
-            (identical(other.maxConcurrentByHost, maxConcurrentByHost) ||
-                other.maxConcurrentByHost == maxConcurrentByHost) &&
-            (identical(other.maxConcurrentByGroup, maxConcurrentByGroup) ||
-                other.maxConcurrentByGroup == maxConcurrentByGroup) &&
-            (identical(other.path, path) || other.path == path));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      requiresWiFi,
-      retries,
-      allowPause,
-      maxConcurrent,
-      maxConcurrentByHost,
-      maxConcurrentByGroup,
-      path);
-
-  /// Create a copy of DownloadSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DownloadSettingsImplCopyWith<_$DownloadSettingsImpl> get copyWith =>
-      __$$DownloadSettingsImplCopyWithImpl<_$DownloadSettingsImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DownloadSettingsImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$DownloadSettingsToJson(this, );
 }
 
-abstract class _DownloadSettings implements DownloadSettings {
-  const factory _DownloadSettings(
-      {final bool requiresWiFi,
-      final int retries,
-      final bool allowPause,
-      final int maxConcurrent,
-      final int maxConcurrentByHost,
-      final int maxConcurrentByGroup,
-      final String path}) = _$DownloadSettingsImpl;
-
-  factory _DownloadSettings.fromJson(Map<String, dynamic> json) =
-      _$DownloadSettingsImpl.fromJson;
-
-  @override
-  bool get requiresWiFi;
-  @override
-  int get retries;
-  @override
-  bool get allowPause;
-  @override
-  int get maxConcurrent;
-  @override
-  int get maxConcurrentByHost;
-  @override
-  int get maxConcurrentByGroup;
-  @override
-  String get path;
-
-  /// Create a copy of DownloadSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DownloadSettingsImplCopyWith<_$DownloadSettingsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DownloadSettings&&(identical(other.requiresWiFi, requiresWiFi) || other.requiresWiFi == requiresWiFi)&&(identical(other.retries, retries) || other.retries == retries)&&(identical(other.allowPause, allowPause) || other.allowPause == allowPause)&&(identical(other.maxConcurrent, maxConcurrent) || other.maxConcurrent == maxConcurrent)&&(identical(other.maxConcurrentByHost, maxConcurrentByHost) || other.maxConcurrentByHost == maxConcurrentByHost)&&(identical(other.maxConcurrentByGroup, maxConcurrentByGroup) || other.maxConcurrentByGroup == maxConcurrentByGroup)&&(identical(other.path, path) || other.path == path));
 }
 
-NotificationSettings _$NotificationSettingsFromJson(Map<String, dynamic> json) {
-  return _NotificationSettings.fromJson(json);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,requiresWiFi,retries,allowPause,maxConcurrent,maxConcurrentByHost,maxConcurrentByGroup,path);
+
+@override
+String toString() {
+  return 'DownloadSettings(requiresWiFi: $requiresWiFi, retries: $retries, allowPause: $allowPause, maxConcurrent: $maxConcurrent, maxConcurrentByHost: $maxConcurrentByHost, maxConcurrentByGroup: $maxConcurrentByGroup, path: $path)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$DownloadSettingsCopyWith<$Res> implements $DownloadSettingsCopyWith<$Res> {
+  factory _$DownloadSettingsCopyWith(_DownloadSettings value, $Res Function(_DownloadSettings) _then) = __$DownloadSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ bool requiresWiFi, int retries, bool allowPause, int maxConcurrent, int maxConcurrentByHost, int maxConcurrentByGroup, String path
+});
+
+
+
+
+}
+/// @nodoc
+class __$DownloadSettingsCopyWithImpl<$Res>
+    implements _$DownloadSettingsCopyWith<$Res> {
+  __$DownloadSettingsCopyWithImpl(this._self, this._then);
+
+  final _DownloadSettings _self;
+  final $Res Function(_DownloadSettings) _then;
+
+/// Create a copy of DownloadSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? requiresWiFi = null,Object? retries = null,Object? allowPause = null,Object? maxConcurrent = null,Object? maxConcurrentByHost = null,Object? maxConcurrentByGroup = null,Object? path = null,}) {
+  return _then(_DownloadSettings(
+requiresWiFi: null == requiresWiFi ? _self.requiresWiFi : requiresWiFi // ignore: cast_nullable_to_non_nullable
+as bool,retries: null == retries ? _self.retries : retries // ignore: cast_nullable_to_non_nullable
+as int,allowPause: null == allowPause ? _self.allowPause : allowPause // ignore: cast_nullable_to_non_nullable
+as bool,maxConcurrent: null == maxConcurrent ? _self.maxConcurrent : maxConcurrent // ignore: cast_nullable_to_non_nullable
+as int,maxConcurrentByHost: null == maxConcurrentByHost ? _self.maxConcurrentByHost : maxConcurrentByHost // ignore: cast_nullable_to_non_nullable
+as int,maxConcurrentByGroup: null == maxConcurrentByGroup ? _self.maxConcurrentByGroup : maxConcurrentByGroup // ignore: cast_nullable_to_non_nullable
+as int,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$NotificationSettings {
-  Duration get fastForwardInterval => throw _privateConstructorUsedError;
-  Duration get rewindInterval => throw _privateConstructorUsedError;
-  bool get progressBarIsChapterProgress => throw _privateConstructorUsedError;
-  String get primaryTitle => throw _privateConstructorUsedError;
-  String get secondaryTitle => throw _privateConstructorUsedError;
-  List<NotificationMediaControl> get mediaControls =>
-      throw _privateConstructorUsedError;
+
+ Duration get fastForwardInterval; Duration get rewindInterval; bool get progressBarIsChapterProgress; String get primaryTitle; String get secondaryTitle; List<NotificationMediaControl> get mediaControls;
+/// Create a copy of NotificationSettings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$NotificationSettingsCopyWith<NotificationSettings> get copyWith => _$NotificationSettingsCopyWithImpl<NotificationSettings>(this as NotificationSettings, _$identity);
 
   /// Serializes this NotificationSettings to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of NotificationSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $NotificationSettingsCopyWith<NotificationSettings> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotificationSettings&&(identical(other.fastForwardInterval, fastForwardInterval) || other.fastForwardInterval == fastForwardInterval)&&(identical(other.rewindInterval, rewindInterval) || other.rewindInterval == rewindInterval)&&(identical(other.progressBarIsChapterProgress, progressBarIsChapterProgress) || other.progressBarIsChapterProgress == progressBarIsChapterProgress)&&(identical(other.primaryTitle, primaryTitle) || other.primaryTitle == primaryTitle)&&(identical(other.secondaryTitle, secondaryTitle) || other.secondaryTitle == secondaryTitle)&&const DeepCollectionEquality().equals(other.mediaControls, mediaControls));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,fastForwardInterval,rewindInterval,progressBarIsChapterProgress,primaryTitle,secondaryTitle,const DeepCollectionEquality().hash(mediaControls));
+
+@override
+String toString() {
+  return 'NotificationSettings(fastForwardInterval: $fastForwardInterval, rewindInterval: $rewindInterval, progressBarIsChapterProgress: $progressBarIsChapterProgress, primaryTitle: $primaryTitle, secondaryTitle: $secondaryTitle, mediaControls: $mediaControls)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $NotificationSettingsCopyWith<$Res> {
-  factory $NotificationSettingsCopyWith(NotificationSettings value,
-          $Res Function(NotificationSettings) then) =
-      _$NotificationSettingsCopyWithImpl<$Res, NotificationSettings>;
-  @useResult
-  $Res call(
-      {Duration fastForwardInterval,
-      Duration rewindInterval,
-      bool progressBarIsChapterProgress,
-      String primaryTitle,
-      String secondaryTitle,
-      List<NotificationMediaControl> mediaControls});
-}
+abstract mixin class $NotificationSettingsCopyWith<$Res>  {
+  factory $NotificationSettingsCopyWith(NotificationSettings value, $Res Function(NotificationSettings) _then) = _$NotificationSettingsCopyWithImpl;
+@useResult
+$Res call({
+ Duration fastForwardInterval, Duration rewindInterval, bool progressBarIsChapterProgress, String primaryTitle, String secondaryTitle, List<NotificationMediaControl> mediaControls
+});
 
+
+
+
+}
 /// @nodoc
-class _$NotificationSettingsCopyWithImpl<$Res,
-        $Val extends NotificationSettings>
+class _$NotificationSettingsCopyWithImpl<$Res>
     implements $NotificationSettingsCopyWith<$Res> {
-  _$NotificationSettingsCopyWithImpl(this._value, this._then);
+  _$NotificationSettingsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final NotificationSettings _self;
+  final $Res Function(NotificationSettings) _then;
 
-  /// Create a copy of NotificationSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? fastForwardInterval = null,
-    Object? rewindInterval = null,
-    Object? progressBarIsChapterProgress = null,
-    Object? primaryTitle = null,
-    Object? secondaryTitle = null,
-    Object? mediaControls = null,
-  }) {
-    return _then(_value.copyWith(
-      fastForwardInterval: null == fastForwardInterval
-          ? _value.fastForwardInterval
-          : fastForwardInterval // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      rewindInterval: null == rewindInterval
-          ? _value.rewindInterval
-          : rewindInterval // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      progressBarIsChapterProgress: null == progressBarIsChapterProgress
-          ? _value.progressBarIsChapterProgress
-          : progressBarIsChapterProgress // ignore: cast_nullable_to_non_nullable
-              as bool,
-      primaryTitle: null == primaryTitle
-          ? _value.primaryTitle
-          : primaryTitle // ignore: cast_nullable_to_non_nullable
-              as String,
-      secondaryTitle: null == secondaryTitle
-          ? _value.secondaryTitle
-          : secondaryTitle // ignore: cast_nullable_to_non_nullable
-              as String,
-      mediaControls: null == mediaControls
-          ? _value.mediaControls
-          : mediaControls // ignore: cast_nullable_to_non_nullable
-              as List<NotificationMediaControl>,
-    ) as $Val);
-  }
+/// Create a copy of NotificationSettings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? fastForwardInterval = null,Object? rewindInterval = null,Object? progressBarIsChapterProgress = null,Object? primaryTitle = null,Object? secondaryTitle = null,Object? mediaControls = null,}) {
+  return _then(_self.copyWith(
+fastForwardInterval: null == fastForwardInterval ? _self.fastForwardInterval : fastForwardInterval // ignore: cast_nullable_to_non_nullable
+as Duration,rewindInterval: null == rewindInterval ? _self.rewindInterval : rewindInterval // ignore: cast_nullable_to_non_nullable
+as Duration,progressBarIsChapterProgress: null == progressBarIsChapterProgress ? _self.progressBarIsChapterProgress : progressBarIsChapterProgress // ignore: cast_nullable_to_non_nullable
+as bool,primaryTitle: null == primaryTitle ? _self.primaryTitle : primaryTitle // ignore: cast_nullable_to_non_nullable
+as String,secondaryTitle: null == secondaryTitle ? _self.secondaryTitle : secondaryTitle // ignore: cast_nullable_to_non_nullable
+as String,mediaControls: null == mediaControls ? _self.mediaControls : mediaControls // ignore: cast_nullable_to_non_nullable
+as List<NotificationMediaControl>,
+  ));
 }
 
-/// @nodoc
-abstract class _$$NotificationSettingsImplCopyWith<$Res>
-    implements $NotificationSettingsCopyWith<$Res> {
-  factory _$$NotificationSettingsImplCopyWith(_$NotificationSettingsImpl value,
-          $Res Function(_$NotificationSettingsImpl) then) =
-      __$$NotificationSettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {Duration fastForwardInterval,
-      Duration rewindInterval,
-      bool progressBarIsChapterProgress,
-      String primaryTitle,
-      String secondaryTitle,
-      List<NotificationMediaControl> mediaControls});
 }
 
-/// @nodoc
-class __$$NotificationSettingsImplCopyWithImpl<$Res>
-    extends _$NotificationSettingsCopyWithImpl<$Res, _$NotificationSettingsImpl>
-    implements _$$NotificationSettingsImplCopyWith<$Res> {
-  __$$NotificationSettingsImplCopyWithImpl(_$NotificationSettingsImpl _value,
-      $Res Function(_$NotificationSettingsImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of NotificationSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? fastForwardInterval = null,
-    Object? rewindInterval = null,
-    Object? progressBarIsChapterProgress = null,
-    Object? primaryTitle = null,
-    Object? secondaryTitle = null,
-    Object? mediaControls = null,
-  }) {
-    return _then(_$NotificationSettingsImpl(
-      fastForwardInterval: null == fastForwardInterval
-          ? _value.fastForwardInterval
-          : fastForwardInterval // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      rewindInterval: null == rewindInterval
-          ? _value.rewindInterval
-          : rewindInterval // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      progressBarIsChapterProgress: null == progressBarIsChapterProgress
-          ? _value.progressBarIsChapterProgress
-          : progressBarIsChapterProgress // ignore: cast_nullable_to_non_nullable
-              as bool,
-      primaryTitle: null == primaryTitle
-          ? _value.primaryTitle
-          : primaryTitle // ignore: cast_nullable_to_non_nullable
-              as String,
-      secondaryTitle: null == secondaryTitle
-          ? _value.secondaryTitle
-          : secondaryTitle // ignore: cast_nullable_to_non_nullable
-              as String,
-      mediaControls: null == mediaControls
-          ? _value._mediaControls
-          : mediaControls // ignore: cast_nullable_to_non_nullable
-              as List<NotificationMediaControl>,
-    ));
-  }
+/// Adds pattern-matching-related methods to [NotificationSettings].
+extension NotificationSettingsPatterns on NotificationSettings {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _NotificationSettings value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _NotificationSettings() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _NotificationSettings value)  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationSettings():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _NotificationSettings value)?  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationSettings() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Duration fastForwardInterval,  Duration rewindInterval,  bool progressBarIsChapterProgress,  String primaryTitle,  String secondaryTitle,  List<NotificationMediaControl> mediaControls)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _NotificationSettings() when $default != null:
+return $default(_that.fastForwardInterval,_that.rewindInterval,_that.progressBarIsChapterProgress,_that.primaryTitle,_that.secondaryTitle,_that.mediaControls);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Duration fastForwardInterval,  Duration rewindInterval,  bool progressBarIsChapterProgress,  String primaryTitle,  String secondaryTitle,  List<NotificationMediaControl> mediaControls)  $default,) {final _that = this;
+switch (_that) {
+case _NotificationSettings():
+return $default(_that.fastForwardInterval,_that.rewindInterval,_that.progressBarIsChapterProgress,_that.primaryTitle,_that.secondaryTitle,_that.mediaControls);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Duration fastForwardInterval,  Duration rewindInterval,  bool progressBarIsChapterProgress,  String primaryTitle,  String secondaryTitle,  List<NotificationMediaControl> mediaControls)?  $default,) {final _that = this;
+switch (_that) {
+case _NotificationSettings() when $default != null:
+return $default(_that.fastForwardInterval,_that.rewindInterval,_that.progressBarIsChapterProgress,_that.primaryTitle,_that.secondaryTitle,_that.mediaControls);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$NotificationSettingsImpl implements _NotificationSettings {
-  const _$NotificationSettingsImpl(
-      {this.fastForwardInterval = const Duration(seconds: 30),
-      this.rewindInterval = const Duration(seconds: 10),
-      this.progressBarIsChapterProgress = true,
-      this.primaryTitle = '\$bookTitle',
-      this.secondaryTitle = '\$author',
-      final List<NotificationMediaControl> mediaControls = const [
-        NotificationMediaControl.rewind,
-        NotificationMediaControl.fastForward,
-        NotificationMediaControl.skipToPreviousChapter,
-        NotificationMediaControl.skipToNextChapter
-      ]})
-      : _mediaControls = mediaControls;
 
-  factory _$NotificationSettingsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$NotificationSettingsImplFromJson(json);
+class _NotificationSettings implements NotificationSettings {
+  const _NotificationSettings({this.fastForwardInterval = const Duration(seconds: 30), this.rewindInterval = const Duration(seconds: 10), this.progressBarIsChapterProgress = true, this.primaryTitle = '\$bookTitle', this.secondaryTitle = '\$author', final  List<NotificationMediaControl> mediaControls = const [NotificationMediaControl.rewind, NotificationMediaControl.fastForward, NotificationMediaControl.skipToPreviousChapter, NotificationMediaControl.skipToNextChapter]}): _mediaControls = mediaControls;
+  factory _NotificationSettings.fromJson(Map<String, dynamic> json) => _$NotificationSettingsFromJson(json);
 
-  @override
-  @JsonKey()
-  final Duration fastForwardInterval;
-  @override
-  @JsonKey()
-  final Duration rewindInterval;
-  @override
-  @JsonKey()
-  final bool progressBarIsChapterProgress;
-  @override
-  @JsonKey()
-  final String primaryTitle;
-  @override
-  @JsonKey()
-  final String secondaryTitle;
-  final List<NotificationMediaControl> _mediaControls;
-  @override
-  @JsonKey()
-  List<NotificationMediaControl> get mediaControls {
-    if (_mediaControls is EqualUnmodifiableListView) return _mediaControls;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_mediaControls);
-  }
-
-  @override
-  String toString() {
-    return 'NotificationSettings(fastForwardInterval: $fastForwardInterval, rewindInterval: $rewindInterval, progressBarIsChapterProgress: $progressBarIsChapterProgress, primaryTitle: $primaryTitle, secondaryTitle: $secondaryTitle, mediaControls: $mediaControls)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$NotificationSettingsImpl &&
-            (identical(other.fastForwardInterval, fastForwardInterval) ||
-                other.fastForwardInterval == fastForwardInterval) &&
-            (identical(other.rewindInterval, rewindInterval) ||
-                other.rewindInterval == rewindInterval) &&
-            (identical(other.progressBarIsChapterProgress,
-                    progressBarIsChapterProgress) ||
-                other.progressBarIsChapterProgress ==
-                    progressBarIsChapterProgress) &&
-            (identical(other.primaryTitle, primaryTitle) ||
-                other.primaryTitle == primaryTitle) &&
-            (identical(other.secondaryTitle, secondaryTitle) ||
-                other.secondaryTitle == secondaryTitle) &&
-            const DeepCollectionEquality()
-                .equals(other._mediaControls, _mediaControls));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      fastForwardInterval,
-      rewindInterval,
-      progressBarIsChapterProgress,
-      primaryTitle,
-      secondaryTitle,
-      const DeepCollectionEquality().hash(_mediaControls));
-
-  /// Create a copy of NotificationSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$NotificationSettingsImplCopyWith<_$NotificationSettingsImpl>
-      get copyWith =>
-          __$$NotificationSettingsImplCopyWithImpl<_$NotificationSettingsImpl>(
-              this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$NotificationSettingsImplToJson(
-      this,
-    );
-  }
+@override@JsonKey() final  Duration fastForwardInterval;
+@override@JsonKey() final  Duration rewindInterval;
+@override@JsonKey() final  bool progressBarIsChapterProgress;
+@override@JsonKey() final  String primaryTitle;
+@override@JsonKey() final  String secondaryTitle;
+ final  List<NotificationMediaControl> _mediaControls;
+@override@JsonKey() List<NotificationMediaControl> get mediaControls {
+  if (_mediaControls is EqualUnmodifiableListView) return _mediaControls;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_mediaControls);
 }
 
-abstract class _NotificationSettings implements NotificationSettings {
-  const factory _NotificationSettings(
-          {final Duration fastForwardInterval,
-          final Duration rewindInterval,
-          final bool progressBarIsChapterProgress,
-          final String primaryTitle,
-          final String secondaryTitle,
-          final List<NotificationMediaControl> mediaControls}) =
-      _$NotificationSettingsImpl;
 
-  factory _NotificationSettings.fromJson(Map<String, dynamic> json) =
-      _$NotificationSettingsImpl.fromJson;
+/// Create a copy of NotificationSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$NotificationSettingsCopyWith<_NotificationSettings> get copyWith => __$NotificationSettingsCopyWithImpl<_NotificationSettings>(this, _$identity);
 
-  @override
-  Duration get fastForwardInterval;
-  @override
-  Duration get rewindInterval;
-  @override
-  bool get progressBarIsChapterProgress;
-  @override
-  String get primaryTitle;
-  @override
-  String get secondaryTitle;
-  @override
-  List<NotificationMediaControl> get mediaControls;
-
-  /// Create a copy of NotificationSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$NotificationSettingsImplCopyWith<_$NotificationSettingsImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$NotificationSettingsToJson(this, );
 }
 
-ShakeDetectionSettings _$ShakeDetectionSettingsFromJson(
-    Map<String, dynamic> json) {
-  return _ShakeDetectionSettings.fromJson(json);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NotificationSettings&&(identical(other.fastForwardInterval, fastForwardInterval) || other.fastForwardInterval == fastForwardInterval)&&(identical(other.rewindInterval, rewindInterval) || other.rewindInterval == rewindInterval)&&(identical(other.progressBarIsChapterProgress, progressBarIsChapterProgress) || other.progressBarIsChapterProgress == progressBarIsChapterProgress)&&(identical(other.primaryTitle, primaryTitle) || other.primaryTitle == primaryTitle)&&(identical(other.secondaryTitle, secondaryTitle) || other.secondaryTitle == secondaryTitle)&&const DeepCollectionEquality().equals(other._mediaControls, _mediaControls));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,fastForwardInterval,rewindInterval,progressBarIsChapterProgress,primaryTitle,secondaryTitle,const DeepCollectionEquality().hash(_mediaControls));
+
+@override
+String toString() {
+  return 'NotificationSettings(fastForwardInterval: $fastForwardInterval, rewindInterval: $rewindInterval, progressBarIsChapterProgress: $progressBarIsChapterProgress, primaryTitle: $primaryTitle, secondaryTitle: $secondaryTitle, mediaControls: $mediaControls)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$NotificationSettingsCopyWith<$Res> implements $NotificationSettingsCopyWith<$Res> {
+  factory _$NotificationSettingsCopyWith(_NotificationSettings value, $Res Function(_NotificationSettings) _then) = __$NotificationSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ Duration fastForwardInterval, Duration rewindInterval, bool progressBarIsChapterProgress, String primaryTitle, String secondaryTitle, List<NotificationMediaControl> mediaControls
+});
+
+
+
+
+}
+/// @nodoc
+class __$NotificationSettingsCopyWithImpl<$Res>
+    implements _$NotificationSettingsCopyWith<$Res> {
+  __$NotificationSettingsCopyWithImpl(this._self, this._then);
+
+  final _NotificationSettings _self;
+  final $Res Function(_NotificationSettings) _then;
+
+/// Create a copy of NotificationSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? fastForwardInterval = null,Object? rewindInterval = null,Object? progressBarIsChapterProgress = null,Object? primaryTitle = null,Object? secondaryTitle = null,Object? mediaControls = null,}) {
+  return _then(_NotificationSettings(
+fastForwardInterval: null == fastForwardInterval ? _self.fastForwardInterval : fastForwardInterval // ignore: cast_nullable_to_non_nullable
+as Duration,rewindInterval: null == rewindInterval ? _self.rewindInterval : rewindInterval // ignore: cast_nullable_to_non_nullable
+as Duration,progressBarIsChapterProgress: null == progressBarIsChapterProgress ? _self.progressBarIsChapterProgress : progressBarIsChapterProgress // ignore: cast_nullable_to_non_nullable
+as bool,primaryTitle: null == primaryTitle ? _self.primaryTitle : primaryTitle // ignore: cast_nullable_to_non_nullable
+as String,secondaryTitle: null == secondaryTitle ? _self.secondaryTitle : secondaryTitle // ignore: cast_nullable_to_non_nullable
+as String,mediaControls: null == mediaControls ? _self._mediaControls : mediaControls // ignore: cast_nullable_to_non_nullable
+as List<NotificationMediaControl>,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$ShakeDetectionSettings {
-  bool get isEnabled => throw _privateConstructorUsedError;
-  ShakeDirection get direction => throw _privateConstructorUsedError;
-  double get threshold => throw _privateConstructorUsedError;
-  ShakeAction get shakeAction => throw _privateConstructorUsedError;
-  Set<ShakeDetectedFeedback> get feedback => throw _privateConstructorUsedError;
-  double get beepVolume => throw _privateConstructorUsedError;
 
-  /// the duration to wait before the shake detection is enabled again
-  Duration get shakeTriggerCoolDown => throw _privateConstructorUsedError;
-
-  /// the number of shakes required to trigger the action
-  int get shakeTriggerCount => throw _privateConstructorUsedError;
-
-  /// acceleration sampling interval
-  Duration get samplingPeriod => throw _privateConstructorUsedError;
+ bool get isEnabled; ShakeDirection get direction; double get threshold; ShakeAction get shakeAction; Set<ShakeDetectedFeedback> get feedback; double get beepVolume;/// the duration to wait before the shake detection is enabled again
+ Duration get shakeTriggerCoolDown;/// the number of shakes required to trigger the action
+ int get shakeTriggerCount;/// acceleration sampling interval
+ Duration get samplingPeriod;
+/// Create a copy of ShakeDetectionSettings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ShakeDetectionSettingsCopyWith<ShakeDetectionSettings> get copyWith => _$ShakeDetectionSettingsCopyWithImpl<ShakeDetectionSettings>(this as ShakeDetectionSettings, _$identity);
 
   /// Serializes this ShakeDetectionSettings to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of ShakeDetectionSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ShakeDetectionSettingsCopyWith<ShakeDetectionSettings> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShakeDetectionSettings&&(identical(other.isEnabled, isEnabled) || other.isEnabled == isEnabled)&&(identical(other.direction, direction) || other.direction == direction)&&(identical(other.threshold, threshold) || other.threshold == threshold)&&(identical(other.shakeAction, shakeAction) || other.shakeAction == shakeAction)&&const DeepCollectionEquality().equals(other.feedback, feedback)&&(identical(other.beepVolume, beepVolume) || other.beepVolume == beepVolume)&&(identical(other.shakeTriggerCoolDown, shakeTriggerCoolDown) || other.shakeTriggerCoolDown == shakeTriggerCoolDown)&&(identical(other.shakeTriggerCount, shakeTriggerCount) || other.shakeTriggerCount == shakeTriggerCount)&&(identical(other.samplingPeriod, samplingPeriod) || other.samplingPeriod == samplingPeriod));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,isEnabled,direction,threshold,shakeAction,const DeepCollectionEquality().hash(feedback),beepVolume,shakeTriggerCoolDown,shakeTriggerCount,samplingPeriod);
+
+@override
+String toString() {
+  return 'ShakeDetectionSettings(isEnabled: $isEnabled, direction: $direction, threshold: $threshold, shakeAction: $shakeAction, feedback: $feedback, beepVolume: $beepVolume, shakeTriggerCoolDown: $shakeTriggerCoolDown, shakeTriggerCount: $shakeTriggerCount, samplingPeriod: $samplingPeriod)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $ShakeDetectionSettingsCopyWith<$Res> {
-  factory $ShakeDetectionSettingsCopyWith(ShakeDetectionSettings value,
-          $Res Function(ShakeDetectionSettings) then) =
-      _$ShakeDetectionSettingsCopyWithImpl<$Res, ShakeDetectionSettings>;
-  @useResult
-  $Res call(
-      {bool isEnabled,
-      ShakeDirection direction,
-      double threshold,
-      ShakeAction shakeAction,
-      Set<ShakeDetectedFeedback> feedback,
-      double beepVolume,
-      Duration shakeTriggerCoolDown,
-      int shakeTriggerCount,
-      Duration samplingPeriod});
-}
+abstract mixin class $ShakeDetectionSettingsCopyWith<$Res>  {
+  factory $ShakeDetectionSettingsCopyWith(ShakeDetectionSettings value, $Res Function(ShakeDetectionSettings) _then) = _$ShakeDetectionSettingsCopyWithImpl;
+@useResult
+$Res call({
+ bool isEnabled, ShakeDirection direction, double threshold, ShakeAction shakeAction, Set<ShakeDetectedFeedback> feedback, double beepVolume, Duration shakeTriggerCoolDown, int shakeTriggerCount, Duration samplingPeriod
+});
 
+
+
+
+}
 /// @nodoc
-class _$ShakeDetectionSettingsCopyWithImpl<$Res,
-        $Val extends ShakeDetectionSettings>
+class _$ShakeDetectionSettingsCopyWithImpl<$Res>
     implements $ShakeDetectionSettingsCopyWith<$Res> {
-  _$ShakeDetectionSettingsCopyWithImpl(this._value, this._then);
+  _$ShakeDetectionSettingsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final ShakeDetectionSettings _self;
+  final $Res Function(ShakeDetectionSettings) _then;
 
-  /// Create a copy of ShakeDetectionSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isEnabled = null,
-    Object? direction = null,
-    Object? threshold = null,
-    Object? shakeAction = null,
-    Object? feedback = null,
-    Object? beepVolume = null,
-    Object? shakeTriggerCoolDown = null,
-    Object? shakeTriggerCount = null,
-    Object? samplingPeriod = null,
-  }) {
-    return _then(_value.copyWith(
-      isEnabled: null == isEnabled
-          ? _value.isEnabled
-          : isEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      direction: null == direction
-          ? _value.direction
-          : direction // ignore: cast_nullable_to_non_nullable
-              as ShakeDirection,
-      threshold: null == threshold
-          ? _value.threshold
-          : threshold // ignore: cast_nullable_to_non_nullable
-              as double,
-      shakeAction: null == shakeAction
-          ? _value.shakeAction
-          : shakeAction // ignore: cast_nullable_to_non_nullable
-              as ShakeAction,
-      feedback: null == feedback
-          ? _value.feedback
-          : feedback // ignore: cast_nullable_to_non_nullable
-              as Set<ShakeDetectedFeedback>,
-      beepVolume: null == beepVolume
-          ? _value.beepVolume
-          : beepVolume // ignore: cast_nullable_to_non_nullable
-              as double,
-      shakeTriggerCoolDown: null == shakeTriggerCoolDown
-          ? _value.shakeTriggerCoolDown
-          : shakeTriggerCoolDown // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      shakeTriggerCount: null == shakeTriggerCount
-          ? _value.shakeTriggerCount
-          : shakeTriggerCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      samplingPeriod: null == samplingPeriod
-          ? _value.samplingPeriod
-          : samplingPeriod // ignore: cast_nullable_to_non_nullable
-              as Duration,
-    ) as $Val);
-  }
+/// Create a copy of ShakeDetectionSettings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? isEnabled = null,Object? direction = null,Object? threshold = null,Object? shakeAction = null,Object? feedback = null,Object? beepVolume = null,Object? shakeTriggerCoolDown = null,Object? shakeTriggerCount = null,Object? samplingPeriod = null,}) {
+  return _then(_self.copyWith(
+isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool,direction: null == direction ? _self.direction : direction // ignore: cast_nullable_to_non_nullable
+as ShakeDirection,threshold: null == threshold ? _self.threshold : threshold // ignore: cast_nullable_to_non_nullable
+as double,shakeAction: null == shakeAction ? _self.shakeAction : shakeAction // ignore: cast_nullable_to_non_nullable
+as ShakeAction,feedback: null == feedback ? _self.feedback : feedback // ignore: cast_nullable_to_non_nullable
+as Set<ShakeDetectedFeedback>,beepVolume: null == beepVolume ? _self.beepVolume : beepVolume // ignore: cast_nullable_to_non_nullable
+as double,shakeTriggerCoolDown: null == shakeTriggerCoolDown ? _self.shakeTriggerCoolDown : shakeTriggerCoolDown // ignore: cast_nullable_to_non_nullable
+as Duration,shakeTriggerCount: null == shakeTriggerCount ? _self.shakeTriggerCount : shakeTriggerCount // ignore: cast_nullable_to_non_nullable
+as int,samplingPeriod: null == samplingPeriod ? _self.samplingPeriod : samplingPeriod // ignore: cast_nullable_to_non_nullable
+as Duration,
+  ));
 }
 
-/// @nodoc
-abstract class _$$ShakeDetectionSettingsImplCopyWith<$Res>
-    implements $ShakeDetectionSettingsCopyWith<$Res> {
-  factory _$$ShakeDetectionSettingsImplCopyWith(
-          _$ShakeDetectionSettingsImpl value,
-          $Res Function(_$ShakeDetectionSettingsImpl) then) =
-      __$$ShakeDetectionSettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {bool isEnabled,
-      ShakeDirection direction,
-      double threshold,
-      ShakeAction shakeAction,
-      Set<ShakeDetectedFeedback> feedback,
-      double beepVolume,
-      Duration shakeTriggerCoolDown,
-      int shakeTriggerCount,
-      Duration samplingPeriod});
 }
 
-/// @nodoc
-class __$$ShakeDetectionSettingsImplCopyWithImpl<$Res>
-    extends _$ShakeDetectionSettingsCopyWithImpl<$Res,
-        _$ShakeDetectionSettingsImpl>
-    implements _$$ShakeDetectionSettingsImplCopyWith<$Res> {
-  __$$ShakeDetectionSettingsImplCopyWithImpl(
-      _$ShakeDetectionSettingsImpl _value,
-      $Res Function(_$ShakeDetectionSettingsImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of ShakeDetectionSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isEnabled = null,
-    Object? direction = null,
-    Object? threshold = null,
-    Object? shakeAction = null,
-    Object? feedback = null,
-    Object? beepVolume = null,
-    Object? shakeTriggerCoolDown = null,
-    Object? shakeTriggerCount = null,
-    Object? samplingPeriod = null,
-  }) {
-    return _then(_$ShakeDetectionSettingsImpl(
-      isEnabled: null == isEnabled
-          ? _value.isEnabled
-          : isEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      direction: null == direction
-          ? _value.direction
-          : direction // ignore: cast_nullable_to_non_nullable
-              as ShakeDirection,
-      threshold: null == threshold
-          ? _value.threshold
-          : threshold // ignore: cast_nullable_to_non_nullable
-              as double,
-      shakeAction: null == shakeAction
-          ? _value.shakeAction
-          : shakeAction // ignore: cast_nullable_to_non_nullable
-              as ShakeAction,
-      feedback: null == feedback
-          ? _value._feedback
-          : feedback // ignore: cast_nullable_to_non_nullable
-              as Set<ShakeDetectedFeedback>,
-      beepVolume: null == beepVolume
-          ? _value.beepVolume
-          : beepVolume // ignore: cast_nullable_to_non_nullable
-              as double,
-      shakeTriggerCoolDown: null == shakeTriggerCoolDown
-          ? _value.shakeTriggerCoolDown
-          : shakeTriggerCoolDown // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      shakeTriggerCount: null == shakeTriggerCount
-          ? _value.shakeTriggerCount
-          : shakeTriggerCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      samplingPeriod: null == samplingPeriod
-          ? _value.samplingPeriod
-          : samplingPeriod // ignore: cast_nullable_to_non_nullable
-              as Duration,
-    ));
-  }
+/// Adds pattern-matching-related methods to [ShakeDetectionSettings].
+extension ShakeDetectionSettingsPatterns on ShakeDetectionSettings {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ShakeDetectionSettings value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ShakeDetectionSettings() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ShakeDetectionSettings value)  $default,){
+final _that = this;
+switch (_that) {
+case _ShakeDetectionSettings():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ShakeDetectionSettings value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ShakeDetectionSettings() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isEnabled,  ShakeDirection direction,  double threshold,  ShakeAction shakeAction,  Set<ShakeDetectedFeedback> feedback,  double beepVolume,  Duration shakeTriggerCoolDown,  int shakeTriggerCount,  Duration samplingPeriod)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ShakeDetectionSettings() when $default != null:
+return $default(_that.isEnabled,_that.direction,_that.threshold,_that.shakeAction,_that.feedback,_that.beepVolume,_that.shakeTriggerCoolDown,_that.shakeTriggerCount,_that.samplingPeriod);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isEnabled,  ShakeDirection direction,  double threshold,  ShakeAction shakeAction,  Set<ShakeDetectedFeedback> feedback,  double beepVolume,  Duration shakeTriggerCoolDown,  int shakeTriggerCount,  Duration samplingPeriod)  $default,) {final _that = this;
+switch (_that) {
+case _ShakeDetectionSettings():
+return $default(_that.isEnabled,_that.direction,_that.threshold,_that.shakeAction,_that.feedback,_that.beepVolume,_that.shakeTriggerCoolDown,_that.shakeTriggerCount,_that.samplingPeriod);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isEnabled,  ShakeDirection direction,  double threshold,  ShakeAction shakeAction,  Set<ShakeDetectedFeedback> feedback,  double beepVolume,  Duration shakeTriggerCoolDown,  int shakeTriggerCount,  Duration samplingPeriod)?  $default,) {final _that = this;
+switch (_that) {
+case _ShakeDetectionSettings() when $default != null:
+return $default(_that.isEnabled,_that.direction,_that.threshold,_that.shakeAction,_that.feedback,_that.beepVolume,_that.shakeTriggerCoolDown,_that.shakeTriggerCount,_that.samplingPeriod);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ShakeDetectionSettingsImpl implements _ShakeDetectionSettings {
-  const _$ShakeDetectionSettingsImpl(
-      {this.isEnabled = true,
-      this.direction = ShakeDirection.horizontal,
-      this.threshold = 5,
-      this.shakeAction = ShakeAction.resetSleepTimer,
-      final Set<ShakeDetectedFeedback> feedback = const {
-        ShakeDetectedFeedback.vibrate
-      },
-      this.beepVolume = 0.5,
-      this.shakeTriggerCoolDown = const Duration(seconds: 2),
-      this.shakeTriggerCount = 2,
-      this.samplingPeriod = const Duration(milliseconds: 100)})
-      : _feedback = feedback;
 
-  factory _$ShakeDetectionSettingsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ShakeDetectionSettingsImplFromJson(json);
+class _ShakeDetectionSettings implements ShakeDetectionSettings {
+  const _ShakeDetectionSettings({this.isEnabled = true, this.direction = ShakeDirection.horizontal, this.threshold = 5, this.shakeAction = ShakeAction.resetSleepTimer, final  Set<ShakeDetectedFeedback> feedback = const {ShakeDetectedFeedback.vibrate}, this.beepVolume = 0.5, this.shakeTriggerCoolDown = const Duration(seconds: 2), this.shakeTriggerCount = 2, this.samplingPeriod = const Duration(milliseconds: 100)}): _feedback = feedback;
+  factory _ShakeDetectionSettings.fromJson(Map<String, dynamic> json) => _$ShakeDetectionSettingsFromJson(json);
 
-  @override
-  @JsonKey()
-  final bool isEnabled;
-  @override
-  @JsonKey()
-  final ShakeDirection direction;
-  @override
-  @JsonKey()
-  final double threshold;
-  @override
-  @JsonKey()
-  final ShakeAction shakeAction;
-  final Set<ShakeDetectedFeedback> _feedback;
-  @override
-  @JsonKey()
-  Set<ShakeDetectedFeedback> get feedback {
-    if (_feedback is EqualUnmodifiableSetView) return _feedback;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_feedback);
-  }
-
-  @override
-  @JsonKey()
-  final double beepVolume;
-
-  /// the duration to wait before the shake detection is enabled again
-  @override
-  @JsonKey()
-  final Duration shakeTriggerCoolDown;
-
-  /// the number of shakes required to trigger the action
-  @override
-  @JsonKey()
-  final int shakeTriggerCount;
-
-  /// acceleration sampling interval
-  @override
-  @JsonKey()
-  final Duration samplingPeriod;
-
-  @override
-  String toString() {
-    return 'ShakeDetectionSettings(isEnabled: $isEnabled, direction: $direction, threshold: $threshold, shakeAction: $shakeAction, feedback: $feedback, beepVolume: $beepVolume, shakeTriggerCoolDown: $shakeTriggerCoolDown, shakeTriggerCount: $shakeTriggerCount, samplingPeriod: $samplingPeriod)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ShakeDetectionSettingsImpl &&
-            (identical(other.isEnabled, isEnabled) ||
-                other.isEnabled == isEnabled) &&
-            (identical(other.direction, direction) ||
-                other.direction == direction) &&
-            (identical(other.threshold, threshold) ||
-                other.threshold == threshold) &&
-            (identical(other.shakeAction, shakeAction) ||
-                other.shakeAction == shakeAction) &&
-            const DeepCollectionEquality().equals(other._feedback, _feedback) &&
-            (identical(other.beepVolume, beepVolume) ||
-                other.beepVolume == beepVolume) &&
-            (identical(other.shakeTriggerCoolDown, shakeTriggerCoolDown) ||
-                other.shakeTriggerCoolDown == shakeTriggerCoolDown) &&
-            (identical(other.shakeTriggerCount, shakeTriggerCount) ||
-                other.shakeTriggerCount == shakeTriggerCount) &&
-            (identical(other.samplingPeriod, samplingPeriod) ||
-                other.samplingPeriod == samplingPeriod));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      isEnabled,
-      direction,
-      threshold,
-      shakeAction,
-      const DeepCollectionEquality().hash(_feedback),
-      beepVolume,
-      shakeTriggerCoolDown,
-      shakeTriggerCount,
-      samplingPeriod);
-
-  /// Create a copy of ShakeDetectionSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ShakeDetectionSettingsImplCopyWith<_$ShakeDetectionSettingsImpl>
-      get copyWith => __$$ShakeDetectionSettingsImplCopyWithImpl<
-          _$ShakeDetectionSettingsImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ShakeDetectionSettingsImplToJson(
-      this,
-    );
-  }
+@override@JsonKey() final  bool isEnabled;
+@override@JsonKey() final  ShakeDirection direction;
+@override@JsonKey() final  double threshold;
+@override@JsonKey() final  ShakeAction shakeAction;
+ final  Set<ShakeDetectedFeedback> _feedback;
+@override@JsonKey() Set<ShakeDetectedFeedback> get feedback {
+  if (_feedback is EqualUnmodifiableSetView) return _feedback;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableSetView(_feedback);
 }
 
-abstract class _ShakeDetectionSettings implements ShakeDetectionSettings {
-  const factory _ShakeDetectionSettings(
-      {final bool isEnabled,
-      final ShakeDirection direction,
-      final double threshold,
-      final ShakeAction shakeAction,
-      final Set<ShakeDetectedFeedback> feedback,
-      final double beepVolume,
-      final Duration shakeTriggerCoolDown,
-      final int shakeTriggerCount,
-      final Duration samplingPeriod}) = _$ShakeDetectionSettingsImpl;
+@override@JsonKey() final  double beepVolume;
+/// the duration to wait before the shake detection is enabled again
+@override@JsonKey() final  Duration shakeTriggerCoolDown;
+/// the number of shakes required to trigger the action
+@override@JsonKey() final  int shakeTriggerCount;
+/// acceleration sampling interval
+@override@JsonKey() final  Duration samplingPeriod;
 
-  factory _ShakeDetectionSettings.fromJson(Map<String, dynamic> json) =
-      _$ShakeDetectionSettingsImpl.fromJson;
+/// Create a copy of ShakeDetectionSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ShakeDetectionSettingsCopyWith<_ShakeDetectionSettings> get copyWith => __$ShakeDetectionSettingsCopyWithImpl<_ShakeDetectionSettings>(this, _$identity);
 
-  @override
-  bool get isEnabled;
-  @override
-  ShakeDirection get direction;
-  @override
-  double get threshold;
-  @override
-  ShakeAction get shakeAction;
-  @override
-  Set<ShakeDetectedFeedback> get feedback;
-  @override
-  double get beepVolume;
-
-  /// the duration to wait before the shake detection is enabled again
-  @override
-  Duration get shakeTriggerCoolDown;
-
-  /// the number of shakes required to trigger the action
-  @override
-  int get shakeTriggerCount;
-
-  /// acceleration sampling interval
-  @override
-  Duration get samplingPeriod;
-
-  /// Create a copy of ShakeDetectionSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ShakeDetectionSettingsImplCopyWith<_$ShakeDetectionSettingsImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$ShakeDetectionSettingsToJson(this, );
 }
 
-HomePageSettings _$HomePageSettingsFromJson(Map<String, dynamic> json) {
-  return _HomePageSettings.fromJson(json);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShakeDetectionSettings&&(identical(other.isEnabled, isEnabled) || other.isEnabled == isEnabled)&&(identical(other.direction, direction) || other.direction == direction)&&(identical(other.threshold, threshold) || other.threshold == threshold)&&(identical(other.shakeAction, shakeAction) || other.shakeAction == shakeAction)&&const DeepCollectionEquality().equals(other._feedback, _feedback)&&(identical(other.beepVolume, beepVolume) || other.beepVolume == beepVolume)&&(identical(other.shakeTriggerCoolDown, shakeTriggerCoolDown) || other.shakeTriggerCoolDown == shakeTriggerCoolDown)&&(identical(other.shakeTriggerCount, shakeTriggerCount) || other.shakeTriggerCount == shakeTriggerCount)&&(identical(other.samplingPeriod, samplingPeriod) || other.samplingPeriod == samplingPeriod));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,isEnabled,direction,threshold,shakeAction,const DeepCollectionEquality().hash(_feedback),beepVolume,shakeTriggerCoolDown,shakeTriggerCount,samplingPeriod);
+
+@override
+String toString() {
+  return 'ShakeDetectionSettings(isEnabled: $isEnabled, direction: $direction, threshold: $threshold, shakeAction: $shakeAction, feedback: $feedback, beepVolume: $beepVolume, shakeTriggerCoolDown: $shakeTriggerCoolDown, shakeTriggerCount: $shakeTriggerCount, samplingPeriod: $samplingPeriod)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ShakeDetectionSettingsCopyWith<$Res> implements $ShakeDetectionSettingsCopyWith<$Res> {
+  factory _$ShakeDetectionSettingsCopyWith(_ShakeDetectionSettings value, $Res Function(_ShakeDetectionSettings) _then) = __$ShakeDetectionSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ bool isEnabled, ShakeDirection direction, double threshold, ShakeAction shakeAction, Set<ShakeDetectedFeedback> feedback, double beepVolume, Duration shakeTriggerCoolDown, int shakeTriggerCount, Duration samplingPeriod
+});
+
+
+
+
+}
+/// @nodoc
+class __$ShakeDetectionSettingsCopyWithImpl<$Res>
+    implements _$ShakeDetectionSettingsCopyWith<$Res> {
+  __$ShakeDetectionSettingsCopyWithImpl(this._self, this._then);
+
+  final _ShakeDetectionSettings _self;
+  final $Res Function(_ShakeDetectionSettings) _then;
+
+/// Create a copy of ShakeDetectionSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? isEnabled = null,Object? direction = null,Object? threshold = null,Object? shakeAction = null,Object? feedback = null,Object? beepVolume = null,Object? shakeTriggerCoolDown = null,Object? shakeTriggerCount = null,Object? samplingPeriod = null,}) {
+  return _then(_ShakeDetectionSettings(
+isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool,direction: null == direction ? _self.direction : direction // ignore: cast_nullable_to_non_nullable
+as ShakeDirection,threshold: null == threshold ? _self.threshold : threshold // ignore: cast_nullable_to_non_nullable
+as double,shakeAction: null == shakeAction ? _self.shakeAction : shakeAction // ignore: cast_nullable_to_non_nullable
+as ShakeAction,feedback: null == feedback ? _self._feedback : feedback // ignore: cast_nullable_to_non_nullable
+as Set<ShakeDetectedFeedback>,beepVolume: null == beepVolume ? _self.beepVolume : beepVolume // ignore: cast_nullable_to_non_nullable
+as double,shakeTriggerCoolDown: null == shakeTriggerCoolDown ? _self.shakeTriggerCoolDown : shakeTriggerCoolDown // ignore: cast_nullable_to_non_nullable
+as Duration,shakeTriggerCount: null == shakeTriggerCount ? _self.shakeTriggerCount : shakeTriggerCount // ignore: cast_nullable_to_non_nullable
+as int,samplingPeriod: null == samplingPeriod ? _self.samplingPeriod : samplingPeriod // ignore: cast_nullable_to_non_nullable
+as Duration,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$HomePageSettings {
-  bool get showPlayButtonOnContinueListeningShelf =>
-      throw _privateConstructorUsedError;
-  bool get showPlayButtonOnContinueSeriesShelf =>
-      throw _privateConstructorUsedError;
-  bool get showPlayButtonOnAllRemainingShelves =>
-      throw _privateConstructorUsedError;
-  bool get showPlayButtonOnListenAgainShelf =>
-      throw _privateConstructorUsedError;
+
+ bool get showPlayButtonOnContinueListeningShelf; bool get showPlayButtonOnContinueSeriesShelf; bool get showPlayButtonOnAllRemainingShelves; bool get showPlayButtonOnListenAgainShelf;
+/// Create a copy of HomePageSettings
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$HomePageSettingsCopyWith<HomePageSettings> get copyWith => _$HomePageSettingsCopyWithImpl<HomePageSettings>(this as HomePageSettings, _$identity);
 
   /// Serializes this HomePageSettings to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of HomePageSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $HomePageSettingsCopyWith<HomePageSettings> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomePageSettings&&(identical(other.showPlayButtonOnContinueListeningShelf, showPlayButtonOnContinueListeningShelf) || other.showPlayButtonOnContinueListeningShelf == showPlayButtonOnContinueListeningShelf)&&(identical(other.showPlayButtonOnContinueSeriesShelf, showPlayButtonOnContinueSeriesShelf) || other.showPlayButtonOnContinueSeriesShelf == showPlayButtonOnContinueSeriesShelf)&&(identical(other.showPlayButtonOnAllRemainingShelves, showPlayButtonOnAllRemainingShelves) || other.showPlayButtonOnAllRemainingShelves == showPlayButtonOnAllRemainingShelves)&&(identical(other.showPlayButtonOnListenAgainShelf, showPlayButtonOnListenAgainShelf) || other.showPlayButtonOnListenAgainShelf == showPlayButtonOnListenAgainShelf));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,showPlayButtonOnContinueListeningShelf,showPlayButtonOnContinueSeriesShelf,showPlayButtonOnAllRemainingShelves,showPlayButtonOnListenAgainShelf);
+
+@override
+String toString() {
+  return 'HomePageSettings(showPlayButtonOnContinueListeningShelf: $showPlayButtonOnContinueListeningShelf, showPlayButtonOnContinueSeriesShelf: $showPlayButtonOnContinueSeriesShelf, showPlayButtonOnAllRemainingShelves: $showPlayButtonOnAllRemainingShelves, showPlayButtonOnListenAgainShelf: $showPlayButtonOnListenAgainShelf)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $HomePageSettingsCopyWith<$Res> {
-  factory $HomePageSettingsCopyWith(
-          HomePageSettings value, $Res Function(HomePageSettings) then) =
-      _$HomePageSettingsCopyWithImpl<$Res, HomePageSettings>;
-  @useResult
-  $Res call(
-      {bool showPlayButtonOnContinueListeningShelf,
-      bool showPlayButtonOnContinueSeriesShelf,
-      bool showPlayButtonOnAllRemainingShelves,
-      bool showPlayButtonOnListenAgainShelf});
-}
+abstract mixin class $HomePageSettingsCopyWith<$Res>  {
+  factory $HomePageSettingsCopyWith(HomePageSettings value, $Res Function(HomePageSettings) _then) = _$HomePageSettingsCopyWithImpl;
+@useResult
+$Res call({
+ bool showPlayButtonOnContinueListeningShelf, bool showPlayButtonOnContinueSeriesShelf, bool showPlayButtonOnAllRemainingShelves, bool showPlayButtonOnListenAgainShelf
+});
 
+
+
+
+}
 /// @nodoc
-class _$HomePageSettingsCopyWithImpl<$Res, $Val extends HomePageSettings>
+class _$HomePageSettingsCopyWithImpl<$Res>
     implements $HomePageSettingsCopyWith<$Res> {
-  _$HomePageSettingsCopyWithImpl(this._value, this._then);
+  _$HomePageSettingsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final HomePageSettings _self;
+  final $Res Function(HomePageSettings) _then;
 
-  /// Create a copy of HomePageSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? showPlayButtonOnContinueListeningShelf = null,
-    Object? showPlayButtonOnContinueSeriesShelf = null,
-    Object? showPlayButtonOnAllRemainingShelves = null,
-    Object? showPlayButtonOnListenAgainShelf = null,
-  }) {
-    return _then(_value.copyWith(
-      showPlayButtonOnContinueListeningShelf: null ==
-              showPlayButtonOnContinueListeningShelf
-          ? _value.showPlayButtonOnContinueListeningShelf
-          : showPlayButtonOnContinueListeningShelf // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showPlayButtonOnContinueSeriesShelf: null ==
-              showPlayButtonOnContinueSeriesShelf
-          ? _value.showPlayButtonOnContinueSeriesShelf
-          : showPlayButtonOnContinueSeriesShelf // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showPlayButtonOnAllRemainingShelves: null ==
-              showPlayButtonOnAllRemainingShelves
-          ? _value.showPlayButtonOnAllRemainingShelves
-          : showPlayButtonOnAllRemainingShelves // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showPlayButtonOnListenAgainShelf: null == showPlayButtonOnListenAgainShelf
-          ? _value.showPlayButtonOnListenAgainShelf
-          : showPlayButtonOnListenAgainShelf // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
-  }
+/// Create a copy of HomePageSettings
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? showPlayButtonOnContinueListeningShelf = null,Object? showPlayButtonOnContinueSeriesShelf = null,Object? showPlayButtonOnAllRemainingShelves = null,Object? showPlayButtonOnListenAgainShelf = null,}) {
+  return _then(_self.copyWith(
+showPlayButtonOnContinueListeningShelf: null == showPlayButtonOnContinueListeningShelf ? _self.showPlayButtonOnContinueListeningShelf : showPlayButtonOnContinueListeningShelf // ignore: cast_nullable_to_non_nullable
+as bool,showPlayButtonOnContinueSeriesShelf: null == showPlayButtonOnContinueSeriesShelf ? _self.showPlayButtonOnContinueSeriesShelf : showPlayButtonOnContinueSeriesShelf // ignore: cast_nullable_to_non_nullable
+as bool,showPlayButtonOnAllRemainingShelves: null == showPlayButtonOnAllRemainingShelves ? _self.showPlayButtonOnAllRemainingShelves : showPlayButtonOnAllRemainingShelves // ignore: cast_nullable_to_non_nullable
+as bool,showPlayButtonOnListenAgainShelf: null == showPlayButtonOnListenAgainShelf ? _self.showPlayButtonOnListenAgainShelf : showPlayButtonOnListenAgainShelf // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
 }
 
-/// @nodoc
-abstract class _$$HomePageSettingsImplCopyWith<$Res>
-    implements $HomePageSettingsCopyWith<$Res> {
-  factory _$$HomePageSettingsImplCopyWith(_$HomePageSettingsImpl value,
-          $Res Function(_$HomePageSettingsImpl) then) =
-      __$$HomePageSettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {bool showPlayButtonOnContinueListeningShelf,
-      bool showPlayButtonOnContinueSeriesShelf,
-      bool showPlayButtonOnAllRemainingShelves,
-      bool showPlayButtonOnListenAgainShelf});
 }
 
-/// @nodoc
-class __$$HomePageSettingsImplCopyWithImpl<$Res>
-    extends _$HomePageSettingsCopyWithImpl<$Res, _$HomePageSettingsImpl>
-    implements _$$HomePageSettingsImplCopyWith<$Res> {
-  __$$HomePageSettingsImplCopyWithImpl(_$HomePageSettingsImpl _value,
-      $Res Function(_$HomePageSettingsImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of HomePageSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? showPlayButtonOnContinueListeningShelf = null,
-    Object? showPlayButtonOnContinueSeriesShelf = null,
-    Object? showPlayButtonOnAllRemainingShelves = null,
-    Object? showPlayButtonOnListenAgainShelf = null,
-  }) {
-    return _then(_$HomePageSettingsImpl(
-      showPlayButtonOnContinueListeningShelf: null ==
-              showPlayButtonOnContinueListeningShelf
-          ? _value.showPlayButtonOnContinueListeningShelf
-          : showPlayButtonOnContinueListeningShelf // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showPlayButtonOnContinueSeriesShelf: null ==
-              showPlayButtonOnContinueSeriesShelf
-          ? _value.showPlayButtonOnContinueSeriesShelf
-          : showPlayButtonOnContinueSeriesShelf // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showPlayButtonOnAllRemainingShelves: null ==
-              showPlayButtonOnAllRemainingShelves
-          ? _value.showPlayButtonOnAllRemainingShelves
-          : showPlayButtonOnAllRemainingShelves // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showPlayButtonOnListenAgainShelf: null == showPlayButtonOnListenAgainShelf
-          ? _value.showPlayButtonOnListenAgainShelf
-          : showPlayButtonOnListenAgainShelf // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
+/// Adds pattern-matching-related methods to [HomePageSettings].
+extension HomePageSettingsPatterns on HomePageSettings {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _HomePageSettings value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _HomePageSettings() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _HomePageSettings value)  $default,){
+final _that = this;
+switch (_that) {
+case _HomePageSettings():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _HomePageSettings value)?  $default,){
+final _that = this;
+switch (_that) {
+case _HomePageSettings() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool showPlayButtonOnContinueListeningShelf,  bool showPlayButtonOnContinueSeriesShelf,  bool showPlayButtonOnAllRemainingShelves,  bool showPlayButtonOnListenAgainShelf)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _HomePageSettings() when $default != null:
+return $default(_that.showPlayButtonOnContinueListeningShelf,_that.showPlayButtonOnContinueSeriesShelf,_that.showPlayButtonOnAllRemainingShelves,_that.showPlayButtonOnListenAgainShelf);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool showPlayButtonOnContinueListeningShelf,  bool showPlayButtonOnContinueSeriesShelf,  bool showPlayButtonOnAllRemainingShelves,  bool showPlayButtonOnListenAgainShelf)  $default,) {final _that = this;
+switch (_that) {
+case _HomePageSettings():
+return $default(_that.showPlayButtonOnContinueListeningShelf,_that.showPlayButtonOnContinueSeriesShelf,_that.showPlayButtonOnAllRemainingShelves,_that.showPlayButtonOnListenAgainShelf);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool showPlayButtonOnContinueListeningShelf,  bool showPlayButtonOnContinueSeriesShelf,  bool showPlayButtonOnAllRemainingShelves,  bool showPlayButtonOnListenAgainShelf)?  $default,) {final _that = this;
+switch (_that) {
+case _HomePageSettings() when $default != null:
+return $default(_that.showPlayButtonOnContinueListeningShelf,_that.showPlayButtonOnContinueSeriesShelf,_that.showPlayButtonOnAllRemainingShelves,_that.showPlayButtonOnListenAgainShelf);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$HomePageSettingsImpl implements _HomePageSettings {
-  const _$HomePageSettingsImpl(
-      {this.showPlayButtonOnContinueListeningShelf = true,
-      this.showPlayButtonOnContinueSeriesShelf = false,
-      this.showPlayButtonOnAllRemainingShelves = false,
-      this.showPlayButtonOnListenAgainShelf = false});
 
-  factory _$HomePageSettingsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$HomePageSettingsImplFromJson(json);
+class _HomePageSettings implements HomePageSettings {
+  const _HomePageSettings({this.showPlayButtonOnContinueListeningShelf = true, this.showPlayButtonOnContinueSeriesShelf = false, this.showPlayButtonOnAllRemainingShelves = false, this.showPlayButtonOnListenAgainShelf = false});
+  factory _HomePageSettings.fromJson(Map<String, dynamic> json) => _$HomePageSettingsFromJson(json);
 
-  @override
-  @JsonKey()
-  final bool showPlayButtonOnContinueListeningShelf;
-  @override
-  @JsonKey()
-  final bool showPlayButtonOnContinueSeriesShelf;
-  @override
-  @JsonKey()
-  final bool showPlayButtonOnAllRemainingShelves;
-  @override
-  @JsonKey()
-  final bool showPlayButtonOnListenAgainShelf;
+@override@JsonKey() final  bool showPlayButtonOnContinueListeningShelf;
+@override@JsonKey() final  bool showPlayButtonOnContinueSeriesShelf;
+@override@JsonKey() final  bool showPlayButtonOnAllRemainingShelves;
+@override@JsonKey() final  bool showPlayButtonOnListenAgainShelf;
 
-  @override
-  String toString() {
-    return 'HomePageSettings(showPlayButtonOnContinueListeningShelf: $showPlayButtonOnContinueListeningShelf, showPlayButtonOnContinueSeriesShelf: $showPlayButtonOnContinueSeriesShelf, showPlayButtonOnAllRemainingShelves: $showPlayButtonOnAllRemainingShelves, showPlayButtonOnListenAgainShelf: $showPlayButtonOnListenAgainShelf)';
-  }
+/// Create a copy of HomePageSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$HomePageSettingsCopyWith<_HomePageSettings> get copyWith => __$HomePageSettingsCopyWithImpl<_HomePageSettings>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$HomePageSettingsImpl &&
-            (identical(other.showPlayButtonOnContinueListeningShelf,
-                    showPlayButtonOnContinueListeningShelf) ||
-                other.showPlayButtonOnContinueListeningShelf ==
-                    showPlayButtonOnContinueListeningShelf) &&
-            (identical(other.showPlayButtonOnContinueSeriesShelf,
-                    showPlayButtonOnContinueSeriesShelf) ||
-                other.showPlayButtonOnContinueSeriesShelf ==
-                    showPlayButtonOnContinueSeriesShelf) &&
-            (identical(other.showPlayButtonOnAllRemainingShelves,
-                    showPlayButtonOnAllRemainingShelves) ||
-                other.showPlayButtonOnAllRemainingShelves ==
-                    showPlayButtonOnAllRemainingShelves) &&
-            (identical(other.showPlayButtonOnListenAgainShelf,
-                    showPlayButtonOnListenAgainShelf) ||
-                other.showPlayButtonOnListenAgainShelf ==
-                    showPlayButtonOnListenAgainShelf));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      showPlayButtonOnContinueListeningShelf,
-      showPlayButtonOnContinueSeriesShelf,
-      showPlayButtonOnAllRemainingShelves,
-      showPlayButtonOnListenAgainShelf);
-
-  /// Create a copy of HomePageSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$HomePageSettingsImplCopyWith<_$HomePageSettingsImpl> get copyWith =>
-      __$$HomePageSettingsImplCopyWithImpl<_$HomePageSettingsImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$HomePageSettingsImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$HomePageSettingsToJson(this, );
 }
 
-abstract class _HomePageSettings implements HomePageSettings {
-  const factory _HomePageSettings(
-      {final bool showPlayButtonOnContinueListeningShelf,
-      final bool showPlayButtonOnContinueSeriesShelf,
-      final bool showPlayButtonOnAllRemainingShelves,
-      final bool showPlayButtonOnListenAgainShelf}) = _$HomePageSettingsImpl;
-
-  factory _HomePageSettings.fromJson(Map<String, dynamic> json) =
-      _$HomePageSettingsImpl.fromJson;
-
-  @override
-  bool get showPlayButtonOnContinueListeningShelf;
-  @override
-  bool get showPlayButtonOnContinueSeriesShelf;
-  @override
-  bool get showPlayButtonOnAllRemainingShelves;
-  @override
-  bool get showPlayButtonOnListenAgainShelf;
-
-  /// Create a copy of HomePageSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$HomePageSettingsImplCopyWith<_$HomePageSettingsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomePageSettings&&(identical(other.showPlayButtonOnContinueListeningShelf, showPlayButtonOnContinueListeningShelf) || other.showPlayButtonOnContinueListeningShelf == showPlayButtonOnContinueListeningShelf)&&(identical(other.showPlayButtonOnContinueSeriesShelf, showPlayButtonOnContinueSeriesShelf) || other.showPlayButtonOnContinueSeriesShelf == showPlayButtonOnContinueSeriesShelf)&&(identical(other.showPlayButtonOnAllRemainingShelves, showPlayButtonOnAllRemainingShelves) || other.showPlayButtonOnAllRemainingShelves == showPlayButtonOnAllRemainingShelves)&&(identical(other.showPlayButtonOnListenAgainShelf, showPlayButtonOnListenAgainShelf) || other.showPlayButtonOnListenAgainShelf == showPlayButtonOnListenAgainShelf));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,showPlayButtonOnContinueListeningShelf,showPlayButtonOnContinueSeriesShelf,showPlayButtonOnAllRemainingShelves,showPlayButtonOnListenAgainShelf);
+
+@override
+String toString() {
+  return 'HomePageSettings(showPlayButtonOnContinueListeningShelf: $showPlayButtonOnContinueListeningShelf, showPlayButtonOnContinueSeriesShelf: $showPlayButtonOnContinueSeriesShelf, showPlayButtonOnAllRemainingShelves: $showPlayButtonOnAllRemainingShelves, showPlayButtonOnListenAgainShelf: $showPlayButtonOnListenAgainShelf)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$HomePageSettingsCopyWith<$Res> implements $HomePageSettingsCopyWith<$Res> {
+  factory _$HomePageSettingsCopyWith(_HomePageSettings value, $Res Function(_HomePageSettings) _then) = __$HomePageSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ bool showPlayButtonOnContinueListeningShelf, bool showPlayButtonOnContinueSeriesShelf, bool showPlayButtonOnAllRemainingShelves, bool showPlayButtonOnListenAgainShelf
+});
+
+
+
+
+}
+/// @nodoc
+class __$HomePageSettingsCopyWithImpl<$Res>
+    implements _$HomePageSettingsCopyWith<$Res> {
+  __$HomePageSettingsCopyWithImpl(this._self, this._then);
+
+  final _HomePageSettings _self;
+  final $Res Function(_HomePageSettings) _then;
+
+/// Create a copy of HomePageSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? showPlayButtonOnContinueListeningShelf = null,Object? showPlayButtonOnContinueSeriesShelf = null,Object? showPlayButtonOnAllRemainingShelves = null,Object? showPlayButtonOnListenAgainShelf = null,}) {
+  return _then(_HomePageSettings(
+showPlayButtonOnContinueListeningShelf: null == showPlayButtonOnContinueListeningShelf ? _self.showPlayButtonOnContinueListeningShelf : showPlayButtonOnContinueListeningShelf // ignore: cast_nullable_to_non_nullable
+as bool,showPlayButtonOnContinueSeriesShelf: null == showPlayButtonOnContinueSeriesShelf ? _self.showPlayButtonOnContinueSeriesShelf : showPlayButtonOnContinueSeriesShelf // ignore: cast_nullable_to_non_nullable
+as bool,showPlayButtonOnAllRemainingShelves: null == showPlayButtonOnAllRemainingShelves ? _self.showPlayButtonOnAllRemainingShelves : showPlayButtonOnAllRemainingShelves // ignore: cast_nullable_to_non_nullable
+as bool,showPlayButtonOnListenAgainShelf: null == showPlayButtonOnListenAgainShelf ? _self.showPlayButtonOnListenAgainShelf : showPlayButtonOnListenAgainShelf // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
+
+// dart format on

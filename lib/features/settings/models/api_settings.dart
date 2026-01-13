@@ -11,7 +11,7 @@ part 'api_settings.g.dart';
 ///
 /// all settings that are needed to interact with the server are stored here
 @freezed
-class ApiSettings with _$ApiSettings {
+sealed class ApiSettings with _$ApiSettings {
   const factory ApiSettings({
     AudiobookShelfServer? activeServer,
     AuthenticatedUser? activeUser,
