@@ -57,11 +57,11 @@ class ChapterSelectionModal extends HookConsumerWidget {
     }
     final initialIndex = book.chapters.indexOf(currentChapter);
     final scrollController = useScrollController();
-    final listController = ListController();
-
+    // final listController = ListController();
+    final listController = useState<ListController>(ListController());
     // 首次布局完成之后跳转到指定位置
     useLayoutEffect(() {
-      listController.jumpToItem(
+      listController.value.jumpToItem(
         index: initialIndex,
         scrollController: scrollController,
         alignment: 0.5,
@@ -78,7 +78,7 @@ class ChapterSelectionModal extends HookConsumerWidget {
         // scroll to current chapter after opening the dialog
         Expanded(
           child: SuperListView.builder(
-            listController: listController,
+            listController: listController.value,
             controller: scrollController,
             itemCount: book.chapters.length,
             itemBuilder: (BuildContext context, int index) {

@@ -24,7 +24,9 @@
     "tapable",
     "unfocus",
     "utsname",
-    "Vaani"
+    "Vaani",
+    "appender",
+    "appenders",
   ],
   "dart.flutterSdkPath": ".fvm/versions/3.38.6",
   "files.exclude": {

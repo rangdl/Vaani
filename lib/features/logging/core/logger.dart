@@ -6,7 +6,7 @@ import 'package:vaani/globals.dart';
 
 Future<String> getLoggingFilePath() async {
   // final Directory directory = await getApplicationDocumentsDirectory();
-  return '${appDocumentsDir.path}/$appName.log';
+  return '${appLogsDir.path}/$appName.log';
 }
 
 Future<void> initLogging() async {

@@ -4,16 +4,19 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' as shelfsdk;
+import 'package:super_sliver_list/super_sliver_list.dart';
 import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/constants/sizes.dart';
+import 'package:vaani/db/available_boxes.dart';
 import 'package:vaani/features/downloads/providers/download_manager.dart'
     show
         downloadHistoryProvider,
         downloadManagerProvider,
         isItemDownloadedProvider,
         isItemDownloadingProvider,
-        itemDownloadProgressProvider;
+        itemDownloadProgressProvider,
+        fileStateProvider;
 import 'package:vaani/features/item_viewer/view/library_item_page.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
@@ -63,7 +66,11 @@ class LibraryItemActions extends HookConsumerWidget {
                     children: [
                       // read list button
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (!HiveBoxes.playlistBox.values.contains(item.id)) {
+                            HiveBoxes.playlistBox.add(item.id);
+                          }
+                        },
                         icon: const Icon(Icons.playlist_add_rounded),
                       ),
                       // share button
@@ -209,6 +216,9 @@ class LibItemDownButton extends HookConsumerWidget {
         showModalBottomSheet(
           context: context,
           isScrollControlled: true,
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width, // 设置最大宽度
+          ),
           builder: (context) {
             return FractionallySizedBox(
               heightFactor: 0.8,
@@ -232,10 +242,11 @@ class LibItemDownSheet extends HookConsumerWidget {
     // final downloadManager = ref.watch(downloadManagerProvider);
     // downloadManager.
     final libraryItem = ref.watch(libraryItemProvider(libraryItemId));
+
     return libraryItem.when(
       data: (item) {
         final book = item.media.asBookExpanded;
-        final tracks = book.tracks;
+        final audioFiles = book.audioFiles;
         return Padding(
           padding: const EdgeInsets.all(AppElementSizes.paddingRegular),
           child: Column(
@@ -268,26 +279,11 @@ class LibItemDownSheet extends HookConsumerWidget {
                 ],
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: tracks.length,
+                child: SuperListView.builder(
+                  itemCount: audioFiles.length,
                   itemBuilder: (context, index) {
-                    final track = tracks[index];
-                    return ListTile(
-                      title: Text(track.title),
-                      subtitle: Text(
-                        // '${record.task.directory}/${record.task.baseDirectory}',
-                        // track.metadata?.relPath ?? '',
-                        item.relPath,
-                      ),
-                      trailing: const Icon(Icons.open_in_new_rounded),
-                      onLongPress: () {
-                        // show the delete dialog
-                        // _showDialog(context, record.task);
-                      },
-                      onTap: () async {
-                        // open the file location
-                      },
-                    );
+                    final audioFile = audioFiles[index];
+                    return LibItemDownSheetItem(item, audioFile);
                   },
                 ),
               ),
@@ -297,6 +293,43 @@ class LibItemDownSheet extends HookConsumerWidget {
       },
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stackTrace) => Center(child: Text('Error: $error')),
+    );
+  }
+}
+
+class LibItemDownSheetItem extends HookConsumerWidget {
+  const LibItemDownSheetItem(this.item, this.audioFile, {super.key});
+  final shelfsdk.LibraryItemExpanded item;
+  final shelfsdk.AudioFile audioFile;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final fileState = ref.watch(fileStateProvider(item, audioFile));
+    return ListTile(
+      title: Text(audioFile.metadata.filename),
+      subtitle: Text(
+        // '${record.task.directory}/${record.task.baseDirectory}',
+        // track.metadata?.relPath ?? '',
+        // item.relPath,
+        switch (fileState.$1) {
+          TaskStatus.enqueued => '队列中',
+          TaskStatus.running => '${fileState.$2}',
+          TaskStatus.waitingToRetry => '等待重试...',
+          TaskStatus.paused => '已暂停',
+
+          TaskStatus.complete => '已完成',
+          TaskStatus.failed => '下载错误',
+          TaskStatus.canceled => '已取消',
+          _ => fileState.$2 == -2 ? '' : '文件未找到',
+        },
+      ),
+      trailing: const Icon(Icons.open_in_new_rounded),
+      onLongPress: () {
+        // show the delete dialog
+        // _showDialog(context, record.task);
+      },
+      onTap: () async {
+        // open the file location
+      },
     );
   }
 }

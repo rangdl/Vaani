@@ -483,3 +483,101 @@ abstract class _$IsItemDownloaded extends $AsyncNotifier<bool> {
     element.handleCreate(ref, () => build(_$args));
   }
 }
+
+@ProviderFor(FileState)
+final fileStateProvider = FileStateFamily._();
+
+final class FileStateProvider
+    extends $NotifierProvider<FileState, (TaskStatus, double)> {
+  FileStateProvider._({
+    required FileStateFamily super.from,
+    required (LibraryItemExpanded, AudioFile) super.argument,
+  }) : super(
+         retry: null,
+         name: r'fileStateProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$fileStateHash();
+
+  @override
+  String toString() {
+    return r'fileStateProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  FileState create() => FileState();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue((TaskStatus, double) value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<(TaskStatus, double)>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FileStateProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$fileStateHash() => r'ed51c151deee04ef262ed327cefce3b54ac04c60';
+
+final class FileStateFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          FileState,
+          (TaskStatus, double),
+          (TaskStatus, double),
+          (TaskStatus, double),
+          (LibraryItemExpanded, AudioFile)
+        > {
+  FileStateFamily._()
+    : super(
+        retry: null,
+        name: r'fileStateProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  FileStateProvider call(LibraryItemExpanded item, AudioFile file) =>
+      FileStateProvider._(argument: (item, file), from: this);
+
+  @override
+  String toString() => r'fileStateProvider';
+}
+
+abstract class _$FileState extends $Notifier<(TaskStatus, double)> {
+  late final _$args = ref.$arg as (LibraryItemExpanded, AudioFile);
+  LibraryItemExpanded get item => _$args.$1;
+  AudioFile get file => _$args.$2;
+
+  (TaskStatus, double) build(LibraryItemExpanded item, AudioFile file);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<(TaskStatus, double), (TaskStatus, double)>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<(TaskStatus, double), (TaskStatus, double)>,
+              (TaskStatus, double),
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, () => build(_$args.$1, _$args.$2));
+  }
+}

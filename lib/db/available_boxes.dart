@@ -6,7 +6,7 @@ import 'package:vaani/features/settings/models/models.dart';
 @immutable
 class HiveBoxes {
   const HiveBoxes._();
-  static late final Box<dynamic> basicBox;
+  static late final Box<String> playlistBox;
 
   /// Box for storing user preferences as [AppSettings]
   static late final Box<AppSettings> userPrefsBox;
@@ -24,7 +24,7 @@ class HiveBoxes {
   static late final Box<BookSettings> individualBookSettingsBox;
 
   static Future<void> init() async {
-    basicBox = await Hive.openBox('basicTypes');
+    playlistBox = await Hive.openBox('playlist');
     userPrefsBox = await Hive.openBox<AppSettings>('userPrefs');
     apiSettingsBox = await Hive.openBox<ApiSettings>('apiSettings');
     serverBox = await Hive.openBox<AudiobookShelfServer>(

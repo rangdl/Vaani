@@ -211,15 +211,15 @@ class AudiobookDownloadManager {
 
   String get basePath => switch (baseDirectory) {
     BaseDirectory.applicationSupport => appSupportDir.path,
-    BaseDirectory.applicationDocuments => appDocumentsDir.path,
+    // BaseDirectory.applicationDocuments => appDocumentsDir.path,
     _ => path,
   };
 
   BaseDirectory get baseDirectory {
     if (path.isNotEmpty) {
       return BaseDirectory.root;
-    } else if (Platform.isIOS || Platform.isMacOS) {
-      return BaseDirectory.applicationDocuments;
+      // } else if (Platform.isIOS || Platform.isMacOS) {
+      //   return BaseDirectory.applicationDocuments;
     }
     // else if (Platform.isAndroid) {
     //   return BaseDirectory.temporary;

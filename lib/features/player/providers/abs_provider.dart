@@ -6,15 +6,15 @@ import 'package:shelfsdk/audiobookshelf_api.dart' as shelfsdk;
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/db/available_boxes.dart';
-import 'package:vaani/db/cache/cache_key.dart';
 import 'package:vaani/features/downloads/providers/download_manager.dart';
 import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
 import 'package:vaani/features/player/core/abs_audio_player.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
-import 'package:vaani/shared/extensions/box.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 
 part 'abs_provider.g.dart';
+
+final _playlistBox = HiveBoxes.playlistBox;
 
 // 播放器激活状态
 @riverpod
@@ -134,16 +134,20 @@ class CurrentTime extends _$CurrentTime {
 class CurrentBook extends _$CurrentBook {
   @override
   shelfsdk.BookExpanded? build() {
-    listenSelf((previous, next) {
-      if (previous == null && next == null) {
-        final activeLibraryItemId = HiveBoxes.basicBox.getAs<String>(
-          CacheKey.activeLibraryItemId,
-        );
-        if (activeLibraryItemId != null) {
-          update(activeLibraryItemId, play: false);
-        }
+    // listenSelf((previous, next) {
+    //   if (previous == null && next == null) {
+    //     final activeLibraryItemId = _playlistBox.getAt(0);
+    //     if (activeLibraryItemId != null) {
+    //       update(activeLibraryItemId, play: false);
+    //     }
+    //   }
+    // });
+    if (_playlistBox.values.isNotEmpty) {
+      final activeLibraryItemId = _playlistBox.getAt(0);
+      if (activeLibraryItemId != null) {
+        Future.microtask(() => update(activeLibraryItemId, play: false));
       }
-    });
+    }
     return null;
   }
 
@@ -171,7 +175,8 @@ class CurrentBook extends _$CurrentBook {
           force: force,
         );
     if (play) {
-      HiveBoxes.basicBox.put(CacheKey.activeLibraryItemId, libraryItemId);
+      _playlistBox.clear();
+      _playlistBox.add(libraryItemId);
     }
   }
 }

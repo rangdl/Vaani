@@ -29,10 +29,12 @@ Future<void> initialize() async {
   deviceSdkVersion = getDeviceSdkVersion(deviceData);
   deviceManufacturer = getDeviceManufacturer(deviceData);
   appLogger = Logger(appName);
-  final dirDocuments = await getApplicationDocumentsDirectory();
-  appDocumentsDir = Directory(p.join(dirDocuments.path, appName));
-  await appDocumentsDir.create(recursive: true);
+  appDocumentsDir = await getApplicationDocumentsDirectory();
+  // final dirDocuments = await getApplicationDocumentsDirectory();
+  appLogsDir = Directory(p.join(appDocumentsDir.path, appName, 'logs'));
+  await appLogsDir.create(recursive: true);
   appSupportDir = await getApplicationSupportDirectory();
+  appTempDir = await getTemporaryDirectory();
 }
 
 late Map<String, dynamic> deviceData;
@@ -47,10 +49,12 @@ late Logger appLogger;
 /// 文档目录 getApplicationDocumentsDirectory
 /// 存放用户生成的、不可重建的持久化数据。在iOS端，此目录可能会通过iCloud自动同步。
 late Directory appDocumentsDir;
+late Directory appLogsDir;
 
 /// 应用支持目录 getApplicationSupportDirectory
 /// 存放应用程序的支持文件。在iOS上，此目录是持久性的，且会备份到iCloud。
 late Directory appSupportDir;
+late Directory appTempDir;
 
 const double playerMinHeight = 70;
 

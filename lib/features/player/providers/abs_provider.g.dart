@@ -329,7 +329,7 @@ final class CurrentBookProvider
   }
 }
 
-String _$currentBookHash() => r'f13ba110d104be8bae48972d6fd266d461d30898';
+String _$currentBookHash() => r'8f37983015ac338075dd0358ca310cfb69d9bffe';
 
 abstract class _$CurrentBook extends $Notifier<shelfsdk.BookExpanded?> {
   shelfsdk.BookExpanded? build();

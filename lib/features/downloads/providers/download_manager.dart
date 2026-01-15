@@ -137,3 +137,44 @@ class IsItemDownloaded extends _$IsItemDownloaded {
     return manager.isItemDownloaded(item);
   }
 }
+
+// 返回文件下载状态
+// -1 未开始
+// 0 开始下载
+// 0 - 1 正在下载
+// 1 下载完成
+@riverpod
+class FileState extends _$FileState {
+  @override
+  (TaskStatus, double) build(LibraryItemExpanded item, AudioFile file) {
+    final manager = ref.read(simpleDownloadManagerProvider);
+    final success = manager.isFileDownloaded(
+      manager.constructFilePath(item, file),
+    );
+    if (success) {
+      return (TaskStatus.complete, 1);
+    }
+    manager.taskUpdateStream.listen((update) {
+      if (update.task.taskId == file.ino) {
+        switch (update) {
+          case TaskStatusUpdate():
+            print(
+              'Status update for ${update.task} with status ${update.status}',
+            );
+            _update(update.status, state.$2);
+          case TaskProgressUpdate():
+            print(
+              'Progress update for ${update.task} with progress ${update.progress}',
+            );
+            _update(state.$1, update.progress);
+        }
+      }
+    });
+    //
+    return (TaskStatus.notFound, -2);
+  }
+
+  void _update(TaskStatus status, double value) {
+    state = (status, value);
+  }
+}
