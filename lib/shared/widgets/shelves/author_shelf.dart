@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
-import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/widgets/shelves/home_shelf.dart';
 
@@ -32,8 +31,6 @@ class AuthorOnShelf extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final author = item.asMinified;
-    final coverImage = ref.watch(coverImageProvider(item.id));
-
     return Container(
       margin: const EdgeInsets.only(right: 10, bottom: 10),
       constraints: const BoxConstraints(maxWidth: 100),
@@ -41,23 +38,7 @@ class AuthorOnShelf extends HookConsumerWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(50),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 50),
-                child: coverImage.when(
-                  data: (image) {
-                    return Image.memory(image, fit: BoxFit.cover);
-                  },
-                  loading: () {
-                    return const Center(child: CircularProgressIndicator());
-                  },
-                  error: (error, stack) {
-                    return const Icon(Icons.error);
-                  },
-                ),
-              ),
-            ),
+            child: AspectRatio(aspectRatio: 1, child: Icon(Icons.person)),
           ),
           Container(
             margin: const EdgeInsets.all(5),

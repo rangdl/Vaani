@@ -6,18 +6,15 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/api/api_provider.dart';
-import 'package:vaani/api/image_provider.dart';
-import 'package:vaani/api/library_item_provider.dart' show libraryItemProvider;
 import 'package:vaani/constants/hero_tag_conventions.dart';
-import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/item_viewer/view/library_item_actions.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
+import 'package:vaani/shared/widgets/images.dart';
 import 'package:vaani/shared/widgets/shelves/home_shelf.dart';
-import 'package:vaani/shared/widgets/skeletons.dart';
 import 'package:vaani/theme/providers/theme_from_cover_provider.dart';
 
 /// A shelf that displays books on the home page
@@ -75,7 +72,6 @@ class BookOnShelf extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final book = item.media.asBookMinified;
     final metadata = book.metadata.asBookMetadataMinified;
-    final coverImage = ref.watch(coverImageProvider(item.id));
     return LayoutBuilder(
       builder: (context, constraints) {
         final height = min(constraints.maxHeight, 500);
@@ -115,47 +111,49 @@ class BookOnShelf extends HookConsumerWidget {
                                 HeroTagPrefixes.bookCover +
                                 item.id +
                                 heroTagSuffix,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: AnimatedSwitcher(
-                                duration: const Duration(milliseconds: 300),
-                                child: coverImage.when(
-                                  data: (image) {
-                                    // return const BookCoverSkeleton();
-                                    if (image.isEmpty) {
-                                      return const Icon(Icons.error);
-                                    }
-                                    var imageWidget = Image.memory(
-                                      image,
-                                      fit: BoxFit.fill,
-                                      cacheWidth:
-                                          (height *
-                                                  1.2 *
-                                                  MediaQuery.of(
-                                                    context,
-                                                  ).devicePixelRatio)
-                                              .round(),
-                                    );
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.onPrimaryContainer,
-                                      ),
-                                      child: imageWidget,
-                                    );
-                                  },
-                                  loading: () {
-                                    return const Center(
-                                      child: BookCoverSkeleton(),
-                                    );
-                                  },
-                                  error: (error, stack) {
-                                    return const Icon(Icons.error);
-                                  },
-                                ),
-                              ),
-                            ),
+                            child: AbsBookCover(id: item.id),
+                            // child: ClipRRect(
+                            //   borderRadius: BorderRadius.circular(10),
+                            // child: AnimatedSwitcher(
+                            //   duration: const Duration(milliseconds: 300),
+                            //   child: AbsBookCover(id: item.id),
+                            // child: coverImage.when(
+                            //   data: (image) {
+                            //     // return const BookCoverSkeleton();
+                            //     if (image.isEmpty) {
+                            //       return const Icon(Icons.error);
+                            //     }
+                            //     var imageWidget = Image.memory(
+                            //       image,
+                            //       fit: BoxFit.fill,
+                            //       cacheWidth:
+                            //           (height *
+                            //                   1.2 *
+                            //                   MediaQuery.of(
+                            //                     context,
+                            //                   ).devicePixelRatio)
+                            //               .round(),
+                            //     );
+                            //     return Container(
+                            //       decoration: BoxDecoration(
+                            //         color: Theme.of(
+                            //           context,
+                            //         ).colorScheme.onPrimaryContainer,
+                            //       ),
+                            //       child: imageWidget,
+                            //     );
+                            //   },
+                            //   loading: () {
+                            //     return const Center(
+                            //       child: BookCoverSkeleton(),
+                            //     );
+                            //   },
+                            //   error: (error, stack) {
+                            //     return const Icon(Icons.error);
+                            //   },
+                            // ),
+                            // ),
+                            // ),
                           ),
                           // a play button on the book cover
                           if (showPlayButton)
@@ -303,34 +301,6 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class BookCoverWidget extends HookConsumerWidget {
-  final double width;
-  final String? itemId;
-  const BookCoverWidget(this.width, {super.key, this.itemId});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (itemId == null) {
-      return SizedBox(width: width, child: const BookCoverSkeleton());
-    }
-    final itemBeingPlayed = ref.watch(libraryItemProvider(itemId!));
-    final imageOfItemBeingPlayed = itemBeingPlayed.value != null
-        ? ref.watch(coverImageProvider(itemBeingPlayed.value!.id))
-        : null;
-    return SizedBox(
-      width: width,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(
-          AppElementSizes.borderRadiusRegular,
-        ),
-        child: imageOfItemBeingPlayed?.value != null
-            ? Image.memory(imageOfItemBeingPlayed!.value!, fit: BoxFit.cover)
-            : const BookCoverSkeleton(),
       ),
     );
   }

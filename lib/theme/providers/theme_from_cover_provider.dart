@@ -67,7 +67,11 @@ FutureOr<ColorScheme?> themeOfLibraryItem(
   if (itemId == null) {
     return null;
   }
-  final coverImage = await ref.watch(coverImageProvider(itemId).future);
+  // final coverImage = await ref.watch(coverImageProvider(itemId).future);
+  final coverImage = await ref.watch(cacheImageProvider(itemId).future);
+  if (coverImage == null) {
+    return null;
+  }
   final val = await ref.watch(
     themeFromCoverProvider(
       MemoryImage(coverImage),

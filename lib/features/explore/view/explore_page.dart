@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/api/api_provider.dart';
-import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/features/explore/providers/search_controller.dart';
@@ -16,7 +15,7 @@ import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
-import 'package:vaani/shared/widgets/skeletons.dart';
+import 'package:vaani/shared/widgets/images.dart';
 
 const Duration debounceDuration = Duration(milliseconds: 500);
 
@@ -228,23 +227,13 @@ class BookSearchResultMini extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final item = ref.watch(libraryItemProvider(book.libraryItemId)).value;
-    final image = item == null
-        ? const AsyncValue.loading()
-        : ref.watch(coverImageProvider(item.id));
     return ListTile(
       leading: SizedBox(
         width: 50,
         height: 50,
         child: Hero(
           tag: HeroTagPrefixes.bookCover + book.libraryItemId,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: image.when(
-              data: (bytes) => Image.memory(bytes, fit: BoxFit.cover),
-              loading: () => const BookCoverSkeleton(),
-              error: (error, _) => const Icon(Icons.error),
-            ),
-          ),
+          child: AbsBookCover(id: item?.id),
         ),
       ),
       title: Text(book.metadata.title ?? ''),

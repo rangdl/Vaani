@@ -171,7 +171,7 @@ final class ThemeOfLibraryItemProvider
 }
 
 String _$themeOfLibraryItemHash() =>
-    r'0b2df397b2938003a9de6beb6d4204401a05370c';
+    r'1de3194255204e98e33548682b3f1db2db9c1997';
 
 final class ThemeOfLibraryItemFamily extends $Family
     with

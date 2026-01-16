@@ -9,39 +9,85 @@ part of 'image_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(CoverImage)
-final coverImageProvider = CoverImageFamily._();
+@ProviderFor(cacheSizeImage)
+final cacheSizeImageProvider = CacheSizeImageProvider._();
 
-final class CoverImageProvider
-    extends $StreamNotifierProvider<CoverImage, Uint8List> {
-  CoverImageProvider._({
-    required CoverImageFamily super.from,
+final class CacheSizeImageProvider
+    extends $FunctionalProvider<AsyncValue<String>, String, FutureOr<String>>
+    with $FutureModifier<String>, $FutureProvider<String> {
+  CacheSizeImageProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'cacheSizeImageProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$cacheSizeImageHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<String> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<String> create(Ref ref) {
+    return cacheSizeImage(ref);
+  }
+}
+
+String _$cacheSizeImageHash() => r'bd89478466ecb78c02c3528893cac17bb646c28a';
+
+@ProviderFor(cacheImage)
+final cacheImageProvider = CacheImageFamily._();
+
+final class CacheImageProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Uint8List?>,
+          Uint8List?,
+          FutureOr<Uint8List?>
+        >
+    with $FutureModifier<Uint8List?>, $FutureProvider<Uint8List?> {
+  CacheImageProvider._({
+    required CacheImageFamily super.from,
     required String super.argument,
   }) : super(
          retry: null,
-         name: r'coverImageProvider',
-         isAutoDispose: false,
+         name: r'cacheImageProvider',
+         isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$coverImageHash();
+  String debugGetCreateSourceHash() => _$cacheImageHash();
 
   @override
   String toString() {
-    return r'coverImageProvider'
+    return r'cacheImageProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  CoverImage create() => CoverImage();
+  $FutureProviderElement<Uint8List?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Uint8List?> create(Ref ref) {
+    final argument = this.argument as String;
+    return cacheImage(ref, argument);
+  }
 
   @override
   bool operator ==(Object other) {
-    return other is CoverImageProvider && other.argument == argument;
+    return other is CacheImageProvider && other.argument == argument;
   }
 
   @override
@@ -50,50 +96,22 @@ final class CoverImageProvider
   }
 }
 
-String _$coverImageHash() => r'89cc4783cbc76bb41beae34384d92fb277135c75';
+String _$cacheImageHash() => r'58545e6b44ca7ee5207fecbdcaf2fb437b28fb01';
 
-final class CoverImageFamily extends $Family
-    with
-        $ClassFamilyOverride<
-          CoverImage,
-          AsyncValue<Uint8List>,
-          Uint8List,
-          Stream<Uint8List>,
-          String
-        > {
-  CoverImageFamily._()
+final class CacheImageFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<Uint8List?>, String> {
+  CacheImageFamily._()
     : super(
         retry: null,
-        name: r'coverImageProvider',
+        name: r'cacheImageProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: false,
+        isAutoDispose: true,
       );
 
-  CoverImageProvider call(String itemId) =>
-      CoverImageProvider._(argument: itemId, from: this);
+  CacheImageProvider call(String id) =>
+      CacheImageProvider._(argument: id, from: this);
 
   @override
-  String toString() => r'coverImageProvider';
-}
-
-abstract class _$CoverImage extends $StreamNotifier<Uint8List> {
-  late final _$args = ref.$arg as String;
-  String get itemId => _$args;
-
-  Stream<Uint8List> build(String itemId);
-  @$mustCallSuper
-  @override
-  void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<Uint8List>, Uint8List>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<AsyncValue<Uint8List>, Uint8List>,
-              AsyncValue<Uint8List>,
-              Object?,
-              Object?
-            >;
-    element.handleCreate(ref, () => build(_$args));
-  }
+  String toString() => r'cacheImageProvider';
 }

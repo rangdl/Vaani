@@ -10,7 +10,7 @@ import 'package:vaani/features/player/view/widgets/player_progress_bar.dart';
 import 'package:vaani/features/skip_start_end/view/skip_start_end_button.dart';
 import 'package:vaani/features/sleep_timer/view/sleep_timer_button.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
-import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
+import 'package:vaani/shared/widgets/images.dart';
 
 import 'widgets/audiobook_player_seek_button.dart';
 import 'widgets/audiobook_player_seek_chapter_button.dart';
@@ -49,10 +49,7 @@ class PlayerExpanded extends HookConsumerWidget {
           child: Align(
             alignment: Alignment.center,
             // add a shadow to the image elevation hovering effect
-            child: PlayerExpandedImage(
-              imageSize,
-              itemId: currentBook.libraryItemId,
-            ),
+            child: PlayerExpandedImage(id: currentBook.libraryItemId),
           ),
         ),
 
@@ -156,10 +153,9 @@ class PlayerExpanded extends HookConsumerWidget {
 }
 
 class PlayerExpandedImage extends StatelessWidget {
-  final double imageSize;
-  final String? itemId;
+  final String? id;
 
-  const PlayerExpandedImage(this.imageSize, {super.key, this.itemId});
+  const PlayerExpandedImage({super.key, this.id});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -175,8 +171,9 @@ class PlayerExpandedImage extends StatelessWidget {
       child: InkWell(
         onTap: () {},
         child: Hero(
-          tag: HeroTagPrefixes.bookCoverWith(itemId),
-          child: BookCoverWidget(imageSize, itemId: itemId),
+          tag: HeroTagPrefixes.bookCoverWith(id),
+          // child: BookCoverWidget(imageSize, itemId: itemId),
+          child: AbsBookCover(id: id),
         ),
       ),
     );

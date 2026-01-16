@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
@@ -14,7 +15,7 @@ import 'package:vaani/features/sleep_timer/view/sleep_timer_button.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
-import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
+import 'package:vaani/shared/widgets/images.dart';
 
 class PlayerMinimized extends HookConsumerWidget {
   const PlayerMinimized({super.key});
@@ -28,6 +29,7 @@ class PlayerMinimized extends HookConsumerWidget {
     final size = MediaQuery.of(context).size;
     // 竖屏
     final isVertical = size.height > size.width;
+    ref.watch(cacheSizeImageProvider);
     return SizedBox(
       height: playerMinHeight,
       // color: Theme.of(context).colorScheme.surface,
@@ -51,7 +53,6 @@ class PlayerMinimizedControls extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentBook = ref.watch(currentBookProvider);
     final currentChapter = ref.watch(currentChapterProvider);
-
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
@@ -81,10 +82,11 @@ class PlayerMinimizedControls extends HookConsumerWidget {
               },
               child: Hero(
                 tag: HeroTagPrefixes.bookCoverWith(currentBook?.libraryItemId),
-                child: BookCoverWidget(
-                  playerMinHeight,
-                  itemId: currentBook?.libraryItemId,
-                ),
+                // child: BookCoverWidget(
+                //   playerMinHeight,
+                //   itemId: currentBook?.libraryItemId,
+                // ),
+                child: AbsBookCover(id: currentBook?.libraryItemId),
               ),
             ),
           ),
@@ -152,7 +154,6 @@ class PlayerMinimizedControlsDesktop extends HookConsumerWidget {
     final currentBook = ref.watch(currentBookProvider);
     final absPlayer = ref.watch(absPlayerProvider);
     ref.watch(currentChapterProvider);
-
     return MouseRegion(
       cursor: SystemMouseCursors.click, // 桌面端显示手型光标
       child: GestureDetector(
@@ -189,10 +190,7 @@ class PlayerMinimizedControlsDesktop extends HookConsumerWidget {
                         tag: HeroTagPrefixes.bookCoverWith(
                           currentBook?.libraryItemId,
                         ),
-                        child: BookCoverWidget(
-                          playerMinHeight,
-                          itemId: currentBook?.libraryItemId,
-                        ),
+                        child: AbsBookCover(id: currentBook?.libraryItemId),
                       ),
                     ),
                   ),

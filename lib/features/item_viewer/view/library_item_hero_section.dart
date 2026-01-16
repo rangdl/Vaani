@@ -3,7 +3,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' as shelfsdk;
-import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/features/item_viewer/view/library_item_page.dart';
@@ -12,7 +11,7 @@ import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/shared/extensions/duration_format.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
-import 'package:vaani/shared/widgets/skeletons.dart';
+import 'package:vaani/shared/widgets/images.dart';
 
 class LibraryItemHeroSection extends HookConsumerWidget {
   const LibraryItemHeroSection({
@@ -43,10 +42,11 @@ class LibraryItemHeroSection extends HookConsumerWidget {
                           HeroTagPrefixes.bookCover +
                           itemId +
                           (extraMap?.heroTagSuffix ?? ''),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: _BookCover(itemId: itemId),
-                      ),
+                      child: AbsBookCover(id: itemId),
+                      // child: ClipRRect(
+                      //   borderRadius: BorderRadius.circular(16),
+                      //   child: _BookCover(itemId: itemId),
+                      // ),
                     ),
                     // a progress bar
                     Padding(
@@ -305,51 +305,6 @@ class BookNarrators extends StatelessWidget {
               generateNarratorsString(),
             ),
           );
-  }
-}
-
-class _BookCover extends HookConsumerWidget {
-  const _BookCover({required this.itemId});
-
-  final String itemId;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final coverImage = ref.watch(coverImageProvider(itemId));
-    // final themeData = Theme.of(context);
-    // final item = ref.watch(libraryItemProvider(itemId));
-    // final themeSettings = ref.watch(appSettingsProvider).themeSettings;
-
-    // ColorScheme? coverColorScheme;
-    // if (themeSettings.useMaterialThemeOnItemPage) {
-    //   coverColorScheme = ref
-    //       .watch(
-    //         themeOfLibraryItemProvider(
-    //           itemId,
-    //           brightness: Theme.of(context).brightness,
-    //           highContrast: themeSettings.highContrast ||
-    //               MediaQuery.of(context).highContrast,
-    //         ),
-    //       )
-    //       .valueOrNull;
-    // }
-
-    return coverImage.when(
-      data: (image) {
-        // return const BookCoverSkeleton();
-        if (image.isEmpty) {
-          return const Icon(Icons.error);
-        }
-
-        return Image.memory(image, fit: BoxFit.cover);
-      },
-      loading: () {
-        return const Center(child: BookCoverSkeleton());
-      },
-      error: (error, stack) {
-        return const Center(child: Icon(Icons.error));
-      },
-    );
   }
 }
 

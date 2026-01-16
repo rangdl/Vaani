@@ -9,7 +9,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/api/api_provider.dart';
-import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/api/library_provider.dart';
 import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart';
@@ -20,7 +19,7 @@ import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/extensions/style.dart';
 import 'package:vaani/shared/icons/abs_icons.dart';
 import 'package:vaani/shared/utils/components.dart';
-import 'package:vaani/shared/widgets/skeletons.dart';
+import 'package:vaani/shared/widgets/images.dart';
 
 class LibraryPage extends HookConsumerWidget {
   const LibraryPage({this.libraryId, super.key});
@@ -176,7 +175,7 @@ class LibraryPageItem extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: BookCoverWidget(itemId: item.id)),
+            Expanded(child: AbsBookCover(id: item.id)),
             const SizedBox(height: 3),
             Text(
               metadata.title ?? '',
@@ -193,36 +192,6 @@ class LibraryPageItem extends HookConsumerWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class BookCoverWidget extends HookConsumerWidget {
-  const BookCoverWidget({super.key, required this.itemId});
-
-  final String itemId;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final coverImage = ref.watch(coverImageProvider(itemId));
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: coverImage.when(
-        data: (image) {
-          if (image.isEmpty) {
-            return const Icon(Icons.error);
-          }
-
-          return Image.memory(image, fit: BoxFit.cover);
-        },
-        loading: () {
-          return const Center(child: BookCoverSkeleton());
-        },
-        error: (error, stack) {
-          return const Center(child: Icon(Icons.error));
-        },
       ),
     );
   }
