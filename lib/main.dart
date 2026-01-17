@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/api/server_provider.dart';
 import 'package:vaani/db/storage.dart';
 import 'package:vaani/features/logging/core/logger.dart';
@@ -15,6 +16,7 @@ import 'package:vaani/framework.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
+import 'package:vaani/shared/hooks.dart';
 import 'package:vaani/theme/providers/system_theme_provider.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -70,7 +72,7 @@ Future<void> _runPlatformSpecificCode() async {
   }
 }
 
-class AbsApp extends ConsumerWidget {
+class AbsApp extends HookConsumerWidget {
   const AbsApp({super.key});
 
   @override
@@ -89,11 +91,18 @@ class AbsApp extends ConsumerWidget {
     final themeSettings = ref.watch(
       appSettingsProvider.select((v) => v.themeSettings),
     );
-    final currentBook = ref.watch(currentBookProvider);
+    final notifier = ref.watch(currentBookProvider.notifier);
+    useLayoutEffect(() {
+      notifier.init().then((id) {
+        // if (id != null) {
+        //   ref.watch(libraryItemProvider(id));
+        // }
+      });
+    });
     final currentTheme = ref.watch(
       currentThemeProvider(
         highContrast: MediaQuery.of(context).highContrast,
-        id: currentBook?.libraryItemId,
+        id: ref.watch(currentBookProvider)?.libraryItemId,
       ),
     );
     try {

@@ -130,7 +130,7 @@ class CurrentTime extends _$CurrentTime {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class CurrentBook extends _$CurrentBook {
   @override
   shelfsdk.BookExpanded? build() {
@@ -142,10 +142,22 @@ class CurrentBook extends _$CurrentBook {
     //     }
     //   }
     // });
+    // if (_playlistBox.values.isNotEmpty) {
+    //   final activeLibraryItemId = _playlistBox.getAt(0);
+    //   if (activeLibraryItemId != null) {
+    //     Future.microtask(() => update(activeLibraryItemId, play: false));
+    //   }
+    // }
+    return null;
+  }
+
+  Future<String?> init() async {
     if (_playlistBox.values.isNotEmpty) {
       final activeLibraryItemId = _playlistBox.getAt(0);
       if (activeLibraryItemId != null) {
-        Future.microtask(() => update(activeLibraryItemId, play: false));
+        // await ref.watch(libraryItemProvider(activeLibraryItemId).future);
+        await update(activeLibraryItemId, play: false);
+        return activeLibraryItemId;
       }
     }
     return null;

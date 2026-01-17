@@ -19,8 +19,8 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 0.0.57+57
  
 environment:
-  sdk: ">=3.10.0 <4.0.0"
-  flutter: 3.38.6
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: 3.32.8
 
 # isar_version: &isar_version ^4.0.0-dev.14 # define the version to be used
 
@@ -92,12 +92,12 @@ dependencies:
   # audio_service_win: ^0.0.2
   audio_session: ^0.1.23
   just_audio: ^0.10.5
-  just_audio_background: 
+  just_audio_background: any
     # TODO Remove git dep when https://github.com/ryanheise/just_audio/issues/912 is closed
-    git:
-      url: https://github.com/Dr-Blank/just_audio
-      ref: media-notification-config
-      path: just_audio_background
+    # git:
+    #   url: https://github.com/Dr-Blank/just_audio
+    #   ref: media-notification-config
+    #   path: just_audio_background
   # just_audio_windows: ^0.2.2
   just_audio_media_kit: ^2.0.4
   media_kit_libs_linux: any
@@ -168,15 +168,15 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
   # custom_lint: ^0.7.0
-  riverpod_lint: ^3.1.0
+  # riverpod_lint: ^3.1.0
   
   # dart代码生成
-  build_runner: ^2.4.9
+  build_runner: ^2.4.8
   #Riverpod代码生成
   riverpod_generator: ^4.0.0+1
   
-  freezed: ^3.1.0
-  json_serializable: ^6.8.0
+  freezed: ^3.2.3
+  json_serializable: ^6.11.2
 
   # hive_ce_generator: ^1.8.1
   

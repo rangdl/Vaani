@@ -26,9 +26,9 @@
     "utsname",
     "Vaani",
     "appender",
-    "appenders",
+    "appenders"
   ],
-  "dart.flutterSdkPath": ".fvm/versions/3.38.6",
+  "dart.flutterSdkPath": ".fvm/versions/3.32.8",
   "files.exclude": {
     "**/*.freezed.dart": true,
     "**/*.g.dart": true

@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/api_provider.dart';
+import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
@@ -42,6 +43,15 @@ class HomePage extends HookConsumerWidget {
             ref.invalidate(personalizedViewProvider);
           },
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              final currentBook = ref.read(currentBookProvider);
+              print(currentBook);
+            },
+            icon: Icon(Icons.abc),
+          ),
+        ],
       ),
       body: Container(
         child: views.when(

@@ -1,11 +1,8 @@
-import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
-import 'package:just_audio_background/just_audio_background.dart'
-    show JustAudioBackground, NotificationConfig;
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:just_audio_media_kit/just_audio_media_kit.dart'
     show JustAudioMediaKit;
 import 'package:vaani/features/settings/app_settings_provider.dart';
-import 'package:vaani/features/settings/models/app_settings.dart';
 
 Future<void> configurePlayer() async {
   // for playing audio on windows, linux
@@ -35,40 +32,40 @@ Future<void> configurePlayer() async {
     rewindInterval: appSettings.notificationSettings.rewindInterval,
     fastForwardInterval: appSettings.notificationSettings.fastForwardInterval,
     androidShowNotificationBadge: false,
-    notificationConfigBuilder: (state) {
-      final controls = [
-        if (appSettings.notificationSettings.mediaControls.contains(
-              NotificationMediaControl.skipToPreviousChapter,
-            ) &&
-            state.hasPrevious)
-          MediaControl.skipToPrevious,
-        if (appSettings.notificationSettings.mediaControls.contains(
-          NotificationMediaControl.rewind,
-        ))
-          MediaControl.rewind,
-        if (state.playing) MediaControl.pause else MediaControl.play,
-        if (appSettings.notificationSettings.mediaControls.contains(
-          NotificationMediaControl.fastForward,
-        ))
-          MediaControl.fastForward,
-        if (appSettings.notificationSettings.mediaControls.contains(
-              NotificationMediaControl.skipToNextChapter,
-            ) &&
-            state.hasNext)
-          MediaControl.skipToNext,
-        if (appSettings.notificationSettings.mediaControls.contains(
-          NotificationMediaControl.stop,
-        ))
-          MediaControl.stop,
-      ];
-      return NotificationConfig(
-        controls: controls,
-        systemActions: const {
-          MediaAction.seek,
-          MediaAction.seekForward,
-          MediaAction.seekBackward,
-        },
-      );
-    },
+    // notificationConfigBuilder: (state) {
+    //   final controls = [
+    //     if (appSettings.notificationSettings.mediaControls.contains(
+    //           NotificationMediaControl.skipToPreviousChapter,
+    //         ) &&
+    //         state.hasPrevious)
+    //       MediaControl.skipToPrevious,
+    //     if (appSettings.notificationSettings.mediaControls.contains(
+    //       NotificationMediaControl.rewind,
+    //     ))
+    //       MediaControl.rewind,
+    //     if (state.playing) MediaControl.pause else MediaControl.play,
+    //     if (appSettings.notificationSettings.mediaControls.contains(
+    //       NotificationMediaControl.fastForward,
+    //     ))
+    //       MediaControl.fastForward,
+    //     if (appSettings.notificationSettings.mediaControls.contains(
+    //           NotificationMediaControl.skipToNextChapter,
+    //         ) &&
+    //         state.hasNext)
+    //       MediaControl.skipToNext,
+    //     if (appSettings.notificationSettings.mediaControls.contains(
+    //       NotificationMediaControl.stop,
+    //     ))
+    //       MediaControl.stop,
+    //   ];
+    //   return NotificationConfig(
+    //     controls: controls,
+    //     systemActions: const {
+    //       MediaAction.seek,
+    //       MediaAction.seekForward,
+    //       MediaAction.seekBackward,
+    //     },
+    //   );
+    // },
   );
 }
