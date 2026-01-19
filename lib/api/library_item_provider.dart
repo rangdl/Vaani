@@ -16,6 +16,35 @@ part 'library_item_provider.g.dart';
 final _logger = Logger('LibraryItemProvider');
 
 /// provides the library item for the given id
+// @Riverpod(keepAlive: true)
+// class LibraryItem extends _$LibraryItem {
+//   @override
+//   Future<shelfsdk.LibraryItemExpanded> build(String id) async {
+//     final api = ref.watch(authenticatedApiProvider);
+//     _logger.fine('LibraryItemProvider fetching library item: $id');
+//     try {
+//       final item = await api.items.get(
+//         libraryItemId: id,
+//         parameters: const shelfsdk.GetItemReqParams(
+//           expanded: true,
+//           include: [
+//             shelfsdk.GetItemIncludeOption.progress,
+//             shelfsdk.GetItemIncludeOption.rssFeed,
+//             shelfsdk.GetItemIncludeOption.authors,
+//             shelfsdk.GetItemIncludeOption.downloads,
+//           ],
+//         ),
+//       );
+//       return item!.asExpanded;
+//     } catch (e) {
+//       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
+//       appLogger.severe('未查询到数据');
+//       appLogger.severe(e.toString());
+//     }
+//     throw shelfsdk.RequestException("查询失败");
+//   }
+// }
+
 @Riverpod(keepAlive: true)
 class LibraryItem extends _$LibraryItem {
   @override
@@ -77,4 +106,13 @@ class LibraryItem extends _$LibraryItem {
       appLogger.severe(e.toString());
     }
   }
+
+  // @override
+  // bool updateShouldNotify(
+  //   AsyncValue<shelfsdk.LibraryItemExpanded> previous,
+  //   AsyncValue<shelfsdk.LibraryItemExpanded> next,
+  // ) {
+  //   // Custom implementation
+  //   return true;
+  // }
 }

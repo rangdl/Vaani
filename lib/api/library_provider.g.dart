@@ -189,7 +189,7 @@ final class LibraryItemsProvider
   }
 }
 
-String _$libraryItemsHash() => r'402fb8d5dbbd83e77d0f3637068018a052cb7021';
+String _$libraryItemsHash() => r'de35b3757a93bba26843a42cf4b18803ca0e3b44';
 
 abstract class _$LibraryItems extends $Notifier<LibraryItemsState> {
   LibraryItemsState build();

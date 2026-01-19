@@ -7,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/library_provider.dart';
@@ -47,6 +48,13 @@ class LibraryPage extends HookConsumerWidget {
     final items = pageData.items;
 
     final scrollController = useScrollController();
+
+    // late final _pagingController = PagingController<int, LibraryItem>(
+    //     getNextPageKey: (state) => state.lastPageIsEmpty ? null : state.nextIntPageKey,
+    //     fetchPage: (pageKey) {
+    //       ref.read(libraryItemsProvider.notifier).loadMore();
+    //     },
+    //   );
 
     return Scaffold(
       appBar: AppBar(
@@ -98,10 +106,21 @@ class LibraryPage extends HookConsumerWidget {
             onPressed: () =>
                 GoRouter.of(context).pushNamed(Routes.downloads.name),
           ),
+          const LibraryItemsMore(),
         ],
       ),
 
       // drawer: const MyDrawer(),
+      // body: PagingListener(
+      //   controller: controller,
+      //   builder: (context, state, fetchNextPage) =>
+      //       PagedGridView<int, LibraryItem>(
+      //         state: state,
+      //         fetchNextPage: () {},
+      //         gridDelegate: null,
+      //         builderDelegate: PagedChildBuilderDelegate,
+      //       ),
+      // ),
       body: EasyRefresh(
         header: Components.easyRefreshHeader(context),
         footer: Components.easyRefreshFooter(context),
@@ -257,6 +276,57 @@ class LibraryItemsSort extends HookConsumerWidget {
                 desc: state.sort == value ? !state.desc : state.desc,
               ),
             );
+      },
+    );
+  }
+}
+
+class LibraryItemsMore extends HookConsumerWidget {
+  const LibraryItemsMore({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(libraryItemsProvider);
+    String selected = state.sort;
+    return DropdownSearch<String>(
+      selectedItem: selected,
+      mode: Mode.custom,
+      items: (filter, loadProps) => state.moreList,
+      dropdownBuilder: (ctx, selectedItem) {
+        return Icon(Icons.more_vert);
+      },
+      popupProps: PopupProps.menu(
+        menuProps: MenuProps(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(AppElementSizes.borderRadiusRegular),
+          ),
+          popUpAnimationStyle: AnimationStyle(duration: Duration.zero),
+        ),
+        constraints: BoxConstraints(
+          minWidth: 180,
+          maxHeight: MediaQuery.of(context).size.height * 0.5,
+        ),
+        itemBuilder: (context, item, isDisabled, isSelected) => ListTile(
+          title: Text(state.moreDisplay(item)),
+          trailing: 'collapseSeries' == item
+              ? state.collapseSeries
+                    ? const Icon(Icons.check)
+                    : null
+              : null,
+        ),
+        fit: FlexFit.loose,
+      ),
+      onChanged: (value) {
+        debugPrint(value);
+        switch (value) {
+          case 'collapseSeries':
+            ref
+                .read(libraryItemsProvider.notifier)
+                .update(state.copyWith(collapseSeries: !state.collapseSeries));
+            break;
+          default:
+            break;
+        }
       },
     );
   }

@@ -27,7 +27,7 @@ class Components {
       noMoreText: S.of(context).erNoMoreText,
       failedText: S.of(context).erFailedText,
       messageText: S.of(context).erMessageText,
-      infiniteOffset: 0,
+      // infiniteOffset: 0,
     );
   }
 }

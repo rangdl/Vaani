@@ -73,6 +73,9 @@ class LibraryItemsState {
   final bool hasError;
   final String? errorMessage;
 
+  // 折叠系列
+  final bool collapseSeries;
+
   const LibraryItemsState({
     this.items = const [],
     this.limit = 18,
@@ -84,6 +87,7 @@ class LibraryItemsState {
     this.hasMore = false,
     this.hasError = false,
     this.errorMessage,
+    this.collapseSeries = true,
   });
 
   LibraryItemsState copyWith({
@@ -97,6 +101,7 @@ class LibraryItemsState {
     bool? hasMore,
     bool? hasError,
     String? errorMessage,
+    bool? collapseSeries,
   }) {
     return LibraryItemsState(
       items: items ?? this.items,
@@ -109,6 +114,7 @@ class LibraryItemsState {
       hasMore: hasMore ?? this.hasMore,
       hasError: hasError ?? this.hasError,
       errorMessage: errorMessage ?? this.errorMessage,
+      collapseSeries: collapseSeries ?? this.collapseSeries,
     );
   }
 
@@ -132,6 +138,12 @@ class LibraryItemsState {
   List<String> get sortList => sortMap.keys.toList();
   String sortDisplay(String sort) {
     return sortMap[sort] ?? 'unknown';
+  }
+
+  final moreMap = const {'collapseSeries': '折叠系列'};
+  List<String> get moreList => moreMap.keys.toList();
+  String moreDisplay(String sort) {
+    return moreMap[sort] ?? 'unknown';
   }
 }
 
@@ -225,6 +237,7 @@ class LibraryItems extends _$LibraryItems {
           sort: state.sort,
           desc: state.desc,
           minified: true,
+          collapseSeries: state.collapseSeries,
         ),
       );
       return newItems?.results ?? [];

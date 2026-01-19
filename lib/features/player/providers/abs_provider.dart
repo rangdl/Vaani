@@ -9,6 +9,7 @@ import 'package:vaani/db/available_boxes.dart';
 import 'package:vaani/features/downloads/providers/download_manager.dart';
 import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
 import 'package:vaani/features/player/core/abs_audio_player.dart';
+import 'package:vaani/features/playlist/playlist_provider.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 
@@ -173,7 +174,10 @@ class CurrentBook extends _$CurrentBook {
       ref.read(absPlayerProvider).playOrPause();
       return;
     }
-    final book = await ref.read(libraryItemProvider(libraryItemId).future);
+    // final book = await ref.readFirst(libraryItemProvider(libraryItemId).future);
+    final book = await ref.read(
+      libraryItemProvider(libraryItemId).selectAsync((v) => v),
+    );
     state = book.media.asBookExpanded;
     final mediaProgress = await ref.read(
       currentTimeProvider(libraryItemId).future,
