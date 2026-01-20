@@ -73,13 +73,14 @@ dependencies:
 
   # 图片缓存
   cached_network_image: ^3.3.1
-    
-  # flutter_cache_manager: ^3.3.2
+  flutter_cache_manager: ^3.3.2
   # flutter_cache_manager: 
+  #   version: 3.4.1
   #   git:
   #     url: https://github.com/Baseflow/flutter_cache_manager
   #     ref: develop
   #     path: flutter_cache_manager
+
 
   # 日志
   logging: ^1.2.0
@@ -169,6 +170,13 @@ dependencies:
   
   flutter_localizations:
     sdk: flutter
+
+dependency_overrides:
+  flutter_cache_manager:
+    git:
+      url: https://github.com/Baseflow/flutter_cache_manager
+      ref: develop
+      path: flutter_cache_manager
 
 dev_dependencies:
   flutter_test:
