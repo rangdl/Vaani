@@ -1,11 +1,10 @@
 import 'dart:math';
 
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
-import 'package:vaani/api/api_provider.dart';
+import 'package:vaani/api/library_item_provider.dart' show libraryItemProvider;
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/features/item_viewer/view/library_item_actions.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
@@ -112,48 +111,6 @@ class BookOnShelf extends HookConsumerWidget {
                                 item.id +
                                 heroTagSuffix,
                             child: AbsBookCover(id: item.id),
-                            // child: ClipRRect(
-                            //   borderRadius: BorderRadius.circular(10),
-                            // child: AnimatedSwitcher(
-                            //   duration: const Duration(milliseconds: 300),
-                            //   child: AbsBookCover(id: item.id),
-                            // child: coverImage.when(
-                            //   data: (image) {
-                            //     // return const BookCoverSkeleton();
-                            //     if (image.isEmpty) {
-                            //       return const Icon(Icons.error);
-                            //     }
-                            //     var imageWidget = Image.memory(
-                            //       image,
-                            //       fit: BoxFit.fill,
-                            //       cacheWidth:
-                            //           (height *
-                            //                   1.2 *
-                            //                   MediaQuery.of(
-                            //                     context,
-                            //                   ).devicePixelRatio)
-                            //               .round(),
-                            //     );
-                            //     return Container(
-                            //       decoration: BoxDecoration(
-                            //         color: Theme.of(
-                            //           context,
-                            //         ).colorScheme.onPrimaryContainer,
-                            //       ),
-                            //       child: imageWidget,
-                            //     );
-                            //   },
-                            //   loading: () {
-                            //     return const Center(
-                            //       child: BookCoverSkeleton(),
-                            //     );
-                            //   },
-                            //   error: (error, stack) {
-                            //     return const Icon(Icons.error);
-                            //   },
-                            // ),
-                            // ),
-                            // ),
                           ),
                           // a play button on the book cover
                           if (showPlayButton)
@@ -163,17 +120,10 @@ class BookOnShelf extends HookConsumerWidget {
                     ),
                   ),
                   // the title and author of the book
-                  // AutoScrollText(
                   Hero(
                     tag: HeroTagPrefixes.bookTitle + item.id + heroTagSuffix,
                     child: Text(
                       metadata.title ?? '',
-                      // mode: AutoScrollTextMode.bouncing,
-                      // curve: Curves.easeInOut,
-                      // velocity: const Velocity(pixelsPerSecond: Offset(15, 0)),
-                      // delayBefore: const Duration(seconds: 2),
-                      // pauseBetween: const Duration(seconds: 2),
-                      // numberOfReps: 15,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyLarge,
@@ -207,18 +157,17 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final me = ref.watch(meProvider);
+    // final me = ref.watch(meProvider);
     final currentBook = ref.watch(currentBookProvider);
     final playing = ref.watch(playerStateProvider.select((v) => v.playing));
-    final playerStateNotifier = ref.read(playerStateProvider.notifier);
-    final isLoading = playerStateNotifier.isLoading(libraryItemId);
     final isCurrentBookSetInPlayer =
         currentBook?.libraryItemId == libraryItemId;
     final isPlayingThisBook = playing && isCurrentBookSetInPlayer;
 
-    final userProgress = me.value?.mediaProgress?.firstWhereOrNull(
-      (element) => element.libraryItemId == libraryItemId,
-    );
+    // final userProgress = me.value?.mediaProgress?.firstWhereOrNull(
+    //   (element) => element.libraryItemId == libraryItemId,
+    // );
+    final userProgress = ref.watch(currentTimeProvider(libraryItemId)).value;
     final isBookCompleted = userProgress?.isFinished ?? false;
 
     const size = 40.0;
@@ -281,18 +230,16 @@ class _BookOnShelfPlayButton extends HookConsumerWidget {
                 ),
               ),
               onPressed: () async {
-                ref.read(currentBookProvider.notifier).update(libraryItemId);
-                // final book =
-                //     await ref.watch(libraryItemProvider(libraryItemId).future);
-                // ref.read(absPlayerProvider.notifier).load(
-                //       book.media.asBookExpanded,
-                //       initialPosition: userProgress?.currentTime,
-                //     );
+                final item = await ref.watch(
+                  libraryItemProvider(libraryItemId).future,
+                );
+                ref
+                    .read(absPlayerProvider.notifier)
+                    .load(item.media.asBookExpanded);
               },
               icon: Hero(
                 tag: HeroTagPrefixes.libraryItemPlayButton + libraryItemId,
                 child: DynamicItemPlayIcon(
-                  isLoading: isLoading,
                   isBookCompleted: isBookCompleted,
                   isPlayingThisBook: isPlayingThisBook,
                   isCurrentBookSetInPlayer: isCurrentBookSetInPlayer,

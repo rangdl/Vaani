@@ -147,6 +147,7 @@ class LibraryItemsState {
   }
 }
 
+// 查询库下所有项目
 @riverpod
 class LibraryItems extends _$LibraryItems {
   @override
@@ -250,27 +251,3 @@ class LibraryItems extends _$LibraryItems {
     refresh();
   }
 }
-
-// 查询库下所有项目
-// @riverpod
-// Future<List<LibraryItem>> currentLibraryItems(Ref ref) async {
-//   final api = ref.watch(authenticatedApiProvider);
-//   final libraryId =
-//       ref.watch(apiSettingsProvider.select((s) => s.activeLibraryId));
-//   if (libraryId == null) {
-//     _logger.warning('No active library id found');
-//     return [];
-//   }
-//   final items = await api.libraries.getItems(
-//     libraryId: libraryId,
-//     parameters: const GetLibrarysItemsReqParams(
-//       limit: 18,
-//       page: 0,
-//       minified: true,
-//     ),
-//   );
-//   if (items == null) {
-//     return [];
-//   }
-//   return items.results;
-// }

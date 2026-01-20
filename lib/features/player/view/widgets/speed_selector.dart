@@ -19,7 +19,7 @@ class SpeedSelector extends HookConsumerWidget {
     final appSettings = ref.watch(appSettingsProvider);
     final playerSettings = appSettings.playerSettings;
     final speeds = playerSettings.speedOptions;
-    final currentSpeed = ref.watch(absPlayerProvider).speed;
+    final currentSpeed = ref.watch(audioPlayerProvider).speed;
     final speedState = useState(currentSpeed);
 
     // hook the onSpeedSelected function to the state

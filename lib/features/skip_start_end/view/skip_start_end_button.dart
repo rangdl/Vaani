@@ -113,11 +113,7 @@ class PlayerSkipChapterStartEnd extends HookConsumerWidget {
     final absPlayer = ref.read(absPlayerProvider);
     final positionInBook = absPlayer.positionInBook;
     ref
-        .read(currentBookProvider.notifier)
-        .update(
-          currentBook.libraryItemId,
-          force: true,
-          currentTime: positionInBook,
-        );
+        .read(absPlayerProvider.notifier)
+        .load(currentBook, initialPosition: positionInBook, force: true);
   }
 }

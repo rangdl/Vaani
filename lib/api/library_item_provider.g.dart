@@ -9,98 +9,14 @@ part of 'library_item_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 /// provides the library item for the given id
-// @Riverpod(keepAlive: true)
-// class LibraryItem extends _$LibraryItem {
-//   @override
-//   Future<shelfsdk.LibraryItemExpanded> build(String id) async {
-//     final api = ref.watch(authenticatedApiProvider);
-//     _logger.fine('LibraryItemProvider fetching library item: $id');
-//     try {
-//       final item = await api.items.get(
-//         libraryItemId: id,
-//         parameters: const shelfsdk.GetItemReqParams(
-//           expanded: true,
-//           include: [
-//             shelfsdk.GetItemIncludeOption.progress,
-//             shelfsdk.GetItemIncludeOption.rssFeed,
-//             shelfsdk.GetItemIncludeOption.authors,
-//             shelfsdk.GetItemIncludeOption.downloads,
-//           ],
-//         ),
-//       );
-//       return item!.asExpanded;
-//     } catch (e) {
-//       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
-//       appLogger.severe('未查询到数据');
-//       appLogger.severe(e.toString());
-//     }
-//     throw shelfsdk.RequestException("查询失败");
-//   }
-// }
 
 @ProviderFor(LibraryItem)
 final libraryItemProvider = LibraryItemFamily._();
 
 /// provides the library item for the given id
-// @Riverpod(keepAlive: true)
-// class LibraryItem extends _$LibraryItem {
-//   @override
-//   Future<shelfsdk.LibraryItemExpanded> build(String id) async {
-//     final api = ref.watch(authenticatedApiProvider);
-//     _logger.fine('LibraryItemProvider fetching library item: $id');
-//     try {
-//       final item = await api.items.get(
-//         libraryItemId: id,
-//         parameters: const shelfsdk.GetItemReqParams(
-//           expanded: true,
-//           include: [
-//             shelfsdk.GetItemIncludeOption.progress,
-//             shelfsdk.GetItemIncludeOption.rssFeed,
-//             shelfsdk.GetItemIncludeOption.authors,
-//             shelfsdk.GetItemIncludeOption.downloads,
-//           ],
-//         ),
-//       );
-//       return item!.asExpanded;
-//     } catch (e) {
-//       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
-//       appLogger.severe('未查询到数据');
-//       appLogger.severe(e.toString());
-//     }
-//     throw shelfsdk.RequestException("查询失败");
-//   }
-// }
 final class LibraryItemProvider
     extends $StreamNotifierProvider<LibraryItem, shelfsdk.LibraryItemExpanded> {
   /// provides the library item for the given id
-  // @Riverpod(keepAlive: true)
-  // class LibraryItem extends _$LibraryItem {
-  //   @override
-  //   Future<shelfsdk.LibraryItemExpanded> build(String id) async {
-  //     final api = ref.watch(authenticatedApiProvider);
-  //     _logger.fine('LibraryItemProvider fetching library item: $id');
-  //     try {
-  //       final item = await api.items.get(
-  //         libraryItemId: id,
-  //         parameters: const shelfsdk.GetItemReqParams(
-  //           expanded: true,
-  //           include: [
-  //             shelfsdk.GetItemIncludeOption.progress,
-  //             shelfsdk.GetItemIncludeOption.rssFeed,
-  //             shelfsdk.GetItemIncludeOption.authors,
-  //             shelfsdk.GetItemIncludeOption.downloads,
-  //           ],
-  //         ),
-  //       );
-  //       return item!.asExpanded;
-  //     } catch (e) {
-  //       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
-  //       appLogger.severe('未查询到数据');
-  //       appLogger.severe(e.toString());
-  //     }
-  //     throw shelfsdk.RequestException("查询失败");
-  //   }
-  // }
   LibraryItemProvider._({
     required LibraryItemFamily super.from,
     required String super.argument,
@@ -137,37 +53,9 @@ final class LibraryItemProvider
   }
 }
 
-String _$libraryItemHash() => r'bdb40fe8506f3b8f78cb47c4af827899f79617b7';
+String _$libraryItemHash() => r'30d0f8ca585673e9aa53bae6580be88eaa1fcba5';
 
 /// provides the library item for the given id
-// @Riverpod(keepAlive: true)
-// class LibraryItem extends _$LibraryItem {
-//   @override
-//   Future<shelfsdk.LibraryItemExpanded> build(String id) async {
-//     final api = ref.watch(authenticatedApiProvider);
-//     _logger.fine('LibraryItemProvider fetching library item: $id');
-//     try {
-//       final item = await api.items.get(
-//         libraryItemId: id,
-//         parameters: const shelfsdk.GetItemReqParams(
-//           expanded: true,
-//           include: [
-//             shelfsdk.GetItemIncludeOption.progress,
-//             shelfsdk.GetItemIncludeOption.rssFeed,
-//             shelfsdk.GetItemIncludeOption.authors,
-//             shelfsdk.GetItemIncludeOption.downloads,
-//           ],
-//         ),
-//       );
-//       return item!.asExpanded;
-//     } catch (e) {
-//       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
-//       appLogger.severe('未查询到数据');
-//       appLogger.severe(e.toString());
-//     }
-//     throw shelfsdk.RequestException("查询失败");
-//   }
-// }
 
 final class LibraryItemFamily extends $Family
     with
@@ -188,34 +76,6 @@ final class LibraryItemFamily extends $Family
       );
 
   /// provides the library item for the given id
-  // @Riverpod(keepAlive: true)
-  // class LibraryItem extends _$LibraryItem {
-  //   @override
-  //   Future<shelfsdk.LibraryItemExpanded> build(String id) async {
-  //     final api = ref.watch(authenticatedApiProvider);
-  //     _logger.fine('LibraryItemProvider fetching library item: $id');
-  //     try {
-  //       final item = await api.items.get(
-  //         libraryItemId: id,
-  //         parameters: const shelfsdk.GetItemReqParams(
-  //           expanded: true,
-  //           include: [
-  //             shelfsdk.GetItemIncludeOption.progress,
-  //             shelfsdk.GetItemIncludeOption.rssFeed,
-  //             shelfsdk.GetItemIncludeOption.authors,
-  //             shelfsdk.GetItemIncludeOption.downloads,
-  //           ],
-  //         ),
-  //       );
-  //       return item!.asExpanded;
-  //     } catch (e) {
-  //       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
-  //       appLogger.severe('未查询到数据');
-  //       appLogger.severe(e.toString());
-  //     }
-  //     throw shelfsdk.RequestException("查询失败");
-  //   }
-  // }
 
   LibraryItemProvider call(String id) =>
       LibraryItemProvider._(argument: id, from: this);
@@ -225,34 +85,6 @@ final class LibraryItemFamily extends $Family
 }
 
 /// provides the library item for the given id
-// @Riverpod(keepAlive: true)
-// class LibraryItem extends _$LibraryItem {
-//   @override
-//   Future<shelfsdk.LibraryItemExpanded> build(String id) async {
-//     final api = ref.watch(authenticatedApiProvider);
-//     _logger.fine('LibraryItemProvider fetching library item: $id');
-//     try {
-//       final item = await api.items.get(
-//         libraryItemId: id,
-//         parameters: const shelfsdk.GetItemReqParams(
-//           expanded: true,
-//           include: [
-//             shelfsdk.GetItemIncludeOption.progress,
-//             shelfsdk.GetItemIncludeOption.rssFeed,
-//             shelfsdk.GetItemIncludeOption.authors,
-//             shelfsdk.GetItemIncludeOption.downloads,
-//           ],
-//         ),
-//       );
-//       return item!.asExpanded;
-//     } catch (e) {
-//       debugPrintStack(stackTrace: StackTrace.current, label: e.toString());
-//       appLogger.severe('未查询到数据');
-//       appLogger.severe(e.toString());
-//     }
-//     throw shelfsdk.RequestException("查询失败");
-//   }
-// }
 
 abstract class _$LibraryItem
     extends $StreamNotifier<shelfsdk.LibraryItemExpanded> {

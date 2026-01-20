@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/api/server_provider.dart';
 import 'package:vaani/db/storage.dart';
 import 'package:vaani/features/logging/core/logger.dart';
@@ -16,7 +15,7 @@ import 'package:vaani/framework.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
-import 'package:vaani/shared/hooks.dart';
+import 'package:vaani/shared/utils/scroll_behavior.dart';
 import 'package:vaani/theme/providers/system_theme_provider.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -91,14 +90,6 @@ class AbsApp extends HookConsumerWidget {
     final themeSettings = ref.watch(
       appSettingsProvider.select((v) => v.themeSettings),
     );
-    final notifier = ref.watch(currentBookProvider.notifier);
-    useLayoutEffect(() {
-      notifier.init().then((id) {
-        // if (id != null) {
-        //   ref.watch(libraryItemProvider(id));
-        // }
-      });
-    });
     final currentTheme = ref.watch(
       currentThemeProvider(
         highContrast: MediaQuery.of(context).highContrast,
@@ -108,6 +99,7 @@ class AbsApp extends HookConsumerWidget {
     try {
       return MaterialApp.router(
         locale: Locale(language),
+        scrollBehavior: AppCustomScrollBehavior(),
         localizationsDelegates: [
           // 以下是其他代理
           S.delegate, //String 资源的 本地化

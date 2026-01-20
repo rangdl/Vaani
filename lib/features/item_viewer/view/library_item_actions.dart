@@ -536,8 +536,6 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
     final currentBook = ref.watch(currentBookProvider);
     final book = item.media.asBookExpanded;
     final playing = ref.watch(playerStateProvider.select((v) => v.playing));
-    final playerStateNotifier = ref.read(playerStateProvider.notifier);
-    final isLoading = playerStateNotifier.isLoading(book.libraryItemId);
     final isCurrentBookSetInPlayer =
         currentBook?.libraryItemId == book.libraryItemId;
     final isPlayingThisBook = playing && isCurrentBookSetInPlayer;
@@ -568,12 +566,11 @@ class _LibraryItemPlayButton extends HookConsumerWidget {
 
     return ElevatedButton.icon(
       onPressed: () {
-        ref.read(currentBookProvider.notifier).update(book.libraryItemId);
+        ref.read(absPlayerProvider.notifier).load(book);
       },
       icon: Hero(
         tag: HeroTagPrefixes.libraryItemPlayButton + book.libraryItemId,
         child: DynamicItemPlayIcon(
-          isLoading: isLoading,
           isCurrentBookSetInPlayer: isCurrentBookSetInPlayer,
           isPlayingThisBook: isPlayingThisBook,
           isBookCompleted: isBookCompleted,
@@ -593,30 +590,22 @@ class DynamicItemPlayIcon extends StatelessWidget {
     required this.isCurrentBookSetInPlayer,
     required this.isPlayingThisBook,
     required this.isBookCompleted,
-    this.isLoading = false,
   });
 
   final bool isCurrentBookSetInPlayer;
   final bool isPlayingThisBook;
   final bool isBookCompleted;
-  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? SizedBox(
-            // width: 20,
-            // height: 20,
-            child: CircularProgressIndicator(strokeWidth: 4),
-          )
-        : Icon(
-            isCurrentBookSetInPlayer
-                ? isPlayingThisBook
-                      ? Icons.pause_rounded
-                      : Icons.play_arrow_rounded
-                : isBookCompleted
-                ? Icons.replay_rounded
-                : Icons.play_arrow_rounded,
-          );
+    return Icon(
+      isCurrentBookSetInPlayer
+          ? isPlayingThisBook
+                ? Icons.pause_rounded
+                : Icons.play_arrow_rounded
+          : isBookCompleted
+          ? Icons.replay_rounded
+          : Icons.play_arrow_rounded,
+    );
   }
 }

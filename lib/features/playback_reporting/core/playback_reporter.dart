@@ -74,7 +74,7 @@ class PlaybackReporter {
     this.markCompleteWhenTimeLeft = const Duration(seconds: 5),
   }) : _reportingInterval = reportingInterval {
     // initial conditions
-    if (player.playing) {
+    if (player.player.playing) {
       _stopwatch.start();
       _setReportTimerIfNotAlready();
       _logger.fine('starting stopwatch');
@@ -83,7 +83,7 @@ class PlaybackReporter {
     }
 
     _subscriptions.add(
-      player.playerStateStream.listen((state) async {
+      player.player.playerStateStream.listen((state) async {
         // set timer if any book is playing and cancel if not
         if (player.book != null) {
           if (state.playing) {

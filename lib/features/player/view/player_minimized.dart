@@ -134,7 +134,10 @@ class PlayerMinimizedControls extends HookConsumerWidget {
                 Icons.replay_30,
                 size: AppElementSizes.iconSizeSmall,
               ),
-              onPressed: () {},
+              onPressed: () {
+                final player = ref.read(absPlayerProvider);
+                player.seek(player.position - Duration(seconds: 30));
+              },
             ),
           ),
 

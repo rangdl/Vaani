@@ -49,7 +49,10 @@ class PlayerExpanded extends HookConsumerWidget {
           child: Align(
             alignment: Alignment.center,
             // add a shadow to the image elevation hovering effect
-            child: PlayerExpandedImage(id: currentBook.libraryItemId),
+            child: SizedBox(
+              width: imageSize,
+              child: PlayerExpandedImage(id: currentBook.libraryItemId),
+            ),
           ),
         ),
 

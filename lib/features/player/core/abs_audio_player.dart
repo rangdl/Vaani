@@ -20,7 +20,8 @@ final _logger = Logger('AbsAudioPlayer');
 
 class AbsAudioPlayer {
   final Ref ref;
-  late final AudioPlayer _player;
+  final AudioPlayer _player;
+  BookExpanded? _book;
   AbsAudioPlayer(AudioPlayer player, this.ref) : _player = player {
     _player.positionStream.listen((position) {
       final chapter = currentChapter;
@@ -37,13 +38,11 @@ class AbsAudioPlayer {
     });
   }
 
-  final _bookStreamController = BehaviorSubject<BookExpanded?>.seeded(null);
   final _chapterStreamController = BehaviorSubject<BookChapter?>.seeded(null);
 
-  BookExpanded? get book => _bookStreamController.nvalue;
-  AudioTrack? get currentTrack => book?.tracks[currentIndex];
+  AudioPlayer get player => _player;
+  BookExpanded? get book => _book;
   BookChapter? get currentChapter => _chapterStreamController.nvalue;
-  Stream<BookExpanded?> get bookStream => _bookStreamController.stream;
   Stream<BookChapter?> get chapterStream => _chapterStreamController.stream;
 
   // 加载整本书
@@ -57,11 +56,11 @@ class AbsAudioPlayer {
     Duration? end,
     bool force = false,
   }) async {
-    if (!force && _bookStreamController.nvalue == book) {
+    if (!force && _book == book) {
       _logger.info('Book is the same, doing nothing');
       return;
     }
-    _bookStreamController.add(book);
+    _book = book;
 
     final currentTrack = book.findTrackAtTime(initialPosition ?? Duration.zero);
     final indexTrack = book.tracks.indexOf(currentTrack);
@@ -179,7 +178,7 @@ class AbsAudioPlayer {
   }
 
   Future<void> seek(Duration position, {int? index}) async {
-    await _player.seek(_addClippingStart(position, add: false), index: index);
+    await _player.seek(addClippingStart(position, add: false), index: index);
   }
 
   Future<void> setSpeed(double speed) async {
@@ -213,34 +212,20 @@ class AbsAudioPlayer {
     await seekInBook(chapter.start + offset);
   }
 
-  PlayerState get playerState => _player.playerState;
-  bool get playing => _player.playerState.playing;
-  Stream<PlayerState> get playerStateStream => _player.playerStateStream;
-  Stream<bool> get playingStream => _player.playingStream;
+  Duration get position => addClippingStart(_player.position);
+  Duration get positionInBook => getPositionInBook(position);
 
-  int get currentIndex => _player.currentIndex ?? 0;
-  double get speed => _player.speed;
-
-  Duration get position => _addClippingStart(_player.position);
-  Stream<Duration> get positionStream =>
-      _player.positionStream.where((_) => _player.playing).map((position) {
-        return _addClippingStart(position);
-      });
-
-  Duration get positionInChapter => getPositionInChapter(position);
   Duration getPositionInChapter(position) {
     final globalPosition = getPositionInBook(position);
     return globalPosition -
         (book?.findChapterAtTime(globalPosition).start ?? Duration.zero);
   }
 
-  Duration get positionInBook => getPositionInBook(position);
   Duration getPositionInBook(position) =>
-      position + (book?.tracks[currentIndex].startOffset ?? Duration.zero);
+      position +
+      (book?.tracks[_player.currentIndex ?? 0].startOffset ?? Duration.zero);
 
-  Stream<Duration> get bufferedPositionStream => _player.bufferedPositionStream;
-
-  Duration _addClippingStart(Duration position, {bool add = true}) {
+  Duration addClippingStart(Duration position, {bool add = true}) {
     if (_player.sequenceState.currentSource != null &&
         _player.sequenceState.currentSource is ClippingAudioSource) {
       final currentSource =
@@ -255,7 +240,6 @@ class AbsAudioPlayer {
   }
 
   dispose() {
-    _bookStreamController.close();
     _chapterStreamController.close();
   }
 

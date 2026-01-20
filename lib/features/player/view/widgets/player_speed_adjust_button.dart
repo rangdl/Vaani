@@ -14,7 +14,7 @@ class PlayerSpeedAdjustButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final player = ref.read(absPlayerProvider);
+    final player = ref.read(audioPlayerProvider);
     final book = ref.read(currentBookProvider);
     final bookId = book?.libraryItemId ?? '_';
     final bookSettings = ref.watch(bookSettingsProvider(bookId));

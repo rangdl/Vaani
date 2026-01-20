@@ -1,7 +1,5 @@
 // provider to provide the api instance
 
-import 'dart:convert';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 // import 'package:http_cache_client/http_cache_client.dart';
 // import 'package:http_cache_core/http_cache_core.dart';
@@ -157,24 +155,14 @@ class PersonalizedView extends _$PersonalizedView {
       return;
     }
     // try to find in cache
-    // final cacheKey = 'personalizedView:${apiSettings.activeLibraryId}';
-    // final key = 'personalizedView:${apiSettings.activeLibraryId! + user.id}';
     final key = CacheKey.personalized(apiSettings.activeLibraryId! + user.id);
-    final cachedFile = await apiResponseCacheManager.getFileFromCache(key);
-    if (cachedFile != null) {
-      _logger.fine('reading from cache: $cachedFile for key: $key');
-      try {
-        final resJson =
-            jsonDecode(await cachedFile.file.readAsString()) as List;
-        final res = [
-          for (final item in resJson)
-            Shelf.fromJson(item as Map<String, dynamic>),
-        ];
-        _logger.fine('successfully read from cache key: $key');
-        yield res;
-      } catch (e) {
-        _logger.warning('error reading from cache: $e\n$cachedFile');
-      }
+    final cachedItems = await apiResponseCacheManager.getList(
+      key,
+      Shelf.fromJson,
+    );
+    if (cachedItems != null) {
+      _logger.fine('successfully read from cache key: $key');
+      yield cachedItems;
     }
 
     // ! exaggerated delay
@@ -182,20 +170,9 @@ class PersonalizedView extends _$PersonalizedView {
     final res = await api.libraries.getPersonalized(
       libraryId: apiSettings.activeLibraryId!,
     );
-    // debugPrint('personalizedView: ${res!.map((e) => e).toSet()}');
-    // save to cache
-    if (res != null) {
-      final newFile = await apiResponseCacheManager.putFile(
-        key,
-        utf8.encode(jsonEncode(res)),
-        fileExtension: 'json',
-        key: key,
-      );
-      _logger.fine('writing to cache: $newFile');
-      yield res;
-    } else {
-      _logger.warning('failed to fetch personalized view');
-      yield [];
+    final result = await apiResponseCacheManager.putList(key, res);
+    if (result != null) {
+      yield result;
     }
   }
 
@@ -203,7 +180,8 @@ class PersonalizedView extends _$PersonalizedView {
   Future<void> forceRefresh() async {
     // clear the cache
     // TODO: find a better way to clear the cache for only personalized view key
-    return apiResponseCacheManager.emptyCache();
+    // return apiResponseCacheManager.emptyCache();
+    return apiResponseCacheManager.clean(prefix: CacheKey.personalized(''));
   }
 }
 

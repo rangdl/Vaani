@@ -6,11 +6,11 @@ class CacheKey {
   }
 
   static String libraryItem(String id) {
-    return 'library_item_$id';
+    return 'libraryItem:$id';
   }
 
   static String libraryItems(String id) {
-    return 'library_items_$id';
+    return 'libraryItems:$id';
   }
 
   static String cover(Uri baseUrl, String id) {

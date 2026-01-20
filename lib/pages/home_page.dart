@@ -113,6 +113,9 @@ class HomePage extends HookConsumerWidget {
                 .toList();
             return RefreshIndicator(
               onRefresh: () async {
+                await ref
+                    .read(personalizedViewProvider.notifier)
+                    .forceRefresh();
                 return ref.refresh(personalizedViewProvider);
               },
               child: ListView.separated(

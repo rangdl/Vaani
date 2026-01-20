@@ -49,10 +49,10 @@ final class PlayerActiveProvider extends $FunctionalProvider<bool, bool, bool>
 
 String _$playerActiveHash() => r'4d3e7181cf66bfdb46d5caaece56cde07f610cc4';
 
-@ProviderFor(simpleAudioPlayer)
-final simpleAudioPlayerProvider = SimpleAudioPlayerProvider._();
+@ProviderFor(audioPlayer)
+final audioPlayerProvider = AudioPlayerProvider._();
 
-final class SimpleAudioPlayerProvider
+final class AudioPlayerProvider
     extends
         $FunctionalProvider<
           audio.AudioPlayer,
@@ -60,19 +60,19 @@ final class SimpleAudioPlayerProvider
           audio.AudioPlayer
         >
     with $Provider<audio.AudioPlayer> {
-  SimpleAudioPlayerProvider._()
+  AudioPlayerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'simpleAudioPlayerProvider',
+        name: r'audioPlayerProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$simpleAudioPlayerHash();
+  String debugGetCreateSourceHash() => _$audioPlayerHash();
 
   @$internal
   @override
@@ -82,7 +82,7 @@ final class SimpleAudioPlayerProvider
 
   @override
   audio.AudioPlayer create(Ref ref) {
-    return simpleAudioPlayer(ref);
+    return audioPlayer(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -94,7 +94,7 @@ final class SimpleAudioPlayerProvider
   }
 }
 
-String _$simpleAudioPlayerHash() => r'99d84a750cf605ad036603320925f0ba7253930b';
+String _$audioPlayerHash() => r'70d93206c89b454d2a18c037b2b5b24c169bd1fc';
 
 @ProviderFor(AbsPlayer)
 final absPlayerProvider = AbsPlayerProvider._();
@@ -128,7 +128,7 @@ final class AbsPlayerProvider
   }
 }
 
-String _$absPlayerHash() => r'c43c02b600326c2d47b900cb3977cd9fae201463';
+String _$absPlayerHash() => r'cd3beef3f4f215d17f9187c9d3e6931cdc4ac266';
 
 abstract class _$AbsPlayer extends $Notifier<AbsAudioPlayer> {
   AbsAudioPlayer build();
@@ -180,7 +180,7 @@ final class PlayerStateProvider
   }
 }
 
-String _$playerStateHash() => r'eb79bd816714f721da1c4226d4447de5dc55fc5c';
+String _$playerStateHash() => r'b1b205d4e0bc09812c56e71da448bebd56c634dd';
 
 abstract class _$PlayerState extends $Notifier<audio.PlayerState> {
   audio.PlayerState build();
@@ -329,7 +329,7 @@ final class CurrentBookProvider
   }
 }
 
-String _$currentBookHash() => r'4c2e9d68e11bcbdb4c9cd6ce134d6fb6e3531dc4';
+String _$currentBookHash() => r'd7980be7cc6f90dc011032ec029e3812ab7fa1ec';
 
 abstract class _$CurrentBook extends $Notifier<shelfsdk.BookExpanded?> {
   shelfsdk.BookExpanded? build();
@@ -382,7 +382,7 @@ final class CurrentChapterProvider
   }
 }
 
-String _$currentChapterHash() => r'e8d867067f383372afd758186f13950a6746ba85';
+String _$currentChapterHash() => r'507b926008848b8db316675ea73ea413a52fa2dd';
 
 abstract class _$CurrentChapter extends $Notifier<shelfsdk.BookChapter?> {
   shelfsdk.BookChapter? build();
@@ -483,7 +483,7 @@ final class ProgressProvider
   }
 }
 
-String _$progressHash() => r'7ed041be2d26a437becc9ab624322b47efbee06e';
+String _$progressHash() => r'53d111e4ca8e734430f60bd41519e369262152bf';
 
 @ProviderFor(progressBuffered)
 final progressBufferedProvider = ProgressBufferedProvider._();
@@ -517,4 +517,4 @@ final class ProgressBufferedProvider
   }
 }
 
-String _$progressBufferedHash() => r'20f886a5ad8bd4eb031eceb845201dc61dfd5fca';
+String _$progressBufferedHash() => r'2a42f747b855c2e2bde146ca7b4cd64672d5db9e';

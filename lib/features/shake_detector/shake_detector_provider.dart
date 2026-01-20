@@ -34,7 +34,7 @@ class ShakeDetector extends _$ShakeDetector {
 
     // if no book is loaded, shake detection should not be enabled
     final book = ref.watch(currentBookProvider);
-    final player = ref.watch(absPlayerProvider);
+    final player = ref.watch(audioPlayerProvider);
     player.playerStateStream.listen((event) {
       if (event.processingState == ProcessingState.idle && wasPlayerLoaded) {
         _logger.config('Player is now not loaded, invalidating');
@@ -86,7 +86,7 @@ class ShakeDetector extends _$ShakeDetector {
   bool doShakeAction(ShakeAction shakeAction, {required Ref ref}) {
     final book = ref.read(currentBookProvider);
 
-    final player = ref.read(absPlayerProvider);
+    final player = ref.read(audioPlayerProvider);
     if (book == null && shakeAction.isPlaybackManagementEnabled) {
       _logger.warning('No book is loaded');
       return false;
