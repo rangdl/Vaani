@@ -1,5 +1,4 @@
 import 'package:background_downloader/background_downloader.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
@@ -7,7 +6,7 @@ import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/features/downloads/core/download_manager.dart' as core;
 import 'package:vaani/features/settings/app_settings_provider.dart';
-import 'package:vaani/shared/extensions/item_files.dart';
+import 'package:vaani/shared/extensions/model_conversions.dart';
 
 part 'download_manager.g.dart';
 
@@ -47,8 +46,24 @@ class DownloadManager extends _$DownloadManager {
   @override
   core.AudiobookDownloadManager build() {
     final manager = ref.watch(simpleDownloadManagerProvider);
-    manager.taskUpdateStream.listen((_) {
+    manager.taskUpdateStream.listen((update) {
       ref.notifyListeners();
+      switch (update) {
+        case TaskStatusUpdate():
+          print(
+            'Status update for ${update.task.taskId} with status ${update.status}',
+          );
+          ref
+              .read(fileProgressProvider(update.task.taskId).notifier)
+              .updateState(update.status);
+        case TaskProgressUpdate():
+          // print(
+          //   'Progress update for ${update.task.taskId} with progress ${update.progress}',
+          // );
+          ref
+              .read(fileProgressProvider(update.task.taskId).notifier)
+              .updateValue(update.progress);
+      }
     });
     return manager;
   }
@@ -81,10 +96,14 @@ class ItemDownloadProgress extends _$ItemDownloadProgress {
   @override
   Future<double?> build(String id) async {
     final item = await ref.watch(libraryItemProvider(id).future);
-    final manager = ref.read(downloadManagerProvider);
+    final manager = ref.watch(downloadManagerProvider);
+    final totalSize = item.media.asBook.audioFiles.length;
     manager.taskUpdateStream
         .map((taskUpdate) {
-          if (taskUpdate is! TaskProgressUpdate) {
+          // if (taskUpdate is! TaskProgressUpdate) {
+          //   return null;
+          // }
+          if (taskUpdate is! TaskStatusUpdate) {
             return null;
           }
           if (taskUpdate.task.group == id) {
@@ -93,24 +112,25 @@ class ItemDownloadProgress extends _$ItemDownloadProgress {
         })
         .listen((task) async {
           if (task != null) {
-            final totalSize = item.totalSize;
-            // if total size is 0, return 0
-            if (totalSize == 0) {
-              state = const AsyncValue.data(0.0);
-              return;
-            }
-            final downloadedFiles = await manager.getDownloadedFilesMetadata(
-              item,
-            );
-            // calculate total size of downloaded files and total size of item, then divide
-            // to get percentage
-            final downloadedSize = downloadedFiles.fold<int>(
-              0,
-              (previousValue, element) => previousValue + element.metadata.size,
-            );
+            //   final totalSize = item.totalSize;
+            //   // if total size is 0, return 0
+            //   if (totalSize == 0) {
+            //     state = const AsyncValue.data(0.0);
+            //     return;
+            //   }
+            //   final downloadedFiles = await manager.getDownloadedFilesMetadata(
+            //     item,
+            //   );
+            //   // calculate total size of downloaded files and total size of item, then divide
+            //   // to get percentage
+            //   final downloadedSize = downloadedFiles.fold<int>(
+            //     0,
+            //     (previousValue, element) => previousValue + element.metadata.size,
+            //   );
 
-            final inProgressFileSize = task.progress * task.expectedFileSize;
-            final totalDownloadedSize = downloadedSize + inProgressFileSize;
+            //   final inProgressFileSize = task.progress * task.expectedFileSize;
+            //   final totalDownloadedSize = downloadedSize + inProgressFileSize;
+            final totalDownloadedSize = manager.sum(id);
             final progress = totalDownloadedSize / totalSize;
             // if current progress is more than calculated progress, do not update
             if (progress < (state.value ?? 0.0)) {
@@ -144,9 +164,39 @@ class IsItemDownloaded extends _$IsItemDownloaded {
 // 0 - 1 正在下载
 // 1 下载完成
 @riverpod
+class FileProgress extends _$FileProgress {
+  @override
+  (TaskStatus, double) build(String ino) {
+    // 默认 -2 没有状态
+    return (TaskStatus.notFound, -2);
+  }
+
+  void update(TaskStatus status, double value) {
+    state = (status, value);
+  }
+
+  void updateState(TaskStatus status) {
+    state = (status, state.$2);
+  }
+
+  void updateValue(double value) {
+    TaskStatus status = state.$1;
+    if (status != TaskStatus.running) {
+      status = TaskStatus.running;
+    }
+    state = (status, value);
+  }
+}
+
+@riverpod
 class FileState extends _$FileState {
   @override
   (TaskStatus, double) build(LibraryItemExpanded item, AudioFile file) {
+    final fileProgress = ref.watch(fileProgressProvider(file.ino));
+    if (fileProgress.$2 > 0 || fileProgress.$2 < 1) {
+      return fileProgress;
+    }
+
     final manager = ref.read(simpleDownloadManagerProvider);
     final success = manager.isFileDownloaded(
       manager.constructFilePath(item, file),
@@ -154,27 +204,6 @@ class FileState extends _$FileState {
     if (success) {
       return (TaskStatus.complete, 1);
     }
-    manager.taskUpdateStream.listen((update) {
-      if (update.task.taskId == file.ino) {
-        switch (update) {
-          case TaskStatusUpdate():
-            print(
-              'Status update for ${update.task} with status ${update.status}',
-            );
-            _update(update.status, state.$2);
-          case TaskProgressUpdate():
-            print(
-              'Progress update for ${update.task} with progress ${update.progress}',
-            );
-            _update(state.$1, update.progress);
-        }
-      }
-    });
-    //
-    return (TaskStatus.notFound, -2);
-  }
-
-  void _update(TaskStatus status, double value) {
-    state = (status, value);
+    return fileProgress;
   }
 }

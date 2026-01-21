@@ -74,6 +74,11 @@ class S {
     return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
   }
 
+  /// `Clean`
+  String get clean {
+    return Intl.message('Clean', name: 'clean', desc: '', args: []);
+  }
+
   /// `Refresh`
   String get refresh {
     return Intl.message('Refresh', name: 'refresh', desc: '', args: []);

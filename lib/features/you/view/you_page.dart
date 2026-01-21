@@ -141,7 +141,7 @@ class YouPage extends HookConsumerWidget {
                   AboutListTile(
                     icon: const Icon(Icons.info),
                     applicationName: appName,
-                    applicationVersion: appVersion,
+                    applicationVersion: '$appVersion($appBuildNumber)',
                     applicationLegalese: 'Made with ❤️ by $appAuthor',
                     aboutBoxChildren: [
                       // link to github repo

@@ -75,6 +75,7 @@ class AudiobookDownloadManager {
     _logger.info('queuing download for item: ${item.id}');
     // create a download task for each file in the item
     // for (final file in item.libraryFiles) {
+    int i = 0;
     for (final file in item.media.asBookExpanded.audioFiles) {
       // check if the file is already downloaded
       if (isFileDownloaded(constructFilePath(item, file))) {
@@ -93,6 +94,7 @@ class AudiobookDownloadManager {
         group: item.id,
         baseDirectory: baseDirectory,
         updates: Updates.statusAndProgress,
+        priority: i++,
         // metaData: token
       );
       // _downloadTasks.add(task);
@@ -112,6 +114,10 @@ class AudiobookDownloadManager {
 
   bool isItemDownloading(String id) {
     return tq.enqueued.any((task) => task.group == id);
+  }
+
+  int sum(String id) {
+    return tq.waiting.toList().where((task) => task.group == id).length;
   }
 
   bool isFileDownloaded(String filePath) {

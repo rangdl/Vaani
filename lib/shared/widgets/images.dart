@@ -19,7 +19,6 @@ class AbsBookCover extends HookConsumerWidget {
     final api = ref.watch(authenticatedApiProvider);
     return CachedNetworkImage(
       cacheManager: imageCacheManager,
-      // imageUrl: '${api.baseUrl}/api/items/$id/cover?width=1200',
       imageUrl: CacheKey.cover(api.baseUrl, id!),
       imageBuilder: (context, imageProvider) => AspectRatio(
         aspectRatio: 1,

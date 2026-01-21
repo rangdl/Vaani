@@ -5,7 +5,7 @@ import 'package:vaani/globals.dart';
 
 /// 自定义图片文件缓存
 class CustomImageCacheManager extends CacheManager with ImageCacheManager {
-  static const key = 'libCachedImageData';
+  static const key = '_image_cache';
 
   static final CustomImageCacheManager _instance = CustomImageCacheManager._();
 
@@ -16,9 +16,9 @@ class CustomImageCacheManager extends CacheManager with ImageCacheManager {
   CustomImageCacheManager._()
     : super(
         Config(
-          '${appName}_image_cache',
+          '$appName$key',
           stalePeriod: const Duration(days: 365 * 10),
-          repo: JsonCacheInfoRepository(),
+          repo: JsonCacheInfoRepository(databaseName: '$appName$key'),
           maxNrOfCacheObjects: 1000,
         ),
       );
@@ -26,7 +26,7 @@ class CustomImageCacheManager extends CacheManager with ImageCacheManager {
 
 /// 自定义json数据存储为文件
 class CustomJsonCacheManager extends CacheManager with ImageCacheManager {
-  static const key = 'libCachedImageData';
+  static const key = '_api_response_cache';
 
   static final CustomJsonCacheManager _instance = CustomJsonCacheManager._();
 
@@ -37,9 +37,9 @@ class CustomJsonCacheManager extends CacheManager with ImageCacheManager {
   CustomJsonCacheManager._()
     : super(
         Config(
-          '${appName}_api_response_cache',
+          '$appName$key',
           stalePeriod: const Duration(days: 7),
-          repo: JsonCacheInfoRepository(),
+          repo: JsonCacheInfoRepository(databaseName: '$appName$key'),
           maxNrOfCacheObjects: 1000,
         ),
       );
@@ -111,21 +111,13 @@ class CustomJsonCacheManager extends CacheManager with ImageCacheManager {
       return false;
     }
   }
-
-  Future<void> clean({String? prefix = ''}) async {
-    final repo = config.repo;
-    final allObjects = await repo.getAllObjects();
-    var futures = <Future>[];
-    for (final cacheObject in allObjects) {
-      final key = cacheObject.key;
-      if (key.startsWith('$prefix')) {
-        futures.add(removeFile(key));
-      }
-    }
-    await Future.wait(futures);
-  }
 }
 
+// 默认缓存 audio_service的图片缓存
+final defaultCacheManager = DefaultCacheManager();
+
+// 图片缓存
 final imageCacheManager = CustomImageCacheManager();
 
+// 数据缓存
 final apiResponseCacheManager = CustomJsonCacheManager();

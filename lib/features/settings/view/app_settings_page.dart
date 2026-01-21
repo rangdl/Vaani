@@ -124,6 +124,24 @@ class AppSettingsPage extends HookConsumerWidget {
           ],
         ),
 
+        // Storage
+        SettingsSection(
+          margin: const EdgeInsetsDirectional.symmetric(
+            horizontal: 16.0,
+            vertical: 8.0,
+          ),
+          title: Text('缓存', style: Theme.of(context).textTheme.titleLarge),
+          tiles: [
+            SettingsTile.navigation(
+              title: Text('缓存管理'),
+              leading: const Icon(Icons.storage),
+              onPressed: (context) =>
+                  context.pushNamed(Routes.cachedManagement.name),
+              description: Text('缓存管理'),
+            ),
+          ],
+        ),
+
         // Appearance section
         SettingsSection(
           margin: const EdgeInsetsDirectional.symmetric(

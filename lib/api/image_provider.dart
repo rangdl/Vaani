@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/db/cache/cache_key.dart';
 import 'package:vaani/db/cache_manager.dart';
+import 'package:vaani/shared/extensions/cache_manager.dart';
 import 'package:vaani/shared/extensions/inverse_lerp.dart';
 
 /// provides cover images for the audiobooks
@@ -74,7 +75,19 @@ part 'image_provider.g.dart';
 
 @riverpod
 Future<String> cacheSizeImage(Ref ref) async {
-  int totalSize = await imageCacheManager.store.getCacheSize();
+  int totalSize = await imageCacheManager.size();
+  return totalSize.formatBytes();
+}
+
+@riverpod
+Future<String> cacheSizeApi(Ref ref) async {
+  int totalSize = await apiResponseCacheManager.size();
+  return totalSize.formatBytes();
+}
+
+@riverpod
+Future<String> cacheSizeDefault(Ref ref) async {
+  int totalSize = await defaultCacheManager.size();
   return totalSize.formatBytes();
 }
 

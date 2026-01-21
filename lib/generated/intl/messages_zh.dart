@@ -114,6 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "chapterSkipEnd": MessageLookupByLibrary.simpleMessage("跳过章节片尾 "),
     "chapterSkipOpen": MessageLookupByLibrary.simpleMessage("跳过章节片头 "),
     "chapters": MessageLookupByLibrary.simpleMessage("章节列表"),
+    "clean": MessageLookupByLibrary.simpleMessage("清除"),
     "copyToClipboard": MessageLookupByLibrary.simpleMessage("复制到剪贴板"),
     "copyToClipboardDescription": MessageLookupByLibrary.simpleMessage(
       "将应用程序设置复制到剪贴板",

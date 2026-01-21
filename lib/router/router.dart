@@ -16,6 +16,7 @@ import 'package:vaani/features/settings/view/player_settings_page.dart';
 import 'package:vaani/features/settings/view/shake_detector_settings_page.dart';
 import 'package:vaani/features/settings/view/theme_settings_page.dart';
 import 'package:vaani/features/statistics/abs_statistics.dart';
+import 'package:vaani/features/you/view/cached_manager.dart';
 import 'package:vaani/features/you/view/server_manager.dart';
 import 'package:vaani/features/you/view/you_page.dart';
 import 'package:vaani/globals.dart';
@@ -246,12 +247,16 @@ class MyAppRouter {
                       const HomePageSettingsPage(),
                     ),
                   ),
+                  GoRoute(
+                    path: Routes.cachedManagement.localPath,
+                    name: Routes.cachedManagement.name,
+                    pageBuilder: defaultPageBuilder(const CachedManagerPage()),
+                  ),
                 ],
               ),
               GoRoute(
                 path: Routes.userManagement.localPath,
                 name: Routes.userManagement.name,
-                // builder: (context, state) => const UserManagementPage(),
                 pageBuilder: defaultPageBuilder(const ServerManagerPage()),
               ),
             ],

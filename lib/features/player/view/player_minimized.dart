@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:vaani/api/image_provider.dart';
 import 'package:vaani/constants/hero_tag_conventions.dart';
 import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
@@ -29,7 +28,6 @@ class PlayerMinimized extends HookConsumerWidget {
     final size = MediaQuery.of(context).size;
     // 竖屏
     final isVertical = size.height > size.width;
-    ref.watch(cacheSizeImageProvider);
     return SizedBox(
       height: playerMinHeight,
       // color: Theme.of(context).colorScheme.surface,

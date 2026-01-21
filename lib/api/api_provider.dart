@@ -11,6 +11,7 @@ import 'package:vaani/db/cache/cache_key.dart';
 import 'package:vaani/db/cache_manager.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
 import 'package:vaani/features/settings/models/authenticated_user.dart';
+import 'package:vaani/shared/extensions/cache_manager.dart';
 import 'package:vaani/shared/extensions/obfuscation.dart';
 import 'package:vaani/shared/utils/error_response.dart';
 

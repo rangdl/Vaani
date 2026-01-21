@@ -4,35 +4,42 @@ import 'package:vaani/generated/l10n.dart';
 class DialogUtils {
   DialogUtils._();
 
-  // 自定义删除 dialog
-  static deleteDialog(
+  // 自定义确认框 dialog
+  static Future<bool?> showConfirmDialog(
     BuildContext context, {
-    String? name,
-    required Function() onPressed,
-  }) {
-    showDialog(
+    String title = '确认',
+    String content = '确定要执行此操作吗？',
+    String? confirmText,
+    String? cancelText,
+    Function()? onPressed,
+  }) async {
+    final colorScheme = Theme.of(context).colorScheme;
+    // theme.buttonTheme.
+    return await showDialog<bool>(
       context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(S.of(context).delete),
-          content: Text(S.of(context).deleteDialog(name ?? '')),
-          actions: [
-            TextButton(
-              onPressed: () {
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(cancelText ?? S.of(context).cancel),
+          ),
+          TextButton(
+            onPressed: () {
+              if (onPressed != null) {
                 onPressed();
-                Navigator.pop(context);
-              },
-              child: Text(S.of(context).yes),
+              }
+              Navigator.of(context).pop(false);
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: colorScheme.primary,
+              foregroundColor: colorScheme.onPrimary,
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(S.of(context).no),
-            ),
-          ],
-        );
-      },
+            child: Text(confirmText ?? S.of(context).ok),
+          ),
+        ],
+      ),
     );
   }
 }

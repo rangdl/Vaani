@@ -89,6 +89,11 @@ class Routes {
     name: 'userManagement',
   );
 
+  static const cachedManagement = _SimpleRoute(
+    pathName: 'cached',
+    name: 'cachedManagement',
+  );
+
   // openID callback
   static const openIDCallback = _SimpleRoute(
     pathName: 'callback',

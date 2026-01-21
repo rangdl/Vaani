@@ -146,6 +146,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Skip chapter opening for ",
     ),
     "chapters": MessageLookupByLibrary.simpleMessage("Chapters"),
+    "clean": MessageLookupByLibrary.simpleMessage("Clean"),
     "copyToClipboard": MessageLookupByLibrary.simpleMessage(
       "Copy to Clipboard",
     ),

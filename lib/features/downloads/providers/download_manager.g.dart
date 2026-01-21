@@ -111,7 +111,7 @@ final class DownloadManagerProvider
   }
 }
 
-String _$downloadManagerHash() => r'852012e32e613f86445afc7f7e4e85bec808e982';
+String _$downloadManagerHash() => r'dce8e012a04d2e0668cd79f5ff57e5e1ece4255f';
 
 abstract class _$DownloadManager
     extends $Notifier<core.AudiobookDownloadManager> {
@@ -272,7 +272,7 @@ final class ItemDownloadProgressProvider
 }
 
 String _$itemDownloadProgressHash() =>
-    r'95f6ec0945f73d9156bf89bdb1865f3b2c9ffcaa';
+    r'2e408f793ac5a731595b87388776f2ca87bb1b5d';
 
 final class ItemDownloadProgressFamily extends $Family
     with
@@ -484,6 +484,103 @@ abstract class _$IsItemDownloaded extends $AsyncNotifier<bool> {
   }
 }
 
+@ProviderFor(FileProgress)
+final fileProgressProvider = FileProgressFamily._();
+
+final class FileProgressProvider
+    extends $NotifierProvider<FileProgress, (TaskStatus, double)> {
+  FileProgressProvider._({
+    required FileProgressFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'fileProgressProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$fileProgressHash();
+
+  @override
+  String toString() {
+    return r'fileProgressProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  FileProgress create() => FileProgress();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue((TaskStatus, double) value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<(TaskStatus, double)>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FileProgressProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$fileProgressHash() => r'35667f8be1b8855b29ca1922fd2420850503ee57';
+
+final class FileProgressFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          FileProgress,
+          (TaskStatus, double),
+          (TaskStatus, double),
+          (TaskStatus, double),
+          String
+        > {
+  FileProgressFamily._()
+    : super(
+        retry: null,
+        name: r'fileProgressProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  FileProgressProvider call(String ino) =>
+      FileProgressProvider._(argument: ino, from: this);
+
+  @override
+  String toString() => r'fileProgressProvider';
+}
+
+abstract class _$FileProgress extends $Notifier<(TaskStatus, double)> {
+  late final _$args = ref.$arg as String;
+  String get ino => _$args;
+
+  (TaskStatus, double) build(String ino);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<(TaskStatus, double), (TaskStatus, double)>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<(TaskStatus, double), (TaskStatus, double)>,
+              (TaskStatus, double),
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, () => build(_$args));
+  }
+}
+
 @ProviderFor(FileState)
 final fileStateProvider = FileStateFamily._();
 
@@ -533,7 +630,7 @@ final class FileStateProvider
   }
 }
 
-String _$fileStateHash() => r'ed51c151deee04ef262ed327cefce3b54ac04c60';
+String _$fileStateHash() => r'822fa871bf8103bdb7bc31212da83a2676b1cf17';
 
 final class FileStateFamily extends $Family
     with

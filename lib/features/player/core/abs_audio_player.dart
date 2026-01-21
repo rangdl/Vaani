@@ -8,6 +8,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'package:logging/logging.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
+import 'package:vaani/db/cache/cache_key.dart';
 
 import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/features/settings/models/app_settings.dart';
@@ -78,9 +79,7 @@ class AbsAudioPlayer {
       title: title,
       artist: artist,
       duration: currentChapter?.duration ?? book.duration,
-      artUri: Uri.parse(
-        '$baseUrl/api/items/${book.libraryItemId}/cover?token=$token',
-      ),
+      artUri: Uri.parse(CacheKey.cover(baseUrl, book.libraryItemId)),
     );
     if (start != null && start > Duration.zero ||
         end != null && end > Duration.zero) {

@@ -260,9 +260,15 @@ class LibItemDownSheet extends HookConsumerWidget {
                       children: [
                         IconButton(
                           onPressed: () {
-                            DialogUtils.deleteDialog(
+                            DialogUtils.showConfirmDialog(
                               context,
-                              name: item.media.metadata.title,
+                              title: S.of(context).delete,
+                              confirmText: S.of(context).delete,
+                              content: S
+                                  .of(context)
+                                  .deleteDialog(
+                                    item.media.metadata.title ?? '',
+                                  ),
                               onPressed: () {
                                 ref
                                     .read(downloadManagerProvider.notifier)
@@ -316,7 +322,7 @@ class LibItemDownSheetItem extends HookConsumerWidget {
           TaskStatus.waitingToRetry => '等待重试...',
           TaskStatus.paused => '已暂停',
 
-          TaskStatus.complete => '已完成',
+          TaskStatus.complete => '已下载',
           TaskStatus.failed => '下载错误',
           TaskStatus.canceled => '已取消',
           _ => fileState.$2 == -2 ? '' : '文件未找到',
