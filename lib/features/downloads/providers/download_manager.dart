@@ -96,7 +96,7 @@ class ItemDownloadProgress extends _$ItemDownloadProgress {
   @override
   Future<double?> build(String id) async {
     final item = await ref.watch(libraryItemProvider(id).future);
-    final manager = ref.watch(downloadManagerProvider);
+    final manager = ref.read(downloadManagerProvider);
     final totalSize = item.media.asBook.audioFiles.length;
     manager.taskUpdateStream
         .map((taskUpdate) {
@@ -193,7 +193,7 @@ class FileState extends _$FileState {
   @override
   (TaskStatus, double) build(LibraryItemExpanded item, AudioFile file) {
     final fileProgress = ref.watch(fileProgressProvider(file.ino));
-    if (fileProgress.$2 > 0 || fileProgress.$2 < 1) {
+    if (fileProgress.$2 > 0 && fileProgress.$2 < 1) {
       return fileProgress;
     }
 

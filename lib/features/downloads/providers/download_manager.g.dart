@@ -272,7 +272,7 @@ final class ItemDownloadProgressProvider
 }
 
 String _$itemDownloadProgressHash() =>
-    r'2e408f793ac5a731595b87388776f2ca87bb1b5d';
+    r'903c46f54dab9629c6eb58b8f16d4acf69f8ba21';
 
 final class ItemDownloadProgressFamily extends $Family
     with
@@ -630,7 +630,7 @@ final class FileStateProvider
   }
 }
 
-String _$fileStateHash() => r'822fa871bf8103bdb7bc31212da83a2676b1cf17';
+String _$fileStateHash() => r'783bbebb6d57daba2bc924e38b6fee19c7595279';
 
 final class FileStateFamily extends $Family
     with
