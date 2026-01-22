@@ -74,13 +74,6 @@ dependencies:
   # 图片缓存
   cached_network_image: ^3.3.1
   flutter_cache_manager: ^3.3.2
-  # flutter_cache_manager: 
-  #   version: 3.4.1
-  #   git:
-  #     url: https://github.com/Baseflow/flutter_cache_manager
-  #     ref: develop
-  #     path: flutter_cache_manager
-
 
   # 日志
   logging: ^1.2.0
@@ -177,6 +170,11 @@ dependency_overrides:
       url: https://github.com/Baseflow/flutter_cache_manager
       ref: develop
       path: flutter_cache_manager
+  just_audio_windows:
+    git:
+      url: https://github.com/hig-dev/just_audio_windows
+      ref: master
+      path: just_audio_windows
 
 dev_dependencies:
   flutter_test:

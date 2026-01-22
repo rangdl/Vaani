@@ -11,6 +11,7 @@ import 'package:vaani/features/per_book_settings/providers/book_settings_provide
 import 'package:vaani/features/player/core/abs_audio_player.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
+import 'package:rxdart/rxdart.dart';
 
 part 'abs_provider.g.dart';
 
@@ -207,11 +208,15 @@ Stream<Duration> progress(Ref ref) {
   );
   final showChapterProgress =
       playerSettings.expandedPlayerSettings.showChapterProgress;
-  return audioPlayer.positionStream.map((position) {
-    return showChapterProgress
-        ? absPlayer.getPositionInChapter(absPlayer.addClippingStart(position))
-        : absPlayer.getPositionInBook(absPlayer.addClippingStart(position));
-  });
+  return audioPlayer.positionStream
+      .throttleTime(const Duration(milliseconds: 300))
+      .map((position) {
+        return showChapterProgress
+            ? absPlayer.getPositionInChapter(
+                absPlayer.addClippingStart(position),
+              )
+            : absPlayer.getPositionInBook(absPlayer.addClippingStart(position));
+      });
 }
 
 // 进度条已加载时长
@@ -224,9 +229,13 @@ Stream<Duration> progressBuffered(Ref ref) {
   );
   final showChapterProgress =
       playerSettings.expandedPlayerSettings.showChapterProgress;
-  return audioPlayer.bufferedPositionStream.map((position) {
-    return showChapterProgress
-        ? absPlayer.getPositionInChapter(absPlayer.addClippingStart(position))
-        : absPlayer.getPositionInBook(absPlayer.addClippingStart(position));
-  });
+  return audioPlayer.bufferedPositionStream
+      .throttleTime(const Duration(milliseconds: 300))
+      .map((position) {
+        return showChapterProgress
+            ? absPlayer.getPositionInChapter(
+                absPlayer.addClippingStart(position),
+              )
+            : absPlayer.getPositionInBook(absPlayer.addClippingStart(position));
+      });
 }

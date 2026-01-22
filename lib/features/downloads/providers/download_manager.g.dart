@@ -111,7 +111,7 @@ final class DownloadManagerProvider
   }
 }
 
-String _$downloadManagerHash() => r'dce8e012a04d2e0668cd79f5ff57e5e1ece4255f';
+String _$downloadManagerHash() => r'e3cdb7495ee9e5db1b441efd1ab75dfb7db0d8c8';
 
 abstract class _$DownloadManager
     extends $Notifier<core.AudiobookDownloadManager> {
@@ -272,7 +272,7 @@ final class ItemDownloadProgressProvider
 }
 
 String _$itemDownloadProgressHash() =>
-    r'903c46f54dab9629c6eb58b8f16d4acf69f8ba21';
+    r'504cf92c0c98ae65debc4095fbf79ffa68352b19';
 
 final class ItemDownloadProgressFamily extends $Family
     with
@@ -676,5 +676,94 @@ abstract class _$FileState extends $Notifier<(TaskStatus, double)> {
               Object?
             >;
     element.handleCreate(ref, () => build(_$args.$1, _$args.$2));
+  }
+}
+
+@ProviderFor(ItemState)
+final itemStateProvider = ItemStateFamily._();
+
+final class ItemStateProvider
+    extends $AsyncNotifierProvider<ItemState, ItemStatus> {
+  ItemStateProvider._({
+    required ItemStateFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'itemStateProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$itemStateHash();
+
+  @override
+  String toString() {
+    return r'itemStateProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  ItemState create() => ItemState();
+
+  @override
+  bool operator ==(Object other) {
+    return other is ItemStateProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$itemStateHash() => r'c506f0676cee0adfeed2d940341a4be793667e5f';
+
+final class ItemStateFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          ItemState,
+          AsyncValue<ItemStatus>,
+          ItemStatus,
+          FutureOr<ItemStatus>,
+          String
+        > {
+  ItemStateFamily._()
+    : super(
+        retry: null,
+        name: r'itemStateProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  ItemStateProvider call(String id) =>
+      ItemStateProvider._(argument: id, from: this);
+
+  @override
+  String toString() => r'itemStateProvider';
+}
+
+abstract class _$ItemState extends $AsyncNotifier<ItemStatus> {
+  late final _$args = ref.$arg as String;
+  String get id => _$args;
+
+  FutureOr<ItemStatus> build(String id);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<ItemStatus>, ItemStatus>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<ItemStatus>, ItemStatus>,
+              AsyncValue<ItemStatus>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, () => build(_$args));
   }
 }

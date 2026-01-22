@@ -483,7 +483,7 @@ final class ProgressProvider
   }
 }
 
-String _$progressHash() => r'53d111e4ca8e734430f60bd41519e369262152bf';
+String _$progressHash() => r'19c77902aa57e974da5782e32ed210132bd4b766';
 
 @ProviderFor(progressBuffered)
 final progressBufferedProvider = ProgressBufferedProvider._();
@@ -517,4 +517,4 @@ final class ProgressBufferedProvider
   }
 }
 
-String _$progressBufferedHash() => r'2a42f747b855c2e2bde146ca7b4cd64672d5db9e';
+String _$progressBufferedHash() => r'776c4b1a3aa8f61a7482a05488d8001dd637f281';

@@ -75,7 +75,6 @@ class AudiobookDownloadManager {
     _logger.info('queuing download for item: ${item.id}');
     // create a download task for each file in the item
     // for (final file in item.libraryFiles) {
-    // int i = 0;
     for (final file in item.media.asBookExpanded.audioFiles) {
       // check if the file is already downloaded
       if (isFileDownloaded(constructFilePath(item, file))) {
@@ -94,7 +93,6 @@ class AudiobookDownloadManager {
         group: item.id,
         baseDirectory: baseDirectory,
         updates: Updates.statusAndProgress,
-        // priority: i++,
         // metaData: token
       );
       // _downloadTasks.add(task);
@@ -212,20 +210,20 @@ class AudiobookDownloadManager {
     if (path.isNotEmpty) {
       return '$path/$relPath';
     }
-    return relPath;
+    return 'downloads/$relPath';
   }
 
   String get basePath => switch (baseDirectory) {
-    BaseDirectory.applicationSupport => appSupportDir.path,
-    // BaseDirectory.applicationDocuments => appDocumentsDir.path,
+    BaseDirectory.applicationSupport => '${appSupportDir.path}/downloads',
+    BaseDirectory.applicationDocuments => '${appDocumentsDir.path}/downloads',
     _ => path,
   };
 
   BaseDirectory get baseDirectory {
     if (path.isNotEmpty) {
       return BaseDirectory.root;
-      // } else if (Platform.isIOS || Platform.isMacOS) {
-      //   return BaseDirectory.applicationDocuments;
+    } else if (Platform.isIOS || Platform.isMacOS) {
+      return BaseDirectory.applicationDocuments;
     }
     // else if (Platform.isAndroid) {
     //   return BaseDirectory.temporary;

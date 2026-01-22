@@ -1,7 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:background_downloader/background_downloader.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
+
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/features/downloads/core/download_manager.dart' as core;
@@ -54,15 +56,15 @@ class DownloadManager extends _$DownloadManager {
             'Status update for ${update.task.taskId} with status ${update.status}',
           );
           ref
-              .read(fileProgressProvider(update.task.taskId).notifier)
-              .updateState(update.status);
+              .read(itemStateProvider(update.task.group).notifier)
+              .updateStatus(update.task.taskId, status: update.status);
         case TaskProgressUpdate():
           // print(
           //   'Progress update for ${update.task.taskId} with progress ${update.progress}',
           // );
           ref
-              .read(fileProgressProvider(update.task.taskId).notifier)
-              .updateValue(update.progress);
+              .read(itemStateProvider(update.task.group).notifier)
+              .updateStatus(update.task.taskId, progress: update.progress);
       }
     });
     return manager;
@@ -98,49 +100,50 @@ class ItemDownloadProgress extends _$ItemDownloadProgress {
     final item = await ref.watch(libraryItemProvider(id).future);
     final manager = ref.read(downloadManagerProvider);
     final totalSize = item.media.asBook.audioFiles.length;
-    manager.taskUpdateStream
-        .map((taskUpdate) {
-          // if (taskUpdate is! TaskProgressUpdate) {
-          //   return null;
-          // }
-          if (taskUpdate is! TaskStatusUpdate) {
-            return null;
-          }
-          if (taskUpdate.task.group == id) {
-            return taskUpdate;
-          }
-        })
-        .listen((task) async {
-          if (task != null) {
-            //   final totalSize = item.totalSize;
-            //   // if total size is 0, return 0
-            //   if (totalSize == 0) {
-            //     state = const AsyncValue.data(0.0);
-            //     return;
-            //   }
-            //   final downloadedFiles = await manager.getDownloadedFilesMetadata(
-            //     item,
-            //   );
-            //   // calculate total size of downloaded files and total size of item, then divide
-            //   // to get percentage
-            //   final downloadedSize = downloadedFiles.fold<int>(
-            //     0,
-            //     (previousValue, element) => previousValue + element.metadata.size,
-            //   );
+    final totalDownloadedSize = manager.sum(id);
+    return totalDownloadedSize / totalSize;
+    // manager.taskUpdateStream
+    //     .map((taskUpdate) {
+    //       // if (taskUpdate is! TaskProgressUpdate) {
+    //       //   return null;
+    //       // }
+    //       if (taskUpdate is! TaskStatusUpdate) {
+    //         return null;
+    //       }
+    //       if (taskUpdate.task.group == id) {
+    //         return taskUpdate;
+    //       }
+    //     })
+    //     .listen((task) async {
+    //       if (task != null) {
+    //         //   final totalSize = item.totalSize;
+    //         //   // if total size is 0, return 0
+    //         //   if (totalSize == 0) {
+    //         //     state = const AsyncValue.data(0.0);
+    //         //     return;
+    //         //   }
+    //         //   final downloadedFiles = await manager.getDownloadedFilesMetadata(
+    //         //     item,
+    //         //   );
+    //         //   // calculate total size of downloaded files and total size of item, then divide
+    //         //   // to get percentage
+    //         //   final downloadedSize = downloadedFiles.fold<int>(
+    //         //     0,
+    //         //     (previousValue, element) => previousValue + element.metadata.size,
+    //         //   );
 
-            //   final inProgressFileSize = task.progress * task.expectedFileSize;
-            //   final totalDownloadedSize = downloadedSize + inProgressFileSize;
-            final totalDownloadedSize = manager.sum(id);
-            final progress = totalDownloadedSize / totalSize;
-            // if current progress is more than calculated progress, do not update
-            if (progress < (state.value ?? 0.0)) {
-              return;
-            }
+    //         //   final inProgressFileSize = task.progress * task.expectedFileSize;
+    //         //   final totalDownloadedSize = downloadedSize + inProgressFileSize;
+    //         final progress = totalDownloadedSize / totalSize;
+    //         // if current progress is more than calculated progress, do not update
+    //         if (progress < (state.value ?? 0.0)) {
+    //           return;
+    //         }
 
-            state = AsyncValue.data(progress.clamp(0.0, 1.0));
-          }
-        });
-    return null;
+    //         state = AsyncValue.data(progress.clamp(0.0, 1.0));
+    //       }
+    //     });
+    // return null;
   }
 }
 
@@ -205,5 +208,93 @@ class FileState extends _$FileState {
       return (TaskStatus.complete, 1);
     }
     return fileProgress;
+  }
+}
+
+@riverpod
+class ItemState extends _$ItemState {
+  @override
+  Future<ItemStatus> build(String id) async {
+    final item = await ref.watch(libraryItemProvider(id).future);
+
+    final List<FileStatus> files = [];
+    for (final file in item.media.asBookExpanded.audioFiles ?? []) {
+      final manager = ref.read(simpleDownloadManagerProvider);
+      final success = manager.isFileDownloaded(
+        manager.constructFilePath(item, file),
+      );
+      files.add(
+        FileStatus(
+          file,
+          status: success ? TaskStatus.complete : TaskStatus.notFound,
+          progress: success ? 1 : -2,
+        ),
+      );
+    }
+    return ItemStatus(item, files: files);
+  }
+
+  void updateStatus(String ino, {double? progress, TaskStatus? status}) {
+    if (state.value != null) {
+      state = AsyncData(
+        state.value!.copyWith(
+          files: [
+            for (final file in state.value!.files)
+              if (file.file.ino == ino)
+                file.copyWith(
+                  progress: progress,
+                  status:
+                      status ??
+                      (file.status != TaskStatus.running
+                          ? TaskStatus.running
+                          : file.status),
+                )
+              else
+                file,
+          ],
+        ),
+      );
+    }
+  }
+}
+
+class FileStatus {
+  final AudioFile file;
+  final TaskStatus status;
+  final double progress;
+  FileStatus(
+    this.file, {
+    this.status = TaskStatus.notFound,
+    this.progress = -2,
+  });
+
+  FileStatus copyWith({AudioFile? file, TaskStatus? status, double? progress}) {
+    return FileStatus(
+      file ?? this.file,
+      status: status ?? this.status,
+      progress: progress ?? this.progress,
+    );
+  }
+
+  String get statusText => switch (status) {
+    TaskStatus.enqueued => '队列中',
+    TaskStatus.running => '$progress',
+    TaskStatus.waitingToRetry => '等待重试...',
+    TaskStatus.paused => '已暂停',
+
+    TaskStatus.complete => '已下载',
+    TaskStatus.failed => '下载错误',
+    TaskStatus.canceled => '已取消',
+    _ => progress == -2 ? '' : '文件未找到',
+  };
+}
+
+class ItemStatus {
+  LibraryItemExpanded item;
+  final List<FileStatus> files;
+  ItemStatus(this.item, {required this.files});
+
+  ItemStatus copyWith({LibraryItemExpanded? item, List<FileStatus>? files}) {
+    return ItemStatus(item ?? this.item, files: files ?? this.files);
   }
 }

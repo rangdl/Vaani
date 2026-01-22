@@ -5,7 +5,6 @@ import 'package:super_sliver_list/super_sliver_list.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/view/player_expanded.dart'
     show pendingPlayerModals;
-import 'package:vaani/features/player/view/widgets/playing_indicator_icon.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/shared/extensions/chapter.dart' show ChapterDuration;
 import 'package:vaani/shared/extensions/duration_format.dart'
@@ -110,7 +109,8 @@ class ChapterSelectionModal extends HookConsumerWidget {
                         : null,
                   ),
                   trailing: isCurrent
-                      ? const PlayingIndicatorIcon()
+                      // ? const PlayingIndicatorIcon()
+                      ? const Icon(Icons.pause)
                       : const Icon(Icons.play_arrow),
                   selected: isCurrent,
                   onTap: () {

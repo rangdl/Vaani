@@ -16,7 +16,8 @@ import 'package:vaani/features/downloads/providers/download_manager.dart'
         isItemDownloadedProvider,
         isItemDownloadingProvider,
         itemDownloadProgressProvider,
-        fileStateProvider;
+        itemStateProvider,
+        FileStatus;
 import 'package:vaani/features/item_viewer/view/library_item_page.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
@@ -241,12 +242,12 @@ class LibItemDownSheet extends HookConsumerWidget {
     //     ref.watch(downloadHistoryProvider(group: libraryItemId));
     // final downloadManager = ref.watch(downloadManagerProvider);
     // downloadManager.
-    final libraryItem = ref.watch(libraryItemProvider(libraryItemId));
+    // final libraryItem = ref.watch(libraryItemProvider(libraryItemId));
+    final state = ref.watch(itemStateProvider(libraryItemId));
 
-    return libraryItem.when(
-      data: (item) {
-        final book = item.media.asBookExpanded;
-        final audioFiles = book.audioFiles;
+    return state.when(
+      data: (stateItem) {
+        final item = stateItem.item;
         return Padding(
           padding: const EdgeInsets.all(AppElementSizes.paddingRegular),
           child: Column(
@@ -286,10 +287,10 @@ class LibItemDownSheet extends HookConsumerWidget {
               ),
               Expanded(
                 child: SuperListView.builder(
-                  itemCount: audioFiles.length,
+                  itemCount: stateItem.files.length,
                   itemBuilder: (context, index) {
-                    final audioFile = audioFiles[index];
-                    return LibItemDownSheetItem(item, audioFile);
+                    final fileStatus = stateItem.files[index];
+                    return LibItemDownSheetItem(item, fileStatus);
                   },
                 ),
               ),
@@ -304,29 +305,18 @@ class LibItemDownSheet extends HookConsumerWidget {
 }
 
 class LibItemDownSheetItem extends HookConsumerWidget {
-  const LibItemDownSheetItem(this.item, this.audioFile, {super.key});
+  const LibItemDownSheetItem(this.item, this.fileStatus, {super.key});
   final shelfsdk.LibraryItemExpanded item;
-  final shelfsdk.AudioFile audioFile;
+  final FileStatus fileStatus;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final fileState = ref.watch(fileStateProvider(item, audioFile));
     return ListTile(
-      title: Text(audioFile.metadata.filename),
+      title: Text(fileStatus.file.metadata.filename),
       subtitle: Text(
         // '${record.task.directory}/${record.task.baseDirectory}',
         // track.metadata?.relPath ?? '',
         // item.relPath,
-        switch (fileState.$1) {
-          TaskStatus.enqueued => '队列中',
-          TaskStatus.running => '${fileState.$2}',
-          TaskStatus.waitingToRetry => '等待重试...',
-          TaskStatus.paused => '已暂停',
-
-          TaskStatus.complete => '已下载',
-          TaskStatus.failed => '下载错误',
-          TaskStatus.canceled => '已取消',
-          _ => fileState.$2 == -2 ? '' : '文件未找到',
-        },
+        fileStatus.statusText,
       ),
       trailing: const Icon(Icons.open_in_new_rounded),
       onLongPress: () {
