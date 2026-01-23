@@ -218,7 +218,7 @@ class ItemState extends _$ItemState {
     final item = await ref.watch(libraryItemProvider(id).future);
 
     final List<FileStatus> files = [];
-    for (final file in item.media.asBookExpanded.audioFiles ?? []) {
+    for (final file in item.media.asBookExpanded.audioFiles) {
       final manager = ref.read(simpleDownloadManagerProvider);
       final success = manager.isFileDownloaded(
         manager.constructFilePath(item, file),

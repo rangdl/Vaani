@@ -720,7 +720,7 @@ final class ItemStateProvider
   }
 }
 
-String _$itemStateHash() => r'c506f0676cee0adfeed2d940341a4be793667e5f';
+String _$itemStateHash() => r'1bcefe96c98c46ed3036bdb5b66e6d44a041e3f0';
 
 final class ItemStateFamily extends $Family
     with
