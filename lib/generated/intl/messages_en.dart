@@ -134,6 +134,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "No shelves to display",
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "cancelSleepTimer": MessageLookupByLibrary.simpleMessage(
+      "Cancel Sleep Timer",
+    ),
     "chapterNotFound": MessageLookupByLibrary.simpleMessage("Chapters"),
     "chapterSelect": MessageLookupByLibrary.simpleMessage("Select Chapter"),
     "chapterSkip": MessageLookupByLibrary.simpleMessage(
@@ -466,6 +469,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "shakeSelectFeedback": MessageLookupByLibrary.simpleMessage(
       "Select Shake Feedback",
     ),
+    "sleepTimer": MessageLookupByLibrary.simpleMessage("Sleep Timer"),
     "themeMode": MessageLookupByLibrary.simpleMessage("Theme Mode"),
     "themeModeDark": MessageLookupByLibrary.simpleMessage("Dark"),
     "themeModeHighContrast": MessageLookupByLibrary.simpleMessage(

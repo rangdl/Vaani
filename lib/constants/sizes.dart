@@ -1,4 +1,5 @@
 class AppElementSizes {
+  AppElementSizes._();
   // paddings
   static const double paddingRegular = 8.0;
   static const double paddingSmall = paddingRegular / 2;

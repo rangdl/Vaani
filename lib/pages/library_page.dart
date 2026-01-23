@@ -234,14 +234,17 @@ class LibraryItemsSort extends HookConsumerWidget {
       mode: Mode.custom,
       items: (filter, loadProps) => state.sortList,
       dropdownBuilder: (ctx, selectedItem) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(state.sortDisplay(selectedItem ?? '')),
-            state.desc
-                ? const Icon(Icons.keyboard_arrow_down)
-                : const Icon(Icons.keyboard_arrow_up),
-          ],
+        return Container(
+          padding: EdgeInsets.all(AppElementSizes.paddingRegular),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(state.sortDisplay(selectedItem ?? '')),
+              state.desc
+                  ? const Icon(Icons.keyboard_arrow_down)
+                  : const Icon(Icons.keyboard_arrow_up),
+            ],
+          ),
         );
       },
       popupProps: PopupProps.menu(
@@ -291,8 +294,12 @@ class LibraryItemsMore extends HookConsumerWidget {
       selectedItem: selected,
       mode: Mode.custom,
       items: (filter, loadProps) => state.moreList,
+      clickProps: ClickProps(borderRadius: BorderRadius.circular(20)),
       dropdownBuilder: (ctx, selectedItem) {
-        return Icon(Icons.more_vert);
+        return Container(
+          padding: EdgeInsets.all(AppElementSizes.paddingRegular),
+          child: Icon(Icons.more_vert),
+        );
       },
       popupProps: PopupProps.menu(
         menuProps: MenuProps(

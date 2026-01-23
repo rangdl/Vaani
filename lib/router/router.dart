@@ -16,7 +16,7 @@ import 'package:vaani/features/settings/view/player_settings_page.dart';
 import 'package:vaani/features/settings/view/shake_detector_settings_page.dart';
 import 'package:vaani/features/settings/view/theme_settings_page.dart';
 import 'package:vaani/features/statistics/abs_statistics.dart';
-import 'package:vaani/features/you/view/cached_manager.dart';
+import 'package:vaani/features/settings/view/cached_settings_page.dart';
 import 'package:vaani/features/you/view/server_manager.dart';
 import 'package:vaani/features/you/view/you_page.dart';
 import 'package:vaani/globals.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/features/downloads/providers/download_manager.dart';
 import 'package:vaani/features/playback_reporting/providers/playback_reporter_provider.dart';
-import 'package:vaani/features/shake_detector/shake_detector_provider.dart';
+import 'package:vaani/features/shake_detection/providers/shake_detector_provider.dart';
 import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/shared/utils/helper.dart';

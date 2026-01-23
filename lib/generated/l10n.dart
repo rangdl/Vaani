@@ -1184,6 +1184,21 @@ class S {
     );
   }
 
+  /// `Sleep Timer`
+  String get sleepTimer {
+    return Intl.message('Sleep Timer', name: 'sleepTimer', desc: '', args: []);
+  }
+
+  /// `Cancel Sleep Timer`
+  String get cancelSleepTimer {
+    return Intl.message(
+      'Cancel Sleep Timer',
+      name: 'cancelSleepTimer',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Auto Turn On Sleep Timer`
   String get autoTurnOnSleepTimer {
     return Intl.message(

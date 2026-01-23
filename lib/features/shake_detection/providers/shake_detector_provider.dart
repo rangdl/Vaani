@@ -12,7 +12,7 @@ import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart'
     show sleepTimerProvider;
 import 'package:vibration/vibration.dart';
 
-import 'shake_detector.dart' as core;
+import '../core/shake_detector.dart' as core;
 
 part 'shake_detector_provider.g.dart';
 

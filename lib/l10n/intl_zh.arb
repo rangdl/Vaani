@@ -196,6 +196,8 @@
     "playerSettingsDisplayTotalProgressDescription": "在播放器中显示当前书籍的总进度",
     "playerSettingsDisplayChapterProgress": "显示章节进度",
     "playerSettingsDisplayChapterProgressDescription": "在播放器中显示当前章节的进度",
+    "sleepTimer": "睡眠定时器",
+    "cancelSleepTimer": "取消睡眠定时器",
     "autoTurnOnSleepTimer": "自动开启睡眠定时器",
     "automaticallyDescription": "根据一天中的时间自动打开睡眠定时器",
     "autoSleepTimerSettings": "自动睡眠定时器设置",

@@ -7,7 +7,7 @@ import 'package:vaani/constants/sizes.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
 import 'package:vaani/features/player/view/widgets/player_progress_bar.dart';
-import 'package:vaani/features/skip_start_end/view/skip_start_end_button.dart';
+import 'package:vaani/features/player/view/widgets/skip_start_end_button.dart';
 import 'package:vaani/features/sleep_timer/view/sleep_timer_button.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/widgets/images.dart';

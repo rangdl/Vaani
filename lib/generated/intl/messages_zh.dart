@@ -108,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "bookShelveEmpty": MessageLookupByLibrary.simpleMessage("重试"),
     "bookShelveEmptyText": MessageLookupByLibrary.simpleMessage("未查询到书架"),
     "cancel": MessageLookupByLibrary.simpleMessage("取消"),
+    "cancelSleepTimer": MessageLookupByLibrary.simpleMessage("取消睡眠定时器"),
     "chapterNotFound": MessageLookupByLibrary.simpleMessage("未找到章节"),
     "chapterSelect": MessageLookupByLibrary.simpleMessage("选择章节"),
     "chapterSkip": MessageLookupByLibrary.simpleMessage("跳过章节片头片尾"),
@@ -340,6 +341,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "shakeSelectActivationThresholdHelper":
         MessageLookupByLibrary.simpleMessage("输入一个数字以m/s²为单位设置阈值"),
     "shakeSelectFeedback": MessageLookupByLibrary.simpleMessage("选择抖动反馈"),
+    "sleepTimer": MessageLookupByLibrary.simpleMessage("睡眠定时器"),
     "themeMode": MessageLookupByLibrary.simpleMessage("主题模式"),
     "themeModeDark": MessageLookupByLibrary.simpleMessage("深色"),
     "themeModeHighContrast": MessageLookupByLibrary.simpleMessage("高对比度模式"),

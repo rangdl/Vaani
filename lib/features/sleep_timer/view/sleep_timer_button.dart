@@ -7,6 +7,7 @@ import 'package:vaani/features/player/view/widgets/speed_selector.dart';
 import 'package:vaani/features/sleep_timer/core/sleep_timer.dart';
 import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart'
     show sleepTimerProvider;
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/shared/extensions/duration_format.dart';
@@ -18,42 +19,39 @@ class SleepTimerButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final sleepTimer = ref.watch(sleepTimerProvider);
     final durationState = useState(sleepTimer?.duration);
+    void handle() async {
+      appLogger.fine('Sleep Timer button pressed');
+      pendingPlayerModals++;
+      // show the sleep timer dialog
+      await showModalBottomSheet<Duration?>(
+        context: context,
+        barrierLabel: 'Sleep Timer',
+        builder: (context) {
+          return SleepTimerBottomSheet(
+            onDurationSelected: (duration) {
+              durationState.value = duration;
+            },
+          );
+        },
+      );
+      pendingPlayerModals--;
+      ref.read(sleepTimerProvider.notifier).setTimer(durationState.value);
+      appLogger.fine('Sleep Timer dialog closed with ${durationState.value}');
+    }
 
     // if sleep timer is not active, show the button with the sleep timer icon
     // if the sleep timer is active, show the remaining time in a pill shaped container
     return Tooltip(
-      message: 'Sleep Timer',
+      message: S.of(context).sleepTimer,
       child: GestureDetector(
-        onTap: () async {
-          appLogger.fine('Sleep Timer button pressed');
-          pendingPlayerModals++;
-          // show the sleep timer dialog
-          await showModalBottomSheet<Duration?>(
-            context: context,
-            barrierLabel: 'Sleep Timer',
-            builder: (context) {
-              return SleepTimerBottomSheet(
-                onDurationSelected: (duration) {
-                  durationState.value = duration;
-                  // ref
-                  //     .read(sleepTimerProvider.notifier)
-                  //     .setTimer(duration, notifyListeners: false);
-                },
-              );
-            },
-          );
-          pendingPlayerModals--;
-          ref.read(sleepTimerProvider.notifier).setTimer(durationState.value);
-          appLogger.fine(
-            'Sleep Timer dialog closed with ${durationState.value}',
-          );
-        },
+        behavior: HitTestBehavior.opaque, // 关键：设置为 opaque
+        onTap: handle,
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
           child: sleepTimer == null
-              ? Icon(
-                  Icons.bedtime_outlined,
-                  color: Theme.of(context).colorScheme.onSurface,
+              ? IconButton(
+                  onPressed: handle,
+                  icon: Icon(Icons.bedtime_outlined),
                 )
               : RemainingSleepTimeDisplay(timer: sleepTimer),
         ),
@@ -107,7 +105,7 @@ class SleepTimerBottomSheet extends HookConsumerWidget {
           padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
           child: Center(
             child: Text(
-              'Sleep Timer',
+              S.of(context).sleepTimer,
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
@@ -145,7 +143,7 @@ class SleepTimerBottomSheet extends HookConsumerWidget {
               Navigator.of(context).pop();
             },
             icon: const Icon(Icons.bedtime_off_outlined),
-            label: const Text('Cancel Sleep Timer'),
+            label: Text(S.of(context).cancelSleepTimer),
           ),
         ),
 

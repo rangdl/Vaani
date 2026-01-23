@@ -9,7 +9,7 @@ import 'package:vaani/features/player/view/widgets/audiobook_player_seek_chapter
 import 'package:vaani/features/player/view/widgets/player_player_pause_button.dart';
 import 'package:vaani/features/player/view/widgets/player_progress_bar.dart';
 import 'package:vaani/features/player/view/widgets/player_speed_adjust_button.dart';
-import 'package:vaani/features/skip_start_end/view/skip_start_end_button.dart';
+import 'package:vaani/features/player/view/widgets/skip_start_end_button.dart';
 import 'package:vaani/features/sleep_timer/view/sleep_timer_button.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';

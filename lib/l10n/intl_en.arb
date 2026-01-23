@@ -196,6 +196,8 @@
     "playerSettingsDisplayTotalProgressDescription": "Show the total progress of the book in the player",
     "playerSettingsDisplayChapterProgress": "Show Chapter Progress",
     "playerSettingsDisplayChapterProgressDescription": "Show the progress of the current chapter in the player",
+    "sleepTimer": "Sleep Timer",
+    "cancelSleepTimer": "Cancel Sleep Timer",
     "autoTurnOnSleepTimer": "Auto Turn On Sleep Timer",
     "automaticallyDescription": "Automatically turn on the sleep timer based on the time of day",
     "autoSleepTimerSettings": "Auto Sleep Timer Settings",
