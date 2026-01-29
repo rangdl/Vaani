@@ -46,7 +46,7 @@ class PlayerSkipChapterStartEnd extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentBook = ref.watch(currentBookProvider);
     final bookId = currentBook?.libraryItemId ?? '_';
-    final bookSettings = ref.read(bookSettingsProvider(bookId));
+    final bookSettings = ref.watch(bookSettingsProvider(bookId));
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

@@ -3,12 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/library_provider.dart' show currentLibraryProvider;
 import 'package:vaani/features/explore/providers/search_controller.dart';
-import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/view/player_minimized.dart';
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart';
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
+import 'package:vaani/shared/extensions/string.dart';
 import 'package:vaani/shared/icons/abs_icons.dart' show AbsIcons;
 
 // stack to track changes in navigationShell.currentIndex
@@ -33,16 +33,10 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
     final size = MediaQuery.of(context).size;
     // 竖屏
     final isVertical = size.height > size.width;
-    final currentBook = ref.watch(currentBookProvider);
-
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.bottomCenter,
+      body: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.only(
-              bottom: currentBook != null ? playerMinHeight : 0,
-            ),
+          Expanded(
             child: isVertical ? navigationShell : buildNavLeft(context, ref),
           ),
           const PlayerMinimized(),
@@ -57,10 +51,10 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
       children: [
         SafeArea(
           child: NavigationRail(
+            leading: Text(appName.capitalize),
             minWidth: 60,
             minExtendedWidth: 180,
             extended: MediaQuery.of(context).size.width > 640,
-            // extended: false,
             destinations: _navigationItems(context).map((item) {
               final isDestinationLibrary = item.name == S.of(context).library;
               var currentLibrary = ref.watch(currentLibraryProvider).value;
@@ -79,21 +73,8 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
                       ? currentLibrary?.name ?? item.name
                       : item.name,
                 ),
-                // tooltip: item.tooltip,
               );
-              // if (isDestinationLibrary) {
-              //   return GestureDetector(
-              //     onSecondaryTap: () => showLibrarySwitcher(context, ref),
-              //     onDoubleTap: () => showLibrarySwitcher(context, ref),
-              //     child:
-              //         destinationWidget, // Wrap the actual NavigationDestination
-              //   );
-              // } else {
-              //   // Return the unwrapped destination for other items
-              //   return destinationWidget;
-              // }
               return destinationWidget;
-              // return NavigationRailDestination(icon: Icon(nav.icon), label: Text(nav.name));
             }).toList(),
             selectedIndex: navigationShell.currentIndex,
             onDestinationSelected: (int index) {
@@ -158,41 +139,32 @@ class ScaffoldWithNavBar extends HookConsumerWidget {
     );
   }
 
-  List<_NavigationItem> _navigationItems(BuildContext context) {
-    return [
-      _NavigationItem(
-        // name: 'Home',
-        name: S.of(context).home,
-        icon: Icons.home_outlined,
-        activeIcon: Icons.home,
-      ),
-      // Library
-      _NavigationItem(
-        // name: 'Library',
-        name: S.of(context).library,
-        icon: Icons.book_outlined,
-        activeIcon: Icons.book,
-        // tooltip: 'Browse your library',
-        tooltip: S.of(context).libraryTooltip,
-      ),
-      _NavigationItem(
-        // name: 'Explore',
-        name: S.of(context).explore,
-        icon: Icons.search_outlined,
-        activeIcon: Icons.search,
-        // tooltip: 'Search and Explore',
-        tooltip: S.of(context).exploreTooltip,
-      ),
-      _NavigationItem(
-        // name: 'You',
-        name: S.of(context).you,
-        icon: Icons.account_circle_outlined,
-        activeIcon: Icons.account_circle,
-        // tooltip: 'Your Profile and Settings',
-        tooltip: S.of(context).youTooltip,
-      ),
-    ];
-  }
+  List<_NavigationItem> _navigationItems(BuildContext context) => [
+    _NavigationItem(
+      name: S.of(context).home,
+      icon: Icons.home_outlined,
+      activeIcon: Icons.home,
+    ),
+    // Library
+    _NavigationItem(
+      name: S.of(context).library,
+      icon: Icons.book_outlined,
+      activeIcon: Icons.book,
+      tooltip: S.of(context).libraryTooltip,
+    ),
+    _NavigationItem(
+      name: S.of(context).explore,
+      icon: Icons.search_outlined,
+      activeIcon: Icons.search,
+      tooltip: S.of(context).exploreTooltip,
+    ),
+    _NavigationItem(
+      name: S.of(context).you,
+      icon: Icons.account_circle_outlined,
+      activeIcon: Icons.account_circle,
+      tooltip: S.of(context).youTooltip,
+    ),
+  ];
 
   /// Navigate to the current location of the branch at the provided index when
   /// tapping an item in the BottomNavigationBar.

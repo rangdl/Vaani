@@ -19,6 +19,7 @@ import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/extensions/style.dart';
 import 'package:vaani/shared/icons/abs_icons.dart';
 import 'package:vaani/shared/utils/components.dart';
+import 'package:vaani/shared/utils/side_sheet.dart';
 import 'package:vaani/shared/widgets/images.dart';
 
 class LibraryPage extends HookConsumerWidget {
@@ -93,6 +94,11 @@ class LibraryPage extends HookConsumerWidget {
             tooltip: '统计',
             onPressed: () =>
                 GoRouter.of(context).pushNamed(Routes.libraryStatistics.name),
+          ),
+          IconButton(
+            icon: Icon(Icons.arrow_circle_left),
+            tooltip: '侧边弹出Sheet',
+            onPressed: () => SideSheet.right(context, body: Text('data')),
           ),
           // IconButton(
           //   icon: Icon(Icons.refresh),

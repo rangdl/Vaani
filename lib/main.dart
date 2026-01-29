@@ -61,6 +61,8 @@ Future<void> _runPlatformSpecificCode() async {
         minimumSize: Size(1050, 700),
         center: true,
         skipTaskbar: false,
+        // titleBarStyle: TitleBarStyle.hidden, // 隐藏标题栏
+        // windowButtonVisibility: false, // 隐藏窗口按钮
       );
       await windowManager.waitUntilReadyToShow(windowOptions, () async {
         await windowManager.setPreventClose(true);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:list_wheel_scroll_view_nls/list_wheel_scroll_view_nls.dart';
@@ -93,7 +94,9 @@ class SleepTimerBottomSheet extends HookConsumerWidget {
 
     // useEffect to rebuild the sleep timer when the duration changes
     useEffect(() {
-      onDurationSelected?.call(durationState.value);
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        onDurationSelected?.call(durationState.value);
+      });
       return null;
     }, [durationState.value]);
 
