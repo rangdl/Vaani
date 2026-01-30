@@ -24,17 +24,35 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(user) => "用户数: ${user}";
 
-  static String m2(item) => "是否要删除 ${item} ？";
+  static String m4(days, hours, minutes, seconds) =>
+      "${days}天 ${hours}时 ${minutes}分 ${seconds}秒";
 
-  static String m3(item) => "已删除 ${item}";
+  static String m5(days, hours, minutes) => "${days}天 ${hours}时 ${minutes}分";
 
-  static String m4(error) => "加载库时出错：${error}";
+  static String m6(hours, minutes) => "${hours}时 ${minutes}分";
 
-  static String m5(error) => "Server is not reachable ${error}";
+  static String m8(hours, minutes, seconds) =>
+      "${hours}时 ${minutes}分 ${seconds}秒";
 
-  static String m6(appName) => "欢迎使用 ${appName}";
+  static String m9(hours, minutes) => "${hours}时 ${minutes}分";
 
-  static String m7(second) => "${second} 秒";
+  static String m12(minutes, seconds) => "${minutes}分 ${seconds}秒";
+
+  static String m13(count) => "${count}分";
+
+  static String m15(count) => "${count}秒";
+
+  static String m16(item) => "是否要删除 ${item} ？";
+
+  static String m17(item) => "已删除 ${item}";
+
+  static String m18(error) => "加载库时出错：${error}";
+
+  static String m19(error) => "Server is not reachable ${error}";
+
+  static String m20(appName) => "欢迎使用 ${appName}";
+
+  static String m21(second) => "${second} 秒";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -93,6 +111,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "automaticallyDescription": MessageLookupByLibrary.simpleMessage(
       "根据一天中的时间自动打开睡眠定时器",
     ),
+    "averageLastWeek": MessageLookupByLibrary.simpleMessage("上周平均"),
+    "averagePerDay": MessageLookupByLibrary.simpleMessage("平均每天"),
     "backup": MessageLookupByLibrary.simpleMessage("备份"),
     "backupAndRestore": MessageLookupByLibrary.simpleMessage("备份与恢复"),
     "bookAbout": MessageLookupByLibrary.simpleMessage("关于本书"),
@@ -116,14 +136,24 @@ class MessageLookup extends MessageLookupByLibrary {
     "chapterSkipOpen": MessageLookupByLibrary.simpleMessage("跳过章节片头 "),
     "chapters": MessageLookupByLibrary.simpleMessage("章节列表"),
     "clean": MessageLookupByLibrary.simpleMessage("清除"),
+    "consecutiveDays": MessageLookupByLibrary.simpleMessage("连续收听天数"),
     "copyToClipboard": MessageLookupByLibrary.simpleMessage("复制到剪贴板"),
     "copyToClipboardDescription": MessageLookupByLibrary.simpleMessage(
       "将应用程序设置复制到剪贴板",
     ),
     "copyToClipboardToast": MessageLookupByLibrary.simpleMessage("设置已复制到剪贴板"),
+    "dateFormatDayHourMinuteSecondShort": m4,
+    "dateFormatDayHourMinuteShort": m5,
+    "dateFormatHourMinute": m6,
+    "dateFormatHourMinuteSecondShort": m8,
+    "dateFormatHourMinuteShort": m9,
+    "dateFormatMinuteSecondShort": m12,
+    "dateFormatMinuteShort": m13,
+    "dateFormatSecondShort": m15,
+    "daysListened": MessageLookupByLibrary.simpleMessage("收听天数"),
     "delete": MessageLookupByLibrary.simpleMessage("删除"),
-    "deleteDialog": m2,
-    "deleted": m3,
+    "deleteDialog": m16,
+    "deleted": m17,
     "downloadSettings": MessageLookupByLibrary.simpleMessage("下载设置"),
     "downloadSettingsDescription": MessageLookupByLibrary.simpleMessage(
       "自定义下载设置",
@@ -173,11 +203,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "homeStartListening": MessageLookupByLibrary.simpleMessage("开始收听"),
     "language": MessageLookupByLibrary.simpleMessage("语言"),
     "languageDescription": MessageLookupByLibrary.simpleMessage("语言切换"),
+    "largestItems": MessageLookupByLibrary.simpleMessage("最大项目"),
     "library": MessageLookupByLibrary.simpleMessage("媒体库"),
     "libraryChange": MessageLookupByLibrary.simpleMessage("更改媒体库"),
     "libraryEmpty": MessageLookupByLibrary.simpleMessage("没有可用的库。"),
-    "libraryLoadError": m4,
+    "libraryLoadError": m18,
     "librarySelect": MessageLookupByLibrary.simpleMessage("选择媒体库"),
+    "libraryStats": MessageLookupByLibrary.simpleMessage("媒体库统计"),
     "librarySwitchTooltip": MessageLookupByLibrary.simpleMessage("切换媒体库"),
     "libraryTooltip": MessageLookupByLibrary.simpleMessage("浏览您的媒体库"),
     "loading": MessageLookupByLibrary.simpleMessage("加载中..."),
@@ -191,12 +223,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginServerNoConnected": MessageLookupByLibrary.simpleMessage(
       "请输入您的AudiobookShelf服务器的URL",
     ),
-    "loginServerNot": m5,
+    "loginServerNot": m19,
     "loginServerTo": MessageLookupByLibrary.simpleMessage(" 了解如何设置服务器。"),
-    "loginTitle": m6,
+    "loginTitle": m20,
     "loginToken": MessageLookupByLibrary.simpleMessage("Token"),
     "loginUsername": MessageLookupByLibrary.simpleMessage("用户名"),
     "logs": MessageLookupByLibrary.simpleMessage("日志"),
+    "longestItems": MessageLookupByLibrary.simpleMessage("最长项目"),
     "nmpSettingsBackward": MessageLookupByLibrary.simpleMessage("快退间隔"),
     "nmpSettingsForward": MessageLookupByLibrary.simpleMessage("快进间隔"),
     "nmpSettingsMediaControls": MessageLookupByLibrary.simpleMessage("媒体控制"),
@@ -226,6 +259,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "在通知中自定义媒体播放器",
     ),
     "ok": MessageLookupByLibrary.simpleMessage("确定"),
+    "ownStats": MessageLookupByLibrary.simpleMessage("我的统计"),
     "pause": MessageLookupByLibrary.simpleMessage("暂停"),
     "play": MessageLookupByLibrary.simpleMessage("播放"),
     "playerSettings": MessageLookupByLibrary.simpleMessage("播放器设置"),
@@ -368,7 +402,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "使用应用程序的系统主题色",
     ),
     "themeSettingsDescription": MessageLookupByLibrary.simpleMessage("自定义应用主题"),
-    "timeSecond": m7,
+    "timeSecond": m21,
+    "today": MessageLookupByLibrary.simpleMessage("今日收听时长"),
+    "topAuthors": MessageLookupByLibrary.simpleMessage("顶级作者"),
+    "topGenres": MessageLookupByLibrary.simpleMessage("顶级类型"),
+    "totalAudioTracks": MessageLookupByLibrary.simpleMessage("总音轨数"),
+    "totalAuthors": MessageLookupByLibrary.simpleMessage("作者总数"),
+    "totalDuration": MessageLookupByLibrary.simpleMessage("总时长"),
+    "totalGenres": MessageLookupByLibrary.simpleMessage("风格总数"),
+    "totalItems": MessageLookupByLibrary.simpleMessage("项目总数"),
+    "totalSize": MessageLookupByLibrary.simpleMessage("总大小"),
+    "totalTimeListened": MessageLookupByLibrary.simpleMessage("总收听时长"),
     "unknown": MessageLookupByLibrary.simpleMessage("未知"),
     "webVersion": MessageLookupByLibrary.simpleMessage("Web版本"),
     "yes": MessageLookupByLibrary.simpleMessage("是"),

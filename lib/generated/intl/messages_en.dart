@@ -24,17 +24,54 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(user) => "Users: ${user}";
 
-  static String m2(item) => "Are you sure you want to delete ${item}?";
+  static String m2(days, hours, minutes) =>
+      "${Intl.plural(days, one: '${days} day', other: '${days} days')} ${Intl.plural(hours, one: '${hours} hour', other: '${hours} hours')} ${Intl.plural(minutes, one: '${minutes} minute', other: '${minutes} minutes')}";
 
-  static String m3(item) => "Deleted ${item}";
+  static String m3(days, hours, minutes, seconds) =>
+      "${Intl.plural(days, one: '${days} day', other: '${days} days')} ${Intl.plural(hours, one: '${hours} hour', other: '${hours} hours')} ${Intl.plural(minutes, one: '${minutes} minute', other: '${minutes} minutes')} ${Intl.plural(seconds, one: '${seconds} second', other: '${seconds} seconds')}";
 
-  static String m4(error) => "Error loading libraries: ${error}";
+  static String m4(days, hours, minutes, seconds) =>
+      "${days}d ${hours}h ${minutes}m ${seconds}s";
 
-  static String m5(error) => "Server is not reachable ${error}";
+  static String m5(days, hours, minutes) => "${days}d ${hours}h ${minutes}m";
 
-  static String m6(appName) => "Welcome to ${appName}";
+  static String m6(hours, minutes) =>
+      "${Intl.plural(hours, one: '${hours} hour', other: '${hours} hours')} ${Intl.plural(minutes, one: '${minutes} minute', other: '${minutes} minutes')}";
 
-  static String m7(second) => "${second} seconds";
+  static String m7(hours, minutes, seconds) =>
+      "${Intl.plural(hours, one: '${hours} hour', other: '${hours} hours')} ${Intl.plural(minutes, one: '${minutes} minute', other: '${minutes} minutes')} ${Intl.plural(seconds, one: '${seconds} second', other: '${seconds} seconds')}";
+
+  static String m8(hours, minutes, seconds) =>
+      "${hours}h ${minutes}m ${seconds}s";
+
+  static String m9(hours, minutes) => "${hours}h ${minutes}m";
+
+  static String m10(count) =>
+      "${Intl.plural(count, one: '${count} minute', other: '${count} minutes')}";
+
+  static String m11(minutes, seconds) =>
+      "${Intl.plural(minutes, one: '${minutes} minute', other: '${minutes} minutes')} ${Intl.plural(seconds, one: '${seconds} second', other: '${seconds} seconds')}";
+
+  static String m12(minutes, seconds) => "${minutes}m ${seconds}s";
+
+  static String m13(count) => "${count}m";
+
+  static String m14(count) =>
+      "${Intl.plural(count, one: '${count}  second', other: '${count} seconds')}";
+
+  static String m15(count) => "${count}s";
+
+  static String m16(item) => "Are you sure you want to delete ${item}?";
+
+  static String m17(item) => "Deleted ${item}";
+
+  static String m18(error) => "Error loading libraries: ${error}";
+
+  static String m19(error) => "Server is not reachable ${error}";
+
+  static String m20(appName) => "Welcome to ${appName}";
+
+  static String m21(second) => "${second} seconds";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -111,6 +148,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "automaticallyDescription": MessageLookupByLibrary.simpleMessage(
       "Automatically turn on the sleep timer based on the time of day",
     ),
+    "averageLastWeek": MessageLookupByLibrary.simpleMessage(
+      "Average last week",
+    ),
+    "averagePerDay": MessageLookupByLibrary.simpleMessage("Average per day"),
     "backup": MessageLookupByLibrary.simpleMessage("Backup"),
     "backupAndRestore": MessageLookupByLibrary.simpleMessage(
       "Backup and Restore",
@@ -150,6 +191,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "chapters": MessageLookupByLibrary.simpleMessage("Chapters"),
     "clean": MessageLookupByLibrary.simpleMessage("Clean"),
+    "consecutiveDays": MessageLookupByLibrary.simpleMessage("Consecutive days"),
     "copyToClipboard": MessageLookupByLibrary.simpleMessage(
       "Copy to Clipboard",
     ),
@@ -159,9 +201,24 @@ class MessageLookup extends MessageLookupByLibrary {
     "copyToClipboardToast": MessageLookupByLibrary.simpleMessage(
       "Settings copied to clipboard",
     ),
+    "dateFormatDayHourMinute": m2,
+    "dateFormatDayHourMinuteSecond": m3,
+    "dateFormatDayHourMinuteSecondShort": m4,
+    "dateFormatDayHourMinuteShort": m5,
+    "dateFormatHourMinute": m6,
+    "dateFormatHourMinuteSecond": m7,
+    "dateFormatHourMinuteSecondShort": m8,
+    "dateFormatHourMinuteShort": m9,
+    "dateFormatMinute": m10,
+    "dateFormatMinuteSecond": m11,
+    "dateFormatMinuteSecondShort": m12,
+    "dateFormatMinuteShort": m13,
+    "dateFormatSecond": m14,
+    "dateFormatSecondShort": m15,
+    "daysListened": MessageLookupByLibrary.simpleMessage("Days listened"),
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
-    "deleteDialog": m2,
-    "deleted": m3,
+    "deleteDialog": m16,
+    "deleted": m17,
     "downloadSettings": MessageLookupByLibrary.simpleMessage(
       "Download Settings",
     ),
@@ -239,13 +296,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "languageDescription": MessageLookupByLibrary.simpleMessage(
       "Language switch",
     ),
+    "largestItems": MessageLookupByLibrary.simpleMessage("Largest Items"),
     "library": MessageLookupByLibrary.simpleMessage("Library"),
     "libraryChange": MessageLookupByLibrary.simpleMessage("Change Library"),
     "libraryEmpty": MessageLookupByLibrary.simpleMessage(
       "No libraries available.",
     ),
-    "libraryLoadError": m4,
+    "libraryLoadError": m18,
     "librarySelect": MessageLookupByLibrary.simpleMessage("Select Library"),
+    "libraryStats": MessageLookupByLibrary.simpleMessage("Library Stats"),
     "librarySwitchTooltip": MessageLookupByLibrary.simpleMessage(
       "Switch Library",
     ),
@@ -267,14 +326,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginServerNoConnected": MessageLookupByLibrary.simpleMessage(
       "Please enter the URL of your AudiobookShelf Server",
     ),
-    "loginServerNot": m5,
+    "loginServerNot": m19,
     "loginServerTo": MessageLookupByLibrary.simpleMessage(
       " to know how to setup a server.",
     ),
-    "loginTitle": m6,
+    "loginTitle": m20,
     "loginToken": MessageLookupByLibrary.simpleMessage("Token"),
     "loginUsername": MessageLookupByLibrary.simpleMessage("Username"),
     "logs": MessageLookupByLibrary.simpleMessage("Logs"),
+    "longestItems": MessageLookupByLibrary.simpleMessage("Longest Items"),
     "nmpSettingsBackward": MessageLookupByLibrary.simpleMessage(
       "Backward Interval",
     ),
@@ -316,6 +376,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Customize the media player in notifications",
     ),
     "ok": MessageLookupByLibrary.simpleMessage("OK"),
+    "ownStats": MessageLookupByLibrary.simpleMessage("Own Stats"),
     "pause": MessageLookupByLibrary.simpleMessage("Pause"),
     "play": MessageLookupByLibrary.simpleMessage("Play"),
     "playerSettings": MessageLookupByLibrary.simpleMessage("Player Settings"),
@@ -506,7 +567,21 @@ class MessageLookup extends MessageLookupByLibrary {
     "themeSettingsDescription": MessageLookupByLibrary.simpleMessage(
       "Customize the app theme",
     ),
-    "timeSecond": m7,
+    "timeSecond": m21,
+    "today": MessageLookupByLibrary.simpleMessage("Today"),
+    "topAuthors": MessageLookupByLibrary.simpleMessage("Top Authors"),
+    "topGenres": MessageLookupByLibrary.simpleMessage("Top Genres"),
+    "totalAudioTracks": MessageLookupByLibrary.simpleMessage(
+      "Total Audio Tracks",
+    ),
+    "totalAuthors": MessageLookupByLibrary.simpleMessage("Total Authors"),
+    "totalDuration": MessageLookupByLibrary.simpleMessage("Total Duration"),
+    "totalGenres": MessageLookupByLibrary.simpleMessage("Total Genres"),
+    "totalItems": MessageLookupByLibrary.simpleMessage("Total Items"),
+    "totalSize": MessageLookupByLibrary.simpleMessage("Total size"),
+    "totalTimeListened": MessageLookupByLibrary.simpleMessage(
+      "Total time listened",
+    ),
     "unknown": MessageLookupByLibrary.simpleMessage("Unknown"),
     "webVersion": MessageLookupByLibrary.simpleMessage("Web Version"),
     "yes": MessageLookupByLibrary.simpleMessage("Yes"),

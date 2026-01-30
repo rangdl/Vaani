@@ -2028,6 +2028,310 @@ class S {
       args: [],
     );
   }
+
+  /// `Own Stats`
+  String get ownStats {
+    return Intl.message('Own Stats', name: 'ownStats', desc: '', args: []);
+  }
+
+  /// `Library Stats`
+  String get libraryStats {
+    return Intl.message(
+      'Library Stats',
+      name: 'libraryStats',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Top Authors`
+  String get topAuthors {
+    return Intl.message('Top Authors', name: 'topAuthors', desc: '', args: []);
+  }
+
+  /// `Top Genres`
+  String get topGenres {
+    return Intl.message('Top Genres', name: 'topGenres', desc: '', args: []);
+  }
+
+  /// `Total Audio Tracks`
+  String get totalAudioTracks {
+    return Intl.message(
+      'Total Audio Tracks',
+      name: 'totalAudioTracks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Authors`
+  String get totalAuthors {
+    return Intl.message(
+      'Total Authors',
+      name: 'totalAuthors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Duration`
+  String get totalDuration {
+    return Intl.message(
+      'Total Duration',
+      name: 'totalDuration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Genres`
+  String get totalGenres {
+    return Intl.message(
+      'Total Genres',
+      name: 'totalGenres',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Items`
+  String get totalItems {
+    return Intl.message('Total Items', name: 'totalItems', desc: '', args: []);
+  }
+
+  /// `Total size`
+  String get totalSize {
+    return Intl.message('Total size', name: 'totalSize', desc: '', args: []);
+  }
+
+  /// `Longest Items`
+  String get longestItems {
+    return Intl.message(
+      'Longest Items',
+      name: 'longestItems',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Largest Items`
+  String get largestItems {
+    return Intl.message(
+      'Largest Items',
+      name: 'largestItems',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Today`
+  String get today {
+    return Intl.message('Today', name: 'today', desc: '', args: []);
+  }
+
+  /// `Total time listened`
+  String get totalTimeListened {
+    return Intl.message(
+      'Total time listened',
+      name: 'totalTimeListened',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Days listened`
+  String get daysListened {
+    return Intl.message(
+      'Days listened',
+      name: 'daysListened',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consecutive days`
+  String get consecutiveDays {
+    return Intl.message(
+      'Consecutive days',
+      name: 'consecutiveDays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Average per day`
+  String get averagePerDay {
+    return Intl.message(
+      'Average per day',
+      name: 'averagePerDay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Average last week`
+  String get averageLastWeek {
+    return Intl.message(
+      'Average last week',
+      name: 'averageLastWeek',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{days, plural, one {{days} day} other {{days} days}} {hours, plural, one {{hours} hour} other {{hours} hours}} {minutes, plural, one {{minutes} minute} other {{minutes} minutes}}`
+  String dateFormatDayHourMinute(int days, int hours, int minutes) {
+    return Intl.message(
+      '${Intl.plural(days, one: '$days day', other: '$days days')} ${Intl.plural(hours, one: '$hours hour', other: '$hours hours')} ${Intl.plural(minutes, one: '$minutes minute', other: '$minutes minutes')}',
+      name: 'dateFormatDayHourMinute',
+      desc: '',
+      args: [days, hours, minutes],
+    );
+  }
+
+  /// `{days, plural, one {{days} day} other {{days} days}} {hours, plural, one {{hours} hour} other {{hours} hours}} {minutes, plural, one {{minutes} minute} other {{minutes} minutes}} {seconds, plural, one {{seconds} second} other {{seconds} seconds}}`
+  String dateFormatDayHourMinuteSecond(
+    int days,
+    int hours,
+    int minutes,
+    int seconds,
+  ) {
+    return Intl.message(
+      '${Intl.plural(days, one: '$days day', other: '$days days')} ${Intl.plural(hours, one: '$hours hour', other: '$hours hours')} ${Intl.plural(minutes, one: '$minutes minute', other: '$minutes minutes')} ${Intl.plural(seconds, one: '$seconds second', other: '$seconds seconds')}',
+      name: 'dateFormatDayHourMinuteSecond',
+      desc: '',
+      args: [days, hours, minutes, seconds],
+    );
+  }
+
+  /// `{days}d {hours}h {minutes}m {seconds}s`
+  String dateFormatDayHourMinuteSecondShort(
+    int days,
+    int hours,
+    int minutes,
+    int seconds,
+  ) {
+    return Intl.message(
+      '${days}d ${hours}h ${minutes}m ${seconds}s',
+      name: 'dateFormatDayHourMinuteSecondShort',
+      desc: '',
+      args: [days, hours, minutes, seconds],
+    );
+  }
+
+  /// `{days}d {hours}h {minutes}m`
+  String dateFormatDayHourMinuteShort(int days, int hours, int minutes) {
+    return Intl.message(
+      '${days}d ${hours}h ${minutes}m',
+      name: 'dateFormatDayHourMinuteShort',
+      desc: '',
+      args: [days, hours, minutes],
+    );
+  }
+
+  /// `{hours, plural, one {{hours} hour} other {{hours} hours}} {minutes, plural, one {{minutes} minute} other {{minutes} minutes}}`
+  String dateFormatHourMinute(int hours, int minutes) {
+    return Intl.message(
+      '${Intl.plural(hours, one: '$hours hour', other: '$hours hours')} ${Intl.plural(minutes, one: '$minutes minute', other: '$minutes minutes')}',
+      name: 'dateFormatHourMinute',
+      desc: '',
+      args: [hours, minutes],
+    );
+  }
+
+  /// `{hours, plural, one {{hours} hour} other {{hours} hours}} {minutes, plural, one {{minutes} minute} other {{minutes} minutes}} {seconds, plural, one {{seconds} second} other {{seconds} seconds}}`
+  String dateFormatHourMinuteSecond(int hours, int minutes, int seconds) {
+    return Intl.message(
+      '${Intl.plural(hours, one: '$hours hour', other: '$hours hours')} ${Intl.plural(minutes, one: '$minutes minute', other: '$minutes minutes')} ${Intl.plural(seconds, one: '$seconds second', other: '$seconds seconds')}',
+      name: 'dateFormatHourMinuteSecond',
+      desc: '',
+      args: [hours, minutes, seconds],
+    );
+  }
+
+  /// `{hours}h {minutes}m {seconds}s`
+  String dateFormatHourMinuteSecondShort(int hours, int minutes, int seconds) {
+    return Intl.message(
+      '${hours}h ${minutes}m ${seconds}s',
+      name: 'dateFormatHourMinuteSecondShort',
+      desc: '',
+      args: [hours, minutes, seconds],
+    );
+  }
+
+  /// `{hours}h {minutes}m`
+  String dateFormatHourMinuteShort(int hours, int minutes) {
+    return Intl.message(
+      '${hours}h ${minutes}m',
+      name: 'dateFormatHourMinuteShort',
+      desc: '',
+      args: [hours, minutes],
+    );
+  }
+
+  /// `{count, plural, one {{count} minute} other {{count} minutes}}`
+  String dateFormatMinute(int count) {
+    return Intl.plural(
+      count,
+      one: '$count minute',
+      other: '$count minutes',
+      name: 'dateFormatMinute',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{minutes, plural, one {{minutes} minute} other {{minutes} minutes}} {seconds, plural, one {{seconds} second} other {{seconds} seconds}}`
+  String dateFormatMinuteSecond(int minutes, int seconds) {
+    return Intl.message(
+      '${Intl.plural(minutes, one: '$minutes minute', other: '$minutes minutes')} ${Intl.plural(seconds, one: '$seconds second', other: '$seconds seconds')}',
+      name: 'dateFormatMinuteSecond',
+      desc: '',
+      args: [minutes, seconds],
+    );
+  }
+
+  /// `{minutes}m {seconds}s`
+  String dateFormatMinuteSecondShort(int minutes, int seconds) {
+    return Intl.message(
+      '${minutes}m ${seconds}s',
+      name: 'dateFormatMinuteSecondShort',
+      desc: '',
+      args: [minutes, seconds],
+    );
+  }
+
+  /// `{count}m`
+  String dateFormatMinuteShort(int count) {
+    return Intl.message(
+      '${count}m',
+      name: 'dateFormatMinuteShort',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, one {{count}  second} other {{count} seconds}}`
+  String dateFormatSecond(int count) {
+    return Intl.plural(
+      count,
+      one: '$count  second',
+      other: '$count seconds',
+      name: 'dateFormatSecond',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count}s`
+  String dateFormatSecondShort(int count) {
+    return Intl.message(
+      '${count}s',
+      name: 'dateFormatSecondShort',
+      desc: '',
+      args: [count],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

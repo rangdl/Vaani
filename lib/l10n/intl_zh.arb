@@ -288,5 +288,123 @@
     "erFailedText": "失败",
     "erMessageText": "最后更新于 %T",
     "logs": "日志",
-    "notImplemented": "未实现"
+    "notImplemented": "未实现",
+
+    "ownStats": "我的统计",
+    "libraryStats": "媒体库统计",
+    "topAuthors": "顶级作者",
+    "topGenres": "顶级类型",
+    "totalAudioTracks": "总音轨数",
+    "totalAuthors": "作者总数",
+    "totalDuration": "总时长",
+    "totalGenres": "风格总数",
+    "totalItems": "项目总数",
+    "totalSize": "总大小",
+    "longestItems": "最长项目",
+    "largestItems": "最大项目",
+    "today": "今日收听时长",
+    "@today": {},
+    "totalTimeListened": "总收听时长",
+    "@totalTimeListened": {},
+    "daysListened": "收听天数",
+    "@daysListened": {},
+    "consecutiveDays": "连续收听天数",
+    "@consecutiveDays": {},
+    "averagePerDay": "平均每天",
+    "averageLastWeek": "上周平均",
+
+    "dateFormatDayHourMinuteSecondShort": "{days}天 {hours}时 {minutes}分 {seconds}秒",
+    "@dateFormatDayHourMinuteSecondShort": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "dateFormatDayHourMinuteShort": "{days}天 {hours}时 {minutes}分",
+  "@dateFormatDayHourMinuteShort": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "dateFormatHourMinute": "{hours}时 {minutes}分",
+  "@dateFormatHourMinute": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "dateFormatHourMinuteSecondShort": "{hours}时 {minutes}分 {seconds}秒",
+  "@dateFormatHourMinuteSecondShort": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "dateFormatHourMinuteShort": "{hours}时 {minutes}分",
+  "@dateFormatHourMinuteShort": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "dateFormatMinuteSecondShort": "{minutes}分 {seconds}秒",
+  "@dateFormatMinuteSecondShort": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "dateFormatMinuteShort": "{count}分",
+  "@dateFormatMinuteShort": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dateFormatSecondShort": "{count}秒",
+  "@dateFormatSecondShort": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

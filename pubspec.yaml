@@ -43,7 +43,7 @@ dependencies:
   icons_plus: ^5.0.0
   # 自动适配Material和Cupertino
   #flutter_platform_widgets: ^9.0.0
-
+  intl: ^0.20.2
   # hooks
   flutter_hooks: ^0.21.2
   
@@ -147,7 +147,7 @@ dependencies:
   # 分享插件
   share_plus: ^10.0.2
   # chart
-  # fl_chart: ^1.1.1
+  fl_chart: ^1.0.0
 
   # AudiobookShelf SDK
   shelfsdk:

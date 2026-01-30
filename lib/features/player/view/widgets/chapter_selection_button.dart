@@ -69,9 +69,22 @@ class ChapterSelectionModal extends HookConsumerWidget {
     final theme = Theme.of(context);
     return Column(
       children: [
-        ListTile(
-          title: Text(
-            '${S.of(context).chapters} (${initialIndex + 1}/${book.chapters.length})',
+        Container(
+          color: Theme.of(context).colorScheme.surface,
+          child: ListTile(
+            title: Text(
+              '${S.of(context).chapters} (${initialIndex + 1}/${book.chapters.length})',
+            ),
+            trailing: IconButton(
+              onPressed: () => {
+                listController.value.jumpToItem(
+                  index: initialIndex,
+                  scrollController: scrollController,
+                  alignment: 0.5,
+                ),
+              },
+              icon: const Icon(Icons.center_focus_strong),
+            ),
           ),
         ),
         // scroll to current chapter after opening the dialog
