@@ -1,11 +1,10 @@
 // provider to provide the api instance
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-// import 'package:http_cache_client/http_cache_client.dart';
-// import 'package:http_cache_core/http_cache_core.dart';
-// import 'package:http_cache_hive_store/http_cache_hive_store.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:riverpod_annotation/experimental/persist.dart';
+
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/db/cache/cache_key.dart';
 import 'package:vaani/db/cache_manager.dart';
@@ -34,38 +33,6 @@ Uri makeBaseUrl(String address) {
   }
   return Uri.parse(address);
 }
-
-// Global options
-// final options = CacheOptions(
-//   // A default store is required for the client.
-//   store: HiveCacheStore(appDocumentsDir.path, hiveBoxName: "http_cache"),
-
-//   // All subsequent fields are optional to get a standard behaviour.
-
-//   // Default.
-//   policy: CachePolicy.request,
-//   // 对于给定的状态代码，返回之前缓存的错误响应。
-//   // Returns a previous cached response on error for given status codes.
-//   // Defaults to `[]`.
-//   hitCacheOnErrorCodes: const [500],
-//   // 允许在网络错误（例如脱机使用）时返回缓存响应。
-//   // Allows to return a cached response on network errors (e.g. offline usage).
-//   // Defaults to `false`.
-//   hitCacheOnNetworkFailure: true,
-//   // Overrides any HTTP directive to delete entry past this duration.
-//   // Useful only when origin server has no cache config or custom behaviour is desired.
-//   // Defaults to `null`.
-//   maxStale: const Duration(days: 7),
-//   // Default. Allows 3 cache sets and ease cleanup.
-//   priority: CachePriority.normal,
-//   // Default. Body and headers encryption with your own algorithm.
-//   cipher: null,
-//   // Default. Key builder to retrieve requests.
-//   keyBuilder: CacheOptions.defaultCacheKeyBuilder,
-//   // Default. Allows to cache POST requests.
-//   // Assigning a [keyBuilder] is strongly recommended when `true`.
-//   allowPostMethod: false,
-// );
 
 /// get the api instance for the given base url
 @riverpod
