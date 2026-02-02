@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
+import 'package:vaani/features/settings/app_settings_provider.dart';
+import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/widgets/shelves/author_shelf.dart';
 import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
@@ -11,32 +13,46 @@ import 'package:vaani/shared/widgets/shelves/book_shelf.dart';
 ///
 /// this will build the appropriate shelf based on the type of the shelf
 class HomeShelf extends HookConsumerWidget {
-  const HomeShelf({
-    super.key,
-    required this.shelf,
-    required this.title,
-    this.showPlayButton = false,
-  });
+  const HomeShelf({super.key, required this.shelf});
 
-  final String title;
   final Shelf shelf;
-  final bool showPlayButton;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final homePageSettings = ref.watch(
+      appSettingsProvider.select((v) => v.homePageSettings),
+    );
     return switch (shelf.type) {
       ShelfType.book => BookHomeShelf(
-        title: title,
+        title: _showLabel(context),
         shelf: shelf.asLibraryItemShelf,
-        showPlayButton: showPlayButton,
+        showPlayButton: switch (shelf.id) {
+          'continue-listening' =>
+            homePageSettings.showPlayButtonOnContinueListeningShelf,
+          'continue-series' =>
+            homePageSettings.showPlayButtonOnContinueSeriesShelf,
+          'listen-again' => homePageSettings.showPlayButtonOnListenAgainShelf,
+          _ => homePageSettings.showPlayButtonOnAllRemainingShelves,
+        },
       ),
       ShelfType.authors => AuthorHomeShelf(
-        title: title,
+        title: _showLabel(context),
         shelf: shelf.asAuthorShelf,
       ),
       _ => Container(),
     };
   }
+
+  String _showLabel(context) => switch (shelf.label) {
+    "Continue Listening" => S.of(context).homeBookContinueListening,
+    "Continue Series" => S.of(context).homeBookContinueSeries,
+    "Recently Added" => S.of(context).homeBookRecentlyAdded,
+    "Recommended" => S.of(context).homeBookRecommended,
+    "Discover" => S.of(context).homeBookDiscover,
+    "Listen Again" => S.of(context).homeBookListenAgain,
+    "Newest Authors" => S.of(context).homeBookNewestAuthors,
+    _ => shelf.label,
+  };
 }
 
 /// A shelf that displays children on the home page

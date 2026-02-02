@@ -4,8 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
-import 'package:vaani/features/settings/app_settings_provider.dart'
-    show appSettingsProvider;
 import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
@@ -21,8 +19,6 @@ class HomePage extends HookConsumerWidget {
     final views = ref.watch(personalizedViewProvider);
     final apiSettings = ref.watch(apiSettingsProvider);
     final scrollController = useScrollController();
-    final appSettings = ref.watch(appSettingsProvider);
-    final homePageSettings = appSettings.homePageSettings;
 
     return Scaffold(
       appBar: AppBar(
@@ -73,31 +69,7 @@ class HomePage extends HookConsumerWidget {
                 appLogger.fine('building shelf ${shelf.label}');
                 // check if showPlayButton is enabled for the shelf
                 // using the id of the shelf
-                final showPlayButton = switch (shelf.id) {
-                  'continue-listening' =>
-                    homePageSettings.showPlayButtonOnContinueListeningShelf,
-                  'continue-series' =>
-                    homePageSettings.showPlayButtonOnContinueSeriesShelf,
-                  'listen-again' =>
-                    homePageSettings.showPlayButtonOnListenAgainShelf,
-                  _ => homePageSettings.showPlayButtonOnAllRemainingShelves,
-                };
-                final showLabel = switch (shelf.label) {
-                  "Continue Listening" =>
-                    S.of(context).homeBookContinueListening,
-                  "Continue Series" => S.of(context).homeBookContinueSeries,
-                  "Recently Added" => S.of(context).homeBookRecentlyAdded,
-                  "Recommended" => S.of(context).homeBookRecommended,
-                  "Discover" => S.of(context).homeBookDiscover,
-                  "Listen Again" => S.of(context).homeBookListenAgain,
-                  "Newest Authors" => S.of(context).homeBookNewestAuthors,
-                  _ => shelf.label,
-                };
-                return HomeShelf(
-                  title: showLabel,
-                  shelf: shelf,
-                  showPlayButton: showPlayButton,
-                );
+                return HomeShelf(shelf: shelf);
               })
               .toList();
           return RefreshIndicator(
