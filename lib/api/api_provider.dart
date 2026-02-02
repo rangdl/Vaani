@@ -1,16 +1,17 @@
 // provider to provide the api instance
 
+import 'dart:convert';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_annotation/experimental/persist.dart';
-
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/db/cache/cache_key.dart';
 import 'package:vaani/db/cache_manager.dart';
+import 'package:vaani/db/riverpod_fcm.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
 import 'package:vaani/features/settings/models/authenticated_user.dart';
-import 'package:vaani/shared/extensions/cache_manager.dart';
 import 'package:vaani/shared/extensions/obfuscation.dart';
 import 'package:vaani/shared/utils/error_response.dart';
 
@@ -122,34 +123,25 @@ class PersonalizedView extends _$PersonalizedView {
       yield [];
       return;
     }
-    // try to find in cache
-    final key = CacheKey.personalized(apiSettings.activeLibraryId! + user.id);
-    final cachedItems = await apiResponseCacheManager.getList(
-      key,
-      Shelf.fromJson,
-    );
-    if (cachedItems != null) {
-      _logger.fine('successfully read from cache key: $key');
-      yield cachedItems;
-    }
 
-    // ! exaggerated delay
-    // await Future.delayed(const Duration(seconds: 2));
+    await persist(
+      ref.watch(storageProvider.future),
+      key: CacheKey.personalized(apiSettings.activeLibraryId!, user.id),
+      encode: jsonEncode,
+      decode: (json) {
+        final decoded = jsonDecode(json) as List;
+        return decoded
+            .map((e) => Shelf.fromJson(e as Map<String, Object?>))
+            .toList();
+      },
+    ).future;
+
     final res = await api.libraries.getPersonalized(
       libraryId: apiSettings.activeLibraryId!,
     );
-    final result = await apiResponseCacheManager.putList(key, res);
-    if (result != null) {
-      yield result;
+    if (res != null) {
+      yield res;
     }
-  }
-
-  // method to force refresh the view and ignore the cache
-  Future<void> forceRefresh() async {
-    // clear the cache
-    // TODO: find a better way to clear the cache for only personalized view key
-    // return apiResponseCacheManager.emptyCache();
-    return apiResponseCacheManager.clean(prefix: CacheKey.personalized(''));
   }
 }
 
@@ -208,3 +200,12 @@ FutureOr<LoginResponse?> login(Ref ref, {AuthenticatedUser? user}) async {
   _logger.fine('login response: ${res.obfuscate()}');
   return res;
 }
+
+// final storageHiveProvider = FutureProvider<JsonHiveStorage>((ref) async {
+//   // Initialize SQFlite. We should share the Storage instance between providers.
+//   return JsonHiveStorage.open();
+// });
+
+final storageProvider = FutureProvider<JsonStorage>((ref) async {
+  return JsonStorage.open(apiResponseCacheManager);
+});

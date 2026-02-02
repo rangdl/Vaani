@@ -359,7 +359,7 @@ final class PersonalizedViewProvider
   PersonalizedView create() => PersonalizedView();
 }
 
-String _$personalizedViewHash() => r'3f7c9f83215f8378e2b7b80333e0ad722f2ec279';
+String _$personalizedViewHash() => r'554e5ef0a657d55b084ffc678848bbb86faa5e08';
 
 /// fetch the personalized view
 

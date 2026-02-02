@@ -1,8 +1,8 @@
 class CacheKey {
   CacheKey._();
 
-  static String personalized(String id) {
-    return 'personalizedView:$id';
+  static String personalized(String id, String userid) {
+    return 'personalizedView:$id:$userid';
   }
 
   static String libraryItem(String id) {

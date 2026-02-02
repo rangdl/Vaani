@@ -53,7 +53,7 @@ final class LibraryItemProvider
   }
 }
 
-String _$libraryItemHash() => r'30d0f8ca585673e9aa53bae6580be88eaa1fcba5';
+String _$libraryItemHash() => r'3fea43a4e716c9883ed6e07448bb38bfceeb692e';
 
 /// provides the library item for the given id
 
