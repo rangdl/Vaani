@@ -16,7 +16,6 @@ import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
-import 'package:vaani/shared/extensions/style.dart';
 import 'package:vaani/shared/icons/abs_icons.dart';
 import 'package:vaani/shared/utils/components.dart';
 import 'package:vaani/shared/utils/side_sheet.dart';
@@ -24,9 +23,8 @@ import 'package:vaani/shared/widgets/images.dart';
 
 /// 媒体库页面
 class LibraryPage extends HookConsumerWidget {
-  const LibraryPage({this.libraryId, super.key});
+  const LibraryPage({super.key});
 
-  final String? libraryId;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentLibrary = ref.watch(currentLibraryProvider).value;
@@ -111,9 +109,8 @@ class LibraryPage extends HookConsumerWidget {
 }
 
 class LibraryPageItem extends HookConsumerWidget {
-  const LibraryPageItem({super.key, required this.item, required this.width});
+  const LibraryPageItem(this.item, {super.key});
   final LibraryItemMinified item;
-  final double width;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final title = item.media.metadata.title ?? '';
@@ -122,11 +119,6 @@ class LibraryPageItem extends HookConsumerWidget {
         : item.media.metadata.asBookMetadataMinified.authorName ?? '';
     final bodyLarge = Theme.of(context).textTheme.bodyLarge;
     final bodySmall = Theme.of(context).textTheme.bodySmall;
-    final height =
-        width +
-        15 +
-        (bodyLarge?.calculateHeight ?? 0) +
-        (bodySmall?.calculateHeight ?? 0);
     return InkWell(
       onTap: () {
         if (item.collapsedSeries != null) {
@@ -139,13 +131,15 @@ class LibraryPageItem extends HookConsumerWidget {
           extra: LibraryItemExtras(book: item.media.asBookMinified),
         );
       },
-      borderRadius: BorderRadius.circular(10),
-      child: SizedBox(
-        height: height,
-        child: Column(
+      borderRadius: BorderRadius.circular(AppElementSizes.borderRadiusSmall),
+      child: LayoutBuilder(
+        builder: (context, constraints) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: AbsBookCover(id: item.id)),
+            SizedBox(
+              height: constraints.maxWidth,
+              child: AbsBookCover(id: item.id),
+            ),
             const SizedBox(height: 3),
             Text(
               title,
@@ -334,17 +328,16 @@ class _EasyRefreshLayoutBuilder extends HookWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final height = getDefaultHeight(context);
-        // final height = min(constraints.maxHeight, 500.0);
         final width = height * 0.75;
         return AlignedGridView.count(
           crossAxisCount: constraints.maxWidth ~/ width,
           mainAxisSpacing: 12,
           crossAxisSpacing: 12,
-          padding: EdgeInsets.only(top: 0, left: 8, right: 8),
+          padding: EdgeInsets.all(AppElementSizes.paddingRegular),
           itemCount: items.length,
           controller: scrollController,
           itemBuilder: (context, index) {
-            return LibraryPageItem(item: items[index].asMinified, width: width);
+            return LibraryPageItem(items[index].asMinified);
           },
         );
       },
