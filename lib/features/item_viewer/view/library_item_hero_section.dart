@@ -243,8 +243,16 @@ class BookSeries extends StatelessWidget {
     String generateSeriesString() {
       final series = (itemBookMetadata)?.series ?? <shelfsdk.SeriesSequence>[];
       if (series.isEmpty) {
-        return (bookDetailsCached?.metadata as shelfsdk.BookMetadataMinified?)
-                ?.seriesName ??
+        return (bookDetailsCached?.metadata
+                    is shelfsdk.BookMetadataMinifiedSeriesFilter
+                ? bookDetailsCached
+                      ?.metadata
+                      .asBookMetadataMinifiedSeriesFilter
+                      .seriesName
+                : bookDetailsCached
+                      ?.metadata
+                      .asBookMetadataMinified
+                      .seriesName) ??
             '';
       }
       return series
@@ -261,14 +269,12 @@ class BookSeries extends StatelessWidget {
           .join(', ');
     }
 
-    return generateSeriesString() == ''
+    final seriesString = generateSeriesString();
+    return seriesString == ''
         ? const SizedBox.shrink()
         : _HeroSectionSubLabelWithIcon(
             icon: Icons.library_books_rounded,
-            text: Text(
-              style: themeData.textTheme.titleSmall,
-              generateSeriesString(),
-            ),
+            text: Text(style: themeData.textTheme.titleSmall, seriesString),
           );
   }
 }
@@ -287,23 +293,28 @@ class BookNarrators extends StatelessWidget {
     String generateNarratorsString() {
       final narrators = (itemBookMetadata)?.narrators ?? [];
       if (narrators.isEmpty) {
-        return (bookDetailsCached?.metadata as shelfsdk.BookMetadataMinified?)
-                ?.narratorName ??
+        return (bookDetailsCached?.metadata
+                    is shelfsdk.BookMetadataMinifiedSeriesFilter?
+                ? bookDetailsCached
+                      ?.metadata
+                      .asBookMetadataMinifiedSeriesFilter
+                      .narratorName
+                : bookDetailsCached
+                      ?.metadata
+                      .asBookMetadataMinified
+                      .narratorName) ??
             '';
       }
       return narrators.join(', ');
     }
 
     final themeData = Theme.of(context);
-
-    return generateNarratorsString() == ''
+    final narratorsString = generateNarratorsString();
+    return narratorsString == ''
         ? const SizedBox.shrink()
         : _HeroSectionSubLabelWithIcon(
             icon: Icons.record_voice_over,
-            text: Text(
-              style: themeData.textTheme.titleSmall,
-              generateNarratorsString(),
-            ),
+            text: Text(style: themeData.textTheme.titleSmall, narratorsString),
           );
   }
 }

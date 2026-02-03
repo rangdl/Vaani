@@ -22,6 +22,7 @@ import 'package:vaani/shared/utils/components.dart';
 import 'package:vaani/shared/utils/side_sheet.dart';
 import 'package:vaani/shared/widgets/images.dart';
 
+/// 媒体库页面
 class LibraryPage extends HookConsumerWidget {
   const LibraryPage({this.libraryId, super.key});
 
@@ -36,25 +37,11 @@ class LibraryPage extends HookConsumerWidget {
 
     // Determine the title text
     final String appBarTitle = currentLibrary?.name ?? S.of(context).library;
-    // set the library id as the active library
-    // if (libraryId != null) {
-    //   ref.read(apiSettingsProvider.notifier).updateState(
-    //         ref.watch(apiSettingsProvider).copyWith(activeLibraryId: libraryId),
-    //       );
-    // }
 
-    // final views = ref.watch(currentLibraryItemsProvider);
-    final pageData = ref.watch(libraryItemsProvider);
+    final pageData = ref.watch(libraryItemsProvider());
     final items = pageData.items;
 
     final scrollController = useScrollController();
-
-    // late final _pagingController = PagingController<int, LibraryItem>(
-    //     getNextPageKey: (state) => state.lastPageIsEmpty ? null : state.nextIntPageKey,
-    //     fetchPage: (pageKey) {
-    //       ref.read(libraryItemsProvider.notifier).loadMore();
-    //     },
-    //   );
 
     return Scaffold(
       appBar: AppBar(
@@ -100,11 +87,6 @@ class LibraryPage extends HookConsumerWidget {
             tooltip: '侧边弹出Sheet',
             onPressed: () => SideSheet.right(context, body: Text('data')),
           ),
-          // IconButton(
-          //   icon: Icon(Icons.refresh),
-          //   tooltip: '刷新', // Helpful tooltip for users
-          //   onPressed: () => ref.read(libraryItemsProvider.notifier).refresh(),
-          // ),
           IconButton(
             icon: Icon(Icons.download),
             tooltip: S.of(context).bookDownloads, // Helpful tooltip for users
@@ -114,72 +96,30 @@ class LibraryPage extends HookConsumerWidget {
           const LibraryItemsMore(),
         ],
       ),
-
-      // drawer: const MyDrawer(),
-      // body: PagingListener(
-      //   controller: controller,
-      //   builder: (context, state, fetchNextPage) =>
-      //       PagedGridView<int, LibraryItem>(
-      //         state: state,
-      //         fetchNextPage: () {},
-      //         gridDelegate: null,
-      //         builderDelegate: PagedChildBuilderDelegate,
-      //       ),
-      // ),
       body: EasyRefresh(
         header: Components.easyRefreshHeader(context),
         footer: Components.easyRefreshFooter(context),
-        onRefresh: () => ref.read(libraryItemsProvider.notifier).refresh(),
-        onLoad: () => ref.read(libraryItemsProvider.notifier).loadMore(),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final height = getDefaultHeight(context);
-            // final height = min(constraints.maxHeight, 500.0);
-            final width = height * 0.75;
-            return AlignedGridView.count(
-              crossAxisCount: constraints.maxWidth ~/ width,
-              mainAxisSpacing: 12,
-              crossAxisSpacing: 12,
-              padding: EdgeInsets.only(top: 0, left: 8, right: 8),
-              itemCount: items.length,
-              controller: scrollController,
-              itemBuilder: (context, index) {
-                return LibraryPageItem(item: items[index], width: width);
-              },
-            );
-          },
+        onRefresh: () => ref.read(libraryItemsProvider().notifier).refresh(),
+        onLoad: () => ref.read(libraryItemsProvider().notifier).loadMore(),
+        child: _EasyRefreshLayoutBuilder(
+          items,
+          scrollController: scrollController,
         ),
       ),
     );
-  }
-
-  double getDefaultHeight(
-    BuildContext context, {
-    bool ignoreWidth = false,
-    atMin = 150.0,
-    perCent = 0.3,
-  }) {
-    double referenceSide;
-    if (ignoreWidth) {
-      referenceSide = MediaQuery.of(context).size.height;
-    } else {
-      referenceSide = min(
-        MediaQuery.of(context).size.width,
-        MediaQuery.of(context).size.height,
-      );
-    }
-    return max(atMin, referenceSide * perCent);
   }
 }
 
 class LibraryPageItem extends HookConsumerWidget {
   const LibraryPageItem({super.key, required this.item, required this.width});
-  final LibraryItem item;
+  final LibraryItemMinified item;
   final double width;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final book = item.media.asBookMinified;
-    final metadata = book.metadata.asBookMetadataMinified;
+    final title = item.media.metadata.title ?? '';
+    final subTitle = item.collapsedSeries != null
+        ? '${item.collapsedSeries!.asNumBooks.numBooks}图书'
+        : item.media.metadata.asBookMetadataMinified.authorName ?? '';
     final bodyLarge = Theme.of(context).textTheme.bodyLarge;
     final bodySmall = Theme.of(context).textTheme.bodySmall;
     final height =
@@ -188,11 +128,17 @@ class LibraryPageItem extends HookConsumerWidget {
         (bodyLarge?.calculateHeight ?? 0) +
         (bodySmall?.calculateHeight ?? 0);
     return InkWell(
-      onTap: () => context.pushNamed(
-        Routes.libraryItem.name,
-        pathParameters: {Routes.libraryItem.pathParamName!: item.id},
-        extra: LibraryItemExtras(book: book),
-      ),
+      onTap: () {
+        if (item.collapsedSeries != null) {
+          context.pushNamed(Routes.series.name, extra: item.collapsedSeries);
+          return;
+        }
+        context.pushNamed(
+          Routes.libraryItem.name,
+          pathParameters: {Routes.libraryItem.pathParamName!: item.id},
+          extra: LibraryItemExtras(book: item.media.asBookMinified),
+        );
+      },
       borderRadius: BorderRadius.circular(10),
       child: SizedBox(
         height: height,
@@ -202,14 +148,14 @@ class LibraryPageItem extends HookConsumerWidget {
             Expanded(child: AbsBookCover(id: item.id)),
             const SizedBox(height: 3),
             Text(
-              metadata.title ?? '',
+              title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: bodyLarge,
             ),
             const SizedBox(height: 2),
             Text(
-              metadata.authorName ?? '',
+              subTitle,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: bodySmall,
@@ -222,8 +168,8 @@ class LibraryPageItem extends HookConsumerWidget {
 }
 
 class LibraryItemsSort extends HookConsumerWidget {
-  const LibraryItemsSort({super.key});
-
+  const LibraryItemsSort({this.seriesId, super.key});
+  final String? seriesId;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // return IconButton(
@@ -233,7 +179,7 @@ class LibraryItemsSort extends HookConsumerWidget {
     //     debugPrint('排序');
     //   },
     // );
-    final state = ref.watch(libraryItemsProvider);
+    final state = ref.watch(libraryItemsProvider(seriesId: seriesId));
     String selected = state.sort;
     return DropdownSearch<String>(
       selectedItem: selected,
@@ -277,7 +223,7 @@ class LibraryItemsSort extends HookConsumerWidget {
       onChanged: (value) {
         debugPrint(value);
         ref
-            .read(libraryItemsProvider.notifier)
+            .read(libraryItemsProvider(seriesId: seriesId).notifier)
             .update(
               state.copyWith(
                 sort: value,
@@ -290,11 +236,11 @@ class LibraryItemsSort extends HookConsumerWidget {
 }
 
 class LibraryItemsMore extends HookConsumerWidget {
-  const LibraryItemsMore({super.key});
-
+  const LibraryItemsMore({this.seriesId, super.key});
+  final String? seriesId;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(libraryItemsProvider);
+    final state = ref.watch(libraryItemsProvider(seriesId: seriesId));
     String selected = state.sort;
     return DropdownSearch<String>(
       selectedItem: selected,
@@ -333,7 +279,7 @@ class LibraryItemsMore extends HookConsumerWidget {
         switch (value) {
           case 'collapseSeries':
             ref
-                .read(libraryItemsProvider.notifier)
+                .read(libraryItemsProvider(seriesId: seriesId).notifier)
                 .update(state.copyWith(collapseSeries: !state.collapseSeries));
             break;
           default:
@@ -341,5 +287,85 @@ class LibraryItemsMore extends HookConsumerWidget {
         }
       },
     );
+  }
+}
+
+/// 系列页面
+class SeriesPage extends HookConsumerWidget {
+  final Series? series;
+  const SeriesPage(this.series, {super.key});
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (series == null) {
+      return SizedBox.shrink();
+    }
+    final scrollController = useScrollController();
+
+    final pageData = ref.watch(libraryItemsProvider(seriesId: series!.id));
+    final items = pageData.items;
+
+    return Scaffold(
+      appBar: AppBar(title: Text(series?.name ?? '')),
+      body: EasyRefresh(
+        header: Components.easyRefreshHeader(context),
+        footer: Components.easyRefreshFooter(context),
+        onRefresh: () => ref
+            .read(libraryItemsProvider(seriesId: series!.id).notifier)
+            .refresh(),
+        onLoad: () => ref
+            .read(libraryItemsProvider(seriesId: series!.id).notifier)
+            .loadMore(),
+        child: _EasyRefreshLayoutBuilder(
+          items,
+          scrollController: scrollController,
+        ),
+      ),
+    );
+  }
+}
+
+class _EasyRefreshLayoutBuilder extends HookWidget {
+  final List<LibraryItem> items;
+  final ScrollController scrollController;
+
+  const _EasyRefreshLayoutBuilder(this.items, {required this.scrollController});
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final height = getDefaultHeight(context);
+        // final height = min(constraints.maxHeight, 500.0);
+        final width = height * 0.75;
+        return AlignedGridView.count(
+          crossAxisCount: constraints.maxWidth ~/ width,
+          mainAxisSpacing: 12,
+          crossAxisSpacing: 12,
+          padding: EdgeInsets.only(top: 0, left: 8, right: 8),
+          itemCount: items.length,
+          controller: scrollController,
+          itemBuilder: (context, index) {
+            return LibraryPageItem(item: items[index].asMinified, width: width);
+          },
+        );
+      },
+    );
+  }
+
+  double getDefaultHeight(
+    BuildContext context, {
+    bool ignoreWidth = false,
+    atMin = 150.0,
+    perCent = 0.3,
+  }) {
+    double referenceSide;
+    if (ignoreWidth) {
+      referenceSide = MediaQuery.of(context).size.height;
+    } else {
+      referenceSide = min(
+        MediaQuery.of(context).size.width,
+        MediaQuery.of(context).size.height,
+      );
+    }
+    return max(atMin, referenceSide * perCent);
   }
 }

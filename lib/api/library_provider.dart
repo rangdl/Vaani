@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart'
 import 'package:logging/logging.dart' show Logger;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart'
-    show GetLibrarysItemsReqParams, Library, LibraryItem;
+    show GetLibrarysItemsReqParams, Library, LibraryItem, Filter, SeriesFilter;
 import 'package:vaani/api/api_provider.dart' show authenticatedApiProvider;
 import 'package:vaani/features/settings/api_settings_provider.dart'
     show apiSettingsProvider;
@@ -75,6 +75,7 @@ class LibraryItemsState {
 
   // 折叠系列
   final bool collapseSeries;
+  final Filter? filter;
 
   const LibraryItemsState({
     this.items = const [],
@@ -88,6 +89,7 @@ class LibraryItemsState {
     this.hasError = false,
     this.errorMessage,
     this.collapseSeries = true,
+    this.filter,
   });
 
   LibraryItemsState copyWith({
@@ -102,6 +104,7 @@ class LibraryItemsState {
     bool? hasError,
     String? errorMessage,
     bool? collapseSeries,
+    Filter? filter,
   }) {
     return LibraryItemsState(
       items: items ?? this.items,
@@ -115,10 +118,9 @@ class LibraryItemsState {
       hasError: hasError ?? this.hasError,
       errorMessage: errorMessage ?? this.errorMessage,
       collapseSeries: collapseSeries ?? this.collapseSeries,
+      filter: filter ?? this.filter,
     );
   }
-
-  factory LibraryItemsState.initial() => const LibraryItemsState();
 
   final sortMap = const {
     'media.metadata.title': '标题',
@@ -151,10 +153,12 @@ class LibraryItemsState {
 @riverpod
 class LibraryItems extends _$LibraryItems {
   @override
-  LibraryItemsState build() {
+  LibraryItemsState build({String? seriesId}) {
     // 初始加载数据
     Future.microtask(_loadInitialData);
-    return LibraryItemsState.initial();
+    return LibraryItemsState(
+      filter: seriesId != null ? SeriesFilter(seriesId) : null,
+    );
   }
 
   // 下拉刷新
@@ -239,6 +243,7 @@ class LibraryItems extends _$LibraryItems {
           desc: state.desc,
           minified: true,
           collapseSeries: state.collapseSeries,
+          filter: state.filter,
         ),
       );
       return newItems?.results ?? [];

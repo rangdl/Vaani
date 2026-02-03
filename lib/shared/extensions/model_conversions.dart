@@ -98,3 +98,7 @@ extension PlaybackSessionConversion on PlaybackSession {
   PlaybackSessionExpanded get asExpanded =>
       PlaybackSessionExpanded.fromJson(toJson());
 }
+
+extension SeriesConversion on Series {
+  SeriesNumBooks get asNumBooks => SeriesNumBooks.fromJson(toJson());
+}

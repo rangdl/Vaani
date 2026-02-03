@@ -158,23 +158,30 @@ abstract class _$Libraries extends $AsyncNotifier<List<Library>> {
 }
 
 @ProviderFor(LibraryItems)
-final libraryItemsProvider = LibraryItemsProvider._();
+final libraryItemsProvider = LibraryItemsFamily._();
 
 final class LibraryItemsProvider
     extends $NotifierProvider<LibraryItems, LibraryItemsState> {
-  LibraryItemsProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'libraryItemsProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  LibraryItemsProvider._({
+    required LibraryItemsFamily super.from,
+    required String? super.argument,
+  }) : super(
+         retry: null,
+         name: r'libraryItemsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$libraryItemsHash();
+
+  @override
+  String toString() {
+    return r'libraryItemsProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
@@ -187,12 +194,50 @@ final class LibraryItemsProvider
       providerOverride: $SyncValueProvider<LibraryItemsState>(value),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LibraryItemsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
-String _$libraryItemsHash() => r'de35b3757a93bba26843a42cf4b18803ca0e3b44';
+String _$libraryItemsHash() => r'4c08ea972df2ecdc36cb280218e30c062ccf6c89';
+
+final class LibraryItemsFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          LibraryItems,
+          LibraryItemsState,
+          LibraryItemsState,
+          LibraryItemsState,
+          String?
+        > {
+  LibraryItemsFamily._()
+    : super(
+        retry: null,
+        name: r'libraryItemsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  LibraryItemsProvider call({String? seriesId}) =>
+      LibraryItemsProvider._(argument: seriesId, from: this);
+
+  @override
+  String toString() => r'libraryItemsProvider';
+}
 
 abstract class _$LibraryItems extends $Notifier<LibraryItemsState> {
-  LibraryItemsState build();
+  late final _$args = ref.$arg as String?;
+  String? get seriesId => _$args;
+
+  LibraryItemsState build({String? seriesId});
   @$mustCallSuper
   @override
   void runBuild() {
@@ -205,6 +250,6 @@ abstract class _$LibraryItems extends $Notifier<LibraryItemsState> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    element.handleCreate(ref, () => build(seriesId: _$args));
   }
 }

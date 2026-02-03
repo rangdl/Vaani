@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/features/downloads/view/downloads_page.dart';
 import 'package:vaani/features/explore/view/explore_page.dart';
 import 'package:vaani/features/explore/view/search_result_page.dart';
@@ -134,7 +135,36 @@ class MyAppRouter {
                 path: Routes.library.localPath,
                 name: Routes.library.name,
                 pageBuilder: defaultPageBuilder(LibraryPage()),
+                // pageBuilder: (context, state) {
+                //   final child = LibraryPage(
+                //     seriesId: state.extra is String
+                //         ? state.extra as String
+                //         : null,
+                //   );
+                //   return buildPageWithDefaultTransition(
+                //     context: context,
+                //     state: state,
+                //     child: child,
+                //   );
+                // },
                 routes: [
+                  GoRoute(
+                    path: Routes.series.pathName,
+                    name: Routes.series.name,
+                    // pageBuilder: defaultPageBuilder(
+                    //   const SeriesPage(),
+                    // ),
+                    pageBuilder: (context, state) {
+                      final child = SeriesPage(
+                        state.extra is Series ? state.extra as Series : null,
+                      );
+                      return buildPageWithDefaultTransition(
+                        context: context,
+                        state: state,
+                        child: child,
+                      );
+                    },
+                  ),
                   GoRoute(
                     path: Routes.libraryStatistics.pathName,
                     name: Routes.libraryStatistics.name,
