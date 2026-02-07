@@ -1,6 +1,8 @@
 {
   "cmake.configureOnOpen": false,
   "cSpell.words": [
+    "appender",
+    "appenders",
     "Audiobookshelf",
     "audioplayers",
     "autolabeler",
@@ -20,13 +22,12 @@
     "riverpod",
     "Schyler",
     "shelfsdk",
+    "smtc",
     "sysname",
     "tapable",
     "unfocus",
     "utsname",
-    "Vaani",
-    "appender",
-    "appenders"
+    "Vaani"
   ],
   "dart.flutterSdkPath": ".fvm/versions/3.32.8",
   "files.exclude": {

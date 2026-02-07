@@ -9,9 +9,11 @@ import 'package:vaani/db/available_boxes.dart';
 import 'package:vaani/features/downloads/providers/download_manager.dart';
 import 'package:vaani/features/per_book_settings/providers/book_settings_provider.dart';
 import 'package:vaani/features/player/core/abs_audio_player.dart';
+import 'package:vaani/features/player/core/windows_audio_service.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:vaani/shared/utils/helper.dart';
 
 part 'abs_provider.g.dart';
 
@@ -27,6 +29,10 @@ bool playerActive(Ref ref) {
 audio.AudioPlayer audioPlayer(Ref ref) {
   final player = audio.AudioPlayer();
   ref.onDispose(player.dispose);
+  if (Helper.isWindows()) {
+    final audioService = WindowsAudioService(ref, player);
+    ref.onDispose(audioService.dispose);
+  }
   return player;
 }
 
