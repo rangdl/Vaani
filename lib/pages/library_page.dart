@@ -115,7 +115,7 @@ class LibraryPageItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final title = item.media.metadata.title ?? '';
     final subTitle = item.collapsedSeries != null
-        ? '${item.collapsedSeries!.asNumBooks.numBooks}图书'
+        ? '${item.collapsedSeries!.mapOrNull(null, numBooks: (v) => v.numBooks)}图书'
         : item.media.metadata.asBookMetadataMinified.authorName ?? '';
     final bodyLarge = Theme.of(context).textTheme.bodyLarge;
     final bodySmall = Theme.of(context).textTheme.bodySmall;
