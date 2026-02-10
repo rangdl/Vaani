@@ -6,7 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/authenticated_users_provider.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/hacks/fix_autofill_losing_focus.dart';
 import 'package:vaani/shared/utils/error_response.dart';

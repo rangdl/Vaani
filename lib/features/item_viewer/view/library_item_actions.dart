@@ -21,7 +21,6 @@ import 'package:vaani/features/downloads/providers/download_manager.dart'
 import 'package:vaani/features/item_viewer/view/library_item_page.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
-import 'package:vaani/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';

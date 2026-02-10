@@ -208,7 +208,7 @@ class PlayerMinimizedControlsDesktop extends HookConsumerWidget {
                         children: [
                           // AutoScrollText(
                           Text(
-                            absPlayer.primaryTitle(),
+                            absPlayer.primaryTitle(absPlayer.currentChapter),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             // velocity:
@@ -216,7 +216,7 @@ class PlayerMinimizedControlsDesktop extends HookConsumerWidget {
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           Text(
-                            absPlayer.secondaryTitle(),
+                            absPlayer.secondaryTitle(absPlayer.currentChapter),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context).textTheme.bodyMedium!

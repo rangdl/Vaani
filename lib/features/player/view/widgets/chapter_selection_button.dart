@@ -5,7 +5,7 @@ import 'package:super_sliver_list/super_sliver_list.dart';
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/view/player_expanded.dart'
     show pendingPlayerModals;
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 import 'package:vaani/shared/extensions/chapter.dart' show ChapterDuration;
 import 'package:vaani/shared/extensions/duration_format.dart'
     show DurationFormat;

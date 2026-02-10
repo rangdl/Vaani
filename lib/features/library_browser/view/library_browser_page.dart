@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/library_provider.dart' show currentLibraryProvider;
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart'
     show showLibrarySwitcher;
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 import 'package:vaani/router/router.dart' show Routes;
 import 'package:vaani/shared/icons/abs_icons.dart' show AbsIcons;
 import 'package:vaani/shared/widgets/not_implemented.dart'

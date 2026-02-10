@@ -11,7 +11,7 @@ import 'package:vaani/features/onboarding/view/user_login.dart'
     show UserLoginWidget;
 import 'package:vaani/features/player/view/mini_player_bottom_padding.dart'
     show MiniPlayerBottomPadding;
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart' show Routes;
 import 'package:vaani/features/settings/api_settings_provider.dart'

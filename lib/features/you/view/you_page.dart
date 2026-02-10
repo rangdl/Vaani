@@ -5,7 +5,7 @@ import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/api/library_provider.dart' show librariesProvider;
 import 'package:vaani/features/player/view/mini_player_bottom_padding.dart';
 import 'package:vaani/features/you/view/widgets/library_switch_chip.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/utils.dart';

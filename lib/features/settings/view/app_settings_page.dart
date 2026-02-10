@@ -11,7 +11,7 @@ import 'package:vaani/features/settings/models/app_settings.dart' as model;
 import 'package:vaani/features/settings/view/buttons.dart';
 import 'package:vaani/features/settings/view/simple_settings_page.dart';
 import 'package:vaani/features/settings/view/widgets/navigation_with_switch_tile.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/widgets/custom_dropdown.dart';
 

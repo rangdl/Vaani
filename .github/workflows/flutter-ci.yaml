@@ -80,14 +80,12 @@ jobs:
       - name: Decode android/key.properties
         run: echo "${{ secrets.KEY_PROPERTIES }}" | base64 --decode > android/key.properties
 
-      - name: Build APKs
-        run: flutter build apk --release --split-per-abi
+      # - name: Build APKs
+      #   run: flutter build apk --release --split-per-abi
 
       - name: Build Universal APK
-        run: flutter build apk --release
-
-      - name: Rename Universal APK
         run: |
+          flutter build apk --release
           APP_NAME=$(grep '^name:' pubspec.yaml | sed 's/name: //')
           APP_VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
 
@@ -95,17 +93,15 @@ jobs:
           mv build/app/outputs/flutter-apk/{app-arm64-v8a-release,$APP_NAME-$APP_VERSION-app-arm64-v8a}.apk
           mv build/app/outputs/flutter-apk/{app-armeabi-v7a-release,$APP_NAME-$APP_VERSION-app-armeabi-v7a}.apk
           mv build/app/outputs/flutter-apk/{app-x86_64-release,$APP_NAME-$APP_VERSION-app-x86_64}.apk
-
+          
       - name: Build App Bundle
-        run: flutter build appbundle --release
-      
-      - name: Rename AAB
         run: |
+          flutter build appbundle --release
           APP_NAME=$(grep '^name:' pubspec.yaml | sed 's/name: //')
           APP_VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
 
           mv build/app/outputs/bundle/release/{app-release,$APP_NAME-$APP_VERSION-app-universal}.aab
-
+      
       - name: Upload Android APK Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -184,16 +180,16 @@ jobs:
           submodules: recursive
       
       - name: Set up Flutter SDK
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@v2.18.0
         with:
           channel: stable
           flutter-version-file: pubspec.yaml
           cache: true
 
-      - name: Setup Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          toolchain: stable
+      # - name: Setup Rust toolchain
+      #   uses: dtolnay/rust-toolchain@stable
+      #   with:
+      #     toolchain: stable
 
       - name: Cache Flutter dependencies
         id: cache-pub-win
@@ -204,12 +200,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-flutter-pub-
 
-      - name: Get Flutter dependencies
+      - name: Install windows dependencies
         run: |
           flutter pub get
-
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
+          dart pub global activate flutter_distributor
 
       - name: Build Windows
         run: |
@@ -235,7 +229,7 @@ jobs:
           submodules: recursive
       
       - name: Set up Flutter SDK
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@v2.18.0
         with:
           channel: stable
           flutter-version-file: pubspec.yaml
@@ -250,15 +244,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-flutter-pub-
 
-      - name: Get Flutter dependencies
+      - name: Install ios dependencies
         run: |
           flutter pub get
-
-      - name: Install appdmg
-        run: npm install -g appdmg
-
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
+          npm install -g appdmg
+          dart pub global activate flutter_distributor
 
       - name: Build IPA
         run: |
@@ -272,7 +262,7 @@ jobs:
           mkdir build/ios/iphoneos/Payload
           cp -R build/ios/iphoneos/Runner.app build/ios/iphoneos/Payload/Runner.app
           cd build/ios/iphoneos/
-          zip -q -r "$APP_NAME-$APP_VERSION-ios-no-sign.ipa" Payload
+          zip -q -r "$APP_NAME-$APP_VERSION-ios.ipa" Payload
           cd ../../..
 
       - name: Upload IPA to Artifacts

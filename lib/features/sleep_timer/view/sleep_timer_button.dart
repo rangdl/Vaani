@@ -8,7 +8,7 @@ import 'package:vaani/features/player/view/widgets/speed_selector.dart';
 import 'package:vaani/features/sleep_timer/core/sleep_timer.dart';
 import 'package:vaani/features/sleep_timer/providers/sleep_timer_provider.dart'
     show sleepTimerProvider;
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/shared/extensions/duration_format.dart';

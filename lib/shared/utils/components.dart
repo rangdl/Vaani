@@ -1,6 +1,6 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/widgets.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 
 class Components {
   Components._();

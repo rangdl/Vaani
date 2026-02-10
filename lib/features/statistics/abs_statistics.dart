@@ -7,7 +7,7 @@ import 'package:vaani/api/library_provider.dart';
 import 'package:vaani/api/stats_provider.dart';
 import 'package:vaani/features/statistics/widgets/listen_chart.dart';
 import 'package:vaani/features/statistics/widgets/listen_stats.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 import 'package:vaani/shared/extensions/inverse_lerp.dart';
 import 'package:vaani/shared/utils/helper.dart';
 

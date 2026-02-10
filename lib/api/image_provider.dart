@@ -2,8 +2,7 @@ import 'dart:typed_data';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaani/api/api_provider.dart';
-import 'package:vaani/db/cache/cache_key.dart';
-import 'package:vaani/db/cache_manager.dart';
+import 'package:vaani/db/cache/cache.dart';
 import 'package:vaani/shared/extensions/cache_manager.dart';
 import 'package:vaani/shared/extensions/inverse_lerp.dart';
 

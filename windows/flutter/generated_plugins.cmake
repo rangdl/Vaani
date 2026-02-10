@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  audio_service_win
   dynamic_color
   media_kit_libs_windows_audio
   permission_handler_windows
@@ -14,7 +15,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
-  smtc_windows
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)

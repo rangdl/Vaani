@@ -6,7 +6,7 @@ import 'package:vaani/features/per_book_settings/providers/book_settings_provide
 import 'package:vaani/features/player/providers/abs_provider.dart';
 import 'package:vaani/features/player/view/player_expanded.dart';
 import 'package:vaani/features/settings/view/notification_settings_page.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 
 class SkipChapterStartEndButton extends HookConsumerWidget {
   const SkipChapterStartEndButton({super.key});

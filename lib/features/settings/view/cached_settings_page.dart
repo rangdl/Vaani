@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/image_provider.dart';
-import 'package:vaani/db/cache_manager.dart';
+import 'package:vaani/db/cache/cache.dart';
 import 'package:vaani/features/settings/view/simple_settings_page.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 import 'package:vaani/shared/extensions/cache_manager.dart';
 import 'package:vaani/shared/utils/custom_dialog.dart';
 

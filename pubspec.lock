@@ -73,6 +73,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.4"
+  audio_service_win:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: main
+      resolved-ref: fd21672b0083a5745ad1aa79fd5b0ae2033a942a
+      url: "https://github.com/AfalpHy/audio_service_win"
+    source: git
+    version: "0.0.2"
   audio_session:
     dependency: "direct main"
     description:
@@ -113,14 +122,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
-  build_cli_annotations:
-    dependency: transitive
-    description:
-      name: build_cli_annotations
-      sha256: e563c2e01de8974566a1998410d3f6f03521788160a02503b0b1f1a46c7b3d95
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.1"
   build_config:
     dependency: transitive
     description:
@@ -516,14 +517,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
-  flutter_rust_bridge:
-    dependency: transitive
-    description:
-      name: flutter_rust_bridge
-      sha256: "37ef40bc6f863652e865f0b2563ea07f0d3c58d8efad803cc01933a4b2ee067e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.11.1"
   flutter_settings_ui:
     dependency: "direct main"
     description:
@@ -1330,14 +1323,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.12"
-  smtc_windows:
-    dependency: "direct main"
-    description:
-      name: smtc_windows
-      sha256: dee279b0ddf663c4c729a88bca4e57fb4861aa1b3d01e230bdbf1277b8bfe664
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   socket_io_client:
     dependency: transitive
     description:

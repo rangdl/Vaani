@@ -14,7 +14,7 @@ import 'package:vaani/features/onboarding/view/user_login_with_password.dart'
     show UserLoginWithPassword;
 import 'package:vaani/features/onboarding/view/user_login_with_token.dart'
     show UserLoginWithToken;
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 import 'package:vaani/hacks/fix_autofill_losing_focus.dart'
     show InactiveFocusScopeObserver;
 import 'package:vaani/shared/utils/error_response.dart'

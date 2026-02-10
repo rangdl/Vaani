@@ -9,6 +9,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:vaani/router/router.dart';
+export 'package:vaani/l10n/generated/l10n.dart';
 
 late String appName;
 const String appScheme = "vaani";

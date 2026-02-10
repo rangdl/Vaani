@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart' show Library;
 import 'package:vaani/api/library_provider.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 import 'package:vaani/globals.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart'
     show apiSettingsProvider;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:vaani/api/library_item_provider.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 
 class LibraryItemMetadata extends HookConsumerWidget {

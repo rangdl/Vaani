@@ -4,8 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:vaani/api/api_provider.dart';
 import 'package:vaani/constants/sizes.dart';
+import 'package:vaani/db/cache/cache.dart';
 import 'package:vaani/db/cache/cache_key.dart';
-import 'package:vaani/db/cache_manager.dart';
 
 class AbsBookCover extends HookConsumerWidget {
   const AbsBookCover({super.key, required this.id});

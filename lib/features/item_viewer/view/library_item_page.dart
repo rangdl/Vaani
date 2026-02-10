@@ -8,7 +8,7 @@ import 'package:vaani/api/library_item_provider.dart';
 import 'package:vaani/features/item_viewer/view/library_item_sliver_app_bar.dart';
 import 'package:vaani/features/player/view/mini_player_bottom_padding.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/shared/widgets/expandable_description.dart';
 import 'package:vaani/theme/providers/system_theme_provider.dart';

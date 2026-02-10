@@ -71,16 +71,18 @@ class AbsAudioPlayer {
     _chapterStreamController.add(
       book.findChapterAtTime(initialPosition ?? Duration.zero),
     );
-    final title = primaryTitle();
-    final artist = secondaryTitle();
 
-    mediaItem(track) => MediaItem(
-      id: book.libraryItemId + track.index.toString(),
-      title: title,
-      artist: artist,
-      duration: currentChapter?.duration ?? book.duration,
-      artUri: Uri.parse(CacheKey.cover(baseUrl, book.libraryItemId)),
-    );
+    mediaItem(track) {
+      final chapter = book.chapters[book.tracks.indexOf(track)];
+      return MediaItem(
+        id: book.libraryItemId + track.index.toString(),
+        title: primaryTitle(chapter),
+        artist: secondaryTitle(chapter),
+        duration: currentChapter?.duration ?? book.duration,
+        artUri: Uri.parse(CacheKey.cover(baseUrl, book.libraryItemId)),
+      );
+    }
+
     if (start != null && start > Duration.zero ||
         end != null && end > Duration.zero) {
       _logger.info(
@@ -242,22 +244,22 @@ class AbsAudioPlayer {
     _chapterStreamController.close();
   }
 
-  String primaryTitle() {
+  String primaryTitle([BookChapter? chapter]) {
     final appSettings = ref.read(appSettingsProvider);
     final currentBook = book;
     if (currentBook != null) {
       return appSettings.notificationSettings.primaryTitle
-          .formatNotificationTitle(currentBook, chapter: currentChapter);
+          .formatNotificationTitle(currentBook, chapter: chapter);
     }
     return "";
   }
 
-  String secondaryTitle() {
+  String secondaryTitle([BookChapter? chapter]) {
     final appSettings = ref.read(appSettingsProvider);
     final currentBook = book;
     if (currentBook != null) {
       return appSettings.notificationSettings.secondaryTitle
-          .formatNotificationTitle(currentBook, chapter: currentChapter);
+          .formatNotificationTitle(currentBook, chapter: chapter);
     }
     return "";
   }

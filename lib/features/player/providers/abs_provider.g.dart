@@ -94,7 +94,7 @@ final class AudioPlayerProvider
   }
 }
 
-String _$audioPlayerHash() => r'e56c71e130b1f352d7a9d9ef816e6f2c0fbe83be';
+String _$audioPlayerHash() => r'80271f96f883be9a128a62c8797f16ac70fd3de2';
 
 @ProviderFor(AbsPlayer)
 final absPlayerProvider = AbsPlayerProvider._();

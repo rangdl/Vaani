@@ -1,0 +1,10 @@
+{
+  "zh": [
+    "dateFormatDayHourMinute",
+    "dateFormatDayHourMinuteSecond",
+    "dateFormatHourMinuteSecond",
+    "dateFormatMinute",
+    "dateFormatMinuteSecond",
+    "dateFormatSecond"
+  ]
+}

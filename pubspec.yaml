@@ -91,7 +91,7 @@ dependencies:
   # 音频播放
   audio_service: ^0.18.15
   # audio_service_mpris: ^0.2.0 # linux
-  # audio_service_win: ^0.0.2
+  audio_service_win: ^0.0.2
   audio_session: ^0.1.23
   just_audio: ^0.10.5
   just_audio_background: any
@@ -104,7 +104,7 @@ dependencies:
   just_audio_media_kit: ^2.0.4
   media_kit_libs_linux: any
   media_kit_libs_windows_audio: any
-  smtc_windows: ^1.1.0
+  # smtc_windows: ^1.1.0
 
   # 下载
   background_downloader: ^9.2.0
@@ -177,6 +177,10 @@ dependency_overrides:
   #     url: https://github.com/hig-dev/just_audio_windows
   #     ref: master
   #     path: just_audio_windows
+  audio_service_win:
+    git:
+      url: https://github.com/AfalpHy/audio_service_win
+      ref: main
 
 dev_dependencies:
   flutter_test:
@@ -202,6 +206,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

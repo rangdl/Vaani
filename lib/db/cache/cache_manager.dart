@@ -38,7 +38,7 @@ class CustomJsonCacheManager extends CacheManager with ImageCacheManager {
     : super(
         Config(
           '$appName$key',
-          stalePeriod: const Duration(days: 7),
+          stalePeriod: const Duration(days: 30),
           repo: JsonCacheInfoRepository(databaseName: '$appName$key'),
           maxNrOfCacheObjects: 1000,
         ),

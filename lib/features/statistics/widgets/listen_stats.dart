@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:shelfsdk/audiobookshelf_api.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 import 'package:vaani/shared/utils/helper.dart';
 
 class ListenStats extends StatelessWidget {

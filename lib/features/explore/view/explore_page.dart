@@ -12,7 +12,7 @@ import 'package:vaani/features/explore/providers/search_controller.dart';
 import 'package:vaani/features/explore/view/search_result_page.dart';
 import 'package:vaani/features/settings/api_settings_provider.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/globals.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/widgets/images.dart';

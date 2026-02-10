@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 
 class OkButton<T> extends StatelessWidget {
   const OkButton({super.key, this.onPressed});

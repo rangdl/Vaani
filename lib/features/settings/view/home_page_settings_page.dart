@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
-import 'package:vaani/generated/l10n.dart';
+import 'package:vaani/l10n/generated/l10n.dart';
 import 'package:vaani/features/settings/app_settings_provider.dart';
 import 'package:vaani/features/settings/view/simple_settings_page.dart'
     show SimpleSettingsPage;
