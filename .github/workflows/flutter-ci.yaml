@@ -90,9 +90,9 @@ jobs:
           APP_VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
 
           mv build/app/outputs/flutter-apk/{app-release,$APP_NAME-$APP_VERSION-app-universal}.apk
-          mv build/app/outputs/flutter-apk/{app-arm64-v8a-release,$APP_NAME-$APP_VERSION-app-arm64-v8a}.apk
-          mv build/app/outputs/flutter-apk/{app-armeabi-v7a-release,$APP_NAME-$APP_VERSION-app-armeabi-v7a}.apk
-          mv build/app/outputs/flutter-apk/{app-x86_64-release,$APP_NAME-$APP_VERSION-app-x86_64}.apk
+      #    mv build/app/outputs/flutter-apk/{app-arm64-v8a-release,$APP_NAME-$APP_VERSION-app-arm64-v8a}.apk
+      #    mv build/app/outputs/flutter-apk/{app-armeabi-v7a-release,$APP_NAME-$APP_VERSION-app-armeabi-v7a}.apk
+      #    mv build/app/outputs/flutter-apk/{app-x86_64-release,$APP_NAME-$APP_VERSION-app-x86_64}.apk
           
       - name: Build App Bundle
         run: |
