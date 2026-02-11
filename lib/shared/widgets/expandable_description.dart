@@ -89,7 +89,8 @@ class ExpandableDescription extends HookWidget {
               //         overflow: TextOverflow.ellipsis,
               //       ),
               child: Html(
-                data: '<div class="vaani-ellipsis">$content</div>',
+                data:
+                    '<div class="vaani-ellipsis">${removeHtmlEmptyLines(content)}</div>',
                 style: {
                   "div.vaani-ellipsis": !isDescExpanded.value
                       ? Style(
@@ -130,5 +131,13 @@ class ExpandableDescription extends HookWidget {
         ],
       ),
     );
+  }
+
+  String removeHtmlEmptyLines(String html) {
+    return html
+        .replaceAll(RegExp(r'\n\s*\n'), '\n') // 移除连续空行
+        .replaceAll(RegExp(r'<p>\s*</p>'), '') // 移除空段落
+        .replaceAll(RegExp(r'\s+'), ' ') // 合并空白
+        .trim(); // 修剪首尾
   }
 }

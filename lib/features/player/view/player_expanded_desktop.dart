@@ -137,7 +137,7 @@ class PlayerExpandedDesktop extends HookConsumerWidget {
     return Row(
       // mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(child: Row()),
+        Expanded(child: SizedBox.shrink()),
         Expanded(
           flex: 1,
           child: Hero(

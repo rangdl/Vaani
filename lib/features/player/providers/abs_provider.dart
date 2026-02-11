@@ -192,12 +192,10 @@ class CurrentChapter extends _$CurrentChapter {
 Duration total(Ref ref) {
   final currentBook = ref.watch(currentBookProvider);
   final currentChapter = ref.watch(currentChapterProvider);
-  final playerSettings = ref.watch(
-    appSettingsProvider.select((v) => v.playerSettings),
+  final notificationSettings = ref.watch(
+    appSettingsProvider.select((v) => v.notificationSettings),
   );
-  final showChapterProgress =
-      playerSettings.expandedPlayerSettings.showChapterProgress;
-  return showChapterProgress
+  return notificationSettings.progressBarIsChapterProgress
       ? ((currentChapter?.end ?? Duration.zero) -
             (currentChapter?.start ?? Duration.zero))
       : currentBook?.duration ?? Duration.zero;
@@ -208,15 +206,13 @@ Duration total(Ref ref) {
 Stream<Duration> progress(Ref ref) {
   final audioPlayer = ref.watch(audioPlayerProvider);
   final absPlayer = ref.watch(absPlayerProvider);
-  final playerSettings = ref.watch(
-    appSettingsProvider.select((v) => v.playerSettings),
+  final notificationSettings = ref.watch(
+    appSettingsProvider.select((v) => v.notificationSettings),
   );
-  final showChapterProgress =
-      playerSettings.expandedPlayerSettings.showChapterProgress;
   return audioPlayer.positionStream
       .throttleTime(const Duration(milliseconds: 300))
       .map((position) {
-        return showChapterProgress
+        return notificationSettings.progressBarIsChapterProgress
             ? absPlayer.getPositionInChapter(
                 absPlayer.addClippingStart(position),
               )
@@ -229,15 +225,13 @@ Stream<Duration> progress(Ref ref) {
 Stream<Duration> progressBuffered(Ref ref) {
   final audioPlayer = ref.watch(audioPlayerProvider);
   final absPlayer = ref.watch(absPlayerProvider);
-  final playerSettings = ref.watch(
-    appSettingsProvider.select((v) => v.playerSettings),
+  final notificationSettings = ref.watch(
+    appSettingsProvider.select((v) => v.notificationSettings),
   );
-  final showChapterProgress =
-      playerSettings.expandedPlayerSettings.showChapterProgress;
   return audioPlayer.bufferedPositionStream
       .throttleTime(const Duration(milliseconds: 300))
       .map((position) {
-        return showChapterProgress
+        return notificationSettings.progressBarIsChapterProgress
             ? absPlayer.getPositionInChapter(
                 absPlayer.addClippingStart(position),
               )

@@ -169,40 +169,40 @@ class NotificationSettingsPage extends HookConsumerWidget {
               leading: const Icon(Icons.fast_rewind),
             ),
             // set the media controls
-            SettingsTile(
-              title: Text(S.of(context).nmpSettingsMediaControls),
-              leading: const Icon(Icons.control_camera),
-              // description: const Text('Select the media controls to display'),
-              description: Text(
-                S.of(context).nmpSettingsMediaControlsDescription,
-              ),
-              trailing: Wrap(
-                spacing: 8.0,
-                children: notificationSettings.mediaControls
-                    .map((control) => Icon(control.icon, color: primaryColor))
-                    .toList(),
-              ),
-              onPressed: (context) async {
-                final selectedControls =
-                    await showDialog<List<NotificationMediaControl>>(
-                      context: context,
-                      builder: (context) {
-                        return MediaControlsPicker(
-                          selectedControls: notificationSettings.mediaControls,
-                        );
-                      },
-                    );
-                if (selectedControls != null) {
-                  ref
-                      .read(appSettingsProvider.notifier)
-                      .update(
-                        appSettings.copyWith.notificationSettings(
-                          mediaControls: selectedControls,
-                        ),
-                      );
-                }
-              },
-            ),
+            // SettingsTile(
+            //   title: Text(S.of(context).nmpSettingsMediaControls),
+            //   leading: const Icon(Icons.control_camera),
+            //   // description: const Text('Select the media controls to display'),
+            //   description: Text(
+            //     S.of(context).nmpSettingsMediaControlsDescription,
+            //   ),
+            //   trailing: Wrap(
+            //     spacing: 8.0,
+            //     children: notificationSettings.mediaControls
+            //         .map((control) => Icon(control.icon, color: primaryColor))
+            //         .toList(),
+            //   ),
+            //   onPressed: (context) async {
+            //     final selectedControls =
+            //         await showDialog<List<NotificationMediaControl>>(
+            //           context: context,
+            //           builder: (context) {
+            //             return MediaControlsPicker(
+            //               selectedControls: notificationSettings.mediaControls,
+            //             );
+            //           },
+            //         );
+            //     if (selectedControls != null) {
+            //       ref
+            //           .read(appSettingsProvider.notifier)
+            //           .update(
+            //             appSettings.copyWith.notificationSettings(
+            //               mediaControls: selectedControls,
+            //             ),
+            //           );
+            //     }
+            //   },
+            // ),
 
             // set the progress bar to show chapter progress
             SettingsTile.switchTile(

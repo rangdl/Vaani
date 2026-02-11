@@ -259,50 +259,50 @@ class PlayerSettingsPage extends HookConsumerWidget {
           ],
         ),
         // Display Settings
-        SettingsSection(
-          title: Text(S.of(context).playerSettingsDisplay),
-          tiles: [
-            // show total progress
-            SettingsTile.switchTile(
-              title: Text(S.of(context).playerSettingsDisplayTotalProgress),
-              leading: const Icon(Icons.show_chart),
-              description: Text(
-                S.of(context).playerSettingsDisplayTotalProgressDescription,
-              ),
-              initialValue:
-                  playerSettings.expandedPlayerSettings.showTotalProgress,
-              onToggle: (value) {
-                ref
-                    .read(appSettingsProvider.notifier)
-                    .update(
-                      appSettings.copyWith.playerSettings
-                          .expandedPlayerSettings(showTotalProgress: value),
-                    );
-              },
-            ),
-            // show chapter progress
-            SettingsTile.switchTile(
-              title: Text(S.of(context).playerSettingsDisplayChapterProgress),
-              leading: const Icon(Icons.show_chart),
-              description: Text(
-                S.of(context).playerSettingsDisplayChapterProgressDescription,
-              ),
-              initialValue:
-                  playerSettings.expandedPlayerSettings.showChapterProgress,
-              onToggle: (value) {
-                ref
-                    .read(appSettingsProvider.notifier)
-                    .update(
-                      appSettings.copyWith.playerSettings(
-                        expandedPlayerSettings: playerSettings
-                            .expandedPlayerSettings
-                            .copyWith(showChapterProgress: value),
-                      ),
-                    );
-              },
-            ),
-          ],
-        ),
+        // SettingsSection(
+        //   title: Text(S.of(context).playerSettingsDisplay),
+        //   tiles: [
+        //     // show total progress
+        //     SettingsTile.switchTile(
+        //       title: Text(S.of(context).playerSettingsDisplayTotalProgress),
+        //       leading: const Icon(Icons.show_chart),
+        //       description: Text(
+        //         S.of(context).playerSettingsDisplayTotalProgressDescription,
+        //       ),
+        //       initialValue:
+        //           playerSettings.expandedPlayerSettings.showTotalProgress,
+        //       onToggle: (value) {
+        //         ref
+        //             .read(appSettingsProvider.notifier)
+        //             .update(
+        //               appSettings.copyWith.playerSettings
+        //                   .expandedPlayerSettings(showTotalProgress: value),
+        //             );
+        //       },
+        //     ),
+        //     // show chapter progress
+        //     SettingsTile.switchTile(
+        //       title: Text(S.of(context).playerSettingsDisplayChapterProgress),
+        //       leading: const Icon(Icons.show_chart),
+        //       description: Text(
+        //         S.of(context).playerSettingsDisplayChapterProgressDescription,
+        //       ),
+        //       initialValue:
+        //           playerSettings.expandedPlayerSettings.showChapterProgress,
+        //       onToggle: (value) {
+        //         ref
+        //             .read(appSettingsProvider.notifier)
+        //             .update(
+        //               appSettings.copyWith.playerSettings(
+        //                 expandedPlayerSettings: playerSettings
+        //                     .expandedPlayerSettings
+        //                     .copyWith(showChapterProgress: value),
+        //               ),
+        //             );
+        //       },
+        //     ),
+        //   ],
+        // ),
       ],
     );
   }
