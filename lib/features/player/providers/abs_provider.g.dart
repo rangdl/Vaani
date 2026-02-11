@@ -449,7 +449,7 @@ final class TotalProvider
   }
 }
 
-String _$totalHash() => r'2d01953862a875f6e66fe3af56868e819e33fcc8';
+String _$totalHash() => r'8c4e205df9a16265bd541a0c95411b029f92f96f';
 
 @ProviderFor(progress)
 final progressProvider = ProgressProvider._();
@@ -483,7 +483,7 @@ final class ProgressProvider
   }
 }
 
-String _$progressHash() => r'19c77902aa57e974da5782e32ed210132bd4b766';
+String _$progressHash() => r'5f4a282f745675e168cb6a5eef2f2fa3a5091ea6';
 
 @ProviderFor(progressBuffered)
 final progressBufferedProvider = ProgressBufferedProvider._();
@@ -517,4 +517,4 @@ final class ProgressBufferedProvider
   }
 }
 
-String _$progressBufferedHash() => r'776c4b1a3aa8f61a7482a05488d8001dd637f281';
+String _$progressBufferedHash() => r'c5baede34f4b8d9da171b838f65bf6dd73b92c7b';
