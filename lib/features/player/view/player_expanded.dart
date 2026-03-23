@@ -150,6 +150,8 @@ class PlayerExpanded extends HookConsumerWidget {
             ),
           ),
         ),
+
+        SizedBox(height: AppElementSizes.paddingLarge),
       ],
     );
   }

@@ -129,9 +129,8 @@ class ChapterSelectionModal extends HookConsumerWidget {
                   onTap: () {
                     if (back) {
                       Navigator.of(context).pop();
-                    } else {
-                      ref.read(absPlayerProvider).switchChapter(chapter.id);
                     }
+                    ref.read(absPlayerProvider).switchChapter(chapter.id);
                   },
                 ),
               );
