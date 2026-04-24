@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -17,7 +16,6 @@ import 'package:vaani/router/models/library_item_extras.dart';
 import 'package:vaani/router/router.dart';
 import 'package:vaani/shared/extensions/model_conversions.dart';
 import 'package:vaani/shared/icons/abs_icons.dart';
-import 'package:vaani/shared/utils/components.dart';
 import 'package:vaani/shared/utils/side_sheet.dart';
 import 'package:vaani/shared/widgets/images.dart';
 
@@ -36,8 +34,8 @@ class LibraryPage extends HookConsumerWidget {
     // Determine the title text
     final String appBarTitle = currentLibrary?.name ?? S.of(context).library;
 
-    final pageData = ref.watch(libraryItemsProvider());
-    final items = pageData.items;
+    // final pageData = ref.watch(libraryItemsProvider());
+    // final items = pageData.items;
 
     final scrollController = useScrollController();
 
@@ -94,13 +92,20 @@ class LibraryPage extends HookConsumerWidget {
           const LibraryItemsMore(),
         ],
       ),
-      body: EasyRefresh(
-        header: Components.easyRefreshHeader(context),
-        footer: Components.easyRefreshFooter(context),
-        onRefresh: () => ref.read(libraryItemsProvider().notifier).refresh(),
-        onLoad: () => ref.read(libraryItemsProvider().notifier).loadMore(),
+      // body: EasyRefresh(
+      //   header: Components.easyRefreshHeader(context),
+      //   footer: Components.easyRefreshFooter(context),
+      //   onRefresh: () => ref.read(libraryItemsProvider().notifier).refresh(),
+      //   onLoad: () => ref.read(libraryItemsProvider().notifier).loadMore(),
+      //   child: _EasyRefreshLayoutBuilder(
+      //     items,
+      //     scrollController: scrollController,
+      //   ),
+      // ),
+      body: Padding(
+        padding: EdgeInsets.all(AppElementSizes.paddingRegular),
         child: _EasyRefreshLayoutBuilder(
-          items,
+          // items,
           scrollController: scrollController,
         ),
       ),
@@ -113,7 +118,9 @@ class LibraryPageItem extends HookConsumerWidget {
   final LibraryItemMinified item;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final title = item.media.metadata.title ?? '';
+    final title = item.collapsedSeries != null
+        ? item.collapsedSeries!.name
+        : item.media.metadata.title ?? '';
     final subTitle = item.collapsedSeries != null
         ? '${item.collapsedSeries!.mapOrNull(null, numBooks: (v) => v.numBooks)}图书'
         : item.media.metadata.asBookMetadataMinified.authorName ?? '';
@@ -295,22 +302,26 @@ class SeriesPage extends HookConsumerWidget {
     }
     final scrollController = useScrollController();
 
-    final pageData = ref.watch(libraryItemsProvider(seriesId: series!.id));
-    final items = pageData.items;
-
     return Scaffold(
       appBar: AppBar(title: Text(series?.name ?? '')),
-      body: EasyRefresh(
-        header: Components.easyRefreshHeader(context),
-        footer: Components.easyRefreshFooter(context),
-        onRefresh: () => ref
-            .read(libraryItemsProvider(seriesId: series!.id).notifier)
-            .refresh(),
-        onLoad: () => ref
-            .read(libraryItemsProvider(seriesId: series!.id).notifier)
-            .loadMore(),
+      // body: EasyRefresh(
+      //   header: Components.easyRefreshHeader(context),
+      //   footer: Components.easyRefreshFooter(context),
+      //   onRefresh: () => ref
+      //       .read(libraryItemsProvider(seriesId: series!.id).notifier)
+      //       .refresh(),
+      //   onLoad: () => ref
+      //       .read(libraryItemsProvider(seriesId: series!.id).notifier)
+      //       .loadMore(),
+      //   child: _EasyRefreshLayoutBuilder(
+      //     seriesId: series!.id,
+      //     scrollController: scrollController,
+      //   ),
+      // ),
+      body: Padding(
+        padding: EdgeInsets.all(AppElementSizes.paddingRegular),
         child: _EasyRefreshLayoutBuilder(
-          items,
+          seriesId: series!.id,
           scrollController: scrollController,
         ),
       ),
@@ -318,27 +329,73 @@ class SeriesPage extends HookConsumerWidget {
   }
 }
 
-class _EasyRefreshLayoutBuilder extends HookWidget {
-  final List<LibraryItem> items;
+class _EasyRefreshLayoutBuilder extends HookConsumerWidget {
+  // final List<LibraryItem> items;
+  final String? seriesId;
   final ScrollController scrollController;
 
-  const _EasyRefreshLayoutBuilder(this.items, {required this.scrollController});
+  const _EasyRefreshLayoutBuilder({
+    this.seriesId,
+    required this.scrollController,
+  });
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final isLoading = ref.watch(
+      libraryItemsProvider().select((v) => v.isLoading),
+    );
+    final hasMore = ref.watch(
+      libraryItemsProvider(seriesId: seriesId).select((v) => v.hasMore),
+    );
+    final items = ref.watch(
+      libraryItemsProvider(seriesId: seriesId).select((v) => v.items),
+    );
     return LayoutBuilder(
       builder: (context, constraints) {
         final height = getDefaultHeight(context);
         final width = height * 0.75;
-        return AlignedGridView.count(
-          crossAxisCount: constraints.maxWidth ~/ width,
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
-          padding: EdgeInsets.all(AppElementSizes.paddingRegular),
-          itemCount: items.length,
-          controller: scrollController,
-          itemBuilder: (context, index) {
-            return LibraryPageItem(items[index].asMinified);
+        return NotificationListener(
+          onNotification: (ScrollNotification notification) {
+            // 检查是否滚动到底部
+            if (notification.metrics.pixels >=
+                notification.metrics.maxScrollExtent - 200) {
+              ref.read(libraryItemsProvider().notifier).loadMore();
+            }
+            return false;
           },
+          child: RefreshIndicator(
+            onRefresh: () async {
+              ref.read(libraryItemsProvider().notifier).refresh();
+            },
+            child: CustomScrollView(
+              slivers: [
+                SliverAlignedGrid.count(
+                  crossAxisCount: constraints.maxWidth ~/ width,
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  // padding: EdgeInsets.all(AppElementSizes.paddingRegular),
+                  itemCount: items.length,
+                  // controller: scrollController,
+                  itemBuilder: (context, index) {
+                    return LibraryPageItem(items[index].asMinified);
+                  },
+                ),
+                if (isLoading)
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                  ),
+                if (!hasMore && seriesId == null)
+                  SliverToBoxAdapter(
+                    child: Container(
+                      padding: EdgeInsets.all(16),
+                      child: Center(child: Text(S.of(context).erNoMoreText)),
+                    ),
+                  ),
+              ],
+            ),
+          ),
         );
       },
     );
