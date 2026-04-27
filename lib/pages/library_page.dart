@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/cupertino.dart' show CupertinoSliverRefreshControl;
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -338,6 +339,7 @@ class _EasyRefreshLayoutBuilder extends HookConsumerWidget {
     this.seriesId,
     required this.scrollController,
   });
+
   @override
   Widget build(BuildContext context, ref) {
     final isLoading = ref.watch(
@@ -349,52 +351,67 @@ class _EasyRefreshLayoutBuilder extends HookConsumerWidget {
     final items = ref.watch(
       libraryItemsProvider(seriesId: seriesId).select((v) => v.items),
     );
+    loadMore(ScrollNotification notification) {
+      if (notification is ScrollEndNotification) {
+        final scrollMetrics = notification.metrics;
+        final double contentHeight = scrollMetrics.maxScrollExtent;
+        final double viewportHeight = scrollMetrics.viewportDimension;
+        final double currentScroll = scrollMetrics.pixels;
+        // 条件1：内容未填满屏幕
+        if (contentHeight <= viewportHeight) {
+          ref.read(libraryItemsProvider().notifier).loadMore();
+        }
+        // 条件2：滚动到底部附近
+        else if (currentScroll >= contentHeight - viewportHeight - 100) {
+          ref.read(libraryItemsProvider().notifier).loadMore();
+        }
+      }
+      return false;
+    }
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final height = getDefaultHeight(context);
         final width = height * 0.75;
         return NotificationListener(
-          onNotification: (ScrollNotification notification) {
-            // 检查是否滚动到底部
-            if (notification.metrics.pixels >=
-                notification.metrics.maxScrollExtent - 200) {
-              ref.read(libraryItemsProvider().notifier).loadMore();
-            }
-            return false;
-          },
-          child: RefreshIndicator(
-            onRefresh: () async {
-              ref.read(libraryItemsProvider().notifier).refresh();
-            },
-            child: CustomScrollView(
-              slivers: [
-                SliverAlignedGrid.count(
-                  crossAxisCount: constraints.maxWidth ~/ width,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
-                  // padding: EdgeInsets.all(AppElementSizes.paddingRegular),
-                  itemCount: items.length,
-                  // controller: scrollController,
-                  itemBuilder: (context, index) {
-                    return LibraryPageItem(items[index].asMinified);
-                  },
-                ),
-                if (isLoading)
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Center(child: CircularProgressIndicator()),
-                    ),
-                  ),
-                if (!hasMore && seriesId == null)
-                  SliverToBoxAdapter(
-                    child: Container(
-                      padding: EdgeInsets.all(16),
-                      child: Center(child: Text(S.of(context).erNoMoreText)),
-                    ),
-                  ),
-              ],
+          onNotification: loadMore,
+          child: CustomScrollView(
+            // CupertinoSliverRefreshControl 默认需要 BouncingScrollPhysics 才能工作。
+            // 在 Android 上需要手动配置
+            physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
             ),
+            slivers: [
+              // iOS 风格的下拉刷新，直接作为第一个 sliver
+              CupertinoSliverRefreshControl(
+                onRefresh: ref.read(libraryItemsProvider().notifier).refresh,
+              ),
+              SliverAlignedGrid.count(
+                crossAxisCount: constraints.maxWidth ~/ width,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
+                // padding: EdgeInsets.all(AppElementSizes.paddingRegular),
+                itemCount: items.length,
+                // controller: scrollController,
+                itemBuilder: (context, index) {
+                  return LibraryPageItem(items[index].asMinified);
+                },
+              ),
+              if (isLoading)
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                ),
+              if (!hasMore && seriesId == null)
+                SliverToBoxAdapter(
+                  child: Container(
+                    padding: EdgeInsets.all(16),
+                    child: Center(child: Text(S.of(context).erNoMoreText)),
+                  ),
+                ),
+            ],
           ),
         );
       },
